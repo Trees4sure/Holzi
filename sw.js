@@ -1,5 +1,5 @@
 // Holzi will raus – Service Worker: alles offline verfügbar
-const VERSION = "holzi-v13";
+const VERSION = "holzi-v14";
 const CORE = [
   "./",
   "./index.html",
@@ -10,7 +10,12 @@ const CORE = [
   "./icon-192.png",
   "./icon-512.png",
   "./maskable-512.png",
-  "./apple-touch-icon.png"
+  "./apple-touch-icon.png",
+  "./fonts/grandstander-latin-600-normal.woff2",
+  "./fonts/grandstander-latin-800-normal.woff2",
+  "./fonts/grandstander-latin-900-normal.woff2",
+  "./fonts/atkinson-hyperlegible-latin-400-normal.woff2",
+  "./fonts/atkinson-hyperlegible-latin-700-normal.woff2"
 ];
 
 self.addEventListener("install", (e) => {
@@ -30,8 +35,8 @@ self.addEventListener("fetch", (e) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
 
-  // Google Fonts und die Physik-Bibliothek: aus dem Cache, im Hintergrund auffrischen
-  if (url.host === "fonts.googleapis.com" || url.host === "fonts.gstatic.com" || url.host === "cdnjs.cloudflare.com") {
+  // Ersatz-Quelle fuer die 3D-Bibliotheken: aus dem Cache, im Hintergrund auffrischen
+  if (url.host === "cdnjs.cloudflare.com") {
     e.respondWith(
       caches.open(VERSION).then((c) =>
         c.match(req).then((hit) => {

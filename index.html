@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#e4ecdc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141c16" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Schiebe-Rätsel für Kinder: Hilf Holzi aus der Holzkiste.">
+<meta name="description" content="Holzis Holzkiste: elf Holzspiele für Kinder – Schieben, Tangram, Labyrinth, Puzzle, Sudoku, Kreuzworträtsel, Wörter, Murmelbahn, Wackelturm, Zimmerei und Seifenkiste.">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -14,16 +14,23 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0;overscroll-behavior:none}
 button{touch-action:manipulation}
 img{max-width:100%}
 </style>
 <script>window.HOLZI_MATTER_SRC="matter.min.js"; window.HOLZI_LOCAL_LIBS=true;</script>
-<title>Holzi will raus</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800;900&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<title>Holzis Holzkiste</title>
+<link rel="preload" href="fonts/grandstander-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Schriften liegen im Ordner fonts/ (SIL Open Font License) - nichts wird von fremden Servern geladen */
+@font-face{font-family:"Grandstander";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/grandstander-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Grandstander";font-style:normal;font-weight:800;font-display:swap;src:url(fonts/grandstander-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:"Grandstander";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/grandstander-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/atkinson-hyperlegible-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
+</style>
 <style>
 /* Layout: one centred column. Level tokens, Holzi's speech bubble, the wooden tray as the stage, tool row below. */
 :root{
@@ -109,7 +116,7 @@ button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
   box-shadow:inset 0 4px 10px rgba(80,45,10,.35)}
 .coord{position:absolute; font-family:var(--font-display); font-weight:800; color:rgba(70,38,12,.55); font-size:calc(var(--rim)*.55); line-height:1; display:grid; place-items:center; pointer-events:none}
 .slot{position:absolute; bottom:0; height:var(--rim); background:linear-gradient(var(--hole), #4b2f17); box-shadow:inset 0 4px 6px rgba(0,0,0,.6); border-radius:3px 3px 0 0}
-.goal{position:absolute; border:3px dashed rgba(216,97,42,.55); border-radius:12px; display:grid; place-items:end center; padding-bottom:8px; color:rgba(160,70,25,.75); font-family:var(--font-display); font-weight:800; font-size:14px; pointer-events:none; transition:opacity .3s}
+.goal{position:absolute; border:3px dashed rgba(216,97,42,.55); border-radius:12px; display:grid; place-items:start center; padding-top:8px; color:rgba(160,70,25,.75); font-family:var(--font-display); font-weight:800; font-size:14px; pointer-events:none; transition:opacity .3s}
 .exit{margin-top:8px; display:flex; align-items:center; gap:6px; font-family:var(--font-display); font-weight:800; color:var(--accent); font-size:15px; letter-spacing:.06em}
 .exit svg{width:18px; height:18px; animation:nudge 1.2s ease-in-out infinite}
 .exit svg:nth-child(3){animation-delay:.15s}
@@ -555,34 +562,203 @@ canvas#leaves{position:fixed; inset:0; width:100%; height:100%; pointer-events:n
 .wo-chip.miss{color:var(--muted); background:transparent; box-shadow:inset 0 0 0 1.5px var(--line); border:0; opacity:.8}
 .wo-chip.hint{color:#a0621a; background:#fff4d6; letter-spacing:.15em}
 .wo-all{align-self:center; border:0; background:transparent; color:var(--muted); font:700 13px var(--font-body); text-decoration:underline; cursor:pointer; padding:6px}
+
+/* =====  Startseite, Kopfzeile, Hilfe, Level-Wahl und iPad-Layout  ===== */
+:root{--t1:#eba560; --t2:#c46a2c; --shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 10px 24px -12px rgba(40,30,10,.35)}
+.app{max-width:1180px; padding-block:0 32px}
+/* Kopfzeile: bleibt oben stehen, Zurueck links, Hilfe + Ton rechts */
+header.top{position:sticky; top:0; z-index:30; padding:max(10px, env(safe-area-inset-top,0px)) 0 10px; gap:10px; isolation:isolate}
+header.top::before{content:""; position:absolute; inset:0 calc(50% - 50vw); max-width:none; z-index:-1; background:color-mix(in srgb, var(--bg) 86%, transparent); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom:1px solid transparent; transition:border-color .2s}
+body.scrolled header.top::before{border-bottom-color:var(--line)}
+header.top .titles{flex:1; min-width:0}
+header.top h1{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:clamp(24px,6vw,38px); padding-bottom:2px}
+body.ingame header.top h1{font-size:clamp(22px,5vw,32px)}
+.iconbtn{transition:transform .12s, background .15s}
+.iconbtn:active{transform:scale(.92)}
+.iconbtn.back{background:var(--accent); border-color:transparent; color:var(--accent-ink); box-shadow:0 3px 0 color-mix(in srgb, var(--accent) 60%, #000)}
+.iconbtn.back svg{width:24px; height:24px}
+
+/* ---- Startseite ---- */
+.home{width:100%; display:flex; flex-direction:column; gap:26px; padding-top:6px; animation:fade .35s}
+.hello{position:relative; overflow:hidden; display:flex; align-items:center; gap:18px; flex-wrap:wrap; padding:18px 20px; border-radius:28px;
+  background:radial-gradient(140% 120% at 0% 0%, color-mix(in srgb, var(--gold) 22%, var(--card)), var(--card) 60%); box-shadow:inset 0 0 0 2px var(--line), var(--shadow)}
+.hello-holzi{position:relative; flex:none; width:84px; height:84px; border-radius:20px;
+  background:repeating-radial-gradient(circle at 50% 135%, transparent 0 7px, rgba(150,95,35,.32) 7px 8.5px), linear-gradient(170deg, var(--ash), var(--ash-dark));
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.3), inset 0 -4px 0 rgba(0,0,0,.2), 0 6px 12px rgba(40,20,5,.25); animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px) rotate(-2deg)}}
+.hello-txt{flex:1 1 200px; min-width:0}
+.hello-h{margin:0; font-family:var(--font-display); font-weight:900; font-size:clamp(22px,4.4vw,30px); line-height:1.1}
+.hello-stars{margin:8px 0 0; color:var(--muted); font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.hello-stars svg{width:18px; height:18px}
+.hello-stars .bar{flex:0 1 160px; min-width:80px; height:8px; border-radius:4px; background:var(--bg-soft); overflow:hidden}
+.hello-stars .bar i{display:block; height:100%; background:var(--gold); border-radius:4px}
+.hello-go{flex:none; border:0; border-radius:16px; padding:11px 18px; background:var(--accent); color:var(--accent-ink); font:800 16px var(--font-display); cursor:pointer;
+  display:flex; align-items:center; gap:10px; text-align:left; box-shadow:0 4px 0 color-mix(in srgb, var(--accent) 60%, #000)}
+.hello-go:active{transform:translateY(3px); box-shadow:0 1px 0 color-mix(in srgb, var(--accent) 60%, #000)}
+.hello-go svg{width:20px; height:20px}
+.hello-go small{display:block; font:700 11px var(--font-body); opacity:.85}
+.tgroup{display:flex; flex-direction:column; gap:12px}
+.tg-h{margin:0; font:800 19px var(--font-display); display:flex; align-items:center; gap:10px}
+.tg-h::before{content:""; width:12px; height:12px; border-radius:4px; background:linear-gradient(var(--t1),var(--t2))}
+.g-w,#g-sudoku,#g-kreuz,#g-worte{--t1:#93c47a; --t2:#4c7a36}
+.g-b,#g-tower,#g-haus,#g-kiste{--t1:#7cb8d2; --t2:#3d7895}
+.groups{display:grid; gap:26px}
+.tiles{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+@media (min-width:600px){ .tiles{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (min-width:1000px){ .groups{grid-template-columns:1fr 1fr; column-gap:14px} .g-k{grid-column:1 / -1} .g-k .tiles{grid-template-columns:repeat(6,minmax(0,1fr))} }
+.tile-txt{display:flex; flex-direction:column; gap:4px; flex:1}
+/* breite Kachel: fuellt die Luecke, wenn eine Gruppe nicht aufgeht (Bild links, Text rechts) */
+.tile.wide{grid-column:span 2; flex-direction:row; align-items:stretch; gap:12px}
+.tile.wide .tile-art{flex:0 0 calc(50% - 13px); aspect-ratio:auto; min-height:110px; margin:0}
+.tile.wide .tile-txt{justify-content:center; padding:6px 0}
+.tile.wide .tile-name{font-size:23px}
+.tile.wide .tile-sub{min-height:0}
+@media (max-width:599px){
+  .tile.wide-sm{grid-column:span 2; flex-direction:row; align-items:stretch; gap:12px}
+  .tile.wide-sm .tile-art{flex:0 0 calc(50% - 13px); aspect-ratio:auto; min-height:110px; margin:0}
+  .tile.wide-sm .tile-txt{justify-content:center; padding:6px 0}
+  .tile.wide-sm .tile-name{font-size:23px}
+  .tile.wide-sm .tile-sub{min-height:0}
+}
+.tile{position:relative; border:0; text-align:left; cursor:pointer; padding:8px 8px 12px; border-radius:24px; background:var(--card); color:var(--ink); font-family:var(--font-body);
+  display:flex; flex-direction:column; gap:4px; box-shadow:inset 0 0 0 2px var(--line), 0 4px 0 var(--line); transition:transform .15s}
+.tile:hover{transform:translateY(-3px)}
+.tile:active{transform:translateY(3px); box-shadow:inset 0 0 0 2px var(--line), 0 1px 0 var(--line)}
+.tile:focus-visible{outline:3px solid var(--accent); outline-offset:3px}
+.tile-art{position:relative; display:grid; place-items:center; aspect-ratio:16/10; border-radius:17px; margin-bottom:6px; color:#fff; overflow:hidden;
+  background:repeating-radial-gradient(circle at 18% 120%, transparent 0 9px, rgba(0,0,0,.07) 9px 11px), linear-gradient(160deg, var(--t1), var(--t2));
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.35), inset 0 -4px 0 rgba(0,0,0,.18)}
+.tile:nth-child(even) .tile-art{background:repeating-radial-gradient(circle at 85% -20%, transparent 0 9px, rgba(0,0,0,.07) 9px 11px), linear-gradient(200deg, var(--t1), var(--t2))}
+.tile-art svg{width:42%; max-width:68px; height:auto; filter:drop-shadow(0 2px 0 rgba(0,0,0,.22)); transition:transform .25s cubic-bezier(.3,1.6,.6,1)}
+.tile:hover .tile-art svg{transform:scale(1.08) rotate(-4deg)}
+.tile-name{padding:0 6px; font:800 19px var(--font-display); line-height:1.1}
+.tile-sub{padding:0 6px; color:var(--muted); font-size:13px; line-height:1.25; min-height:2.5em}
+.tile-foot{padding:4px 6px 0; display:flex; align-items:center; gap:8px}
+.tile-prog{flex:1; height:6px; border-radius:3px; background:var(--bg-soft); overflow:hidden}
+.tile-prog i{display:block; height:100%; width:0; background:var(--gold); border-radius:3px; transition:width .6s}
+.tile-stars{display:flex; align-items:center; gap:2px; font-size:12px; font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap}
+.tile-stars svg{width:14px; height:14px}
+.tile.last::after{content:"Zuletzt"; position:absolute; top:14px; right:14px; padding:3px 8px; border-radius:999px; background:rgba(255,250,240,.92); color:#5a3517; font:800 11px var(--font-display); letter-spacing:.02em}
+.home-foot{margin:4px 0 0; text-align:center; color:var(--muted); font-size:13px}
+
+/* ---- Spielansicht ---- */
+body.ingame .game{max-width:760px; animation:fade .3s}
+#g-slide{position:relative}
+#g-slide .stage{width:100%}
+.bh-probe{position:absolute; left:0; top:0; width:0; height:var(--bh); visibility:hidden; pointer-events:none}
+.game > .help{display:none}
+/* Level-Wahl: eine Zeile mit dem aktuellen Level, aufklappbar */
+.lvlchip{width:100%; display:flex; align-items:center; gap:12px; border:0; cursor:pointer; text-align:left; padding:8px 14px 8px 8px; border-radius:18px; background:var(--card); color:var(--ink); font-family:var(--font-body); box-shadow:inset 0 0 0 2px var(--line)}
+.lvlchip .lc-disc{flex:none; width:38px; height:38px; border-radius:50%; display:grid; place-items:center; font:800 18px var(--font-display); color:#5a3517;
+  background:repeating-radial-gradient(circle at 50% 50%, #f0c98a 0 3px, #d9a862 3px 4.5px); box-shadow:inset 0 -3px 0 rgba(0,0,0,.2)}
+.lvlchip .lc-disc svg{width:18px; height:18px}
+.lvlchip .lc-txt{flex:1; min-width:0; display:flex; flex-direction:column; line-height:1.2}
+.lvlchip .lc-txt b{font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.lvlchip .lc-txt small{color:var(--muted); font-size:12px; font-weight:700}
+.lvlchip .lc-st{display:flex; gap:1px} .lvlchip .lc-st svg{width:15px; height:15px}
+.lvlchip .lc-more{display:flex; align-items:center; gap:4px; color:var(--accent); font-weight:700; font-size:13px; white-space:nowrap}
+.lvlchip .lc-more svg{width:18px; height:18px; transition:transform .2s}
+.lv-open > .lvlchip{box-shadow:inset 0 0 0 3px var(--accent)}
+.lv-open > .lvlchip .lc-more svg{transform:rotate(180deg)}
+.game:not(.lv-open) > .lvl-nav{display:none}
+.lv-open > .lvl-nav{animation:fade .2s}
+.lv-open > .figs{flex-wrap:wrap; justify-content:center; overflow:visible}
+@media (max-width:420px){ .lvlchip .lc-more span{display:none} }
+/* Spielfelder: so gross, wie Breite UND Hoehe erlauben (--bh = Platz in der Hoehe) */
+body.ingame{--chrome:400px}
+.game{--bh:max(300px, calc(100vh - var(--chrome) - var(--xtra, 0px))); --bh:max(300px, calc(100svh - var(--chrome) - var(--xtra, 0px)))}
+#g-tan .tboard{max-width:min(640px, calc(var(--bh) / 1.38))}
+#g-maze .mboard{max-width:min(640px, calc(var(--bh) / 1.12))}
+#g-puzzle .pboard{max-width:min(560px, calc(var(--bh) / 2.01))}
+#g-sudoku{--xtra:130px} #g-sudoku .board-wrap{max-width:min(640px, var(--bh))}
+#g-kreuz{--xtra:250px} #g-kreuz .board-wrap{max-width:min(640px, var(--bh))} #kreuz-svg{max-height:var(--bh)}
+#g-worte .board-wrap{max-width:min(560px, calc(var(--bh) / 1.15))} #worte-svg{max-width:100%}
+#g-marble .board-wrap{max-width:min(600px, calc(var(--bh) / 1.2))}
+#g-tower .board-wrap{max-width:min(560px, calc(var(--bh) / 1.4))}
+#g-haus .board-wrap,#g-kiste .board-wrap{max-width:min(760px, calc(var(--bh) / 1.12))}
+#g-kiste{--xtra:90px}
+/* Hilfe-Fenster */
+.helpbox{background:var(--card); color:var(--ink); border-radius:26px; padding:22px 22px 18px; width:min(440px,100%); max-height:calc(100svh - 40px); overflow:auto; box-shadow:0 20px 50px rgba(0,0,0,.35); animation:pop .35s cubic-bezier(.3,1.6,.6,1)}
+.helpbox .hb-top{display:flex; align-items:center; gap:12px; margin-bottom:8px}
+.helpbox .hb-ic{flex:none; width:52px; height:52px; border-radius:16px; display:grid; place-items:center; color:#fff; background:linear-gradient(160deg, var(--t1), var(--t2))}
+.helpbox .hb-ic svg{width:30px; height:30px}
+.helpbox h2{margin:0; font:900 26px var(--font-display); line-height:1.1}
+.helpbox h2 small{display:block; font:700 13px var(--font-body); color:var(--muted)}
+.helpbox p{margin:10px 0 0; line-height:1.55}
+.helpbox button{margin-top:18px; width:100%; border:0; border-radius:14px; padding:13px; background:var(--accent); color:var(--accent-ink); font:800 17px var(--font-display); cursor:pointer}
+
+/* ---- breite Bildschirme quer (iPad, Tablet): Spielfeld links, alles andere rechts ---- */
+@media (orientation:landscape) and (min-width:700px){
+  body.ingame{--chrome:110px}
+  body.ingame .game{max-width:none; display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,380px); grid-template-rows:repeat(14,auto) 1fr; column-gap:28px; row-gap:12px; align-items:start}
+  body.ingame .game > *{grid-column:2; width:100%; max-width:none}
+  body.ingame .game > :is(.stage,.tboard,.mboard,.pboard,.board-wrap){grid-column:1; grid-row:1 / -1; justify-self:center; position:sticky; top:84px}
+  body.ingame .game > :is(.tboard,.mboard,.pboard,.board-wrap){max-width:min(760px, calc(var(--bh) / var(--ar, 1)))}
+  #g-sudoku,#g-kreuz,#g-kiste{--xtra:0px}
+  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:2.01} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12}
+  body.ingame .game > .bubble::after{left:-9px; top:50%; bottom:auto; transform:translateY(-50%) rotate(135deg)}
+  body.ingame .levels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  body.ingame .game > .help{display:block; max-width:none; text-align:left; padding:12px 14px; border-radius:16px; background:color-mix(in srgb, var(--card) 60%, transparent); box-shadow:inset 0 0 0 1.5px var(--line)}
+  body.ingame .game > .help::before{content:"So geht\2019s"; display:block; margin-bottom:4px; font:800 15px var(--font-display); color:var(--ink)}
+}
+@media (prefers-reduced-motion: reduce){ .hello-holzi{animation:none} .tile,.tile-art svg{transition:none} }
 </style>
 
 </head>
 <body>
 <div class="app">
-  <header>
-    <div>
-      <h1 id="h1">Holzi <span>will raus</span></h1>
-      <p class="sub" id="sub">Ein Schiebe-Rätsel aus der Holzkiste</p>
+  <header class="top">
+    <button class="iconbtn back" id="back" aria-label="Zu allen Spielen" title="Alle Spiele" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="titles">
+      <h1 id="h1">Holzis <span>Holzkiste</span></h1>
+      <p class="sub" id="sub">Elf Holzspiele für Kinder</p>
     </div>
+    <button class="iconbtn" id="helpbtn" aria-label="So geht's" title="So geht's" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 014.8 1c0 1.7-2.4 2.2-2.4 3.7"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></button>
     <button class="iconbtn" id="sound" aria-label="Ton aus" title="Ton an/aus"></button>
   </header>
 
-  <nav class="switch" aria-label="Spiel wählen">
-    <button id="sw-slide" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="6" width="8" height="7" rx="1.5" fill="currentColor" opacity=".35"/><path d="M10 21v-2h4v2"/></svg>Schieben</button>
-    <button id="sw-tan" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 3l18 18M21 3L12 12M12 12l-4.5 4.5 4.5 4.5"/></svg>Legen</button>
-    <button id="sw-maze" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 12a3 3 0 103-3M18 12a6 6 0 01-11.2 3"/></svg>Labyrinth</button>
-    <button id="sw-puzzle" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6a2 2 0 104 0h6v6a2 2 0 100 4v6h-6a2 2 0 10-4 0H4v-6a2 2 0 110-4z"/></svg>Puzzle</button>
-    <button id="sw-sudoku" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/></svg>Sudoku</button>
-    <button id="sw-kreuz" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9.5" y="3" width="5" height="18"/><rect x="3" y="9.5" width="18" height="5"/><path d="M9.5 8h5M9.5 16h5"/></svg>Kreuzwort</button>
-    <button id="sw-worte" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16l3-8 3 8M10.2 13h3.6"/></svg>Wörter</button>
-    <button id="sw-marble" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v8a6 6 0 006 6h10"/><circle cx="16" cy="18" r="2.5" fill="currentColor"/></svg>Murmeln</button>
-    <button id="sw-tower" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="15" width="10" height="6"/><rect x="5" y="10" width="14" height="5"/><rect x="9" y="4" width="6" height="6"/></svg>Turm</button>
-    <button id="sw-haus" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M5 15h14M9 10v10M15 10v10M5 10l4 5M19 10l-4 5"/></svg>Zimmerei</button>
-    <button id="sw-kiste" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="14" height="6" rx="1"/><circle cx="7" cy="17" r="2.5"/><circle cx="16" cy="17" r="2.5"/><path d="M18 11l3-2"/></svg>Seifenkiste</button>
-  </nav>
+  <section class="home" id="home" aria-label="Spiele">
+    <div class="hello">
+      <div class="hello-holzi" aria-hidden="true"><div class="hero-in"><div class="face"><div class="eye l"><div class="pupil"></div></div><div class="eye r"><div class="pupil"></div></div><div class="cheek l"></div><div class="cheek r"></div><svg class="mouth" viewBox="0 0 40 20"><path d="M4 4 Q20 22 36 4" fill="#7a2e14" stroke="#3c2610" stroke-width="3" stroke-linecap="round"/><path d="M13 12 Q20 16 27 12" fill="#e66d5a"/></svg></div></div></div>
+      <div class="hello-txt">
+        <p class="hello-h" id="hello-h">Hallo! Was spielen wir heute?</p>
+        <p class="hello-stars" id="hello-stars"></p>
+      </div>
+      <button class="hello-go" id="hello-go" hidden></button>
+    </div>
+    <div class="groups">
+    <section class="tgroup g-k" aria-label="Knobeln &amp; Legen">
+      <h2 class="tg-h">Knobeln &amp; Legen</h2>
+      <div class="tiles">
+        <button class="tile wide" id="tile-slide" data-g="slide"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="6" width="8" height="7" rx="1.5" fill="currentColor" opacity=".35"/><path d="M10 21v-2h4v2"/></svg></span><span class="tile-txt"><span class="tile-name">Schieben</span><span class="tile-sub">Holzi will raus</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-tan" data-g="tan"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 3l18 18M21 3L12 12M12 12l-4.5 4.5 4.5 4.5"/></svg></span><span class="tile-txt"><span class="tile-name">Legen</span><span class="tile-sub">Tangram mit sieben Teilen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-maze" data-g="maze"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 12a3 3 0 103-3M18 12a6 6 0 01-11.2 3"/></svg></span><span class="tile-txt"><span class="tile-name">Labyrinth</span><span class="tile-sub">Der Weg zum Honig</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-puzzle" data-g="puzzle"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6a2 2 0 104 0h6v6a2 2 0 100 4v6h-6a2 2 0 10-4 0H4v-6a2 2 0 110-4z"/></svg></span><span class="tile-txt"><span class="tile-name">Puzzle</span><span class="tile-sub">Holzbilder zusammensetzen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-marble" data-g="marble"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v8a6 6 0 006 6h10"/><circle cx="16" cy="18" r="2.5" fill="currentColor"/></svg></span><span class="tile-txt"><span class="tile-name">Murmeln</span><span class="tile-sub">Rinnen drehen, Murmel rollt</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+      </div>
+    </section>
+    <section class="tgroup g-w" aria-label="Wörter &amp; Zahlen">
+      <h2 class="tg-h">Wörter &amp; Zahlen</h2>
+      <div class="tiles">
+        <button class="tile wide-sm" id="tile-sudoku" data-g="sudoku"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/></svg></span><span class="tile-txt"><span class="tile-name">Sudoku</span><span class="tile-sub">Holzarten statt Zahlen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-kreuz" data-g="kreuz"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9.5" y="3" width="5" height="18"/><rect x="3" y="9.5" width="18" height="5"/><path d="M9.5 8h5M9.5 16h5"/></svg></span><span class="tile-txt"><span class="tile-name">Kreuzwort</span><span class="tile-sub">Rund um Baum und Wald</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-worte" data-g="worte"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16l3-8 3 8M10.2 13h3.6"/></svg></span><span class="tile-txt"><span class="tile-name">Wörter</span><span class="tile-sub">Die Wörter-Werkstatt</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+      </div>
+    </section>
+    <section class="tgroup g-b" aria-label="Bauen &amp; Fahren">
+      <h2 class="tg-h">Bauen &amp; Fahren</h2>
+      <div class="tiles">
+        <button class="tile wide-sm" id="tile-tower" data-g="tower"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="15" width="10" height="6"/><rect x="5" y="10" width="14" height="5"/><rect x="9" y="4" width="6" height="6"/></svg></span><span class="tile-txt"><span class="tile-name">Turm</span><span class="tile-sub">Der Wackelturm</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-haus" data-g="haus"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M5 15h14M9 10v10M15 10v10M5 10l4 5M19 10l-4 5"/></svg></span><span class="tile-txt"><span class="tile-name">Zimmerei</span><span class="tile-sub">Bauen für Tierkunden</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-kiste" data-g="kiste"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="14" height="6" rx="1"/><circle cx="7" cy="17" r="2.5"/><circle cx="16" cy="17" r="2.5"/><path d="M18 11l3-2"/></svg></span><span class="tile-txt"><span class="tile-name">Seifenkiste</span><span class="tile-sub">Rennen in 3D</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+      </div>
+    </section>
+    </div>
+    <p class="home-foot">Alle Spiele laufen auch ohne Internet. Fortschritt und Rekorde bleiben auf diesem Gerät.</p>
+  </section>
 
-  <section class="game" id="g-slide">
+  <section class="game" id="g-slide" hidden>
+  <div class="bh-probe" id="slide-probe" aria-hidden="true"></div>
 
   <nav class="levels" id="levels" aria-label="Level wählen"></nav>
 
@@ -952,10 +1128,13 @@ function say(t){ var b=$("#say"); b.textContent=t; b.classList.remove("pop"); vo
 
 /* ---------- geometry ---------- */
 function measure(){
-  var vw=Math.min(window.innerWidth, 560)-32;
+  // room for the box: width of the stage, height from the layout probe (falls back to the window)
+  var stg=tray.parentElement, probe=document.getElementById("slide-probe");
+  var vw=stg&&stg.clientWidth ? stg.clientWidth : Math.min(window.innerWidth, 560)-32;
+  var vh=probe&&probe.offsetHeight ? probe.offsetHeight-40 : window.innerHeight-360;
   var byW=vw/(W+0.7);
-  var byH=(window.innerHeight-360)/(H+0.7);
-  cell=Math.max(48, Math.min(96, Math.floor(Math.min(byW, Math.max(byH,58)))));
+  var byH=vh/(H+0.7);
+  cell=Math.max(48, Math.min(120, Math.floor(Math.min(byW, Math.max(byH,58)))));
   rim=Math.round(cell*0.34);
   tray.style.setProperty("--rim", rim+"px");
   board.style.width=(W*cell)+"px"; board.style.height=(H*cell)+"px";
@@ -1479,12 +1658,22 @@ K.hud=function(id, items){
   h.innerHTML=items.map(function(it){ return '<span>'+it[0]+' <b>'+it[1]+'</b></span>'; }).join("");
 };
 K.fmt=function(s){ s=Math.max(0,Math.round(s)); return Math.floor(s/60)+":"+("0"+s%60).slice(-2); };
-K.timer=function(onTick){
-  var t0=0, acc=0, run=false, iv=null;
-  return { start:function(){ acc=0; t0=performance.now(); run=true; clearInterval(iv); iv=setInterval(function(){ onTick&&onTick(); },1000); },
-    stop:function(){ if(run){ acc+=performance.now()-t0; run=false; } clearInterval(iv); },
-    sec:function(){ return (acc+(run?performance.now()-t0:0))/1000; } };
+/* game clock; it only ticks while its own game is on screen and the app is in front */
+K.cur=null; K.timers=[];
+K.timer=function(onTick, owner){
+  var t0=0, acc=0, run=false, iv=null, paused=false;
+  function tick(){ clearInterval(iv); iv=setInterval(function(){ onTick&&onTick(); },1000); }
+  var T={ owner:owner||null,
+    start:function(){ acc=0; t0=performance.now(); run=true; paused=!K.active(T.owner); clearInterval(iv); if(!paused) tick(); },
+    stop:function(){ if(run&&!paused) acc+=performance.now()-t0; run=false; paused=false; clearInterval(iv); },
+    pause:function(){ if(run&&!paused){ acc+=performance.now()-t0; paused=true; clearInterval(iv); } },
+    resume:function(){ if(run&&paused){ t0=performance.now(); paused=false; tick(); } },
+    sec:function(){ return (acc+(run&&!paused?performance.now()-t0:0))/1000; } };
+  K.timers.push(T); return T;
 };
+K.active=function(owner){ return document.visibilityState!=="hidden" && (!owner||owner===K.cur); };
+K.syncTimers=function(){ K.timers.forEach(function(T){ K.active(T.owner)?T.resume():T.pause(); }); };
+document.addEventListener("visibilitychange", K.syncTimers);
 K.best=function(key,i,val,lowerIsBetter){
   var k="holzi-best-"+key, s={}; try{ s=JSON.parse(localStorage.getItem(k)||"{}")||{}; }catch(e){}
   if(val!==undefined){ if(s[i]===undefined||(lowerIsBetter!==false?val<s[i]:val>s[i])){ s[i]=val; try{ localStorage.setItem(k,JSON.stringify(s)); }catch(e){} return true; } return false; }
@@ -1659,7 +1848,7 @@ var TONES=["#6b4226","#8a5630","#5a2f1c","#9a6a35","#7a3b22","#4e3220","#a0602e"
 var START=[[2.4,10.7,0],[6.9,10.9,4],[1.35,13.4,0],[4.0,13.25,0],[6.4,13.55,4],[9.9,10.8,0],[9.2,13.45,0]];
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 var F=0, pieces=[], sel=null, hints=0, shown=false, done=false, busy=false, OUTV=[], K=window.HZK;
-var clock=K?K.timer(function(){ tHud(); }):{start:function(){},stop:function(){},sec:function(){return 0;}};
+var clock=K?K.timer(function(){ tHud(); },"tan"):{start:function(){},stop:function(){},sec:function(){return 0;}};
 function tHud(){ if(!K) return; var rec=K.best("tan",F); K.hud("tan-hud",[["Zeit",K.fmt(clock.sec())],["Rekord",rec===undefined?"–":K.fmt(rec)],["Tipps",hints]]); }
 function strict(){ return F>=4; }
 var store={}; try{ store=JSON.parse(localStorage.getItem("holzi-tan-v1")||"{}")||{}; }catch(e){}
@@ -2159,7 +2348,7 @@ var LEVELS=[{name:"Holzi",age:"ab 4",m:0,c:2,r:2,guide:true},{name:"Honigtopf",a
   {name:"Waldhaus",age:"ab 8",m:3,c:4,r:5,guide:false},{name:"Fuchs",age:"ab 10",m:2,c:5,r:6,guide:false},{name:"Honigtopf",age:"ab 11",m:1,c:6,r:7,guide:false,rot:true},{name:"Waldhaus",age:"12+",m:3,c:6,r:8,guide:false,rot:true}];
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 var L=0, bump=0, pieces=[], hints=0, done=false, drag=null, guide=true, anim=false, K=null, clock=null;
-function kk(){ if(!K&&window.HZK){ K=window.HZK; clock=K.timer(function(){ phud(); }); } return K; }
+function kk(){ if(!K&&window.HZK){ K=window.HZK; clock=K.timer(function(){ phud(); },"puzzle"); } return K; }
 function phud(){ if(!kk()) return; var rec=K.best("pz",L), left=pieces.filter(function(q){ return !q.locked; }).length;
   K.hud("pz-hud",[["Zeit",K.fmt(clock.sec())],["Rekord",rec===undefined?"–":K.fmt(rec)],["Noch",left+" Teile"]]); }
 var store={}; try{ store=JSON.parse(localStorage.getItem("holzi-pz-v2")||"{}")||{}; }catch(e){}
@@ -2352,7 +2541,7 @@ var $=K.mount("g-sudoku",{
   help:"In jeder Reihe, jeder Spalte und jedem dicken Kasten darf jede Holzart nur einmal vorkommen. Tippe ein freies Feld an und dann unten die Holzart. Nochmal dieselbe Holzart tippen nimmt sie wieder weg. Mit „Zahlen zeigen“ stehen auf den Hölzern Zahlen."
 });
 var st=K.store("holzi-sudoku"), svg=document.getElementById("sudoku-svg"), pal=document.getElementById("sudoku-pal"), numSw=document.getElementById("sudoku-num");
-var L=Math.min(st.lvl(),LEVELS.length-1), bump=0, N, BR, BC, sol, giv, cur, sel=-1, hist=[], hints=0, errs=0, done=false, timer=K.timer(function(){ hud(); }), showNum=false;
+var L=Math.min(st.lvl(),LEVELS.length-1), bump=0, N, BR, BC, sol, giv, cur, sel=-1, hist=[], hints=0, errs=0, done=false, timer=K.timer(function(){ hud(); },"sudoku"), showNum=false;
 try{ showNum=localStorage.getItem("holzi-sudoku-num")==="1"; }catch(e){}
 numSw.checked=showNum;
 numSw.onchange=function(){ showNum=numSw.checked; try{ localStorage.setItem("holzi-sudoku-num",showNum?"1":"0"); }catch(e){} hz().tok(1.2); draw(); palette(); };
@@ -2483,7 +2672,7 @@ var $=K.mount("g-kreuz",{
   help:"Tippe ein Feld oder einen Hinweis an. Dann tippst du die Buchstaben unten auf der Tastatur. Ein zweites Tippen aufs selbe Feld wechselt zwischen waagerecht und senkrecht. „Prüfen“ zeigt falsche Buchstaben rot, „Buchstabe“ verrät einen."
 });
 var st=K.store("holzi-kreuz"), svg=document.getElementById("kreuz-svg"), clueEl=document.getElementById("kreuz-clue"), kb=document.getElementById("kreuz-kb"), lists=document.getElementById("kreuz-lists");
-var L=Math.min(st.lvl(),LEVELS.length-1), lv, cells, words, sel=null, dir="A", hints=0, checks=0, done=false, wrong={}, timer=K.timer(function(){ hud(); });
+var L=Math.min(st.lvl(),LEVELS.length-1), lv, cells, words, sel=null, dir="A", hints=0, checks=0, done=false, wrong={}, timer=K.timer(function(){ hud(); },"kreuz");
 function key(r,c){ return r+","+c; }
 function setup(){
   lv=LEVELS[L]; cells={}; words=[];
@@ -3977,18 +4166,106 @@ HZG.kiste=function(){
 </script>
 
 <script>
+/* Startseite, Spielwechsel, Zurueck-Taste, Hilfe und Level-Wahl */
 (function(){
   var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel']}, ORDER=["slide", "tan", "maze", "puzzle", "sudoku", "kreuz", "worte", "marble", "tower", "haus", "kiste"];
+  var HOME=['Holzis <span>Holzkiste</span>','Elf Holzspiele für Kinder'];
+  // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
+  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",8],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",7],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",6],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6]};
+  var $=function(id){ return document.getElementById(id); };
+  var STAR_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.2 6.1 20.4l1.3-6.5L2.5 9.3l6.6-.8z" fill="var(--gold)" stroke="#b47d10" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+  var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  var PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>';
+  var cur=null, last=null;
+  try{ last=localStorage.getItem('holzi-game'); }catch(e){}
+  if(ORDER.indexOf(last)<0) last=null;
+
+  function stars(g){
+    var s={}, key=STARS[g][0], n=STARS[g][1], sum=0;
+    try{ s=JSON.parse(localStorage.getItem(key)||"{}")||{}; }catch(e){}
+    for(var i=0;i<n;i++){ var v=s[i]; if(v&&typeof v==="object") v=v.stars; sum+=Math.min(3, +v||0); }
+    return [sum, n*3];
+  }
+  function renderHome(){
+    var all=0, max=0;
+    ORDER.forEach(function(g){
+      var st=stars(g), t=$('tile-'+g); all+=st[0]; max+=st[1];
+      t.querySelector('.tile-prog i').style.width=Math.round(100*st[0]/st[1])+'%';
+      t.querySelector('.tile-stars').innerHTML=STAR_ON+st[0]+' / '+st[1];
+      t.setAttribute('aria-label', t.querySelector('.tile-name').textContent+', '+st[0]+' von '+st[1]+' Sternen');
+      t.classList.toggle('last', g===last);
+    });
+    $('hello-h').textContent= all===0 ? 'Hallo! Was spielen wir heute?' : all>=max ? 'Wahnsinn! Alle Sterne gesammelt!' : 'Schön, dass du wieder da bist!';
+    $('hello-stars').innerHTML=STAR_ON+'<span>'+all+' von '+max+' Sternen</span><span class="bar"><i style="width:'+Math.round(100*all/max)+'%"></i></span>';
+    var go=$('hello-go');
+    if(last){ go.hidden=false; go.innerHTML=PLAY+'<span>Weiterspielen<small>'+$('tile-'+last).querySelector('.tile-name').textContent+'</small></span>'; go.onclick=function(){ open(last); }; }
+    else go.hidden=true;
+  }
+
   function setGame(g){
-    ORDER.forEach(function(k){ document.getElementById('g-'+k).hidden = k!==g; document.getElementById('sw-'+k).setAttribute('aria-pressed', k===g); });
-    document.getElementById('h1').innerHTML=H[g][0]; document.getElementById('sub').textContent=H[g][1];
+    cur=g; window.HZK&&(HZK.cur=g);
+    document.body.classList.toggle('ingame', !!g);
+    $('home').hidden=!!g; $('back').hidden=!g; $('helpbtn').hidden=!g;
+    ORDER.forEach(function(k){ $('g-'+k).hidden = k!==g; });
+    var h=g?H[g]:HOME; $('h1').innerHTML=h[0]; $('sub').textContent=h[1];
+    document.title=g?$('h1').textContent+' · Holzis Holzkiste':'Holzis Holzkiste';
+    window.HZK&&HZK.syncTimers&&HZK.syncTimers();
+    window.scrollTo(0,0);
+    if(!g){ renderHome(); return; }
+    last=g; try{ localStorage.setItem('holzi-game', g); }catch(e){}
     if(g==='tan'&&window.HZT) HZT.show(); else if(g==='maze'&&window.HZM) HZM.show(); else if(g==='puzzle'&&window.HZP) HZP.show();
     else if(window.HZG&&HZG[g]) HZG[g](); else if(window.HZ) HZ.layout();
-    try{ localStorage.setItem('holzi-game', g); }catch(e){}
+    var seen={}; try{ seen=JSON.parse(localStorage.getItem('holzi-seen')||"{}")||{}; }catch(e){}
+    if(!seen[g]){ seen[g]=1; try{ localStorage.setItem('holzi-seen', JSON.stringify(seen)); }catch(e){} setTimeout(function(){ if(cur===g) showHelp(); }, 450); }
   }
-  ORDER.forEach(function(k){ document.getElementById('sw-'+k).onclick=function(){ window.HZ&&HZ.tok(1.1); setGame(k); }; });
-  var g='slide'; try{ g=localStorage.getItem('holzi-game')||'slide'; }catch(e){}
-  setGame(ORDER.indexOf(g)>=0?g:'slide');
+  // jedes Spiel bekommt einen Eintrag im Verlauf: die Zurueck-Taste (Android, Browser, Wischgeste) fuehrt zur Startseite
+  function open(g){ window.HZ&&HZ.tok(1.1); history.pushState({g:g}, '', '#'+g); setGame(g); }
+  function goHome(){ if(history.state&&history.state.g) history.back(); else { history.replaceState(null,'',location.pathname+location.search); setGame(null); } }
+  window.addEventListener('popstate', function(){ document.querySelectorAll('.overlay').forEach(function(o){ o.remove(); }); var g=location.hash.slice(1); setGame(ORDER.indexOf(g)>=0?g:null); });
+  ORDER.forEach(function(k){ $('tile-'+k).onclick=function(){ open(k); }; });
+  $('back').onclick=function(){ window.HZ&&HZ.tok(0.9); goHome(); };
+
+  // So geht's: der Hilfetext des Spiels als Fenster
+  function showHelp(){
+    if(!cur||document.querySelector('.overlay')) return;
+    var sec=$('g-'+cur), help=sec.querySelector(':scope > .help'), ov=document.createElement('div');
+    ov.className='overlay';
+    ov.innerHTML='<div class="helpbox" role="dialog" aria-modal="true" aria-labelledby="hb-t"><div class="hb-top"><span class="hb-ic">'+$('tile-'+cur).querySelector('.tile-art').innerHTML+'</span>'+
+      '<h2 id="hb-t"><small>So geht’s</small>'+$('tile-'+cur).querySelector('.tile-name').textContent+'</h2></div><p>'+(help?help.innerHTML:'')+'</p><button type="button">Los geht’s!</button></div>';
+    var box=ov.firstChild, cs=getComputedStyle(sec); box.style.setProperty('--t1', cs.getPropertyValue('--t1')); box.style.setProperty('--t2', cs.getPropertyValue('--t2'));
+    function close(){ ov.remove(); $('helpbtn').focus(); }
+    ov.onclick=function(e){ if(e.target===ov) close(); };
+    box.querySelector('button').onclick=function(){ window.HZ&&HZ.tok(1.2); close(); };
+    document.body.appendChild(ov); box.querySelector('button').focus();
+  }
+  $('helpbtn').onclick=function(){ window.HZ&&HZ.tok(1.1); showHelp(); };
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ var hb=document.querySelector('.overlay .helpbox'); if(hb) hb.parentNode.remove(); } });
+
+  // Level-Wahl: eine Zeile mit dem aktuellen Level, antippen klappt alle Level auf
+  ORDER.forEach(function(g){
+    var sec=$('g-'+g), nav=sec.querySelector(':scope > nav'); if(!nav) return;
+    nav.classList.add('lvl-nav');
+    var chip=document.createElement('button'); chip.type='button'; chip.className='lvlchip'; chip.setAttribute('aria-expanded','false'); chip.setAttribute('aria-controls', nav.id);
+    sec.insertBefore(chip, nav);
+    function upd(){
+      var bs=[].slice.call(nav.querySelectorAll('button')), c=nav.querySelector('[aria-current="true"]'), i=bs.indexOf(c);
+      var nm=c&&c.querySelector('.nm'), st=c&&c.querySelector('.st'), age=c&&c.querySelector('.age');
+      var n=STARS[g][1], txt=i<0||i>=n ? 'Selber bauen' : 'Level '+(i+1)+' von '+n+(age&&age.textContent?' · '+age.textContent:'');
+      chip.innerHTML='<span class="lc-disc">'+(i>=0&&i<n?i+1:'+')+'</span><span class="lc-txt"><b>'+(nm?nm.textContent:'Level wählen')+'</b><small>'+txt+'</small></span>'+
+        '<span class="lc-st">'+(st?st.innerHTML:'')+'</span><span class="lc-more"><span>Level</span>'+CHEV+'</span>';
+    }
+    function toggle(o){ sec.classList.toggle('lv-open', o); chip.setAttribute('aria-expanded', o?'true':'false'); }
+    upd(); new MutationObserver(upd).observe(nav,{childList:true, subtree:true, attributes:true, attributeFilter:['aria-current']});
+    chip.onclick=function(){ window.HZ&&HZ.tok(1.2); toggle(!sec.classList.contains('lv-open')); };
+    nav.addEventListener('click', function(e){ if(e.target.closest('button')) setTimeout(function(){ toggle(false); }, 120); });
+  });
+
+  window.addEventListener('scroll', function(){ document.body.classList.toggle('scrolled', window.scrollY>4); }, {passive:true});
+
+  var g0=location.hash.slice(1);
+  // direkt mit #spiel geoeffnet: Startseite unterlegen, damit Zurueck dorthin fuehrt und nicht aus der App
+  history.replaceState(null, '', location.pathname+location.search);
+  if(ORDER.indexOf(g0)>=0){ history.pushState({g:g0}, '', '#'+g0); setGame(g0); } else setGame(null);
 })();
 </script>
 
