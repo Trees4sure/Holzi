@@ -5,11 +5,11 @@ Elf Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe 
 | Spiel | Worum es geht |
 |---|---|
 | **Schieben** | Holzi muss unten durch den Schlitz (mit Bau-Modus und Lösbarkeits-Prüfung) |
-| **Legen** | Tangram: Figuren aus sieben Holzteilen, ab „Dreieck“ als Profi-Tangram |
+| **Legen** | Tangram: 16 Figuren aus sieben Holzteilen, ab „Dreieck“ als Profi-Tangram (Tanne, Rakete, Hai, Beil …) |
 | **Labyrinth** | Das Bienchen sucht den Weg durch die Rillen zum Honig, auch im Nebel |
-| **Puzzle** | Holzbilder mit geschwungenen Teilen (4 bis 48 Teile, Profis mit gedrehten Teilen) |
+| **Puzzle** | 12 Holzbilder mit geschwungenen Teilen (4 bis 100 Teile, Profis mit gedrehten Teilen) |
 | **Sudoku** | Holz-Sudoku mit Birke, Kiefer, Kirsche & Co. statt Zahlen (4×4, 6×6, 9×9), auf Wunsch mit Zahlen |
-| **Kreuzwort** | Kreuzworträtsel rund um Baum, Wald, Werkstatt und Zimmerei |
+| **Kreuzwort** | 10 Kreuzworträtsel rund um Baum, Wald, Werkstatt und Zimmerei, bis zum Profi-Rätsel „Holzmeister“ |
 | **Wörter** | Wörter-Werkstatt: so viele Wörter wie möglich aus vorgegebenen Buchstaben bilden, erkannte Wörter zählen sofort |
 | **Murmeln** | Rinnen drehen, bis die Murmel in Holzis Becher rollt. Punkte nach Bahngröße |
 | **Turm** | Wackelturm mit echter Schwerkraft bis über die Fahne bauen |
@@ -26,6 +26,9 @@ Elf Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe 
 - **Tablet quer:** Spielfeld links, Level, Holzi, Knöpfe und Anleitung rechts.
   Die Spielfelder richten sich nach Breite **und** Höhe des Bildschirms.
 - Die Spiel-Uhren halten an, wenn man zur Startseite geht oder die App in den Hintergrund legt.
+- **Profile für mehrere Kinder** („Wer spielt?“ oben auf der Startseite): Name und Tier wählen, jedes Kind
+  hat eigene Sterne, Rekorde und Spielstände. Das erste Profil übernimmt den bisherigen Spielstand.
+  Technisch: Profil 1 nutzt die alten Speicher-Schlüssel `holzi-…`, weitere Profile `hz:p2:holzi-…`.
 
 ## Inhalt
 
@@ -82,8 +85,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v14";` hochzählen
-(`holzi-v15` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v15";` hochzählen
+(`holzi-v16` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
