@@ -761,6 +761,118 @@ body.ingame{--chrome:400px}
 .pf-btn.del{background:#c0392b; color:#fff; margin-right:auto}
 .pf-warn{flex:1 1 100%; margin:0 0 4px!important}
 @media (max-width:420px){ .who{max-width:40vw; font-size:14px} }
+
+/* ---- Statistik & Rangliste ---- */
+:root{--v-k:#eb6834; --v-w:#1baf7a; --v-b:#2a78d6; --v-one:#b98213; --v-two:#4c7a36; --lv1:#f6dfa0; --lv2:#e8b54a; --lv3:#b98213}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--v-k:#d95926; --v-w:#199e70; --v-b:#3987e5; --v-one:#c98500; --v-two:#8cc06b; --lv1:#6b5a2a; --lv2:#a8822e; --lv3:#e2b23e} }
+:root[data-theme="dark"]{--v-k:#d95926; --v-w:#199e70; --v-b:#3987e5; --v-one:#c98500; --v-two:#8cc06b; --lv1:#6b5a2a; --lv2:#a8822e; --lv3:#e2b23e}
+.s-k{fill:var(--v-k); background:var(--v-k)} .s-w{fill:var(--v-w); background:var(--v-w)} .s-b{fill:var(--v-b); background:var(--v-b)}
+.s-one{fill:var(--v-one)} .s-two{fill:var(--v-two)}
+.hello-stat{flex:none; border:0; border-radius:16px; padding:10px 16px; background:var(--card); color:var(--ink); font:800 16px var(--font-display); cursor:pointer; display:flex; align-items:center; gap:10px; text-align:left; box-shadow:inset 0 0 0 2px var(--line), 0 4px 0 var(--line)}
+.hello-stat:active{transform:translateY(3px); box-shadow:inset 0 0 0 2px var(--line), 0 1px 0 var(--line)}
+.hello-stat svg{width:22px; height:22px; color:var(--accent)}
+.hello-stat small{display:block; font:700 11px var(--font-body); color:var(--muted)}
+.statsv{width:100%; max-width:980px; display:flex; flex-direction:column; gap:16px; animation:fade .3s}
+.seg{display:flex; gap:4px; padding:4px; border-radius:16px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line); overflow-x:auto; scrollbar-width:none}
+.seg button{flex:1 0 auto; border:0; border-radius:12px; padding:10px 14px; background:transparent; color:var(--muted); font:800 15px var(--font-display); cursor:pointer; white-space:nowrap}
+.seg button[aria-selected="true"],.seg button[aria-checked="true"]{background:var(--accent); color:var(--accent-ink)}
+.seg.small{align-self:center}
+@media (max-width:520px){ .seg button{padding:9px 8px; font-size:13.5px} .kpis.three{grid-template-columns:1fr 1fr} }
+@media (max-width:420px){ .seg{gap:2px} .seg button{flex:1 1 auto; padding:9px 3px; font-size:12px} } .seg.small button{padding:7px 12px; font-size:14px}
+.st-who{display:flex; gap:8px; flex-wrap:wrap}
+.st-who button{display:flex; align-items:center; gap:8px; border:0; border-radius:999px; padding:4px 14px 4px 4px; background:var(--card); color:var(--ink); font:800 14px var(--font-display); cursor:pointer; box-shadow:inset 0 0 0 2px var(--line)}
+.st-who button[aria-checked="true"]{box-shadow:inset 0 0 0 3px var(--accent)}
+.st-body{display:flex; flex-direction:column; gap:16px}
+.kpis{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px}
+.kpis.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kpi{position:relative; padding:14px 14px 12px; border-radius:20px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line); display:flex; flex-direction:column; gap:2px; min-width:0}
+.kpi-ic{position:absolute; top:12px; right:12px; font-size:22px; opacity:.9}
+.kpi b{font:900 clamp(20px,3.4vw,28px) var(--font-display); line-height:1.1; font-variant-numeric:tabular-nums; padding-right:30px}
+.kpi b i{font-style:normal; font-size:16px; color:var(--muted); font-weight:800}
+.kpi > span:not(.kpi-ic){font-weight:700; font-size:14px}
+.kpi small{color:var(--muted); font-size:12px}
+.st-grid2{display:grid; grid-template-columns:1fr; gap:16px}
+@media (min-width:760px){ .st-grid2{grid-template-columns:1fr 1fr} }
+.st-card{padding:16px; border-radius:22px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line)}
+.st-card h3,.st-h{margin:0 0 10px; font:800 17px var(--font-display)}
+.st-card h3:not(:first-child){margin-top:16px}
+.st-empty{margin:0; color:var(--muted)}
+.st-fav{width:100%; display:flex; align-items:center; gap:12px; border:0; background:var(--bg-soft); border-radius:16px; padding:8px; cursor:pointer; color:var(--ink); text-align:left; font-family:var(--font-body)}
+.st-fav b{font:800 18px var(--font-display); display:block}
+.st-fav small,.st-list small{color:var(--muted); font-size:12.5px}
+.st-gic{flex:none; width:40px; height:40px; border-radius:12px; display:grid; place-items:center; color:#fff; background:linear-gradient(160deg,var(--t1),var(--t2))}
+.st-gic svg{width:24px; height:24px}
+.st-bar{display:grid; grid-template-columns:minmax(110px,auto) 1fr auto; align-items:center; gap:10px; font-size:13.5px; font-weight:700; margin:6px 0}
+.st-bar span{display:flex; align-items:center; gap:4px} .st-bar span svg{width:15px; height:15px}
+.st-bar i{height:10px; border-radius:5px; background:var(--bg-soft); overflow:hidden}
+.st-bar i b{display:block; height:100%; border-radius:5px}
+.st-bar em{font-style:normal; color:var(--muted); font-variant-numeric:tabular-nums; min-width:56px; text-align:right}
+.st-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.st-list li{display:flex; align-items:center; gap:10px}
+.st-list li > span:nth-child(2){flex:1; min-width:0; display:flex; flex-direction:column}
+.st-list b{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.st-stars{display:flex; gap:1px; flex:none} .st-stars svg{width:15px; height:15px}
+.st-games{display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:12px}
+.st-game{padding:14px; border-radius:22px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line); display:flex; flex-direction:column; gap:8px}
+.st-game header{display:flex; align-items:center; gap:10px}
+.st-game header > span:not(.st-gic){flex:1; display:flex; flex-direction:column; min-width:0} .st-game header b{font:800 18px var(--font-display)} .st-game header small{color:var(--muted); font-size:12.5px}
+.st-go{flex:none; width:40px; height:40px; border-radius:50%; border:0; background:var(--accent); color:var(--accent-ink); display:grid; place-items:center; cursor:pointer}
+.st-go svg{width:18px; height:18px}
+.lvdots{display:flex; flex-wrap:wrap; gap:4px}
+.lvdots .lv{width:18px; height:18px; border-radius:5px; box-shadow:inset 0 0 0 1.5px var(--line)}
+.lvdots .s1{background:var(--lv1); box-shadow:none} .lvdots .s2{background:var(--lv2); box-shadow:none} .lvdots .s3{background:var(--lv3); box-shadow:none}
+.st-meta{margin:0; display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13px; color:var(--muted)}
+.st-meta b{color:var(--ink)}
+.st-note,.st-lead{margin:0; color:var(--muted); font-size:13px; text-align:center}
+.st-lead{font:800 18px var(--font-display); color:var(--ink)}
+/* Diagramme */
+.vz{margin:0; padding:16px 16px 12px; border-radius:22px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line)}
+.vz figcaption{display:flex; flex-direction:column; margin-bottom:8px} .vz figcaption b{font:800 17px var(--font-display)} .vz figcaption span{font-size:12.5px; color:var(--muted)}
+.vz-legend{display:flex; flex-wrap:wrap; gap:6px 16px; font-size:13px; font-weight:700; color:var(--ink); margin-bottom:6px}
+.vz-legend span,.vz-tip span{display:flex; align-items:center; gap:6px}
+.sw{display:inline-block; width:12px; height:12px; border-radius:3px; flex:none}
+.vz-plot{position:relative}
+.vz-svg{display:block; width:100%; height:auto; overflow:visible; font-family:var(--font-body)}
+.vz-grid{stroke:var(--line); stroke-width:1; opacity:.6} .vz-grid.base{opacity:1}
+.vz-ax{fill:var(--muted); font-size:11px} .vz-ax.strong{fill:var(--ink); font-weight:700}
+.vz-val{fill:var(--ink); font-size:11px; font-weight:700}
+.vz-hit{fill:transparent; cursor:pointer}
+.vz-col.on .vz-hit{fill:var(--ink); opacity:.05}
+.vz-tip{position:absolute; z-index:5; pointer-events:none; min-width:150px; padding:8px 10px; border-radius:12px; background:var(--card); color:var(--ink); box-shadow:0 6px 20px rgba(0,0,0,.18), inset 0 0 0 1.5px var(--line); font-size:12.5px; display:flex; flex-direction:column; gap:2px}
+.vz-tip b{font-size:13px}
+.vz-table summary{cursor:pointer; color:var(--muted); font-size:12.5px; font-weight:700; margin-top:6px}
+.vz-table table,.st-rank{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums}
+.vz-table th,.vz-table td,.st-rank th,.st-rank td{padding:6px 8px; text-align:left; border-bottom:1px solid var(--line)}
+.vz-table th,.st-rank th{color:var(--muted); font-weight:700; font-size:12px}
+/* Rangliste */
+.podium{display:grid; grid-template-columns:1fr 1.15fr 1fr; align-items:end; gap:10px; max-width:640px; width:100%; margin:4px auto 0}
+.pd{position:relative; display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center; min-width:0}
+.pd .pf-ava{width:58px; height:58px; font-size:32px}
+.pd-gold .pf-ava{width:72px; height:72px; font-size:40px}
+.pd b{font:800 17px var(--font-display); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pd-val{font-weight:800; font-size:14px; font-variant-numeric:tabular-nums}
+.pd small{color:var(--muted); font-size:12px}
+.pd-medal{font-size:26px; line-height:1}
+.pd-step{display:block; width:100%; margin-top:6px; border-radius:14px 14px 4px 4px; background:linear-gradient(170deg,var(--ash),var(--ash-dark)); box-shadow:inset 0 2px 0 rgba(255,255,255,.3), inset 0 -4px 0 rgba(0,0,0,.15)}
+.pd-gold .pd-step{height:96px} .pd-silver .pd-step{height:70px} .pd-bronze .pd-step{height:50px}
+.pd.me b{color:var(--accent)}
+.st-rank tr.me td{background:color-mix(in srgb, var(--accent) 10%, transparent); font-weight:700}
+.st-rank td .pf-ava{display:inline-grid; vertical-align:middle; width:28px; height:28px; font-size:16px; margin-right:4px}
+.st-rank{background:var(--card); border-radius:18px; overflow:hidden; box-shadow:inset 0 0 0 2px var(--line)}
+@media (max-width:560px){ .st-rank th:nth-child(3),.st-rank td:nth-child(3),.st-rank th:nth-child(5),.st-rank td:nth-child(5){display:none} }
+.st-solo{text-align:center} .st-solo p{margin:0 0 12px}
+.leaders{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:8px}
+.leader{display:flex; align-items:center; gap:10px; padding:8px; border-radius:16px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line)}
+.leader > span{display:flex; flex-direction:column; min-width:0} .leader b{font:800 15px var(--font-display)} .leader small{color:var(--muted); font-size:12.5px}
+/* Abzeichen */
+.badges{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px}
+.badge{display:flex; flex-direction:column; align-items:center; text-align:center; gap:4px; padding:14px 10px; border-radius:20px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line)}
+.bd-ic{font-size:38px; line-height:1.1; filter:grayscale(1); opacity:.45}
+.badge.ok .bd-ic{filter:none; opacity:1}
+.badge.ok{box-shadow:inset 0 0 0 2px var(--gold), 0 4px 0 color-mix(in srgb, var(--gold) 60%, transparent)}
+.badge b{font:800 15px var(--font-display)} .badge small{color:var(--muted); font-size:12px; min-height:2.6em}
+.badge em{font-style:normal; font-size:12px; font-weight:700; color:var(--muted)} .badge.ok em{color:var(--moss)}
+.bd-bar{display:block; width:80%; height:6px; border-radius:3px; background:var(--bg-soft); overflow:hidden} .bd-bar b{display:block; height:100%; background:var(--gold)}
 @media (prefers-reduced-motion: reduce){ .hello-holzi{animation:none} .tile,.tile-art svg{transition:none} }
 </style>
 
@@ -786,6 +898,7 @@ body.ingame{--chrome:400px}
         <p class="hello-stars" id="hello-stars"></p>
       </div>
       <button class="hello-go" id="hello-go" hidden></button>
+      <button class="hello-stat" id="hello-stat" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V4"/></svg><span>Statistik<small>Rangliste &amp; Abzeichen</small></span></button>
     </div>
     <div class="groups">
     <section class="tgroup g-k" aria-label="Knobeln &amp; Legen">
@@ -817,6 +930,8 @@ body.ingame{--chrome:400px}
     </div>
     <p class="home-foot">Alle Spiele laufen auch ohne Internet. Fortschritt und Rekorde bleiben auf diesem Gerät.</p>
   </section>
+
+  <section class="statsv" id="stats" hidden aria-label="Statistik"></section>
 
   <section class="game" id="g-slide" hidden>
   <div class="bh-probe" id="slide-probe" aria-hidden="true"></div>
@@ -4383,6 +4498,8 @@ HZG.kiste=function(){
 (function(){
   var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel']}, ORDER=["slide", "tan", "maze", "puzzle", "sudoku", "kreuz", "worte", "marble", "tower", "haus", "kiste"];
   var HOME=['Holzis <span>Holzkiste</span>','Elf Holzspiele für Kinder'];
+  H.stats=['Holzis <span>Statistik</span>','Sterne, Spielzeit, Rangliste und Abzeichen'];
+  function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'; }
   // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
   var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6]};
   var $=function(id){ return document.getElementById(id); };
@@ -4417,15 +4534,17 @@ HZG.kiste=function(){
   }
 
   function setGame(g){
-    cur=g; window.HZK&&(HZK.cur=g);
-    document.body.classList.toggle('ingame', !!g);
-    $('home').hidden=!!g; $('back').hidden=!g; $('helpbtn').hidden=!g; $('who').hidden=!!g;
+    var game=ORDER.indexOf(g)>=0;
+    saveStats(); cur=g; window.HZK&&(HZK.cur=game?g:null);
+    document.body.classList.toggle('ingame', game); document.body.classList.toggle('instats', g==='stats');
+    $('home').hidden=!!g; $('back').hidden=!g; $('helpbtn').hidden=!game; $('who').hidden=!!g; $('stats').hidden=g!=='stats';
     ORDER.forEach(function(k){ $('g-'+k).hidden = k!==g; });
     var h=g?H[g]:HOME; $('h1').innerHTML=h[0]; $('sub').textContent=h[1];
     document.title=g?$('h1').textContent+' · Holzis Holzkiste':'Holzis Holzkiste';
     window.HZK&&HZK.syncTimers&&HZK.syncTimers();
     window.scrollTo(0,0);
     if(!g){ renderHome(); return; }
+    if(g==='stats'){ renderStats(); return; }
     last=g; try{ localStorage.setItem('holzi-game', g); }catch(e){}
     if(g==='tan'&&window.HZT) HZT.show(); else if(g==='maze'&&window.HZM) HZM.show(); else if(g==='puzzle'&&window.HZP) HZP.show();
     else if(window.HZG&&HZG[g]) HZG[g](); else if(window.HZ) HZ.layout();
@@ -4435,9 +4554,10 @@ HZG.kiste=function(){
   // jedes Spiel bekommt einen Eintrag im Verlauf: die Zurueck-Taste (Android, Browser, Wischgeste) fuehrt zur Startseite
   function open(g){ window.HZ&&HZ.tok(1.1); history.pushState({g:g}, '', '#'+g); setGame(g); }
   function goHome(){ if(history.state&&history.state.g) history.back(); else { history.replaceState(null,'',location.pathname+location.search); setGame(null); } }
-  window.addEventListener('popstate', function(){ document.querySelectorAll('.overlay').forEach(function(o){ o.remove(); }); var g=location.hash.slice(1); setGame(ORDER.indexOf(g)>=0?g:null); });
+  window.addEventListener('popstate', function(){ document.querySelectorAll('.overlay').forEach(function(o){ o.remove(); }); var g=location.hash.slice(1); setGame(valid(g)?g:null); });
   ORDER.forEach(function(k){ $('tile-'+k).onclick=function(){ open(k); }; });
   $('back').onclick=function(){ window.HZ&&HZ.tok(0.9); goHome(); };
+  $('hello-stat').onclick=function(){ open('stats'); };
 
 
   // ---- Profile: wer spielt gerade? ----
@@ -4502,6 +4622,225 @@ HZG.kiste=function(){
   }
   $('who').onclick=function(){ window.HZ&&HZ.tok(1.1); showProfiles(false); };
 
+
+  // ---- Statistik: Spielzeit und geschaffte Level werden je Kind mitgeschrieben (nur auf diesem Geraet) ----
+  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',sudoku:'w',kreuz:'w',worte:'w',tower:'b',haus:'b',kiste:'b'};
+  var GRPN={k:'Knobeln & Legen',w:'Wörter & Zahlen',b:'Bauen & Fahren'}, GRPS=['k','w','b'];
+  var BEST={tan:'tan',puzzle:'pz',sudoku:'sudoku',kiste:'kiste'};
+  function dkey(d){ d=d||new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+  function loadStats(id){ var s=null; try{ s=JSON.parse(PF.read(id||PF.id,'holzi-stats')||'null'); }catch(e){} if(!s||typeof s!=='object') s={}; s.d=s.d||{}; s.w=s.w||[]; return s; }
+  var ST=loadStats(), dirty=false, lastInput=Date.now(), attempt=0;
+  function saveStats(){ if(!dirty) return; dirty=false; if(ST.w.length>3000) ST.w=ST.w.slice(-3000); try{ localStorage.setItem('holzi-stats', JSON.stringify(ST)); }catch(e){} }
+  ['pointerdown','keydown'].forEach(function(ev){ document.addEventListener(ev, function(){ lastInput=Date.now(); }, {passive:true, capture:true}); });
+  // alle 5 s: laeuft ein Spiel sichtbar und wurde in der letzten Minute getippt, zaehlt die Zeit
+  setInterval(function(){
+    if(!GRP[cur]||document.visibilityState==='hidden'||Date.now()-lastInput>60000) return;
+    var now=new Date(), k=dkey(now), day=ST.d[k]||(ST.d[k]={g:{},h:{}}), hr=now.getHours();
+    day.g[cur]=(day.g[cur]||0)+5; day.h[hr]=(day.h[hr]||0)+5;
+    attempt+=5; dirty=true;
+  }, 5000);
+  setInterval(saveStats, 30000);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden') saveStats(); });
+  window.addEventListener('pagehide', saveStats);
+  // ein Sieg-Fenster erscheint: Spiel, Level, Sterne und Dauer festhalten
+  new MutationObserver(function(ms){ ms.forEach(function(m){ [].forEach.call(m.addedNodes, function(n){
+    if(!GRP[cur]||n.nodeType!==1||!n.classList.contains('overlay')) return;
+    var w=n.querySelector('.win'); if(!w) return;
+    var nav=$('g-'+cur).querySelector(':scope > nav'), bs=nav?[].slice.call(nav.querySelectorAll('button')):[], c=nav&&nav.querySelector('[aria-current="true"]'), i=bs.indexOf(c);
+    var nm=c&&c.querySelector('.nm'), s=w.querySelectorAll('.stars path[fill="var(--gold)"]').length;
+    ST.w.push([Date.now(), cur, i, s, attempt, nm?nm.textContent:'']); attempt=0; dirty=true; saveStats();
+  }); }); }).observe(document.body,{childList:true});
+
+  // ---- Kennzahlen eines Kindes ----
+  function lvStars(g,id){ var s={}, n=STARS[g][1], out=[]; try{ s=JSON.parse(PF.read(id||PF.id,STARS[g][0])||"{}")||{}; }catch(e){}
+    for(var i=0;i<n;i++){ var v=s[i]; if(v&&typeof v==="object") v=v.stars; out.push(Math.min(3,+v||0)); } return out; }
+  function lvName(g,i){ var nav=$('g-'+g).querySelector(':scope > nav'), b=nav&&nav.querySelectorAll('button')[i], nm=b&&b.querySelector('.nm'); return nm?nm.textContent:'Level '+(i+1); }
+  function streaks(days){ var ks=days.slice().sort(), best=0, run=0, prev=null;
+    ks.forEach(function(k){ var d=new Date(k+'T12:00:00'); run=prev&&Math.round((d-prev)/864e5)===1?run+1:1; best=Math.max(best,run); prev=d; });
+    var curRun=0, d=new Date(); if(ks.indexOf(dkey(d))<0) d.setDate(d.getDate()-1);
+    while(ks.indexOf(dkey(d))>=0){ curRun++; d.setDate(d.getDate()-1); }
+    return {cur:curRun, best:best}; }
+  function profileData(id){
+    var S=id===PF.id?ST:loadStats(id), r={id:id, st:S, games:{}, stars:0, max:0, levels:0, lvMax:0, three:0, play:0, wins:S.w.length};
+    ORDER.forEach(function(g){ var a=lvStars(g,id), sum=0, done=0, three=0; a.forEach(function(v){ sum+=v; if(v) done++; if(v===3) three++; });
+      r.games[g]={lv:a, stars:sum, max:a.length*3, done:done, three:three, play:0, wins:0}; r.stars+=sum; r.max+=a.length*3; r.levels+=done; r.lvMax+=a.length; r.three+=three; });
+    Object.keys(S.d).forEach(function(k){ var g=S.d[k].g||{}; Object.keys(g).forEach(function(x){ if(r.games[x]) r.games[x].play+=g[x]; r.play+=g[x]; }); });
+    S.w.forEach(function(w){ if(r.games[w[1]]) r.games[w[1]].wins++; });
+    var days=Object.keys(S.d).filter(function(k){ var g=S.d[k].g||{}; return Object.keys(g).some(function(x){ return g[x]>0; }); });
+    S.w.forEach(function(w){ var k=dkey(new Date(w[0])); if(days.indexOf(k)<0) days.push(k); });
+    r.days=days.length; r.streak=streaks(days);
+    r.badges=badges(r);
+    return r;
+  }
+  var TITLES=[[0,'Holzwurm'],[10,'Spänesammler'],[30,'Brettchen-Bastler'],[60,'Schreinerlehrling'],[100,'Holzgeselle'],[150,'Tischlermeister'],[200,'Holzkünstler'],[250,'Holz-Champion']];
+  function title(r){ if(r.max&&r.stars>=r.max) return 'Holzi-Legende'; var t=TITLES[0][1]; TITLES.forEach(function(x){ if(r.stars>=x[0]) t=x[1]; }); return t; }
+  function badges(r){
+    var G=r.games, n=function(g,i){ return G[g]&&G[g].lv[i]>0; }, all=function(g){ return G[g]&&G[g].done===G[g].lv.length; };
+    var tried=ORDER.filter(function(g){ return G[g].stars>0; }).length, racewin=r.st.w.some(function(w){ return w[1]==='kiste'&&w[3]===3; });
+    return [
+      ['🌱','Erster Stern','Den ersten Stern verdienen',Math.min(r.stars,1),1],
+      ['⭐','Sternensammler','50 Sterne sammeln',Math.min(r.stars,50),50],
+      ['🌟','Sternenhimmel','150 Sterne sammeln',Math.min(r.stars,150),150],
+      ['👑','Holzi-Legende','Alle '+r.max+' Sterne sammeln',r.stars,r.max],
+      ['🧭','Entdecker','In jedem der 11 Spiele einen Stern holen',tried,11],
+      ['💯','Perfektionist','10 Level mit drei Sternen schaffen',Math.min(r.three,10),10],
+      ['🔥','Dranbleiber','3 Tage hintereinander spielen',Math.min(r.streak.best,3),3],
+      ['📅','Wochenheld','7 Tage hintereinander spielen',Math.min(r.streak.best,7),7],
+      ['⏳','Ausdauer','5 Stunden spielen',Math.min(Math.floor(r.play/60),300),300],
+      ['🌲','Tangram-Meister','Alle 16 Figuren legen',G.tan.done,G.tan.lv.length],
+      ['🧩','Puzzle-Profi','Den Herbstwald mit 100 Teilen puzzeln',n('puzzle',10)?1:0,1],
+      ['📝','Wortmeister','Das Kreuzworträtsel „Holzmeister“ lösen',n('kreuz',9)?1:0,1],
+      ['🏁','Rennsieger','Ein Seifenkisten-Rennen gewinnen',racewin||G.kiste.three>0?1:0,1],
+      ['🏗️','Baumeister','Alle Aufträge der Zimmerei erledigen',G.haus.done,G.haus.lv.length],
+      ['🐝','Honigfinder','Alle Labyrinthe schaffen',G.maze.done,G.maze.lv.length],
+      ['🔓','Ausbrecher','Holzi aus allen vier Kisten befreien',G.slide.done,G.slide.lv.length]
+    ].map(function(b){ return {ic:b[0], name:b[1], desc:b[2], have:b[3], need:b[4], ok:b[3]>=b[4]&&b[4]>0}; });
+  }
+  function fmtDur(s){ s=Math.round(s||0); if(s<60) return s?'< 1 min':'0 min'; var m=Math.round(s/60); if(m<60) return m+' min'; return Math.floor(m/60)+' h '+('0'+m%60).slice(-2)+' min'; }
+  function gName(g){ return $('tile-'+g).querySelector('.tile-name').textContent; }
+  function gIcon(g){ return '<span class="st-gic g-'+GRP[g]+'" aria-hidden="true">'+$('tile-'+g).querySelector('.tile-art').innerHTML+'</span>'; }
+  function relDay(t){ var d=new Date(t), k=dkey(d), today=new Date(), y=new Date(); y.setDate(y.getDate()-1);
+    var hm=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+    return (k===dkey(today)?'heute':k===dkey(y)?'gestern':d.getDate()+'.'+(d.getMonth()+1)+'.')+', '+hm; }
+  function starRow(n){ var s=''; for(var k=0;k<3;k++) s+=k<n?STAR_ON:STAR_ON.replace('fill="var(--gold)" stroke="#b47d10"','fill="var(--line)" stroke="none"'); return '<span class="st-stars">'+s+'</span>'; }
+
+  // ---- Diagramme (SVG) mit Hover-/Tipp-Hinweis und Tabellenansicht ----
+  function topPath(x,y,w,h,r){ if(h<=0) return ''; r=Math.min(r,h,w/2); return 'M'+x+' '+(y+h)+'V'+(y+r)+'Q'+x+' '+y+' '+(x+r)+' '+y+'H'+(x+w-r)+'Q'+(x+w)+' '+y+' '+(x+w)+' '+(y+r)+'V'+(y+h)+'Z'; }
+  function niceMax(v){ if(v<=0) return 1; var p=Math.pow(10,Math.floor(Math.log10(v))), f=v/p; return (f<=1?1:f<=2?2:f<=5?5:10)*p; }
+  // cols: [{label, tip, parts:[{v, cls}] }], unit fuer die Achse
+  function barChart(cols, o){
+    var W=640, H=o.h||220, L=34, R=8, T=22, B=26, pw=W-L-R, ph=H-T-B, n=cols.length, step=pw/n, bw=Math.max(4,Math.min(28,step*0.62));
+    var max=niceMax(Math.max.apply(null, cols.map(function(c){ return c.parts.reduce(function(a,p){ return a+p.v; },0); }).concat([o.minMax||0])));
+    var s='<svg viewBox="0 0 '+W+' '+H+'" class="vz-svg" role="img" aria-label="'+esc(o.title)+'">';
+    for(var q=0;q<=4;q++){ var gy=T+ph-ph*q/4, val=max*q/4; s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+gy+'" y2="'+gy+'" class="vz-grid'+(q===0?' base':'')+'"/>';
+      if(q%2===0) s+='<text x="'+(L-6)+'" y="'+(gy+4)+'" class="vz-ax" text-anchor="end">'+(Math.round(val*10)/10)+'</text>'; }
+    cols.forEach(function(c,i){
+      var x=L+step*i+(step-bw)/2, y=T+ph, tot=0, segs=c.parts.filter(function(p){ return p.v>0; });
+      s+='<g class="vz-col" data-i="'+i+'"><rect class="vz-hit" x="'+(L+step*i)+'" y="'+T+'" width="'+step+'" height="'+ph+'"/>';
+      segs.forEach(function(p,j){ var h=ph*p.v/max, top=j===segs.length-1; tot+=p.v; y-=h;
+        var hh=Math.max(0,h-(j>0?2:0));   // 2 px Abstand zwischen gestapelten Teilen
+        s+=top?'<path d="'+topPath(x,y,bw,hh,4)+'" class="'+p.cls+'"/>':'<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+hh+'" class="'+p.cls+'"/>'; });
+      if(tot>0&&o.labels) s+='<text x="'+(x+bw/2)+'" y="'+(y-5)+'" class="vz-val" text-anchor="middle">'+o.fmt(tot)+'</text>';
+      if(c.label) s+='<text x="'+(x+bw/2)+'" y="'+(H-8)+'" class="vz-ax'+(c.strong?' strong':'')+'" text-anchor="middle">'+c.label+'</text>';
+      s+='</g>'; });
+    s+='</svg>';
+    return s;
+  }
+  function chartBox(id, title, sub, legend, svg, table){
+    return '<figure class="vz" id="'+id+'"><figcaption><b>'+title+'</b><span>'+sub+'</span></figcaption>'+(legend||'')+
+      '<div class="vz-plot">'+svg+'<div class="vz-tip" hidden></div></div>'+
+      '<details class="vz-table"><summary>Als Tabelle zeigen</summary>'+table+'</details></figure>';
+  }
+  function wireTips(root, tips){
+    root.querySelectorAll('.vz').forEach(function(fig){
+      var tip=fig.querySelector('.vz-tip'), plot=fig.querySelector('.vz-plot'), list=tips[fig.id]||[];
+      function show(g,e){ var i=+g.getAttribute('data-i'); if(!list[i]) return; tip.innerHTML=list[i]; tip.hidden=false;
+        fig.querySelectorAll('.vz-col').forEach(function(x){ x.classList.toggle('on', x===g); });
+        var pr=plot.getBoundingClientRect(), gr=g.getBoundingClientRect(), tw=tip.offsetWidth;
+        tip.style.left=Math.max(0,Math.min(pr.width-tw, gr.left-pr.left+gr.width/2-tw/2))+'px'; tip.style.top='0px'; }
+      function hide(){ tip.hidden=true; fig.querySelectorAll('.vz-col.on').forEach(function(x){ x.classList.remove('on'); }); }
+      fig.querySelectorAll('.vz-col').forEach(function(g){ g.addEventListener('pointerenter', function(e){ show(g,e); }); g.addEventListener('pointerdown', function(e){ show(g,e); }); });
+      plot.addEventListener('pointerleave', hide);
+    });
+  }
+  var LEGEND='<div class="vz-legend">'+GRPS.map(function(k){ return '<span><i class="sw s-'+k+'"></i>'+GRPN[k]+'</span>'; }).join('')+'</div>';
+  var WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
+
+  // ---- Statistik-Seite ----
+  var sTab='overview', sView=null, rankBy='stars';
+  var TABS=[['overview','Übersicht'],['games','Spiele'],['trend','Verlauf'],['rank','Rangliste'],['badges','Abzeichen']];
+  function renderStats(){
+    var l=PF.list(); if(!sView||!l.some(function(p){ return p.id===sView; })) sView=PF.id;
+    var tabs='<nav class="seg" role="tablist" aria-label="Statistik">'+TABS.map(function(t){ return '<button role="tab" aria-selected="'+(t[0]===sTab)+'" data-t="'+t[0]+'">'+t[1]+'</button>'; }).join('')+'</nav>';
+    var who=l.length>1&&sTab!=='rank'?'<div class="st-who" role="radiogroup" aria-label="Statistik von">'+l.map(function(p){ return '<button role="radio" aria-checked="'+(p.id===sView)+'" data-id="'+p.id+'">'+ava(p,'pf-ava sm')+'<span>'+(p.name?esc(p.name):'Ohne Namen')+'</span></button>'; }).join('')+'</div>':'';
+    var r=profileData(sView), body='', tips={};
+    if(sTab==='overview') body=viewOverview(r);
+    else if(sTab==='games') body=viewGames(r);
+    else if(sTab==='trend'){ var t=viewTrend(r); body=t[0]; tips=t[1]; }
+    else if(sTab==='rank') body=viewRank(l);
+    else body=viewBadges(r);
+    var box=$('stats'); box.innerHTML=tabs+who+'<div class="st-body">'+body+'</div>';
+    box.querySelectorAll('.seg button').forEach(function(b){ b.onclick=function(){ window.HZ&&HZ.tok(1.15); sTab=b.getAttribute('data-t'); renderStats(); }; });
+    box.querySelectorAll('.st-who button').forEach(function(b){ b.onclick=function(){ window.HZ&&HZ.tok(1.2); sView=b.getAttribute('data-id'); renderStats(); }; });
+    box.querySelectorAll('[data-rank]').forEach(function(b){ b.onclick=function(){ window.HZ&&HZ.tok(1.15); rankBy=b.getAttribute('data-rank'); renderStats(); }; });
+    box.querySelectorAll('[data-open]').forEach(function(b){ b.onclick=function(){ open(b.getAttribute('data-open')); }; });
+    var add=box.querySelector('[data-a="profiles"]'); if(add) add.onclick=function(){ showProfiles(false); };
+    wireTips(box, tips);
+  }
+  function kpi(ic,val,lbl,sub){ return '<div class="kpi"><span class="kpi-ic" aria-hidden="true">'+ic+'</span><b>'+val+'</b><span>'+lbl+'</span>'+(sub?'<small>'+sub+'</small>':'')+'</div>'; }
+  function viewOverview(r){
+    var fav=ORDER.slice().sort(function(a,b){ return r.games[b].play-r.games[a].play; })[0], got=r.badges.filter(function(b){ return b.ok; }).length;
+    var h='<div class="kpis">'+
+      kpi('⭐',r.stars+'<i>/'+r.max+'</i>','Sterne',Math.round(100*r.stars/r.max)+' % gesammelt')+
+      kpi('✅',r.levels+'<i>/'+r.lvMax+'</i>','Level geschafft',r.three+' davon mit drei Sternen')+
+      kpi('⏱️',fmtDur(r.play),'Spielzeit',r.days+' Spieltag'+(r.days===1?'':'e'))+
+      kpi('🔥',r.streak.cur+(r.streak.cur===1?' Tag':' Tage'),'Serie','längste: '+r.streak.best+(r.streak.best===1?' Tag':' Tage'))+
+      kpi('🏆',r.wins,'Siege','seit Beginn der Statistik')+
+      kpi('🎖️',got+'<i>/'+r.badges.length+'</i>','Abzeichen',title(r))+'</div>';
+    h+='<div class="st-grid2"><section class="st-card"><h3>Lieblingsspiel</h3>'+(r.games[fav].play>0?'<button class="st-fav" data-open="'+fav+'">'+gIcon(fav)+'<span><b>'+gName(fav)+'</b><small>'+fmtDur(r.games[fav].play)+' gespielt · '+r.games[fav].stars+' von '+r.games[fav].max+' Sternen</small></span></button>':'<p class="st-empty">Noch keine Spielzeit gemessen. Einfach losspielen!</p>')+
+      '<h3>Sterne je Gruppe</h3>'+GRPS.map(function(k){ var a=0,m=0; ORDER.forEach(function(g){ if(GRP[g]===k){ a+=r.games[g].stars; m+=r.games[g].max; } });
+        return '<div class="st-bar"><span>'+GRPN[k]+'</span><i><b class="s-'+k+'" style="width:'+(100*a/m).toFixed(1)+'%"></b></i><em>'+a+' / '+m+'</em></div>'; }).join('')+'</section>';
+    var w=r.st.w.slice(-6).reverse();
+    h+='<section class="st-card"><h3>Zuletzt geschafft</h3>'+(w.length?'<ul class="st-list">'+w.map(function(x){ return '<li>'+gIcon(x[1])+'<span><b>'+esc(x[5]||lvName(x[1],x[2]))+'</b><small>'+gName(x[1])+' · '+relDay(x[0])+(x[4]?' · '+fmtDur(x[4]):'')+'</small></span>'+starRow(x[3])+'</li>'; }).join('')+'</ul>':'<p class="st-empty">Sobald ein Level geschafft ist, steht es hier.</p>')+'</section></div>';
+    return h;
+  }
+  function viewGames(r){
+    return '<div class="st-games">'+ORDER.map(function(g){ var d=r.games[g], bk=BEST[g], best='', bs={};
+      if(bk){ try{ bs=JSON.parse(PF.read(r.id,'holzi-best-'+bk)||'{}')||{}; }catch(e){} var ks=Object.keys(bs).filter(function(k){ return bs[k]>0; });
+        if(ks.length){ var k=ks.sort(function(a,b){ return bs[a]-bs[b]; })[0]; best=(g==='kiste'?'Schnellstes Rennen':'Schnellste Lösung')+': <b>'+(window.HZK?HZK.fmt(bs[k]):bs[k]+' s')+'</b> ('+esc(lvName(g,+k))+')'; } }
+      if(g==='slide'){ var sv={}; try{ sv=JSON.parse(PF.read(r.id,'holzi-v1')||'{}')||{}; }catch(e){} var bm=Object.keys(sv).filter(function(k){ return +k<4&&sv[k]&&sv[k].best; }).length; if(bm) best='Kisten mit Zug-Rekord: <b>'+bm+'</b>'; }
+      var dots=d.lv.map(function(v,i){ return '<i class="lv s'+v+'" title="'+esc(lvName(g,i))+': '+v+' Stern'+(v===1?'':'e')+'"></i>'; }).join('');
+      return '<article class="st-game"><header>'+gIcon(g)+'<span><b>'+gName(g)+'</b><small>'+d.done+' von '+d.lv.length+' Leveln · '+d.three+'× drei Sterne</small></span><button class="st-go" data-open="'+g+'" aria-label="'+gName(g)+' spielen">'+PLAY+'</button></header>'+
+        '<div class="st-bar"><span>'+STAR_ON+d.stars+' / '+d.max+'</span><i><b class="s-'+GRP[g]+'" style="width:'+(100*d.stars/d.max).toFixed(1)+'%"></b></i><em>'+Math.round(100*d.stars/d.max)+' %</em></div>'+
+        '<div class="lvdots" aria-label="Sterne je Level">'+dots+'</div>'+
+        '<p class="st-meta"><span>⏱️ '+fmtDur(d.play)+'</span><span>🏆 '+d.wins+(d.wins===1?' Sieg':' Siege')+'</span>'+(best?'<span>⚡ '+best+'</span>':'')+'</p></article>'; }).join('')+'</div>'+
+      '<p class="st-note">Kästchen = Level: leer = noch offen, je dunkler, desto mehr Sterne.</p>';
+  }
+  function viewTrend(r){
+    var days=[], N=14, tips={c1:[],c2:[],c3:[]};
+    for(var i=N-1;i>=0;i--){ var d=new Date(); d.setDate(d.getDate()-i); days.push(d); }
+    var cols1=days.map(function(d,i){ var day=r.st.d[dkey(d)]||{g:{}}, parts=GRPS.map(function(k){ var s=0; ORDER.forEach(function(g){ if(GRP[g]===k) s+=(day.g[g]||0); }); return {v:s/60, cls:'s-'+k, k:k}; });
+      tips.c1.push('<b>'+WD[d.getDay()]+' '+d.getDate()+'.'+(d.getMonth()+1)+'.</b>'+parts.map(function(p){ return '<span><i class="sw s-'+p.k+'"></i>'+GRPN[p.k]+': '+Math.round(p.v)+' min</span>'; }).join('')+'<span>Zusammen: '+Math.round(parts.reduce(function(a,p){ return a+p.v; },0))+' min</span>');
+      return {label:WD[d.getDay()], strong:i===N-1, parts:parts}; });
+    var wins=days.map(function(d){ var k=dkey(d); return r.st.w.filter(function(w){ return dkey(new Date(w[0]))===k; }); });
+    var cols2=days.map(function(d,i){ tips.c2.push('<b>'+WD[d.getDay()]+' '+d.getDate()+'.'+(d.getMonth()+1)+'.</b><span>'+wins[i].length+' Level geschafft</span>'+(wins[i].length?'<span>'+wins[i].reduce(function(a,w){ return a+w[3]; },0)+' Sterne dabei</span>':''));
+      return {label:WD[d.getDay()], strong:i===N-1, parts:[{v:wins[i].length, cls:'s-one'}]}; });
+    var hours=[]; for(var hr=0;hr<24;hr++) hours.push(0);
+    Object.keys(r.st.d).forEach(function(k){ var h=r.st.d[k].h||{}; Object.keys(h).forEach(function(x){ hours[+x]+=h[x]/60; }); });
+    var cols3=hours.map(function(v,hr){ tips.c3.push('<b>'+hr+' bis '+(hr+1)+' Uhr</b><span>'+Math.round(v)+' min insgesamt</span>'); return {label:hr%6===0?hr+' Uhr':'', parts:[{v:v, cls:'s-two'}]}; });
+    var t1='<table><thead><tr><th>Tag</th>'+GRPS.map(function(k){ return '<th>'+GRPN[k]+'</th>'; }).join('')+'<th>Zusammen</th></tr></thead><tbody>'+cols1.map(function(c,i){ var d=days[i]; return '<tr><td>'+WD[d.getDay()]+' '+d.getDate()+'.'+(d.getMonth()+1)+'.</td>'+c.parts.map(function(p){ return '<td>'+Math.round(p.v)+' min</td>'; }).join('')+'<td>'+Math.round(c.parts.reduce(function(a,p){ return a+p.v; },0))+' min</td></tr>'; }).join('')+'</tbody></table>';
+    var t2='<table><thead><tr><th>Tag</th><th>Level geschafft</th></tr></thead><tbody>'+days.map(function(d,i){ return '<tr><td>'+WD[d.getDay()]+' '+d.getDate()+'.'+(d.getMonth()+1)+'.</td><td>'+wins[i].length+'</td></tr>'; }).join('')+'</tbody></table>';
+    var t3='<table><thead><tr><th>Uhrzeit</th><th>Minuten</th></tr></thead><tbody>'+hours.map(function(v,hr){ return v>0?'<tr><td>'+hr+'–'+(hr+1)+' Uhr</td><td>'+Math.round(v)+'</td></tr>':''; }).join('')+'</tbody></table>';
+    var tot=cols1.reduce(function(a,c){ return a+c.parts.reduce(function(b,p){ return b+p.v; },0); },0), wtot=wins.reduce(function(a,w){ return a+w.length; },0);
+    var h='<div class="kpis three">'+kpi('⏱️',Math.round(tot)+' min','Spielzeit','in den letzten 14 Tagen')+kpi('✅',wtot,'Level geschafft','in den letzten 14 Tagen')+kpi('📆',days.filter(function(d,i){ return cols1[i].parts.some(function(p){ return p.v>0; })||wins[i].length; }).length+' / 14','Spieltage','in den letzten 14 Tagen')+'</div>';
+    h+=chartBox('c1','Spielzeit pro Tag','Minuten, letzte 14 Tage',LEGEND,barChart(cols1,{title:'Spielzeit pro Tag',labels:true,fmt:function(v){ return Math.round(v); },minMax:5}),t1);
+    h+=chartBox('c2','Geschaffte Level pro Tag','Anzahl, letzte 14 Tage','',barChart(cols2,{title:'Geschaffte Level pro Tag',labels:true,fmt:function(v){ return v; },minMax:2,h:180}),t2);
+    h+=chartBox('c3','Wann wird gespielt?','Minuten je Tageszeit, alle Tage zusammen','',barChart(cols3,{title:'Spielzeit je Tageszeit',labels:false,minMax:5,h:170}),t3);
+    h+='<p class="st-note">Gezählt wird nur, solange ein Spiel offen ist und in der letzten Minute getippt wurde. Die Statistik bleibt auf diesem Gerät.</p>';
+    return [h,tips];
+  }
+  function viewRank(l){
+    var rs=l.map(function(p){ var r=profileData(p.id); r.p=p; r.badgeN=r.badges.filter(function(b){ return b.ok; }).length; return r; });
+    var M={stars:['Sterne',function(r){ return r.stars; },function(r){ return r.stars+' ⭐'; }],levels:['Level',function(r){ return r.levels; },function(r){ return r.levels+' Level'; }],
+           play:['Spielzeit',function(r){ return r.play; },function(r){ return fmtDur(r.play); }],badges:['Abzeichen',function(r){ return r.badgeN; },function(r){ return r.badgeN+' 🎖️'; }]}, m=M[rankBy];
+    rs.sort(function(a,b){ return m[1](b)-m[1](a)||b.stars-a.stars; });
+    var h='<div class="seg small" role="radiogroup" aria-label="Rangliste nach">'+Object.keys(M).map(function(k){ return '<button role="radio" aria-checked="'+(k===rankBy)+'" data-rank="'+k+'">'+M[k][0]+'</button>'; }).join('')+'</div>';
+    var top=[rs[1],rs[0],rs[2]], pos=['silver','gold','bronze'], medal=['🥈','🥇','🥉'];
+    h+='<div class="podium">'+top.map(function(r,i){ return r?'<div class="pd pd-'+pos[i]+(r.id===PF.id?' me':'')+'"><span class="pd-medal">'+medal[i]+'</span>'+ava(r.p)+'<b>'+(r.p.name?esc(r.p.name):'Ohne Namen')+'</b><span class="pd-val">'+m[2](r)+'</span><small>'+title(r)+'</small><i class="pd-step"></i></div>':'<div class="pd pd-empty"></div>'; }).join('')+'</div>';
+    h+='<table class="st-rank"><thead><tr><th>#</th><th>Kind</th><th>Titel</th><th>Sterne</th><th>Level</th><th>Spielzeit</th><th>🎖️</th></tr></thead><tbody>'+rs.map(function(r,i){
+      return '<tr class="'+(r.id===PF.id?'me':'')+'"><td>'+(i+1)+'</td><td>'+ava(r.p,'pf-ava sm')+' '+(r.p.name?esc(r.p.name):'Ohne Namen')+'</td><td>'+title(r)+'</td><td>'+r.stars+'</td><td>'+r.levels+'</td><td>'+fmtDur(r.play)+'</td><td>'+r.badgeN+'</td></tr>'; }).join('')+'</tbody></table>';
+    if(l.length<2) h+='<div class="st-card st-solo"><p>Hier tretet ihr gegeneinander an! Leg für jedes Kind ein eigenes Profil an, dann erscheint ihr alle auf dem Treppchen.</p><button class="pf-btn go" data-a="profiles">Kinder anlegen</button></div>';
+    h+='<h3 class="st-h">Wer führt in welchem Spiel?</h3><div class="leaders">'+ORDER.map(function(g){ var best=Math.max.apply(null, rs.map(function(r){ return r.games[g].stars; })), who=rs.filter(function(r){ return best>0&&r.games[g].stars===best; });
+      return '<div class="leader">'+gIcon(g)+'<span><b>'+gName(g)+'</b><small>'+(who.length?who.map(function(r){ return (AVAS[r.p.ava||0]||AVAS[0])[0]+' '+(r.p.name?esc(r.p.name):'Ohne Namen'); }).join(', ')+' · '+best+' ⭐'+(who.length>1?' (Gleichstand)':''):'noch niemand')+'</small></span></div>'; }).join('')+'</div>';
+    h+='<p class="st-note">Titel nach Sternen: '+TITLES.map(function(t){ return t[1]+' ab '+t[0]; }).join(' · ')+' · Holzi-Legende mit allen Sternen.</p>';
+    return h;
+  }
+  function viewBadges(r){
+    var got=r.badges.filter(function(b){ return b.ok; }).length;
+    return '<p class="st-lead">'+got+' von '+r.badges.length+' Abzeichen verdient</p><div class="badges">'+r.badges.map(function(b){ var pct=b.need?Math.min(100,100*b.have/b.need):0;
+      return '<div class="badge'+(b.ok?' ok':'')+'"><span class="bd-ic" aria-hidden="true">'+b.ic+'</span><b>'+b.name+'</b><small>'+b.desc+'</small>'+(b.ok?'<em>Geschafft!</em>':'<i class="bd-bar"><b style="width:'+pct.toFixed(0)+'%"></b></i><em>'+(b.name==='Ausdauer'?fmtDur(b.have*60)+' von 5 h':b.have+' / '+b.need)+'</em>')+'</div>'; }).join('')+'</div>';
+  }
+
   // So geht's: der Hilfetext des Spiels als Fenster
   function showHelp(){
     if(!cur||document.querySelector('.overlay')) return;
@@ -4524,8 +4863,10 @@ HZG.kiste=function(){
     nav.classList.add('lvl-nav');
     var chip=document.createElement('button'); chip.type='button'; chip.className='lvlchip'; chip.setAttribute('aria-expanded','false'); chip.setAttribute('aria-controls', nav.id);
     sec.insertBefore(chip, nav);
+    var lastI=null;
     function upd(){
       var bs=[].slice.call(nav.querySelectorAll('button')), c=nav.querySelector('[aria-current="true"]'), i=bs.indexOf(c);
+      if(g===cur&&i!==lastI) attempt=0; lastI=i;   // neues Level: Dauer fuer die Statistik neu messen
       var nm=c&&c.querySelector('.nm'), st=c&&c.querySelector('.st'), age=c&&c.querySelector('.age');
       var n=STARS[g][1], txt=i<0||i>=n ? 'Selber bauen' : 'Level '+(i+1)+' von '+n+(age&&age.textContent?' · '+age.textContent:'');
       chip.innerHTML='<span class="lc-disc">'+(i>=0&&i<n?i+1:'+')+'</span><span class="lc-txt"><b>'+(nm?nm.textContent:'Level wählen')+'</b><small>'+txt+'</small></span>'+
@@ -4542,7 +4883,7 @@ HZG.kiste=function(){
   var g0=location.hash.slice(1);
   // direkt mit #spiel geoeffnet: Startseite unterlegen, damit Zurueck dorthin fuehrt und nicht aus der App
   history.replaceState(null, '', location.pathname+location.search);
-  if(ORDER.indexOf(g0)>=0){ history.pushState({g:g0}, '', '#'+g0); setGame(g0); } else setGame(null);
+  if(valid(g0)){ history.pushState({g:g0}, '', '#'+g0); setGame(g0); } else setGame(null);
 })();
 </script>
 

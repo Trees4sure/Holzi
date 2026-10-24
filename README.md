@@ -29,6 +29,13 @@ Elf Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe 
 - **Profile für mehrere Kinder** („Wer spielt?“ oben auf der Startseite): Name und Tier wählen, jedes Kind
   hat eigene Sterne, Rekorde und Spielstände. Das erste Profil übernimmt den bisherigen Spielstand.
   Technisch: Profil 1 nutzt die alten Speicher-Schlüssel `holzi-…`, weitere Profile `hz:p2:holzi-…`.
+- **Statistik & Rangliste** (Knopf „Statistik“ auf der Startseite):
+  Übersicht (Sterne, Level, Spielzeit, Serie, Siege, Abzeichen, zuletzt geschafft),
+  Spiele (Fortschritt und Sterne je Level, Spielzeit, Rekorde), Verlauf (Spielzeit und
+  geschaffte Level der letzten 14 Tage, Tageszeit), Rangliste der Kinder auf diesem Gerät
+  (Treppchen, Titel, wer in welchem Spiel führt) und 16 Abzeichen.
+  Spielzeit zählt nur, solange ein Spiel offen ist und in der letzten Minute getippt wurde.
+  Alles bleibt auf dem Gerät (`holzi-stats` je Profil).
 
 ## Inhalt
 
@@ -85,8 +92,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v15";` hochzählen
-(`holzi-v16` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v16";` hochzählen
+(`holzi-v17` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
