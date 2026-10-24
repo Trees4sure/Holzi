@@ -59,7 +59,8 @@ Zwanzig Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersang
   Sieg-Verlauf bleiben dabei weg, damit es nur wenige Bilder sind), als Datei (Teilen/AirDrop) oder als Text-Code
   (gzip + Base64) mitnehmen und auf dem anderen Gerät empfangen. Gibt es dort ein Kind mit gleichem Namen und Tier, wird
   nur **ergänzt, nie überschrieben**: Sterne und Rekorde nur, wenn sie besser sind, Forschung und gekaufte Teile kommen
-  dazu, Münzen nur in Höhe dessen, was das andere Gerät mehr verdient hat, Statistik ohne Doppelte; laufende Spielstände
+  dazu, Münzen = höchster verdienter Betrag minus Kosten der gemeinsamen Forschung (steckt ein Stand ganz im anderen, gilt
+  dessen Kontostand genau), Statistik ohne Doppelte; laufende Spielstände
   und alles Vorhandene bleiben. Abzeichen ergeben sich daraus von selbst. Sonst entsteht ein neues Kind. Kein Server.
 - **Kein Zoom-Gefängnis:** Pinch- und Doppeltipp-Zoom sind aus; ist die Seite doch vergrößert, erscheint „Normale Größe“.
 - **Mitspieler-Übersicht:** Startseite zeigt die drei Besten; die Rangliste vergleicht alle Kinder über Sterne,
@@ -123,8 +124,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v31";` hochzählen
-(`holzi-v32` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v32";` hochzählen
+(`holzi-v33` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
