@@ -873,6 +873,50 @@ body.ingame{--chrome:400px}
 .badge b{font:800 15px var(--font-display)} .badge small{color:var(--muted); font-size:12px; min-height:2.6em}
 .badge em{font-style:normal; font-size:12px; font-weight:700; color:var(--muted)} .badge.ok em{color:var(--moss)}
 .bd-bar{display:block; width:80%; height:6px; border-radius:3px; background:var(--bg-soft); overflow:hidden} .bd-bar b{display:block; height:100%; background:var(--gold)}
+
+/* ---- Muenzen, Forschung, Uebersichtsleiste ---- */
+.coin{width:1.1em; height:1.1em; vertical-align:-0.18em; margin-right:.25em; flex:none}
+.kpi-ic .coin{width:24px; height:24px; margin:0}
+.homebar{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px}
+@media (max-width:640px){ .homebar{grid-template-columns:1fr 1fr} #hb-rank{grid-column:1 / -1; order:-1} }
+.hb{display:flex; flex-direction:column; align-items:flex-start; gap:4px; min-width:0; border:0; cursor:pointer; text-align:left; padding:14px 16px; border-radius:22px; background:var(--card); color:var(--ink); font-family:var(--font-body); box-shadow:inset 0 0 0 2px var(--line), 0 4px 0 var(--line); transition:transform .15s}
+.hb:hover{transform:translateY(-2px)} .hb:active{transform:translateY(3px); box-shadow:inset 0 0 0 2px var(--line), 0 1px 0 var(--line)}
+.hb-h{font:800 15px var(--font-display); color:var(--muted)}
+.hb-big{display:flex; align-items:center; font:900 24px var(--font-display); font-variant-numeric:tabular-nums}
+.hb small{color:var(--muted); font-size:12.5px}
+.hb-rank{display:flex; flex-direction:column; gap:4px; width:100%}
+.hb-rank > span{display:flex; align-items:center; gap:6px; font-size:14px; min-width:0}
+.hb-rank b{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.hb-rank em{font-style:normal; font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums}
+.hb-rank .me b{color:var(--accent)}
+.pf-ava.xs{width:24px; height:24px; font-size:14px}
+.coin-toast{position:fixed; z-index:60; left:50%; top:max(14px, env(safe-area-inset-top,0px)); transform:translateX(-50%); display:flex; align-items:center; gap:6px; padding:10px 18px; border-radius:999px; background:var(--card); color:var(--ink); font:800 17px var(--font-display); box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 0 0 2px var(--gold); animation:toastin .4s cubic-bezier(.3,1.6,.6,1); transition:opacity .4s, transform .4s}
+.coin-toast .coin{width:24px; height:24px}
+.coin-toast.out{opacity:0; transform:translate(-50%,-20px)}
+@keyframes toastin{from{transform:translate(-50%,-30px); opacity:0}}
+.rs-path{display:flex; flex-direction:column; gap:10px}
+.rs-path h3{margin:0; display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 10px; font:800 19px var(--font-display)}
+.rs-path h3 small{font:700 13px var(--font-body); color:var(--muted)}
+.rs-items{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px}
+.rs-item{position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; gap:4px; padding:14px 10px 12px; border-radius:20px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line)}
+.rs-ic{font-size:34px; line-height:1.15}
+.rs-item b{font:800 16px var(--font-display)} .rs-item > small{color:var(--muted); font-size:12.5px; min-height:2.4em}
+.rs-item.own{box-shadow:inset 0 0 0 2px var(--moss)} .rs-item.req .rs-ic,.rs-item.poor .rs-ic{filter:grayscale(.8); opacity:.6}
+.rs-buy{margin-top:4px; border:0; border-radius:12px; padding:9px 14px; background:var(--accent); color:var(--accent-ink); font:800 15px var(--font-display); cursor:pointer; display:flex; align-items:center; box-shadow:0 3px 0 color-mix(in srgb, var(--accent) 60%, #000)}
+.rs-buy.armed{background:var(--moss); box-shadow:0 3px 0 color-mix(in srgb, var(--moss) 60%, #000); animation:pop .3s}
+.rs-buy:disabled{background:var(--bg-soft); color:var(--muted); box-shadow:none; cursor:default}
+.rs-miss,.rs-req{font-size:12px; color:var(--muted); font-weight:700}
+.rs-own{margin-top:4px; color:var(--moss); font-weight:800; font-size:14px}
+.rs-log{list-style:none; margin:0; padding:0; display:flex; flex-direction:column}
+.rs-log li{display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center; padding:7px 0; border-bottom:1px solid var(--line); font-size:14px}
+.rs-log li:last-child{border-bottom:0}
+.rs-log small{color:var(--muted); font-size:12px} .rs-log b{font-variant-numeric:tabular-nums; color:var(--moss)} .rs-log b.neg{color:var(--accent)}
+.lvl.locked,.fig.locked{position:relative; opacity:.55; filter:grayscale(.6)}
+.lock-ic{position:absolute; top:4px; right:6px; font-size:13px; filter:none}
+.st-scroll{overflow-x:auto; border-radius:18px}
+.st-rank td.nm{white-space:nowrap} .st-rank td.nm small{display:block; margin-left:36px; color:var(--muted); font-size:11.5px; font-weight:400}
+.st-rank td.top{font-weight:800; color:var(--ink); background:color-mix(in srgb, var(--gold) 16%, transparent)}
+@media (max-width:560px){ .st-rank th:nth-child(3),.st-rank td:nth-child(3),.st-rank th:nth-child(5),.st-rank td:nth-child(5){display:table-cell} }
 @media (prefers-reduced-motion: reduce){ .hello-holzi{animation:none} .tile,.tile-art svg{transition:none} }
 </style>
 
@@ -898,7 +942,11 @@ body.ingame{--chrome:400px}
         <p class="hello-stars" id="hello-stars"></p>
       </div>
       <button class="hello-go" id="hello-go" hidden></button>
-      <button class="hello-stat" id="hello-stat" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V4"/></svg><span>Statistik<small>Rangliste &amp; Abzeichen</small></span></button>
+    </div>
+    <div class="homebar">
+      <button class="hb" id="hb-coins" type="button"><span class="hb-h">🔬 Münzen &amp; Forschung</span><span class="hb-big" id="hb-coins-n"></span><small id="hb-coins-s"></small></button>
+      <button class="hb" id="hb-rank" type="button"><span class="hb-h">🏆 Rangliste</span><span class="hb-rank" id="hb-rank-l"></span></button>
+      <button class="hb" id="hb-stats" type="button"><span class="hb-h">📊 Statistik</span><span class="hb-big" id="hb-stats-n"></span><small id="hb-stats-s"></small></button>
     </div>
     <div class="groups">
     <section class="tgroup g-k" aria-label="Knobeln &amp; Legen">
@@ -932,6 +980,7 @@ body.ingame{--chrome:400px}
   </section>
 
   <section class="statsv" id="stats" hidden aria-label="Statistik"></section>
+  <section class="statsv" id="research" hidden aria-label="Forschung"></section>
 
   <section class="game" id="g-slide" hidden>
   <div class="bh-probe" id="slide-probe" aria-hidden="true"></div>
@@ -4499,7 +4548,8 @@ HZG.kiste=function(){
   var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel']}, ORDER=["slide", "tan", "maze", "puzzle", "sudoku", "kreuz", "worte", "marble", "tower", "haus", "kiste"];
   var HOME=['Holzis <span>Holzkiste</span>','Elf Holzspiele für Kinder'];
   H.stats=['Holzis <span>Statistik</span>','Sterne, Spielzeit, Rangliste und Abzeichen'];
-  function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'; }
+  H.research=['Holzis <span>Forschung</span>','Münzen verdienen, erforschen, Profi-Level freischalten'];
+  function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'||g==='research'; }
   // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
   var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6]};
   var $=function(id){ return document.getElementById(id); };
@@ -4528,6 +4578,14 @@ HZG.kiste=function(){
     var nm=me().name; renderWho();
     $('hello-h').textContent= all===0 ? 'Hallo'+(nm?' '+nm:'')+'! Was spielen wir heute?' : all>=max ? 'Wahnsinn'+(nm?', '+nm:'')+'! Alle Sterne gesammelt!' : 'Schön, dass du wieder da bist'+(nm?', '+nm:'')+'!';
     $('hello-stars').innerHTML=STAR_ON+'<span>'+all+' von '+max+' Sternen</span><span class="bar"><i style="width:'+Math.round(100*all/max)+'%"></i></span>';
+    // Uebersichtsleiste: Muenzen, die drei Besten, heutige Spielzeit
+    settle(); var rr=rates(CS); $('hb-coins-n').innerHTML=COIN+fmtC(CS.c); $('hb-coins-s').textContent=Object.keys(CS.r).length+' erforscht · +'+rr.star+' pro Stern';
+    var pl=PF.list();
+    if(pl.length>1){ var rk=pl.map(function(p){ var a=0; ORDER.forEach(function(g){ a+=stars(g,p.id)[0]; }); return {p:p,a:a}; }).sort(function(x,y){ return y.a-x.a; }).slice(0,3);
+      $('hb-rank-l').innerHTML=rk.map(function(x,i){ return '<span class="'+(x.p.id===PF.id?'me':'')+'">'+['🥇','🥈','🥉'][i]+' '+ava(x.p,'pf-ava xs')+'<b>'+(x.p.name?esc(x.p.name):'Ohne Namen')+'</b><em>'+x.a+' ⭐</em></span>'; }).join(''); }
+    else $('hb-rank-l').innerHTML='<small>Leg weitere Kinder an und vergleicht euch!</small>';
+    var td=(ST.d[dkey()]||{g:{}}).g, tsec=0; Object.keys(td).forEach(function(k){ tsec+=td[k]; });
+    var sk=profileData(PF.id).streak; $('hb-stats-n').textContent=fmtDur(tsec)+' heute'; $('hb-stats-s').textContent='Serie: '+sk.cur+(sk.cur===1?' Tag':' Tage')+' · '+ST.w.length+' Siege';
     var go=$('hello-go');
     if(last){ go.hidden=false; go.innerHTML=PLAY+'<span>Weiterspielen<small>'+$('tile-'+last).querySelector('.tile-name').textContent+'</small></span>'; go.onclick=function(){ open(last); }; }
     else go.hidden=true;
@@ -4536,8 +4594,8 @@ HZG.kiste=function(){
   function setGame(g){
     var game=ORDER.indexOf(g)>=0;
     saveStats(); cur=g; window.HZK&&(HZK.cur=game?g:null);
-    document.body.classList.toggle('ingame', game); document.body.classList.toggle('instats', g==='stats');
-    $('home').hidden=!!g; $('back').hidden=!g; $('helpbtn').hidden=!game; $('who').hidden=!!g; $('stats').hidden=g!=='stats';
+    document.body.classList.toggle('ingame', game); document.body.classList.toggle('instats', g==='stats'||g==='research');
+    $('home').hidden=!!g; $('back').hidden=!g; $('helpbtn').hidden=!game; $('who').hidden=!!g; $('stats').hidden=g!=='stats'; $('research').hidden=g!=='research';
     ORDER.forEach(function(k){ $('g-'+k).hidden = k!==g; });
     var h=g?H[g]:HOME; $('h1').innerHTML=h[0]; $('sub').textContent=h[1];
     document.title=g?$('h1').textContent+' · Holzis Holzkiste':'Holzis Holzkiste';
@@ -4545,9 +4603,11 @@ HZG.kiste=function(){
     window.scrollTo(0,0);
     if(!g){ renderHome(); return; }
     if(g==='stats'){ renderStats(); return; }
+    if(g==='research'){ renderResearch(); return; }
     last=g; try{ localStorage.setItem('holzi-game', g); }catch(e){}
     if(g==='tan'&&window.HZT) HZT.show(); else if(g==='maze'&&window.HZM) HZM.show(); else if(g==='puzzle'&&window.HZP) HZP.show();
     else if(window.HZG&&HZG[g]) HZG[g](); else if(window.HZ) HZ.layout();
+    setTimeout(function(){ if(cur!==g) return; var nav=$('g-'+g).querySelector(':scope > nav'); if(!nav) return; var bs=[].slice.call(nav.querySelectorAll('button')); applyLocks(g, nav, bs, bs.indexOf(nav.querySelector('[aria-current="true"]'))); }, 150);
     var seen={}; try{ seen=JSON.parse(localStorage.getItem('holzi-seen')||"{}")||{}; }catch(e){}
     if(!seen[g]){ seen[g]=1; try{ localStorage.setItem('holzi-seen', JSON.stringify(seen)); }catch(e){} setTimeout(function(){ if(cur===g) showHelp(); }, 450); }
   }
@@ -4557,7 +4617,9 @@ HZG.kiste=function(){
   window.addEventListener('popstate', function(){ document.querySelectorAll('.overlay').forEach(function(o){ o.remove(); }); var g=location.hash.slice(1); setGame(valid(g)?g:null); });
   ORDER.forEach(function(k){ $('tile-'+k).onclick=function(){ open(k); }; });
   $('back').onclick=function(){ window.HZ&&HZ.tok(0.9); goHome(); };
-  $('hello-stat').onclick=function(){ open('stats'); };
+  $('hb-stats').onclick=function(){ open('stats'); };
+  $('hb-coins').onclick=function(){ open('research'); };
+  $('hb-rank').onclick=function(){ sTab='rank'; open('stats'); };
 
 
   // ---- Profile: wer spielt gerade? ----
@@ -4669,6 +4731,7 @@ HZG.kiste=function(){
     var days=Object.keys(S.d).filter(function(k){ var g=S.d[k].g||{}; return Object.keys(g).some(function(x){ return g[x]>0; }); });
     S.w.forEach(function(w){ var k=dkey(new Date(w[0])); if(days.indexOf(k)<0) days.push(k); });
     r.days=days.length; r.streak=streaks(days);
+    r.cs=coinState(id); r.wealth=wealth(r.cs); r.research=Object.keys(r.cs.r).length; r.pro=Object.keys(r.cs.r).filter(function(k){ return k.indexOf('pro_')===0; }).length;
     r.badges=badges(r);
     return r;
   }
@@ -4693,7 +4756,9 @@ HZG.kiste=function(){
       ['🏁','Rennsieger','Ein Seifenkisten-Rennen gewinnen',racewin||G.kiste.three>0?1:0,1],
       ['🏗️','Baumeister','Alle Aufträge der Zimmerei erledigen',G.haus.done,G.haus.lv.length],
       ['🐝','Honigfinder','Alle Labyrinthe schaffen',G.maze.done,G.maze.lv.length],
-      ['🔓','Ausbrecher','Holzi aus allen vier Kisten befreien',G.slide.done,G.slide.lv.length]
+      ['🔓','Ausbrecher','Holzi aus allen vier Kisten befreien',G.slide.done,G.slide.lv.length],
+      ['🔬','Forscher','5 Forschungen abschließen',Math.min(r.research,5),5],
+      ['🗝️','Profi-Schlüssel','Alle 11 Profi-Werkstätten freischalten',r.pro,11]
     ].map(function(b){ return {ic:b[0], name:b[1], desc:b[2], have:b[3], need:b[4], ok:b[3]>=b[4]&&b[4]>0}; });
   }
   function fmtDur(s){ s=Math.round(s||0); if(s<60) return s?'< 1 min':'0 min'; var m=Math.round(s/60); if(m<60) return m+' min'; return Math.floor(m/60)+' h '+('0'+m%60).slice(-2)+' min'; }
@@ -4776,7 +4841,8 @@ HZG.kiste=function(){
       kpi('⏱️',fmtDur(r.play),'Spielzeit',r.days+' Spieltag'+(r.days===1?'':'e'))+
       kpi('🔥',r.streak.cur+(r.streak.cur===1?' Tag':' Tage'),'Serie','längste: '+r.streak.best+(r.streak.best===1?' Tag':' Tage'))+
       kpi('🏆',r.wins,'Siege','seit Beginn der Statistik')+
-      kpi('🎖️',got+'<i>/'+r.badges.length+'</i>','Abzeichen',title(r))+'</div>';
+      kpi('🎖️',got+'<i>/'+r.badges.length+'</i>','Abzeichen',title(r))+
+      kpi(COIN,fmtC(r.cs.c),'Münzen','Vermögen '+fmtC(r.wealth))+kpi('🔬',r.research+'<i>/'+Object.keys(ITEMS).length+'</i>','erforscht',r.pro+' Profi-Werkstätten')+'</div>';
     h+='<div class="st-grid2"><section class="st-card"><h3>Lieblingsspiel</h3>'+(r.games[fav].play>0?'<button class="st-fav" data-open="'+fav+'">'+gIcon(fav)+'<span><b>'+gName(fav)+'</b><small>'+fmtDur(r.games[fav].play)+' gespielt · '+r.games[fav].stars+' von '+r.games[fav].max+' Sternen</small></span></button>':'<p class="st-empty">Noch keine Spielzeit gemessen. Einfach losspielen!</p>')+
       '<h3>Sterne je Gruppe</h3>'+GRPS.map(function(k){ var a=0,m=0; ORDER.forEach(function(g){ if(GRP[g]===k){ a+=r.games[g].stars; m+=r.games[g].max; } });
         return '<div class="st-bar"><span>'+GRPN[k]+'</span><i><b class="s-'+k+'" style="width:'+(100*a/m).toFixed(1)+'%"></b></i><em>'+a+' / '+m+'</em></div>'; }).join('')+'</section>';
@@ -4822,13 +4888,19 @@ HZG.kiste=function(){
   function viewRank(l){
     var rs=l.map(function(p){ var r=profileData(p.id); r.p=p; r.badgeN=r.badges.filter(function(b){ return b.ok; }).length; return r; });
     var M={stars:['Sterne',function(r){ return r.stars; },function(r){ return r.stars+' ⭐'; }],levels:['Level',function(r){ return r.levels; },function(r){ return r.levels+' Level'; }],
+           wealth:['Vermögen',function(r){ return r.wealth; },function(r){ return fmtC(r.wealth)+' Münzen'; }],research:['Forschung',function(r){ return r.research; },function(r){ return r.research+' erforscht'; }],
            play:['Spielzeit',function(r){ return r.play; },function(r){ return fmtDur(r.play); }],badges:['Abzeichen',function(r){ return r.badgeN; },function(r){ return r.badgeN+' 🎖️'; }]}, m=M[rankBy];
     rs.sort(function(a,b){ return m[1](b)-m[1](a)||b.stars-a.stars; });
     var h='<div class="seg small" role="radiogroup" aria-label="Rangliste nach">'+Object.keys(M).map(function(k){ return '<button role="radio" aria-checked="'+(k===rankBy)+'" data-rank="'+k+'">'+M[k][0]+'</button>'; }).join('')+'</div>';
     var top=[rs[1],rs[0],rs[2]], pos=['silver','gold','bronze'], medal=['🥈','🥇','🥉'];
     h+='<div class="podium">'+top.map(function(r,i){ return r?'<div class="pd pd-'+pos[i]+(r.id===PF.id?' me':'')+'"><span class="pd-medal">'+medal[i]+'</span>'+ava(r.p)+'<b>'+(r.p.name?esc(r.p.name):'Ohne Namen')+'</b><span class="pd-val">'+m[2](r)+'</span><small>'+title(r)+'</small><i class="pd-step"></i></div>':'<div class="pd pd-empty"></div>'; }).join('')+'</div>';
-    h+='<table class="st-rank"><thead><tr><th>#</th><th>Kind</th><th>Titel</th><th>Sterne</th><th>Level</th><th>Spielzeit</th><th>🎖️</th></tr></thead><tbody>'+rs.map(function(r,i){
-      return '<tr class="'+(r.id===PF.id?'me':'')+'"><td>'+(i+1)+'</td><td>'+ava(r.p,'pf-ava sm')+' '+(r.p.name?esc(r.p.name):'Ohne Namen')+'</td><td>'+title(r)+'</td><td>'+r.stars+'</td><td>'+r.levels+'</td><td>'+fmtDur(r.play)+'</td><td>'+r.badgeN+'</td></tr>'; }).join('')+'</tbody></table>';
+    // alle Mitspieler im Vergleich: je Spalte bekommt der Beste eine Krone
+    var COLS=[['Sterne',function(r){ return r.stars; },function(r){ return r.stars; }],['Level',function(r){ return r.levels; },function(r){ return r.levels; }],
+      ['Münzen',function(r){ return r.wealth; },function(r){ return fmtC(r.wealth); }],['Forschung',function(r){ return r.research; },function(r){ return r.research; }],
+      ['Spielzeit',function(r){ return r.play; },function(r){ return fmtDur(r.play); }],['Serie',function(r){ return r.streak.best; },function(r){ return r.streak.best+' T.'; }],['Abzeichen',function(r){ return r.badgeN; },function(r){ return r.badgeN; }]];
+    var tops=COLS.map(function(c){ var mx=Math.max.apply(null, rs.map(c[1])); return rs.length>1&&mx>0?mx:null; });
+    h+='<h3 class="st-h">Alle Mitspieler im Vergleich</h3><div class="st-scroll"><table class="st-rank"><thead><tr><th>#</th><th>Kind</th>'+COLS.map(function(c){ return '<th>'+c[0]+'</th>'; }).join('')+'</tr></thead><tbody>'+rs.map(function(r,i){
+      return '<tr class="'+(r.id===PF.id?'me':'')+'"><td>'+(i+1)+'</td><td class="nm">'+ava(r.p,'pf-ava sm')+' '+(r.p.name?esc(r.p.name):'Ohne Namen')+'<small>'+title(r)+'</small></td>'+COLS.map(function(c,k){ var top=tops[k]!==null&&c[1](r)===tops[k]; return '<td'+(top?' class="top"':'')+'>'+(top?'👑 ':'')+c[2](r)+'</td>'; }).join('')+'</tr>'; }).join('')+'</tbody></table></div>';
     if(l.length<2) h+='<div class="st-card st-solo"><p>Hier tretet ihr gegeneinander an! Leg für jedes Kind ein eigenes Profil an, dann erscheint ihr alle auf dem Treppchen.</p><button class="pf-btn go" data-a="profiles">Kinder anlegen</button></div>';
     h+='<h3 class="st-h">Wer führt in welchem Spiel?</h3><div class="leaders">'+ORDER.map(function(g){ var best=Math.max.apply(null, rs.map(function(r){ return r.games[g].stars; })), who=rs.filter(function(r){ return best>0&&r.games[g].stars===best; });
       return '<div class="leader">'+gIcon(g)+'<span><b>'+gName(g)+'</b><small>'+(who.length?who.map(function(r){ return (AVAS[r.p.ava||0]||AVAS[0])[0]+' '+(r.p.name?esc(r.p.name):'Ohne Namen'); }).join(', ')+' · '+best+' ⭐'+(who.length>1?' (Gleichstand)':''):'noch niemand')+'</small></span></div>'; }).join('')+'</div>';
@@ -4839,6 +4911,129 @@ HZG.kiste=function(){
     var got=r.badges.filter(function(b){ return b.ok; }).length;
     return '<p class="st-lead">'+got+' von '+r.badges.length+' Abzeichen verdient</p><div class="badges">'+r.badges.map(function(b){ var pct=b.need?Math.min(100,100*b.have/b.need):0;
       return '<div class="badge'+(b.ok?' ok':'')+'"><span class="bd-ic" aria-hidden="true">'+b.ic+'</span><b>'+b.name+'</b><small>'+b.desc+'</small>'+(b.ok?'<em>Geschafft!</em>':'<i class="bd-bar"><b style="width:'+pct.toFixed(0)+'%"></b></i><em>'+(b.name==='Ausdauer'?fmtDur(b.have*60)+' von 5 h':b.have+' / '+b.need)+'</em>')+'</div>'; }).join('')+'</div>';
+  }
+
+
+  // ---- Holz-Münzen und Forschung (je Kind, nur auf diesem Geraet) ----
+  var COIN='<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e3a83a" stroke="#9a6418" stroke-width="1.6"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#9a6418" stroke-width="1.2" opacity=".7"/><path d="M9 8.5c1.6 1 4.4 1 6 0M8.6 12c2 1 4.8 1 6.8 0M9 15.5c1.6 1 4.4 1 6 0" stroke="#9a6418" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>';
+  // ab diesem Level ist ein Spiel "Profi" und muss erforscht werden (was schon Sterne hat, bleibt offen)
+  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5};
+  var PATHS=[
+    {id:'werk', name:'Werkstatt', ic:'🔨', what:'Mehr Münzen für jeden neuen Stern', items:[
+      {id:'schleif', name:'Schleifpapier', ic:'🧻', cost:80, star:2},
+      {id:'hobel', name:'Hobel', ic:'🪚', cost:250, star:3, req:'schleif'},
+      {id:'drechsel', name:'Drechselbank', ic:'⚙️', cost:700, star:5, req:'hobel'},
+      {id:'meister', name:'Meisterbrief', ic:'📜', cost:1800, star:10, req:'drechsel'}]},
+    {id:'wald', name:'Wald', ic:'🌲', what:'Münzen jeden Tag, auch ohne zu spielen',items:[
+      {id:'setzling', name:'Setzling', ic:'🌱', cost:60, day:5},
+      {id:'baumschule', name:'Baumschule', ic:'🪴', cost:200, day:10, req:'setzling'},
+      {id:'mischwald', name:'Mischwald', ic:'🌳', cost:600, day:20, req:'baumschule'},
+      {id:'foersterei', name:'Försterei', ic:'🏡', cost:1500, day:40, req:'mischwald'}]},
+    {id:'fleiss', name:'Fleiß', ic:'🏆', what:'Mehr Münzen für jeden Sieg, auch beim Wiederholen',items:[
+      {id:'werkzeug', name:'Werkzeugkiste', ic:'🧰', cost:50, win:1},
+      {id:'saegebock', name:'Sägebock', ic:'🪵', cost:180, win:2, cap:20, req:'werkzeug'},
+      {id:'zwinge', name:'Leimzwinge', ic:'🗜️', cost:450, win:3, cap:40, req:'saegebock'},
+      {id:'zunft', name:'Zunftzeichen', ic:'🏅', cost:1200, win:5, cap:80, req:'zwinge'}]},
+    {id:'profi', name:'Profi-Werkstätten', ic:'🔓', what:'Schaltet die schwersten Level eines Spiels frei',items:[
+      {id:'pro_slide', game:'slide', name:'Holzspiel-Kiste', ic:'📦', cost:150},
+      {id:'pro_maze', game:'maze', name:'Profi-Flug', ic:'🐝', cost:150},
+      {id:'pro_sudoku', game:'sudoku', name:'Großes Holzbrett', ic:'🔢', cost:150},
+      {id:'pro_tower', game:'tower', name:'Baumstumpf', ic:'🪵', cost:150},
+      {id:'pro_worte', game:'worte', name:'Wortmeister-Kiste', ic:'🔤', cost:200},
+      {id:'pro_haus', game:'haus', name:'Rathaus-Auftrag', ic:'🏛️', cost:200},
+      {id:'pro_kiste', game:'kiste', name:'Großer Preis', ic:'🏁', cost:200},
+      {id:'pro_marble', game:'marble', name:'Riesenbahnen', ic:'🔵', cost:250},
+      {id:'pro_kreuz', game:'kreuz', name:'Profi-Rätsel', ic:'📝', cost:300},
+      {id:'pro_puzzle', game:'puzzle', name:'Großpuzzles', ic:'🧩', cost:400},
+      {id:'pro_tan', game:'tan', name:'Profi-Figuren', ic:'🔺', cost:400}]}
+  ];
+  var ITEMS={}; PATHS.forEach(function(p){ p.items.forEach(function(it){ it.path=p.id; ITEMS[it.id]=it; }); });
+  var BASE={star:10, win:2, day:0, cap:40};
+  function fmtC(n){ return Math.round(n).toLocaleString('de-DE'); }
+  function coinState(id){
+    id=id||PF.id; var s=null; try{ s=JSON.parse(PF.read(id,'holzi-coins')||'null'); }catch(e){}
+    if(s&&typeof s==='object'){ s.got=s.got||{}; s.r=s.r||{}; s.log=s.log||[]; return s; }
+    // erstes Mal: Startguthaben fuer die schon vorhandenen Sterne
+    var got={}, n=0; ORDER.forEach(function(g){ got[g]=lvStars(g,id); got[g].forEach(function(v){ n+=v; }); });
+    return {c:n*BASE.star, earned:n*BASE.star, got:got, r:{}, day:dkey(), wd:'', wn:0, log:n?[[Date.now(), n*BASE.star, 'Startguthaben für '+n+' Sterne']]:[], fresh:true};
+  }
+  var CS=coinState();
+  function saveCoins(){ delete CS.fresh; if(CS.log.length>60) CS.log=CS.log.slice(-60); try{ localStorage.setItem('holzi-coins', JSON.stringify(CS)); }catch(e){} }
+  function rates(s){ var r={star:BASE.star, win:BASE.win, day:BASE.day, cap:BASE.cap}; Object.keys(s.r).forEach(function(k){ var it=ITEMS[k]; if(!it) return; ['star','win','day','cap'].forEach(function(x){ if(it[x]) r[x]+=it[x]; }); }); return r; }
+  function owned(id,s){ return !!(s||CS).r[id]; }
+  function add(n, why){ if(n<=0) return; CS.c+=n; CS.earned=(CS.earned||0)+n; CS.log.push([Date.now(), n, why]); }
+  function daysBetween(a,b){ return Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5); }
+  // neue Sterne und Tageseinkommen gutschreiben; gibt die Summe zurueck
+  function settle(){
+    var r=rates(CS), sum=0, stars=0;
+    ORDER.forEach(function(g){ var now=lvStars(g), old=CS.got[g]||[]; now.forEach(function(v,i){ var d=v-(old[i]||0); if(d>0) stars+=d; }); CS.got[g]=now.map(function(v,i){ return Math.max(v, old[i]||0); }); });
+    if(stars){ add(stars*r.star, stars+(stars===1?' neuer Stern':' neue Sterne')); sum+=stars*r.star; }
+    var today=dkey(), dd=CS.day?daysBetween(CS.day,today):0;
+    if(dd>0&&r.day>0){ var n=Math.min(7,dd)*r.day; add(n, 'Wald-Einkommen für '+Math.min(7,dd)+(Math.min(7,dd)===1?' Tag':' Tage')); sum+=n; }
+    CS.day=today;
+    if(sum||CS.fresh) saveCoins();
+    return sum;
+  }
+  function winBonus(){
+    var r=rates(CS), today=dkey(); if(CS.wd!==today){ CS.wd=today; CS.wn=0; }
+    var n=Math.max(0, Math.min(r.win, r.cap-CS.wn)); if(n){ CS.wn+=n; add(n,'Sieg'); saveCoins(); } return n;
+  }
+  function toast(html){ var t=document.createElement('div'); t.className='coin-toast'; t.innerHTML=html; document.body.appendChild(t); setTimeout(function(){ t.classList.add('out'); }, 2200); setTimeout(function(){ t.remove(); }, 2700); }
+  settle();
+  // bei jedem Sieg: Sterne verrechnen + Siegbonus, kurz anzeigen
+  new MutationObserver(function(ms){ ms.forEach(function(m){ [].forEach.call(m.addedNodes, function(n){
+    if(!GRP[cur]||n.nodeType!==1||!n.classList.contains('overlay')||!n.querySelector('.win')) return;
+    var a=settle(), b=winBonus();
+    if(a+b) setTimeout(function(){ toast(COIN+'<b>+'+fmtC(a+b)+'</b> Münzen'); window.HZ&&HZ.tune&&HZ.tune([988,1319],0.06); }, 400);
+  }); }); }).observe(document.body,{childList:true});
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='visible'&&settle()) renderHome(); });
+
+  // ---- gesperrte Profi-Level ----
+  function isLocked(g,i,id){ var s=id&&id!==PF.id?coinState(id):CS; return i>=LOCK[g]&&i<STARS[g][1]&&!owned('pro_'+g,s)&&!(lvStars(g,id)[i]>0); }
+  function lockInfo(g){ var it=ITEMS['pro_'+g];
+    var h='<h2>🔒 Profi-Level</h2><p class="pf-hint">Die schwersten Level von <b>'+gName(g)+'</b> werden in der Forschung freigeschaltet: <b>'+it.ic+' '+it.name+'</b> für '+COIN+' '+fmtC(it.cost)+' Münzen.</p>'+
+      '<p class="pf-hint">Du hast '+COIN+' <b>'+fmtC(CS.c)+'</b>. Münzen gibt es für jeden neuen Stern und jeden Sieg.</p>'+
+      '<div class="pf-foot"><button type="button" class="pf-btn" data-a="close">Weiterspielen</button><button type="button" class="pf-btn go" data-a="res">Zur Forschung</button></div>';
+    var box=dialog(h); box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); };
+    box.querySelector('[data-a="res"]').onclick=function(){ box.parentNode.remove(); open('research'); };
+  }
+  // markiert gesperrte Knoepfe; laeuft ein gesperrtes Level, zurueck auf das letzte offene
+  function applyLocks(g, nav, bs, i){
+    bs.forEach(function(b,k){ var l=isLocked(g,k); if(b.classList.contains('locked')!==l) b.classList.toggle('locked', l);
+      var has=b.querySelector('.lock-ic'); if(l&&!has) b.insertAdjacentHTML('beforeend','<span class="lock-ic" aria-label="gesperrt">🔒</span>'); else if(!l&&has) has.remove(); });
+    if(g===cur&&i>=0&&isLocked(g,i)){ var back=bs[LOCK[g]-1]; if(back){ setTimeout(function(){ back.click(); lockInfo(g); }, 60); return true; } }
+    return false;
+  }
+  ORDER.forEach(function(g){ var nav=$('g-'+g).querySelector(':scope > nav'); if(!nav) return;
+    nav.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b||!b.classList.contains('locked')) return;
+      e.preventDefault(); e.stopImmediatePropagation(); window.HZ&&HZ.tune&&HZ.tune([300,220],0.07,'square'); lockInfo(g); }, true); });
+
+  // ---- Forschungs-Seite ----
+  var armed=null, armT=0;
+  function itemState(it){ if(owned(it.id)) return 'own'; if(it.req&&!owned(it.req)) return 'req'; return CS.c>=it.cost?'buy':'poor'; }
+  function effect(it){ if(it.game) return 'Profi-Level in '+gName(it.game); var e=[]; if(it.star) e.push('+'+it.star+' pro Stern'); if(it.day) e.push('+'+it.day+' pro Tag'); if(it.win) e.push('+'+it.win+' pro Sieg'); if(it.cap) e.push('Tagesgrenze +'+it.cap); return e.join(' · '); }
+  function wealth(s){ var v=s.c; Object.keys(s.r).forEach(function(k){ if(ITEMS[k]) v+=ITEMS[k].cost; }); return v; }
+  function renderResearch(){
+    settle(); var r=rates(CS), n=Object.keys(CS.r).length, today=dkey(), todayE=CS.log.filter(function(l){ return dkey(new Date(l[0]))===today; }).reduce(function(a,l){ return a+l[1]; },0);
+    var h='<div class="kpis">'+kpi(COIN,fmtC(CS.c),'Münzen','Vermögen '+fmtC(wealth(CS)))+kpi('⭐','+'+r.star,'pro neuem Stern','')+kpi('🏆','+'+r.win,'pro Sieg','bis '+r.cap+' am Tag')+
+      kpi('🌲','+'+r.day,'pro Tag','auch ohne Spielen')+kpi('📅','+'+fmtC(todayE),'heute verdient','')+kpi('🔬',n+'<i>/'+Object.keys(ITEMS).length+'</i>','erforscht','')+'</div>';
+    PATHS.forEach(function(p){
+      h+='<section class="rs-path"><h3><span aria-hidden="true">'+p.ic+'</span>'+p.name+'<small>'+p.what+'</small></h3><div class="rs-items">'+p.items.map(function(it){
+        var s=itemState(it), btn;
+        if(s==='own') btn='<span class="rs-own">✓ erforscht</span>';
+        else if(s==='req') btn='<span class="rs-req">braucht erst '+ITEMS[it.req].ic+' '+ITEMS[it.req].name+'</span>';
+        else btn='<button class="rs-buy'+(armed===it.id?' armed':'')+'" data-buy="'+it.id+'"'+(s==='poor'?' disabled':'')+'>'+(armed===it.id?'Wirklich kaufen?':COIN+' '+fmtC(it.cost))+'</button>'+(s==='poor'?'<small class="rs-miss">noch '+fmtC(it.cost-CS.c)+' Münzen</small>':'');
+        return '<article class="rs-item '+s+'"><span class="rs-ic" aria-hidden="true">'+it.ic+'</span><b>'+it.name+'</b><small>'+effect(it)+'</small>'+btn+'</article>'; }).join('')+'</div></section>';
+    });
+    h+='<section class="st-card"><h3>Kontoauszug</h3>'+(CS.log.length?'<ul class="rs-log">'+CS.log.slice(-12).reverse().map(function(l){ return '<li><span>'+esc(l[2])+'</span><small>'+relDay(l[0])+'</small><b class="'+(l[1]<0?'neg':'')+'">'+(l[1]>0?'+':'')+fmtC(l[1])+'</b></li>'; }).join('')+'</ul>':'<p class="st-empty">Noch keine Münzen. Für jeden neuen Stern gibt es '+r.star+'!</p>')+'</section>'+
+      '<p class="st-note">Münzen gibt es für jeden neuen Stern ('+r.star+'), jeden Sieg ('+r.win+', höchstens '+r.cap+' am Tag) und jeden Tag aus dem Wald ('+r.day+', bis zu 7 Tage nachträglich). Level mit Sternen bleiben immer spielbar.</p>';
+    var box=$('research'); box.innerHTML='<div class="st-body">'+h+'</div>';
+    box.querySelectorAll('[data-buy]').forEach(function(b){ b.onclick=function(){ var id=b.getAttribute('data-buy'), it=ITEMS[id];
+      if(itemState(it)!=='buy') return;
+      if(armed!==id||Date.now()-armT>4000){ armed=id; armT=Date.now(); window.HZ&&HZ.tok(1.2); renderResearch(); return; }
+      armed=null; CS.c-=it.cost; CS.r[id]=Date.now(); CS.log.push([Date.now(), -it.cost, 'Erforscht: '+it.name]); saveCoins();
+      window.HZ&&HZ.tune&&HZ.tune([523,659,784,1047],0.09); window.HZ&&HZ.leaves&&HZ.leaves();
+      toast((it.ic||'🔬')+' <b>'+it.name+'</b> erforscht!'); renderResearch(); }; });
   }
 
   // So geht's: der Hilfetext des Spiels als Fenster
@@ -4867,6 +5062,7 @@ HZG.kiste=function(){
     function upd(){
       var bs=[].slice.call(nav.querySelectorAll('button')), c=nav.querySelector('[aria-current="true"]'), i=bs.indexOf(c);
       if(g===cur&&i!==lastI) attempt=0; lastI=i;   // neues Level: Dauer fuer die Statistik neu messen
+      applyLocks(g, nav, bs, i);
       var nm=c&&c.querySelector('.nm'), st=c&&c.querySelector('.st'), age=c&&c.querySelector('.age');
       var n=STARS[g][1], txt=i<0||i>=n ? 'Selber bauen' : 'Level '+(i+1)+' von '+n+(age&&age.textContent?' · '+age.textContent:'');
       chip.innerHTML='<span class="lc-disc">'+(i>=0&&i<n?i+1:'+')+'</span><span class="lc-txt"><b>'+(nm?nm.textContent:'Level wählen')+'</b><small>'+txt+'</small></span>'+

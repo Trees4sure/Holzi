@@ -36,6 +36,13 @@ Elf Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe 
   (Treppchen, Titel, wer in welchem Spiel führt) und 16 Abzeichen.
   Spielzeit zählt nur, solange ein Spiel offen ist und in der letzten Minute getippt wurde.
   Alles bleibt auf dem Gerät (`holzi-stats` je Profil).
+- **Münzen & Forschung** (Startseite → „Münzen & Forschung“): 10 Münzen je neuem Stern (Startguthaben für
+  schon vorhandene Sterne), 2 je Sieg (höchstens 40 am Tag), dazu tägliches Einkommen. Vier Forschungspfade:
+  Werkstatt (mehr pro Stern), Wald (pro Tag), Fleiß (pro Sieg, höhere Tagesgrenze) und Profi-Werkstätten,
+  die je Spiel die schwersten Level freischalten. Level mit Sternen bleiben immer spielbar. Kaufen mit
+  zweimal Tippen. Daten je Profil in `holzi-coins`.
+- **Mitspieler-Übersicht:** Startseite zeigt die drei Besten; die Rangliste vergleicht alle Kinder über Sterne,
+  Level, Münzen/Vermögen, Forschung, Spielzeit, Serie und Abzeichen (Krone für den Besten je Spalte).
 
 ## Inhalt
 
@@ -92,8 +99,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v16";` hochzählen
-(`holzi-v17` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v17";` hochzählen
+(`holzi-v18` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
