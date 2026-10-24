@@ -1,5 +1,5 @@
 // Holzi will raus – Service Worker: alles offline verfügbar
-const VERSION = "holzi-v23";
+const VERSION = "holzi-v24";
 const CORE = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const CORE = [
   "./cannon.min.js",
   "./matter.min.js",
   "./qrcode.js",
+  "./wortwald.txt",
   "./icon-192.png",
   "./icon-512.png",
   "./maskable-512.png",

@@ -1,6 +1,6 @@
 # Holzis Holzkiste – PWA
 
-Sechzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
+Siebzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
 
 | Spiel | Worum es geht |
 |---|---|
@@ -19,6 +19,7 @@ Sechzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
 | **Klötzchenregen** | Fallende Holzklötze: volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
 | **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; Wachstumskurven je Baumart (Höhe, Vorrat); Klimabaumarten Zerreiche, Orientbuche, Baumhasel; eigenes Sägewerk mit Schnittholz, Aufträgen und Ausbauten; Einführung „Erste Schritte“ und Vorschläge „Was jetzt?“; 6 Szenarien bis 60 Jahre |
+| **Wortwald** | Wörter legen wie beim Scrabble, aber ohne Buchstabenwerte: Punkte für Länge und **Seltenheit** des Wortes (Rang in einer Häufigkeitsliste, 1–5 Blätter von „Alltagswort“ bis „Rarität“), **Wald- und Holzwörter zählen doppelt**; auf dem Feld stehen Tannen (+5 beim Zudecken) und alte Eichen (Wort ×2). Tipps vom Zug-Sucher, drei Level allein mit Punktzielen, drei gegen Holzi (leicht/mittel/stark) |
 | **Lückenrätsel** | 30 Rätsel über Wald, Tiere und Werkstatt: erst fehlende Buchstaben, dann ganze Wörter (mit Ablenkwörtern), am Ende „Wer bin ich?“ |
 
 ## Aufbau
@@ -62,6 +63,7 @@ Sechzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | `three.min.js` | 3D-Grafik für Zimmerei und Seifenkiste (three.js r128, MIT-Lizenz) |
 | `qrcode.js` | QR-Code für „Teilen“ auf der Startseite (qrcode-generator von Kazuhiko Arase, MIT-Lizenz) |
 | `cannon.min.js` | 3D-Physik für die Seifenkiste (cannon.js 0.6.2, MIT-Lizenz) |
+| `wortwald.txt` | Wörterbuch für den Wortwald (~78 000 Wörter mit 2–9 Buchstaben, häufige zuerst = Seltenheits-Rang); wird erst beim Öffnen des Spiels geladen. Lizenz und Quellen in `wortwald-lizenz.txt` |
 
 ## Lokal testen
 
@@ -105,12 +107,14 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v23";` hochzählen
-(`holzi-v24` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v24";` hochzählen
+(`holzi-v25` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
 Die Wortlisten der Wörter-Werkstatt sind aus der [deutschen Wortliste von davidak](https://github.com/davidak/wortliste) (GPL-3.0) und den [FrequencyWords von Hermit Dave](https://github.com/hermitdave/FrequencyWords) (CC-BY-SA-4.0) abgeleitet.
+
+Das Wörterbuch des Wortwalds (`wortwald.txt`) ist aus [igerman98](https://www.j3e.de/ispell/igerman98/) von Björn Jacke (GPLv2/GPLv3, über [wooorm/dictionaries](https://github.com/wooorm/dictionaries)) erzeugt: alle Wortformen ausgeschrieben, Großbuchstaben, ß als SS, 2–9 Buchstaben, ein Filter für Schimpfwörter. Die Reihenfolge (Seltenheit) und ein Teil der zusammengesetzten Wörter stammen aus den FrequencyWords (CC-BY-SA-4.0). Details in `wortwald-lizenz.txt`.
 
 ## Forstbetrieb – Modell
 

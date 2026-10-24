@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#e4ecdc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141c16" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Holzis Holzkiste: sechzehn Holzspiele für Kinder – Schieben, Tangram, Labyrinth, Puzzle, Sudoku, Kreuzworträtsel, Wörter, Murmelbahn, Wackelturm, Zimmerei und Seifenkiste.">
+<meta name="description" content="Holzis Holzkiste: siebzehn Holzspiele für Kinder – Schieben, Tangram, Labyrinth, Puzzle, Sudoku, Kreuzworträtsel, Wörter, Murmelbahn, Wackelturm, Zimmerei und Seifenkiste.">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -718,7 +718,7 @@ body.ingame{--chrome:400px}
   body.ingame .game > :is(.stage,.tboard,.mboard,.pboard,.board-wrap){grid-column:1; grid-row:1 / -1; justify-self:center; position:sticky; top:84px}
   body.ingame .game > :is(.tboard,.mboard,.pboard,.board-wrap){max-width:min(760px, calc(var(--bh) / var(--ar, 1)))}
   #g-sudoku,#g-kreuz,#g-kiste{--xtra:0px}
-  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:2.01} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12}
+  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:2.01} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4}
   body.ingame .game > .bubble::after{left:-9px; top:50%; bottom:auto; transform:translateY(-50%) rotate(135deg)}
   body.ingame .levels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
   /* Puzzle quer: Brett und Ablage nebeneinander ueber die ganze Breite, Bedienung darunter */
@@ -1002,6 +1002,60 @@ body.ingame{--chrome:400px}
 .fo-log li{display:flex; gap:8px; padding:5px 0; border-bottom:1px solid var(--line)} .fo-log li span{flex:none; width:44px; color:var(--muted); font-variant-numeric:tabular-nums}
 .fo-log li.bad{color:#b0331f} .fo-log li.harvest,.fo-log li.thin{color:var(--moss)}
 
+/* ---- Wortwald ---- */
+#g-wortwald .board-wrap{max-width:min(600px, max(330px, calc(var(--bh) / 1.4)))}
+.ww{width:100%; display:flex; flex-direction:column; gap:10px; align-items:stretch}
+.ww-top{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; align-items:stretch}
+.ww-sc{display:flex; flex-direction:column; align-items:center; min-width:62px; padding:4px 10px; border-radius:14px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line)}
+.ww-sc span{font:700 11.5px var(--font-body); color:var(--muted)} .ww-sc b{font:800 20px/1.1 var(--font-display); font-variant-numeric:tabular-nums}
+.ww-sc.you{box-shadow:inset 0 0 0 2px var(--moss)} .ww-sc.cpu{box-shadow:inset 0 0 0 2px var(--accent)}
+.ww-sc.info b{font-size:16px; line-height:1.4}
+.ww-goal{display:flex; gap:8px; align-items:center; padding:0 6px; font:800 14px var(--font-display); color:var(--muted)}
+.ww-goal span{display:inline-flex; align-items:center; gap:2px} .ww-goal span.on{color:var(--ink)} .ww-goal svg{width:20px; height:20px}
+.ww-board{--n:11; display:grid; grid-template-columns:repeat(var(--n),minmax(0,1fr)); gap:2px; padding:7px; border-radius:18px; touch-action:manipulation;
+  background:radial-gradient(120% 90% at 30% 20%, #8fb85e, #5d8a3a 70%, #4d7630); box-shadow:inset 0 0 0 3px rgba(40,70,20,.35), 0 12px 26px -14px rgba(30,45,10,.6)}
+.ww-c{position:relative; aspect-ratio:1; min-width:0; padding:0; border:0; border-radius:max(4px,14%); cursor:pointer; display:grid; place-items:center;
+  background:linear-gradient(160deg, #e9f0cf, #d3e2ac); box-shadow:inset 0 -2px 0 rgba(60,90,30,.18); color:#3c2610; -webkit-tap-highlight-color:transparent}
+.ww-c:nth-child(odd){background:linear-gradient(160deg, #e3ecc5, #cddca3)}
+.ww-c svg{width:78%; height:78%; pointer-events:none}
+.ww-c.tree,.ww-c.old{background:linear-gradient(160deg, #cfe2a4, #b2cd7f)}
+.ww-c.old{box-shadow:inset 0 0 0 2px #e2b23e, inset 0 -2px 0 rgba(60,90,30,.18)}
+.ww-c.mid{background:linear-gradient(160deg, #fbefc4, #f1d98c)}
+.ww-c.has{background:linear-gradient(160deg, var(--ash), var(--ash-dark)); box-shadow:inset 0 -3px 0 rgba(120,70,20,.35), 0 1px 2px rgba(40,20,5,.35)}
+.ww-c.has b{font:800 clamp(14px, calc(min(560px, 92vw) / var(--n) * .55), 30px)/1 var(--font-display); pointer-events:none}
+.ww-c.has i{position:absolute; right:1px; bottom:1px; width:38%; height:38%; pointer-events:none; opacity:.9}
+.ww-c.has i svg{width:100%; height:100%}
+.ww-c.cpu{background:linear-gradient(160deg, #f6cfa8, #e3a874)}
+.ww-c.pend{background:linear-gradient(160deg, #fff6e2, #f3d9a4); box-shadow:inset 0 0 0 2.5px var(--accent), 0 3px 6px rgba(40,20,5,.35); transform:translateY(-1px); cursor:grab; touch-action:none}
+.ww-c.last{box-shadow:inset 0 0 0 2.5px #3fb24a, inset 0 -3px 0 rgba(120,70,20,.35)}
+.ww-c.bad{box-shadow:inset 0 0 0 2.5px #c0392b; background:linear-gradient(160deg, #fde4dc, #f3bba8)}
+.ww-c:focus-visible{outline:3px solid var(--accent); outline-offset:1px}
+.ww-prev{min-height:44px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:14px}
+.ww-muted{color:var(--muted); font-weight:700}
+.ww-err{color:#b0331f; font-weight:700}
+.ww-ev{display:flex; flex-wrap:wrap; gap:4px 10px; justify-content:center; align-items:center}
+.ww-w{display:inline-flex; flex-wrap:wrap; gap:4px; align-items:center; padding:3px 9px; border-radius:12px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line)}
+.ww-w b{font:800 15px var(--font-display); letter-spacing:.04em} .ww-w em{font-style:normal; font-size:12.5px; color:var(--muted); display:inline-flex; align-items:center; gap:3px}
+.ww-w em.fo{color:var(--moss); font-weight:700} .ww-w em.ol{color:#a0621a; font-weight:700} .ww-w strong{font:800 14px var(--font-display)}
+.ww-tot{font:900 20px var(--font-display); color:var(--accent)}
+.ww-leaf{display:inline-flex; gap:1px} .ww-leaf i{width:6px; height:9px; border-radius:6px 0 6px 0; background:var(--line)} .ww-leaf i.on{background:var(--moss)}
+.ww-rack{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:6px; padding:8px; border-radius:16px; background:linear-gradient(170deg,var(--tray),var(--tray-dark)); box-shadow:inset 0 -4px 0 rgba(60,30,8,.25), 0 8px 18px -10px rgba(40,20,5,.5)}
+.ww-t{aspect-ratio:1; max-height:64px; justify-self:center; width:100%; border:0; padding:0; border-radius:12px; display:grid; place-items:center; cursor:grab; touch-action:none;
+  background:linear-gradient(160deg, var(--ash), var(--ash-dark)); box-shadow:inset 0 -4px 0 rgba(120,70,20,.35), 0 2px 4px rgba(40,20,5,.35); color:#3c2610; -webkit-tap-highlight-color:transparent}
+.ww-t b{font:800 clamp(20px,6vw,30px)/1 var(--font-display); pointer-events:none}
+.ww-t.sel{transform:translateY(-5px); box-shadow:inset 0 0 0 3px var(--accent), inset 0 -4px 0 rgba(120,70,20,.35), 0 8px 12px rgba(40,20,5,.35)}
+.ww-t.used{opacity:.25; cursor:default; box-shadow:none}
+.ww-t.gone{background:rgba(60,30,8,.15); box-shadow:none}
+.ww-ghost{position:fixed; z-index:50; width:52px; height:52px; margin:-26px 0 0 -26px; display:grid; place-items:center; border-radius:12px; pointer-events:none;
+  background:linear-gradient(160deg, var(--ash), var(--ash-dark)); box-shadow:0 10px 18px rgba(40,20,5,.45); font:800 28px var(--font-display); color:#3c2610; transform:rotate(-4deg)}
+.ww-log{width:100%; max-width:600px; margin:0 auto}
+.ww-log h4{margin:2px 0 6px; font:800 14px var(--font-display)}
+.ww-chips{display:flex; flex-wrap:wrap; gap:5px}
+.ww-chip{padding:3px 9px; border-radius:99px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line); font:800 12.5px var(--font-body); letter-spacing:.03em}
+.ww-chip b{color:var(--accent)} .ww-chip.fo{box-shadow:inset 0 0 0 1.5px var(--moss)} .ww-chip.cpu{opacity:.8; font-weight:700}
+#g-wortwald .tools{gap:6px} #g-wortwald .tool{padding-left:4px; padding-right:4px}
+@media (max-width:480px){ .ww-board{gap:1.5px; padding:5px; border-radius:14px} .ww-rack{gap:4px; padding:6px} .ww-sc{min-width:52px; padding:3px 7px} .ww-sc b{font-size:17px} }
+
 /* ---- Lueckenraetsel ---- */
 #g-luecke .board-wrap{max-width:680px}
 .lu-card{padding:22px 22px 18px; border-radius:22px; background:linear-gradient(170deg,#fbf3e2,#f1e0bd); color:#3c2610; box-shadow:inset 0 0 0 2px #d8b77e, 0 10px 24px -12px rgba(40,25,10,.4)}
@@ -1074,7 +1128,7 @@ body.ingame{--chrome:400px}
     <button class="iconbtn back" id="back" aria-label="Zu allen Spielen" title="Alle Spiele" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="titles">
       <h1 id="h1">Holzis <span>Holzkiste</span></h1>
-      <p class="sub" id="sub">Sechzehn Holzspiele für Kinder</p>
+      <p class="sub" id="sub">Siebzehn Holzspiele für Kinder</p>
     </div>
     <button class="who" id="who" type="button"></button>
     <button class="iconbtn" id="sharebtn" aria-label="App teilen" title="Teilen (QR-Code)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><path d="M14 14h3v3h-3zM20 14v.01M14 20v.01M17 17h3v3"/></svg></button>
@@ -1116,6 +1170,7 @@ body.ingame{--chrome:400px}
         <button class="tile" id="tile-kreuz" data-g="kreuz"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9.5" y="3" width="5" height="18"/><rect x="3" y="9.5" width="18" height="5"/><path d="M9.5 8h5M9.5 16h5"/></svg></span><span class="tile-txt"><span class="tile-name">Kreuzwort</span><span class="tile-sub">Rund um Baum und Wald</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-worte" data-g="worte"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16l3-8 3 8M10.2 13h3.6"/></svg></span><span class="tile-txt"><span class="tile-name">Wörter</span><span class="tile-sub">Die Wörter-Werkstatt</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-luecke" data-g="luecke"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h5M13 7h8M3 12h3M15 12h6M3 17h10"/><rect x="8.5" y="5" width="3" height="4" rx=".8"/><rect x="7.5" y="10" width="6" height="4" rx=".8"/><path d="M18 15.5c0-1 .8-1.6 1.6-1.6s1.4.6 1.4 1.4c0 1.2-1.5 1.3-1.5 2.4M19.5 20v.01"/></svg></span><span class="tile-txt"><span class="tile-name">Lückenrätsel</span><span class="tile-sub">Lücken füllen, Rätsel lösen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-wortwald" data-g="wortwald"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/><path d="M12 10.2l2.2 3.3h-4.4z" fill="currentColor" stroke="none"/></svg></span><span class="tile-txt"><span class="tile-name">Wortwald</span><span class="tile-sub">Wörter legen, Bäume zudecken</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
       </div>
     </section>
     <section class="tgroup g-b" aria-label="Bauen &amp; Fahren">
@@ -1508,6 +1563,7 @@ body.ingame{--chrome:400px}
 <section class="game" id="g-kloetze" hidden></section>
 <section class="game" id="g-forst" hidden></section>
 <section class="game" id="g-luecke" hidden></section>
+<section class="game" id="g-wortwald" hidden></section>
 
 </div>
 <canvas id="leaves" hidden></canvas>
@@ -5819,15 +5875,364 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
 
 <script src="qrcode.js"></script>
 <script>
+(function(){
+"use strict";
+/* Wortwald: Wörter legen wie beim Scrabble – aber ohne Buchstabenwerte. Punkte gibt es für die Länge, für seltene
+   Wörter (Seltenheitswert aus der Häufigkeitsliste) und doppelt für Wald- und Holzwörter. Auf dem Feld stehen Bäume:
+   eine Tanne zudecken bringt +5, ein Wort über die alte Eiche zählt doppelt. */
+var K=HZK, hz=K.hz;
+/* ---- Spielregeln (zum Drehen) ---- */
+var LEN_PTS=[0,0,1,2,4,6,9,12,16,20];          // Punkte nach Wortlänge (Index = Buchstaben)
+var RAR=[                                        // Seltenheit nach Rang in der Häufigkeitsliste
+  {max:1500,  pts:0, name:"Alltagswort", leaf:1},
+  {max:5000,  pts:1, name:"bekannt",     leaf:2},
+  {max:12000, pts:2, name:"seltener",    leaf:3},
+  {max:1e9,   pts:4, name:"selten",      leaf:4},
+  {max:-1,    pts:5, name:"Rarität",     leaf:5}];
+var TREE_PTS=5, BINGO=15, RACK=7;
+var LEVELS=[
+ {name:"Lichtung",    age:"ab 7",  n:9,  trees:5,  old:1, turns:6,  goal:[25,45,65], easy:true},
+ {name:"Waldweg",     age:"ab 8",  n:11, trees:8,  old:2, turns:8,  goal:[40,65,95], easy:true},
+ {name:"Waldwörter",  age:"ab 8",  n:11, trees:10, old:2, turns:8,  goal:[45,75,105], forest:true},
+ {name:"Holzi spielt mit", age:"ab 8", n:11, trees:8, old:2, turns:7, cpu:0.15, easy:true},
+ {name:"Wettstreit",  age:"ab 10", n:11, trees:9,  old:2, turns:8,  cpu:0.55},
+ {name:"Urwald",      age:"ab 12", n:11, trees:14, old:3, turns:9,  cpu:0.9}];
+var BAG_DE={E:15,N:9,S:7,I:6,R:6,T:6,U:6,A:5,D:4,H:4,M:4,G:3,L:3,O:3,B:2,C:2,F:2,K:2,W:1,Z:1,P:1,"Ä":1,"Ö":1,"Ü":1,J:1,V:1,X:1,Q:1,Y:1};
+var VOW="AEIOUÄÖÜ";
+/* Wald- und Holzwörter: Wortteile, die überall im Wort zählen dürfen … */
+var FOREST_ANY=["WALD","HOLZ","HÖLZ","BAUM","BÄUM","FORST","FÖRST","BLATT","BLÄTT","TANNE","FICHTE","KIEFER","BIRKE","LÄRCHE","AHORN",
+  "ZWEIG","WURZEL","ZAPFEN","NADEL","MOOS","PILZ","HARZ","SÄGE","BRETT","BALKEN","STAMM","STÄMM","SPECHT","HIRSCH","DACHS","BIBER","EICHEL","LICHTUNG",
+  "DICKICHT","KNOSPE","SCHREINER","TISCHLER","ZIMMERER","KLOTZ","KLÖTZ","PAPPEL","BEERE","BUSCH","BÜSCH","STRAUCH","STRÄUCH","HUMUS","BORKE","KÄFER",
+  "FUCHS","FÜCHS","EICHHÖRN","KASTANIE","HOBEL","DÜBEL","SPÄNE","FARN","ROTBUCHE","REISIG","WIPFEL","SETZLING","SÄMLING","SCHÖSSLING","FURNIER","PARKETT","SCHINDEL",
+  "ZUNDER","MULCH","PFAHL","PFÄHL","BOHLE","KORK","PELLET","ÄSTCHEN","SCHNITZ","STIELEICHE","ZERREICHE","SCHWARZERLE","AXT","ÄXTE"];
+/* … und kurze Wörter, die nur als ganzes Wort (mit Endung) zählen – sonst wäre LEICHE eine Eiche und PERLE eine Erle */
+var FOREST_WORD=["EICHE","BUCHE","LINDE","ESCHE","ULME","ERLE","WEIDE","IGEL","REH","AST","ÄSTE","HAIN","HECKE","KEIM","SAMEN","LAUB","LAUBE","BEIL","WILD","JÄGER","RINDE","SCHEIT","LEIM","EULE","SPAN","DIELE","LATTE","BAST","KIEN"];
+var FOREST_END=["","E","N","EN","S","ES","ER","ERN"];
+
+var $=K.mount("g-wortwald",{
+  board:'<div class="ww" id="wortwald-ww"><div class="ww-top" id="wortwald-top"></div><div class="ww-board" id="wortwald-board" role="grid" aria-label="Spielfeld"></div>'+
+        '<div class="ww-prev" id="wortwald-prev" aria-live="polite"></div><div class="ww-rack" id="wortwald-rack" aria-label="Deine Buchstaben"></div></div>',
+  extra:'<div class="ww-log" id="wortwald-log"></div>',
+  tools:[{id:"play",icon:"go",label:"Legen",main:true},{id:"back",icon:"undo",label:"Zurück"},{id:"swap",icon:"rot",label:"Tauschen"},{id:"hint",icon:"hint",label:"Tipp"},{id:"mix",icon:"neu",label:"Mischen"}],
+  help:"Tippe einen Buchstaben und dann ein Feld (oder zieh ihn hin). Alle neuen Buchstaben müssen in einer Reihe liegen und an Wörter auf dem Feld anschließen. "+
+       "Punkte gibt es für lange und seltene Wörter, Wald- und Holzwörter zählen doppelt. 🌲 Tanne zudecken: +5 · 🌳 alte Eiche: Wort zählt doppelt."
+});
+var st=K.store("holzi-wortwald"), L=st.lvl(); if(L>=LEVELS.length) L=0;
+var WORDS=null, BYLEN=null, loading=false;
+var N, B, rack, pend, bag, sel=-1, turn, score, cpuScore, log, hints, done=false, busy=false, game=0, rnd, lastMove=[];
+
+/* ---- Wörterbuch laden: zuerst die häufigen Wörter (Zeile = Rang), nach "-" die übrigen ---- */
+function loadDict(cb){
+  if(WORDS) return cb();
+  if(loading) return; loading=true;
+  K.say("wortwald-say","Holzi holt das Wörterbuch aus dem Regal …");
+  fetch("wortwald.txt").then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); }).then(function(t){
+    WORDS=new Map(); BYLEN=[];
+    var rank=0, rare=false, lines=t.split("\n");
+    for(var i=0;i<lines.length;i++){ var w=lines[i].trim(); if(!w||w.charAt(0)==="#") continue; if(w==="-"){ rare=true; continue; }
+      WORDS.set(w, rare?-1:rank++); (BYLEN[w.length]||(BYLEN[w.length]=[])).push(w); }
+    loading=false; cb();
+  }).catch(function(){ loading=false; K.say("wortwald-say","Das Wörterbuch kam nicht an. Bist du online? Tippe „Neu“, um es nochmal zu versuchen."); });
+}
+function isWord(w){ return WORDS.has(w); }
+function rarity(w){ var r=WORDS.get(w); if(r===-1) return RAR[4]; for(var i=0;i<4;i++) if(r<RAR[i].max) return RAR[i]; return RAR[3]; }
+function forest(w){
+  for(var i=0;i<FOREST_ANY.length;i++) if(w.indexOf(FOREST_ANY[i])>=0) return true;
+  for(var j=0;j<FOREST_WORD.length;j++){ var f=FOREST_WORD[j]; if(w.indexOf(f)===0&&FOREST_END.indexOf(w.slice(f.length))>=0) return true; }
+  return false;
+}
+
+/* ---- Feld ---- */
+function newBoard(lv){
+  var b=[], c=(lv.n-1)/2;
+  for(var r=0;r<lv.n;r++){ b.push([]); for(var k=0;k<lv.n;k++) b[r].push({t:null,L:null,by:null}); }
+  // Baeume zufaellig, aber nicht auf der Mitte und nicht direkt nebeneinander
+  var put=0, tries=0;
+  while(put<lv.trees+lv.old&&tries++<500){ var r2=Math.floor(rnd()*lv.n), k2=Math.floor(rnd()*lv.n);
+    if(Math.abs(r2-c)+Math.abs(k2-c)<2||b[r2][k2].t) continue;
+    var near=false; for(var dr=-1;dr<=1;dr++) for(var dc=-1;dc<=1;dc++){ var x=b[r2+dr]&&b[r2+dr][k2+dc]; if(x&&x.t) near=true; }
+    if(near) continue;
+    b[r2][k2].t=put<lv.old?"old":"tree"; put++; }
+  b[c][c].t="mid";
+  return b;
+}
+function fillBag(lv){
+  var a=[]; Object.keys(BAG_DE).forEach(function(ch){ var n=BAG_DE[ch]; if(lv.easy&&"QXYÖ".indexOf(ch)>=0) n=0; if(lv.easy&&"AEIU".indexOf(ch)>=0) n+=1; for(var i=0;i<n;i++) a.push(ch); });
+  for(var i=a.length-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+/* ziehen, bis 7 Steine da sind – mit mindestens zwei Selbstlauten, solange der Beutel welche hat */
+function draw(r){
+  while(r.length<RACK&&bag.length) r.push(bag.pop());
+  var v=r.filter(function(x){ return VOW.indexOf(x)>=0; }).length;
+  while(v<2){ var bi=-1; for(var i=bag.length-1;i>=0;i--) if(VOW.indexOf(bag[i])>=0){ bi=i; break; }
+    var ri=-1; for(var j=0;j<r.length;j++) if(VOW.indexOf(r[j])<0){ ri=j; break; }
+    if(bi<0||ri<0) break; var t=r[ri]; r[ri]=bag[bi]; bag[bi]=t; v++; }
+  return r;
+}
+
+/* ---- Zug prüfen und werten. tiles = [{r,c,L}] ---- */
+function at(r,c,map){ if(r<0||c<0||r>=N||c>=N) return null; var k=r*N+c; if(map&&map[k]) return map[k]; return B[r][c].L; }
+function boardEmpty(){ for(var r=0;r<N;r++) for(var c=0;c<N;c++) if(B[r][c].L) return false; return true; }
+function wordAt(r,c,dr,dc,map){ // ganzes Wort durch (r,c) in Richtung (dr,dc)
+  while(at(r-dr,c-dc,map)){ r-=dr; c-=dc; }
+  var w="", cells=[]; while(at(r,c,map)){ w+=at(r,c,map); cells.push([r,c]); r+=dr; c+=dc; }
+  return {w:w,cells:cells};
+}
+function evalMove(tiles, quick){
+  if(!tiles.length) return {ok:false,err:"Leg Buchstaben aufs Feld."};
+  var map={}, newK={}; tiles.forEach(function(t){ map[t.r*N+t.c]=t.L; newK[t.r*N+t.c]=1; });
+  var sameR=tiles.every(function(t){ return t.r===tiles[0].r; }), sameC=tiles.every(function(t){ return t.c===tiles[0].c; });
+  if(!sameR&&!sameC) return {ok:false,err:"Alle neuen Buchstaben müssen in einer Reihe liegen – waagerecht oder senkrecht."};
+  var dr=0, dc=1;
+  if(tiles.length===1){ var t0=tiles[0]; if(!at(t0.r,t0.c-1)&&!at(t0.r,t0.c+1)){ dr=1; dc=0; } }
+  else if(sameC){ dr=1; dc=0; }
+  // keine Luecke zwischen den neuen Buchstaben
+  var a=tiles.map(function(t){ return dr?t.r:t.c; }), lo=Math.min.apply(null,a), hi=Math.max.apply(null,a);
+  for(var i=lo;i<=hi;i++){ if(!(dr?at(i,tiles[0].c,map):at(tiles[0].r,i,map))) return {ok:false,err:"Da ist eine Lücke zwischen deinen Buchstaben."}; }
+  var empty=boardEmpty(), mid=(N-1)/2;
+  var main=wordAt(tiles[0].r,tiles[0].c,dr,dc,map), words=[];
+  if(main.w.length>=2) words.push(main);
+  tiles.forEach(function(t){ var x=wordAt(t.r,t.c,dc,dr,map); if(x.w.length>=2) words.push(x); });
+  if(empty){ if(!newK[mid*N+mid]) return {ok:false,err:"Das erste Wort muss über die Lichtung in der Mitte ☀️."}; }
+  else { var touch=words.some(function(w){ return w.cells.some(function(c){ return !newK[c[0]*N+c[1]]; }); });
+    if(!touch) return {ok:false,err:"Dein Wort muss an ein Wort auf dem Feld anschließen."}; }
+  if(!words.length) return {ok:false,err:"Ein Wort hat mindestens zwei Buchstaben."};
+  var bad=words.filter(function(w){ return !isWord(w.w); });
+  if(bad.length) return {ok:false,err:"„"+bad.map(function(w){ return w.w; }).join("“, „")+"“ kennt Holzi nicht.", bad:bad};
+  var total=0, trees=0, parts=[];
+  words.forEach(function(w){
+    var rar=rarity(w.w), base=LEN_PTS[Math.min(9,w.w.length)]+Math.max(0,w.w.length-9)*4, f=forest(w.w), old=w.cells.some(function(c){ return newK[c[0]*N+c[1]]&&B[c[0]][c[1]].t==="old"; });
+    var p=(base+rar.pts)*(f?2:1)*(old?2:1); total+=p; parts.push({w:w.w,base:base,rar:rar,forest:f,old:old,pts:p,cells:w.cells});
+  });
+  tiles.forEach(function(t){ if(B[t.r][t.c].t==="tree") trees++; });
+  total+=trees*TREE_PTS; var bingo=tiles.length===RACK; if(bingo) total+=BINGO;
+  return {ok:true,total:total,parts:parts,trees:trees,bingo:bingo,tiles:tiles};
+}
+
+/* ---- Zuege suchen (für Tipp und Holzi): jede Reihe/Spalte, jeder Abschnitt, passende Wörter aus dem Wörterbuch ---- */
+function genMoves(letters){
+  var rc={}; letters.forEach(function(x){ rc[x]=(rc[x]||0)+1; });
+  var empty=boardEmpty(), mid=(N-1)/2, out=[], cross={};
+  // Kandidaten: wie viele Buchstaben fehlen auf der Hand? (die muessen dann auf dem Feld liegen)
+  var cand=[];
+  for(var len=2;len<=Math.min(9,N);len++){ var arr=BYLEN[len]||[]; cand[len]={zero:[],idx:{}};
+    for(var i=0;i<arr.length;i++){ var w=arr[i], miss=0, use={};
+      for(var j=0;j<len;j++){ var ch=w.charAt(j); use[ch]=(use[ch]||0)+1; if(use[ch]>(rc[ch]||0)) miss++; }
+      if(miss>=len||miss>6) continue;
+      if(miss===0) cand[len].zero.push(w);
+      if(!empty) for(var p=0;p<len;p++){ var key=p+w.charAt(p); (cand[len].idx[key]||(cand[len].idx[key]=[])).push(w); } } }
+  function crossOK(r,c,dr,dc,ch){ // Querwort, das an (r,c) mit ch entsteht
+    var key=(r*N+c)*2+(dr?1:0)+ch; if(key in cross) return cross[key];
+    var m={}; m[r*N+c]=ch; var x=wordAt(r,c,dc,dr,m); return (cross[key]=x.w.length<2||isWord(x.w));
+  }
+  [[0,1],[1,0]].forEach(function(d){ var dr=d[0], dc=d[1];
+    for(var line=0;line<N;line++) for(var s=0;s<N;s++){
+      var r0=dr?s:line, c0=dr?line:s;
+      if(at(r0-dr,c0-dc)) continue; // Abschnitt muss am Wortanfang beginnen
+      for(var len=2;len<=9&&s+len<=N;len++){
+        var r1=r0+dr*len, c1=c0+dc*len; if(at(r1,c1)) continue;
+        var fixed=[], free=0, anchor=false;
+        for(var q=0;q<len;q++){ var rr=r0+dr*q, cc=c0+dc*q, ch=at(rr,cc);
+          if(ch){ fixed.push([q,ch]); anchor=true; } else { free++; if(empty){ if(rr===mid&&cc===mid) anchor=true; } else if(at(rr-dc,cc-dr)||at(rr+dc,cc+dr)) anchor=true; } }
+        if(!free||free>letters.length||!anchor) continue;
+        var list=fixed.length?(cand[len].idx[fixed[0][0]+fixed[0][1]]||[]):cand[len].zero;
+        for(var wi=0;wi<list.length;wi++){ var w=list[wi], okk=true;
+          for(var f=1;f<fixed.length;f++) if(w.charAt(fixed[f][0])!==fixed[f][1]){ okk=false; break; }
+          if(!okk) continue;
+          var need={}, tiles=[];
+          for(var q2=0;q2<len&&okk;q2++){ var rr2=r0+dr*q2, cc2=c0+dc*q2; if(at(rr2,cc2)) continue; var ch2=w.charAt(q2);
+            need[ch2]=(need[ch2]||0)+1; if(need[ch2]>(rc[ch2]||0)||!crossOK(rr2,cc2,dr,dc,ch2)) okk=false; else tiles.push({r:rr2,c:cc2,L:ch2}); }
+          if(!okk) continue;
+          var e=evalMove(tiles); if(e.ok) out.push({tiles:tiles,score:e.total,word:w,ev:e});
+        }
+      }
+    } });
+  out.sort(function(x,y){ return y.score-x.score; });
+  return out;
+}
+
+/* ---- Spiel ---- */
+function newGame(i){
+  if(i!==undefined) L=i; st.setLvl(L); var lv=LEVELS[L]; game++;
+  rnd=K.rng(1009+L*7919+game*104729+Math.floor(Math.random()*1e6));
+  N=lv.n; B=newBoard(lv); bag=fillBag(lv); rack=draw([]); pend=[]; sel=-1; turn=0; score=0; cpuScore=0; log=[]; hints=lv.cpu?2:3; done=false; busy=false; lastMove=[];
+  if(lv.cpu) lv.cpuRack=draw([]);
+  K.levels("wortwald-levels",LEVELS,L,st,function(k){ hz().tok(1.1); newGame(k); });
+  render();
+  K.say("wortwald-say", lv.cpu?"Du spielst gegen Holzi! Wer nach "+lv.turns+" Zügen mehr Punkte hat, gewinnt. Du fängst an – über die Lichtung ☀️ in der Mitte."
+    :lv.forest?"Wald- und Holzwörter zählen doppelt! Schaffst du "+lv.goal[0]+" Punkte in "+lv.turns+" Zügen?"
+    :"Leg ein Wort über die Lichtung ☀️ in der Mitte. Du hast "+lv.turns+" Züge – schaffst du "+lv.goal[0]+" Punkte?");
+}
+function pendAt(r,c){ for(var i=0;i<pend.length;i++) if(pend[i].r===r&&pend[i].c===c) return i; return -1; }
+function used(i){ return pend.some(function(p){ return p.ri===i; }); }
+var TREE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l5 7h-3l4 6h-3.5l3.5 5H6l3.5-5H6l4-6H7z" fill="#2f6b3a"/><rect x="11" y="19" width="2" height="3" fill="#7a4a26"/></svg>';
+var OLD='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="10.5" y="13" width="3" height="9" rx="1" fill="#7a4a26"/><circle cx="8" cy="10" r="5" fill="#5f9e3c"/><circle cx="16" cy="10" r="5" fill="#4f8a33"/><circle cx="12" cy="6.5" r="5.5" fill="#74b04a"/></svg>';
+var SUN='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="#f2b632"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" stroke="#f2b632" stroke-width="2" stroke-linecap="round"/></svg>';
+function render(){
+  var lv=LEVELS[L], bd=$("board"); bd.style.setProperty("--n",N);
+  var last={}; lastMove.forEach(function(t){ last[t.r*N+t.c]=1; });
+  var ev=pend.length?evalMove(pend.map(function(p){ return {r:p.r,c:p.c,L:p.L}; })):null, badK={};
+  if(ev&&ev.bad) ev.bad.forEach(function(w){ w.cells.forEach(function(c){ badK[c[0]*N+c[1]]=1; }); });
+  var h='';
+  for(var r=0;r<N;r++) for(var c=0;c<N;c++){ var x=B[r][c], pi=pendAt(r,c), L2=x.L||(pi>=0?pend[pi].L:null), k=r*N+c;
+    var cls="ww-c"+(x.t?" "+x.t:"")+(L2?" has":"")+(pi>=0?" pend":"")+(x.by==="h"?" cpu":"")+(last[k]?" last":"")+(badK[k]?" bad":"");
+    var ic=x.t==="tree"?TREE:x.t==="old"?OLD:x.t==="mid"?SUN:"";
+    h+='<button class="'+cls+'" data-r="'+r+'" data-c="'+c+'" aria-label="'+(L2?L2:(x.t==="tree"?"Tanne":x.t==="old"?"alte Eiche":x.t==="mid"?"Lichtung":"leer"))+'">'+
+       (L2?'<b>'+L2+'</b>'+(x.t==="tree"||x.t==="old"?'<i>'+ic+'</i>':''):ic)+'</button>'; }
+  bd.innerHTML=h;
+  // Hand
+  var rh=''; rack.forEach(function(ch,i){ rh+='<button class="ww-t'+(used(i)?' used':'')+(i===sel?' sel':'')+'" data-i="'+i+'" aria-label="Buchstabe '+ch+'"'+(used(i)?' disabled':'')+'><b>'+ch+'</b></button>'; });
+  for(var e=rack.length;e<RACK;e++) rh+='<span class="ww-t gone"></span>';
+  $("rack").innerHTML=rh;
+  // Kopf: Punkte
+  var tp='<div class="ww-sc you"><span>Du</span><b>'+score+'</b></div>';
+  if(lv.cpu) tp+='<div class="ww-sc cpu"><span>Holzi</span><b>'+cpuScore+'</b></div>';
+  else tp+='<div class="ww-goal">'+lv.goal.map(function(g,k){ return '<span class="'+(score>=g?'on':'')+'">'+hz().starSVG(score>=g)+g+'</span>'; }).join('')+'</div>';
+  tp+='<div class="ww-sc info"><span>Zug</span><b>'+Math.min(turn+1,lv.turns)+'/'+lv.turns+'</b></div><div class="ww-sc info"><span>Säckchen</span><b>'+bag.length+'</b></div>';
+  $("top").innerHTML=tp;
+  // Vorschau
+  var pv='';
+  if(!pend.length) pv='<span class="ww-muted">'+(WORDS?(sel>=0?"Jetzt ein Feld antippen.":"Tippe einen Buchstaben an."):"")+'</span>';
+  else if(!ev.ok) pv='<span class="ww-err">'+ev.err+'</span>';
+  else pv=evHtml(ev);
+  $("prev").innerHTML=pv;
+  renderLog();
+  $("play").disabled=!(ev&&ev.ok)||done||busy; $("back").disabled=!pend.length||busy; $("hint").disabled=done||busy||!hints; $("swap").disabled=done||busy||!bag.length;
+  $("hint").lastChild.textContent="Tipp ("+hints+")";
+  wire();
+}
+function leaves(n){ var s=''; for(var i=0;i<5;i++) s+='<i class="'+(i<n?'on':'')+'"></i>'; return '<span class="ww-leaf" title="Seltenheit">'+s+'</span>'; }
+function evHtml(ev){
+  return '<div class="ww-ev">'+ev.parts.map(function(p){
+    return '<span class="ww-w"><b>'+p.w+'</b> <em>'+p.w.length+' Buchst. '+p.base+'</em>'+(p.rar.pts?' <em>'+leaves(p.rar.leaf)+p.rar.name+' +'+p.rar.pts+'</em>':' <em>'+leaves(p.rar.leaf)+p.rar.name+'</em>')+
+      (p.forest?' <em class="fo">🌲 Waldwort ×2</em>':'')+(p.old?' <em class="ol">🌳 Eiche ×2</em>':'')+' <strong>= '+p.pts+'</strong></span>'; }).join('')+
+    (ev.trees?'<span class="ww-w"><em class="fo">🌲 '+ev.trees+'× Tanne zugedeckt</em> <strong>+'+ev.trees*TREE_PTS+'</strong></span>':'')+
+    (ev.bingo?'<span class="ww-w"><em class="ol">Alle 7 Steine!</em> <strong>+'+BINGO+'</strong></span>':'')+
+    '<span class="ww-tot">'+ev.total+' Punkte</span></div>';
+}
+function renderLog(){
+  if(!log.length){ $("log").innerHTML=''; return; }
+  $("log").innerHTML='<h4>Wortbuch</h4><div class="ww-chips">'+log.slice().reverse().map(function(x){
+    return '<span class="ww-chip'+(x.who==="h"?' cpu':'')+(x.forest?' fo':'')+'" title="'+x.info+'">'+(x.who==="h"?'🪵 ':'')+x.w+(x.forest?' 🌲':'')+' <b>'+x.pts+'</b></span>'; }).join('')+'</div>';
+}
+
+/* ---- Bedienung: Antippen oder Ziehen ---- */
+var drag=null, upAt=0, upCell=-1;
+function wire(){
+  $("rack").querySelectorAll(".ww-t[data-i]").forEach(function(b){ b.onpointerdown=function(e){ startDrag(e,{ri:+b.getAttribute("data-i")},b); }; });
+  $("board").querySelectorAll(".ww-c").forEach(function(b){ var r=+b.getAttribute("data-r"), c=+b.getAttribute("data-c");
+    b.onpointerdown=function(e){ var pi=pendAt(r,c); if(pi>=0&&!busy) startDrag(e,{pi:pi},b); };
+    b.onclick=function(){ cellTap(r,c); }; });
+}
+function startDrag(e,src,el){
+  if(done||busy) return; drag={src:src,x:e.clientX,y:e.clientY,el:el,ghost:null,moved:false,id:e.pointerId};
+  try{ el.setPointerCapture(e.pointerId); }catch(x){}
+  el.onpointermove=function(ev){ if(!drag) return; var dx=ev.clientX-drag.x, dy=ev.clientY-drag.y;
+    if(!drag.moved&&dx*dx+dy*dy>64){ drag.moved=true; var g=document.createElement("div"); g.className="ww-ghost"; g.textContent=src.ri!=null?rack[src.ri]:pend[src.pi].L; document.body.appendChild(g); drag.ghost=g; }
+    if(drag.ghost){ drag.ghost.style.left=ev.clientX+"px"; drag.ghost.style.top=ev.clientY+"px"; } };
+  el.onpointerup=el.onpointercancel=function(ev){ var d=drag; drag=null; upAt=Date.now(); upCell=src.pi!=null&&pend[src.pi]?pend[src.pi].r*N+pend[src.pi].c:-1; el.onpointermove=el.onpointerup=el.onpointercancel=null; if(!d) return;
+    if(!d.moved){ if(src.ri!=null) rackTap(src.ri); else if(ev.type==="pointerup"){ /* Antippen eines gelegten Steins: zurueck auf die Hand */ unpend(src.pi); } return; }
+    d.ghost.remove(); var t=document.elementFromPoint(ev.clientX,ev.clientY), cell=t&&t.closest(".ww-c"), rk=t&&t.closest(".ww-rack");
+    if(cell){ var r=+cell.getAttribute("data-r"), c=+cell.getAttribute("data-c");
+      if(src.ri!=null) place(src.ri,r,c); else movePend(src.pi,r,c); }
+    else if(rk&&src.pi!=null) unpend(src.pi);
+  };
+  e.preventDefault();
+}
+function rackTap(i){ if(done||busy||used(i)) return; hz().tok(1.25); sel=sel===i?-1:i; render(); }
+function cellTap(r,c){ if(done||busy) return; if(drag||(r*N+c===upCell&&Date.now()-upAt<400)) return; if(pendAt(r,c)>=0) return; if(sel>=0) place(sel,r,c); }
+function place(ri,r,c){ if(B[r][c].L||pendAt(r,c)>=0||used(ri)) return; hz().tok(1.05); pend.push({r:r,c:c,L:rack[ri],ri:ri});
+  sel=-1; render(); }
+function movePend(pi,r,c){ if(B[r][c].L||pendAt(r,c)>=0) return; pend[pi].r=r; pend[pi].c=c; hz().tok(1.05); render(); }
+function unpend(pi){ var p=pend.splice(pi,1)[0]; if(p){ sel=p.ri; hz().tok(0.9); } render(); }
+
+/* ---- Zug abschließen ---- */
+function commit(tiles, who){
+  var ev=evalMove(tiles); if(!ev.ok) return null;
+  tiles.forEach(function(t){ B[t.r][t.c].L=t.L; B[t.r][t.c].by=who; });
+  lastMove=tiles.map(function(t){ return {r:t.r,c:t.c}; });
+  ev.parts.forEach(function(p,k){ log.push({w:p.w,pts:p.pts+(k===0?ev.trees*TREE_PTS+(ev.bingo?BINGO:0):0),who:who,forest:p.forest,info:p.rar.name+(p.forest?", Waldwort":"")+(p.old?", alte Eiche":"")}); });
+  return ev;
+}
+$("play").onclick=function(){
+  if(done||busy||!pend.length) return; hz().audio();
+  var tiles=pend.map(function(p){ return {r:p.r,c:p.c,L:p.L}; }), ev=commit(tiles,"p");
+  if(!ev){ hz().tune([200,160],0.06,"square"); return; }
+  var usedIdx=pend.map(function(p){ return p.ri; }); rack=rack.filter(function(x,i){ return usedIdx.indexOf(i)<0; }); pend=[]; sel=-1;
+  score+=ev.total; draw(rack); turn++;
+  hz().tune(ev.total>=30?[523,659,784,1047]:[659,784],0.07);
+  var best=ev.parts[0], msg="„"+best.w+"“: "+ev.total+" Punkte!";
+  if(best.forest) msg+=" Ein Waldwort – doppelt!"; else if(best.rar.leaf>=4) msg+=" Seltenheitsbonus: „"+best.rar.name+"“!"; else if(ev.trees) msg+=" Tanne zugedeckt!";
+  K.say("wortwald-say",msg); afterTurn();
+};
+$("back").onclick=function(){ if(!pend.length||busy) return; hz().tok(0.9); pend=[]; sel=-1; render(); };
+$("mix").onclick=function(){ if(busy) return; hz().tok(1.1); pend=[]; for(var i=rack.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=rack[i]; rack[i]=rack[j]; rack[j]=t; } sel=-1; render(); };
+$("swap").onclick=function(){
+  if(done||busy||!bag.length) return; hz().audio(); pend=[];
+  var back=rack; rack=[]; draw(rack); back.forEach(function(x){ bag.splice(Math.floor(rnd()*(bag.length+1)),0,x); }); turn++; sel=-1;
+  K.say("wortwald-say","Neue Buchstaben! Das hat einen Zug gekostet."); afterTurn();
+};
+$("hint").onclick=function(){
+  if(done||busy||!hints||!WORDS) return; hz().audio(); busy=true; K.say("wortwald-say","Holzi überlegt …"); render();
+  setTimeout(function(){
+    var mv=genMoves(rack); busy=false;
+    if(!mv.length){ K.say("wortwald-say","Hier findet nicht mal Holzi ein Wort. Tausch deine Buchstaben!"); render(); return; }
+    var lv=LEVELS[L], pick=mv[0];
+    if(lv.forest){ var f=mv.filter(function(m){ return m.ev.parts.some(function(p){ return p.forest; }); })[0]; if(f) pick=f; }
+    hints--; pend=[]; var taken={};
+    pick.tiles.forEach(function(t){ for(var i=0;i<rack.length;i++) if(!taken[i]&&rack[i]===t.L){ taken[i]=1; pend.push({r:t.r,c:t.c,L:t.L,ri:i}); break; } });
+    sel=-1; K.say("wortwald-say","Wie wäre es mit „"+pick.word+"“? Das bringt "+pick.score+" Punkte. Drück „Legen“ – oder nimm es zurück und such selbst."); render();
+  },60);
+};
+function afterTurn(){
+  var lv=LEVELS[L]; render();
+  var out=!rack.length&&!bag.length;
+  if(lv.cpu&&!out){ busy=true; render(); setTimeout(cpuTurn, K.reduce?100:700); return; }
+  if(turn>=lv.turns||out) finish();
+}
+function cpuTurn(){
+  var lv=LEVELS[L], mv=genMoves(lv.cpuRack);
+  if(!mv.length){ var back=lv.cpuRack; lv.cpuRack=draw([]); back.forEach(function(x){ bag.splice(Math.floor(rnd()*(bag.length+1)),0,x); });
+    K.say("wortwald-say","Holzi tauscht seine Buchstaben. Du bist dran!"); busy=false; render(); if(turn>=lv.turns) finish(); return; }
+  // Spielstaerke: 1 = immer der beste Zug, darunter ein Zug aus dem oberen Teil der Liste
+  if(lv.cpu<1){ var easy=mv.filter(function(m){ return m.ev.parts[0].rar.leaf<=3; }); if(easy.length) mv=easy; }
+  var n=mv.length, lo=Math.floor(n*(1-lv.cpu)*0.3), hi=Math.max(lo+1,Math.floor(n*(1-lv.cpu)*0.8)+1), pick=mv[Math.min(n-1,lo+Math.floor(rnd()*(hi-lo)))];
+  var ev=commit(pick.tiles,"h"); cpuScore+=ev.total;
+  pick.tiles.forEach(function(t){ var i=lv.cpuRack.indexOf(t.L); if(i>=0) lv.cpuRack.splice(i,1); }); draw(lv.cpuRack);
+  hz().tune([440,392],0.07);
+  K.say("wortwald-say","Holzi legt „"+pick.word+"“ – "+ev.total+" Punkte"+(ev.parts[0].forest?" (Waldwort!)":"")+". Du bist dran!");
+  busy=false; render();
+  if(turn>=lv.turns||(!lv.cpuRack.length&&!bag.length)) finish();
+}
+function finish(){
+  if(done) return; done=true; var lv=LEVELS[L], stars, title, text;
+  if(lv.cpu){ var win=score>cpuScore; stars=win?(score>=cpuScore+20?3:2):1; title=win?"Gewonnen!":score===cpuScore?"Unentschieden!":"Holzi gewinnt";
+    text="Du hast <b>"+score+"</b> Punkte, Holzi hat <b>"+cpuScore+"</b>."; }
+  else { stars=score>=lv.goal[2]?3:score>=lv.goal[1]?2:score>=lv.goal[0]?1:0; title=stars?"Geschafft!":"Fast!"; text="Du hast <b>"+score+"</b> Punkte in "+lv.turns+" Zügen gelegt."; }
+  var fw=log.filter(function(x){ return x.who==="p"&&x.forest; }).length, bestW=log.filter(function(x){ return x.who==="p"; }).sort(function(a,b){ return b.pts-a.pts; })[0];
+  if(stars) st.set(L,stars); K.best("wortwald",L,score,false);
+  K.levels("wortwald-levels",LEVELS,L,st,function(k){ hz().tok(1.1); newGame(k); }); render();
+  K.win({title:title,text:text,stars:stars,msg:(bestW?"Bestes Wort: „"+bestW.w+"“ ("+bestW.pts+")":"")+(fw?" · "+fw+" Waldwort"+(fw>1?"e":""):""),
+    again:"Nochmal",next:L<LEVELS.length-1?"Nächstes Level":"Zum ersten",onAgain:function(){ newGame(L); },onNext:function(){ newGame(L<LEVELS.length-1?L+1:0); }});
+}
+window.HZG=window.HZG||{};
+HZG.wortwald=function(){ if(!WORDS) loadDict(function(){ newGame(L); }); else if(!B) newGame(L); };
+HZG.wortwaldDebug={gen:function(){ return genMoves(rack); }, ev:evalMove, st:function(){ return {B:B,rack:rack,score:score,cpu:cpuScore,turn:turn,done:done,bag:bag.length}; },
+  play:function(m){ pend=[]; var taken={}; m.tiles.forEach(function(t){ for(var i=0;i<rack.length;i++) if(!taken[i]&&rack[i]===t.L){ taken[i]=1; pend.push({r:t.r,c:t.c,L:t.L,ri:i}); break; } }); render(); $("play").onclick(); },
+  forest:function(w){ return forest(w); }, lvl:function(i){ newGame(i); }, rarity:function(w){ return rarity(w); }};
+})();
+</script>
+<script>
 /* Startseite, Spielwechsel, Zurueck-Taste, Hilfe und Level-Wahl */
 (function(){
-  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "luecke", "tower", "haus", "kiste", "kloetze", "forst"];
-  var HOME=['Holzis <span>Holzkiste</span>','Sechzehn Holzspiele für Kinder'];
+  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?'],wortwald:['Der <span>Wortwald</span>','Wörter legen, Bäume zudecken, Waldwörter zählen doppelt']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "luecke", "wortwald", "tower", "haus", "kiste", "kloetze", "forst"];
+  var HOME=['Holzis <span>Holzkiste</span>','Siebzehn Holzspiele für Kinder'];
   H.stats=['Holzis <span>Statistik</span>','Sterne, Spielzeit, Rangliste und Abzeichen'];
   H.research=['Holzis <span>Forschung</span>','Münzen verdienen, erforschen, Profi-Level freischalten'];
   function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'||g==='research'; }
   // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
-  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",30]};
+  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",30],wortwald:["holzi-wortwald",6]};
   var $=function(id){ return document.getElementById(id); };
   var STAR_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.2 6.1 20.4l1.3-6.5L2.5 9.3l6.6-.8z" fill="var(--gold)" stroke="#b47d10" stroke-width="1.2" stroke-linejoin="round"/></svg>';
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
@@ -6010,13 +6415,13 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
     box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); };
     box.querySelector('[data-a="copy"]').onclick=function(){ var b=this, ok=function(){ b.textContent='Kopiert ✓'; };
       if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok,function(){ prompt('Link:',url); }); else prompt('Link:',url); };
-    var sh=box.querySelector('[data-a="share"]'); if(sh) sh.onclick=function(){ navigator.share({title:'Holzis Holzkiste', text:'Sechzehn Holzspiele für Kinder – kostenlos und ohne Werbung', url:url}).catch(function(){}); };
+    var sh=box.querySelector('[data-a="share"]'); if(sh) sh.onclick=function(){ navigator.share({title:'Holzis Holzkiste', text:'Siebzehn Holzspiele für Kinder – kostenlos und ohne Werbung', url:url}).catch(function(){}); };
   }
   $('sharebtn').onclick=function(){ window.HZ&&HZ.tok(1.1); showShare(); };
 
 
   // ---- Statistik: Spielzeit und geschaffte Level werden je Kind mitgeschrieben (nur auf diesem Geraet) ----
-  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',raeumen:'k',fuellen:'k',sudoku:'w',kreuz:'w',worte:'w',luecke:'w',tower:'b',haus:'b',kiste:'b',kloetze:'b',forst:'f'};
+  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',raeumen:'k',fuellen:'k',sudoku:'w',kreuz:'w',worte:'w',luecke:'w',wortwald:'w',tower:'b',haus:'b',kiste:'b',kloetze:'b',forst:'f'};
   var GRPN={k:'Knobeln & Legen',w:'Wörter & Zahlen',b:'Bauen & Fahren',f:'Wald & Wirtschaft'}, GRPS=['k','w','b','f'];
   var BEST={tan:'tan',puzzle:'pz',sudoku:'sudoku',kiste:'kiste'};
   function dkey(d){ d=d||new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
@@ -6252,7 +6657,7 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
   // ---- Holz-Münzen und Forschung (je Kind, nur auf diesem Geraet) ----
   var COIN='<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e3a83a" stroke="#9a6418" stroke-width="1.6"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#9a6418" stroke-width="1.2" opacity=".7"/><path d="M9 8.5c1.6 1 4.4 1 6 0M8.6 12c2 1 4.8 1 6.8 0M9 15.5c1.6 1 4.4 1 6 0" stroke="#9a6418" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>';
   // ab diesem Level ist ein Spiel "Profi" und muss erforscht werden (was schon Sterne hat, bleibt offen)
-  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4,luecke:24};
+  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4,luecke:24,wortwald:4};
   var PATHS=[
     {id:'werk', name:'Werkstatt', ic:'🔨', what:'Mehr Münzen für jeden neuen Stern', items:[
       {id:'schleif', name:'Schleifpapier', ic:'🧻', cost:80, star:2},
@@ -6285,7 +6690,8 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
       {id:'pro_fuellen', game:'fuellen', name:'Pentomino-Truhen', ic:'🧱', cost:300},
       {id:'pro_kloetze', game:'kloetze', name:'Klötzchen-Sturm', ic:'🌧️', cost:250},
       {id:'pro_forst', game:'forst', name:'Großforstbetrieb', ic:'🌲', cost:400},
-      {id:'pro_luecke', game:'luecke', name:'Meisterrätsel', ic:'❓', cost:200}]}
+      {id:'pro_luecke', game:'luecke', name:'Meisterrätsel', ic:'❓', cost:200},
+      {id:'pro_wortwald', game:'wortwald', name:'Wortwald-Wettstreit', ic:'🔤', cost:250}]}
   ];
   var ITEMS={}; PATHS.forEach(function(p){ p.items.forEach(function(it){ it.path=p.id; ITEMS[it.id]=it; }); });
   var BASE={star:10, win:2, day:0, cap:40};
