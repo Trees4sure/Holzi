@@ -42,7 +42,8 @@ Zwanzig Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersang
   Übersicht (Sterne, Level, Spielzeit, Serie, Siege, Abzeichen, zuletzt geschafft),
   Spiele (Fortschritt und Sterne je Level, Spielzeit, Rekorde), Verlauf (Spielzeit und
   geschaffte Level der letzten 14 Tage, Tageszeit), Rangliste der Kinder auf diesem Gerät
-  (Treppchen, Titel, wer in welchem Spiel führt) und 16 Abzeichen.
+  (Treppchen, Titel, wer in welchem Spiel führt) und 16 Abzeichen. Rangliste auch nach **Punkten** (10 je Stern, 20 je
+  Abzeichen) und **Punkten pro Stunde** Spielzeit (relativer Rang, ab 15 Minuten).
   Spielzeit zählt nur, solange ein Spiel offen ist und in der letzten Minute getippt wurde.
   Alles bleibt auf dem Gerät (`holzi-stats` je Profil).
 - **Münzen & Forschung** (Startseite → „Münzen & Forschung“): 10 Münzen je neuem Stern (Startguthaben für
@@ -52,8 +53,9 @@ Zwanzig Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersang
   zweimal Tippen. Daten je Profil in `holzi-coins`.
 - **Spielstand übertragen** („Wer spielt?“ → „⇄ Übertragen“): ein Kind als Datei (Teilen/AirDrop) oder als Text-Code
   (gzip + Base64) mitnehmen und auf dem anderen Gerät empfangen. Gibt es dort ein Kind mit gleichem Namen und Tier, wird
-  zusammengeführt (Sterne je Level das Maximum, Rekorde das Bessere, Forschung vereinigt, Münzstand vom Gerät mit mehr
-  verdienten Münzen, Statistik ohne Doppelte); sonst entsteht ein neues Kind. Kein Server, keine Anmeldung.
+  nur **ergänzt, nie überschrieben**: Sterne und Rekorde nur, wenn sie besser sind, Forschung und gekaufte Teile kommen
+  dazu, Münzen nur in Höhe dessen, was das andere Gerät mehr verdient hat, Statistik ohne Doppelte; laufende Spielstände
+  und alles Vorhandene bleiben. Abzeichen ergeben sich daraus von selbst. Sonst entsteht ein neues Kind. Kein Server.
 - **Kein Zoom-Gefängnis:** Pinch- und Doppeltipp-Zoom sind aus; ist die Seite doch vergrößert, erscheint „Normale Größe“.
 - **Mitspieler-Übersicht:** Startseite zeigt die drei Besten; die Rangliste vergleicht alle Kinder über Sterne,
   Level, Münzen/Vermögen, Forschung, Spielzeit, Serie und Abzeichen (Krone für den Besten je Spalte).
@@ -115,8 +117,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v27";` hochzählen
-(`holzi-v28` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v28";` hochzählen
+(`holzi-v29` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
