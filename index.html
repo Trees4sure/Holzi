@@ -727,7 +727,7 @@ body.ingame{--chrome:400px}
 .game{--bh:max(300px, calc(100vh - var(--chrome) - var(--xtra, 0px))); --bh:max(300px, calc(100svh - var(--chrome) - var(--xtra, 0px)))}
 #g-tan .tboard{max-width:min(640px, calc(var(--bh) / 1.38))}
 #g-maze .mboard{max-width:min(640px, calc(var(--bh) / 1.12))}
-#g-puzzle .pboard{max-width:min(560px, max(340px, calc(var(--bh) / 2.01)))}
+#g-puzzle .pboard{max-width:min(620px, max(340px, calc(var(--bh) / 1.73)))}
 #g-sudoku{--xtra:130px} #g-sudoku .board-wrap{max-width:min(640px, var(--bh))}
 #g-kreuz{--xtra:250px} #g-kreuz .board-wrap{max-width:min(640px, var(--bh))} #kreuz-svg{max-height:var(--bh)}
 #g-worte .board-wrap{max-width:min(560px, calc(var(--bh) / 1.15))} #worte-svg{max-width:100%}
@@ -753,16 +753,12 @@ body.ingame{--chrome:400px}
   body.ingame .game > :is(.stage,.tboard,.mboard,.pboard,.board-wrap){grid-column:1; grid-row:1 / -1; justify-self:center; position:sticky; top:84px}
   body.ingame .game > :is(.tboard,.mboard,.pboard,.board-wrap){max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
   #g-sudoku,#g-kreuz,#g-kiste,#g-biber{--xtra:0px}
-  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:2.01} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4} #g-biber{--ar:0.92} #g-ameisen,#g-bienen{--ar:0.86}
+  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:0.737} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4} #g-biber{--ar:0.92} #g-ameisen,#g-bienen{--ar:0.86}
   body.ingame .game > .bubble::after{left:-9px; top:50%; bottom:auto; transform:translateY(-50%) rotate(135deg)}
   body.ingame .levels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
   /* Puzzle quer: Brett und Ablage nebeneinander ueber die ganze Breite, Bedienung darunter */
-  body.ingame #g-puzzle{--chrome:362px; display:flex; align-items:center; max-width:1180px}
-  body.ingame #g-puzzle > .pboard{position:static; max-width:min(100%, calc(var(--bh) / 0.56))}
-  body.ingame #g-puzzle > .help{display:none}
-  body.ingame #g-puzzle > .bubble::after{left:50%; top:auto; bottom:-9px; transform:translateX(-50%) rotate(45deg)}
-  body.ingame #g-puzzle > .tools{max-width:560px}
-  body.ingame #g-puzzle > .lvlchip, body.ingame #g-puzzle > .figs{max-width:760px}
+  /* Puzzle quer: Brett mit schmaler Ablage links, Bedienung rechts (wie bei den anderen Spielen) */
+  body.ingame #g-puzzle > .pboard{max-width:min(1040px, calc(var(--bh) / 0.737))}
   body.ingame .game > .help{display:block; max-width:none; text-align:left; padding:12px 14px; border-radius:16px; background:color-mix(in srgb, var(--card) 60%, transparent); box-shadow:inset 0 0 0 1.5px var(--line)}
   body.ingame .game > .help::before{content:"So geht\2019s"; display:block; margin-bottom:4px; font:800 15px var(--font-display); color:var(--ink)}
 }
@@ -3060,25 +3056,35 @@ var LEVELS=[{name:"Holzi",age:"ab 4",m:0,c:2,r:2,guide:true},{name:"Honigtopf",a
   {name:"Herbstwald",age:"Profi",m:7,c:10,r:10,guide:false},{name:"Eule",age:"Profi",m:4,c:8,r:10,guide:false,rot:true}];
 /* Tablet quer: Ablage rechts neben dem Brett statt darunter, damit die Teile groesser werden */
 function wideMode(){ return matchMedia("(orientation: landscape) and (min-width: 700px)").matches; }
+/* Teile auf der Ablage sind kleiner (TS), auf dem Brett in voller Groesse - so bleibt mehr Platz fuers Brett */
+var TS=0.55, PREV=null;
 function applyMode(){
-  var w=wideMode(); if(w===WIDE) return false; WIDE=w;
-  TRAY=w?[103,6,198,108]:[2,113,98,198]; VWB=w?200:100; VHB=w?112:200;
-  svg.setAttribute("viewBox", w?"0 0 200 112":"0 0 100 201");
-  var t=document.getElementById("ptraybg"); if(w){ t.setAttribute("x",101); t.setAttribute("y",2.5); t.setAttribute("width",98); t.setAttribute("height",107); } else { t.setAttribute("x",1); t.setAttribute("y",112); t.setAttribute("width",98); t.setAttribute("height",88); }
+  var w=wideMode(); if(w===WIDE) return false; PREV=WIDE===null?null:TRAY.slice(); WIDE=w;
+  TRAY=w?[104,5,150,108]:[2,114,98,171]; VWB=w?152:100; VHB=w?112:173;
+  svg.setAttribute("viewBox", w?"0 0 152 112":"0 0 100 173");
+  var t=document.getElementById("ptraybg"); if(w){ t.setAttribute("x",101.5); t.setAttribute("y",2.5); t.setAttribute("width",49.5); t.setAttribute("height",107); } else { t.setAttribute("x",1); t.setAttribute("y",112); t.setAttribute("width",98); t.setAttribute("height",60); }
   document.getElementById("g-puzzle").classList.toggle("pz-wide", w);
   return true;
 }
 // legt die noch losen Teile locker gemischt auf die Ablage
+function onBoard(p){ var cx=p.hx+p.dx+p.w/2, cy=p.hy+p.dy+p.h/2; return cx>BX-2&&cx<BX+BW+2&&cy>BY-2&&cy<BY+BH+2; }
+/* Querformat <-> Hochformat: Teile auf dem Brett bleiben liegen, die auf der Ablage ziehen mit um (gleiche Anordnung) */
+function relayout(){
+  pieces.forEach(function(p){ if(p.locked||onBoard(p)||!PREV) return;
+    var cx=p.hx+p.dx+p.w/2, cy=p.hy+p.dy+p.h/2, fx=Math.max(0,Math.min(1,(cx-PREV[0])/(PREV[2]-PREV[0]))), fy=Math.max(0,Math.min(1,(cy-PREV[1])/(PREV[3]-PREV[1])));
+    var fw=p.w*TS/2, fh=p.h*TS/2, nx=TRAY[0]+fw+fx*Math.max(0,TRAY[2]-TRAY[0]-2*fw), ny=TRAY[1]+fh+fy*Math.max(0,TRAY[3]-TRAY[1]-2*fh);
+    p.dx=nx-p.hx-p.w/2; p.dy=ny-p.hy-p.h/2; p.s=TS; render(p); });
+}
 function scatter(list, rand){
-  if(!list.length) return; var w=list[0].w, h=list[0].h, n=list.length, tw=TRAY[2]-TRAY[0], th=TRAY[3]-TRAY[1];
+  if(!list.length) return; var w=list[0].w*TS, h=list[0].h*TS, n=list.length, tw=TRAY[2]-TRAY[0], th=TRAY[3]-TRAY[1];
   var cols=Math.max(1,Math.min(n, Math.floor(tw/(w*0.92)))), rows=Math.ceil(n/cols);
   var gx=cols>1?(tw-w)/(cols-1):0, gy=rows>1?(th-h)/(rows-1):0;
   var order=list.map(function(_,q){ return q; }).sort(function(){ return rand()-.5; });
   order.forEach(function(q,slot){ var p=list[q], cx=slot%cols, cy=Math.floor(slot/cols);
-    var tx=TRAY[0]+cx*gx+(rand()-.5)*2.5, ty=TRAY[1]+cy*gy+(rand()-.5)*2.5;
-    p.dx=tx-p.hx; p.dy=ty-p.hy; render(p); });
+    var tx=TRAY[0]+cx*gx+(rand()-.5)*2.5*TS, ty=TRAY[1]+cy*gy+(rand()-.5)*2.5*TS;
+    p.s=TS; p.dx=tx+w/2-p.hx-p.w/2; p.dy=ty+h/2-p.hy-p.h/2; render(p); });
 }
-window.addEventListener("resize", function(){ if(document.getElementById("g-puzzle").hidden||!pieces.length) return; if(applyMode()) scatter(pieces.filter(function(p){ return !p.locked; }), Math.random); });
+window.addEventListener("resize", function(){ if(!pieces.length) return; if(applyMode()) relayout(); });
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 var L=0, bump=0, pieces=[], hints=0, done=false, drag=null, guide=true, anim=false, K=null, clock=null;
 function kk(){ if(!K&&window.HZK){ K=window.HZK; clock=K.timer(function(){ phud(); },"puzzle"); } return K; }
@@ -3124,7 +3130,7 @@ function load(i, fresh){
     var art=el("g",{"clip-path":"url(#pzc"+idx+")"}); art.appendChild(el("use",{href:"#motif"+lv.m})); art.appendChild(el("rect",{x:BX,y:BY,width:BW,height:BH,fill:"url(#pgrain)"})); g.appendChild(art);
     g.appendChild(el("path",{"class":"pz-sheen", d:d, fill:"url(#wd-sheen)"}));
     g.appendChild(el("path",{"class":"pz-edge", d:d}));
-    var p={i:idx, hx:BX+k*w, hy:BY+j*h, w:w, h:h, dx:0, dy:0, rot:lv.rot?Math.floor(rand()*4):0, locked:false, el:g};
+    var p={i:idx, hx:BX+k*w, hy:BY+j*h, w:w, h:h, dx:0, dy:0, s:1, rot:lv.rot?Math.floor(rand()*4):0, locked:false, el:g};
     (function(p){ g.addEventListener("pointerdown", function(e){ down(e,p); }); })(p);
     pieces.push(p); gP.appendChild(g); render(p);
   }
@@ -3138,7 +3144,9 @@ function load(i, fresh){
   say(i===0?"Das Holzbild ist zerfallen! Leg die Teile zurück ins Brett.":"Neues Puzzle: "+lv.name+". "+(c*r)+" Teile warten auf dich!");
   try{ localStorage.setItem("holzi-pz-lvl", i); }catch(e){}
 }
-function render(p){ p.el.setAttribute("transform","translate("+p.dx.toFixed(2)+" "+p.dy.toFixed(2)+")"+(p.rot?" rotate("+(p.rot*90).toFixed(1)+" "+(p.hx+p.w/2).toFixed(2)+" "+(p.hy+p.h/2).toFixed(2)+")":"")); }
+function xf(p,a){ var cx=(p.hx+p.w/2).toFixed(2), cy=(p.hy+p.h/2).toFixed(2), s=p.s||1;
+  return "translate("+p.dx.toFixed(2)+" "+p.dy.toFixed(2)+")"+(s!==1?" translate("+cx+" "+cy+") scale("+s.toFixed(3)+") translate(-"+cx+" -"+cy+")":"")+(a?" rotate("+a.toFixed(1)+" "+cx+" "+cy+")":""); }
+function render(p){ p.el.setAttribute("transform",xf(p,p.rot*90)); }
 function renderLevels(){
   var n=document.getElementById("plevels"); n.innerHTML="";
   LEVELS.forEach(function(lv,i){
@@ -3167,7 +3175,7 @@ svg.addEventListener("pointermove", function(e){
   p.dx=q[0]+drag.ox; p.dy=q[1]+drag.oy;
   // keep the piece on the table
   p.dx=Math.max(-p.hx-p.w*0.3, Math.min(VWB-p.hx-p.w*0.7, p.dx)); p.dy=Math.max(-p.hy, Math.min(VHB-p.hy-p.h*0.7, p.dy));
-  render(p);
+  p.s=onBoard(p)?1:TS; render(p);
 });
 function up(e){
   if(!drag||e.pointerId!==drag.id) return;
@@ -3179,12 +3187,12 @@ svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up)
 
 function turnPiece(p){
   var from=p.rot*90; anim=true; hz().tok(1.25);
-  var f=function(a){ p.el.setAttribute("transform","translate("+p.dx.toFixed(2)+" "+p.dy.toFixed(2)+") rotate("+a.toFixed(1)+" "+(p.hx+p.w/2).toFixed(2)+" "+(p.hy+p.h/2).toFixed(2)+")"); };
+  var f=function(a){ p.el.setAttribute("transform",xf(p,a)); };
   var t0=performance.now(); (function st(now){ var t=Math.min(1,(now-t0)/(reduce?1:160)); f(from+90*t); if(t<1) requestAnimationFrame(st); else { p.rot=(p.rot+1)%4; render(p); anim=false;
     if(p.rot===0 && Math.hypot(p.dx,p.dy)<Math.min(p.w,p.h)*0.28) lock(p); } })(t0);
 }
 function lock(p){
-  p.dx=0; p.dy=0; p.locked=true; p.el.classList.add("locked"); render(p);
+  p.dx=0; p.dy=0; p.s=1; p.locked=true; p.el.classList.add("locked"); render(p);
   gP.insertBefore(p.el, gP.firstChild);
   hz().tok(1.4); hz().tune([784],0.06,"sine");
   var left=pieces.filter(function(q){ return !q.locked; }).length;
@@ -3195,8 +3203,8 @@ function lock(p){
 }
 function tweenTo(p, ms){
   return new Promise(function(res){
-    var x0=p.dx, y0=p.dy, r0=p.rot>2?p.rot-4:p.rot, t0=performance.now(); if(reduce) ms=1; gP.appendChild(p.el); p.el.classList.add("lift");
-    (function f(now){ var t=Math.min(1,(now-t0)/ms), e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2; p.dx=x0*(1-e); p.dy=y0*(1-e); p.rot=r0*(1-e); render(p); if(t>=1) p.rot=0;
+    var x0=p.dx, y0=p.dy, r0=p.rot>2?p.rot-4:p.rot, s0=p.s||1, t0=performance.now(); if(reduce) ms=1; gP.appendChild(p.el); p.el.classList.add("lift");
+    (function f(now){ var t=Math.min(1,(now-t0)/ms), e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2; p.dx=x0*(1-e); p.dy=y0*(1-e); p.rot=r0*(1-e); p.s=s0+(1-s0)*e; render(p); if(t>=1) p.rot=0;
       if(t<1) requestAnimationFrame(f); else { p.el.classList.remove("lift"); res(); } })(t0);
   });
 }
@@ -3235,7 +3243,8 @@ function win(){
 }
 var start=0; try{ var s=parseInt(localStorage.getItem("holzi-pz-lvl"),10); if(s>=0&&s<LEVELS.length) start=s; }catch(e){}
 var ready=false;
-window.HZP={ show:function(){ if(!ready){ ready=true; load(start,false); } else if(applyMode()) scatter(pieces.filter(function(p){ return !p.locked; }), Math.random); } };
+window.HZPdebug=function(){ return pieces.map(function(p){ return {l:p.locked,b:onBoard(p),x:+(p.hx+p.dx+p.w/2).toFixed(1),y:+(p.hy+p.dy+p.h/2).toFixed(1),s:p.s}; }); };
+window.HZP={ show:function(){ if(!ready){ ready=true; load(start,false); } else if(applyMode()) relayout(); } };
 })();
 
 </script>
