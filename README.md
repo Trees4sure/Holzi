@@ -1,6 +1,6 @@
 # Holzis Holzkiste – PWA
 
-Fünfzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
+Sechzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
 
 | Spiel | Worum es geht |
 |---|---|
@@ -18,7 +18,8 @@ Fünfzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersa
 | **Aufräumen** | Holzi schiebt Kisten auf ihre Plätze (Sokoban): 10 per Löser geprüfte Lager, Lösung zum Zuschauen |
 | **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
 | **Klötzchenregen** | Fallende Holzklötze: volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
-| **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; 6 Szenarien bis 60 Jahre |
+| **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; Wachstumskurven je Baumart (Höhe, Vorrat); Klimabaumarten Zerreiche, Orientbuche, Baumhasel; eigenes Sägewerk mit Schnittholz, Aufträgen und Ausbauten; 6 Szenarien bis 60 Jahre |
+| **Lückenrätsel** | Rätsel über Wald und Werkstatt: erst fehlende Buchstaben, dann ganze Wörter (mit Ablenkwörtern), am Ende „Wer bin ich?“ |
 
 ## Aufbau
 
@@ -103,8 +104,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v19";` hochzählen
-(`holzi-v20` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v20";` hochzählen
+(`holzi-v21` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
@@ -116,5 +117,6 @@ Höhenwachstum je Baumart nach Chapman-Richards, angepasst an die Oberhöhen der
 (EKl I, NW-FVA 2021, Näherung); Standort (Wasser/Nährstoff) skaliert die Bonität. Vorrat ≈ Formzahl × Höhe²
 × Bestockung, Mischbestände +8 % und weniger Schadrisiko. Durchforsten senkt die Bestockung um 25 %, hebt
 Qualität und Stabilität; überdichte Bestände verlieren Qualität. Risiken (Trockenheit, Borkenkäfer, Sturm,
-Verbiss) steigen mit dem Klimawandel über die Spielzeit. Die Ziele der Szenarien sind mit zwei Probespielern
+Verbiss) steigen mit dem Klimawandel über die Spielzeit. Sägewerk: 1 Fm Rundholz → 0,6 m³ Schnittholz + 0,35 Fm
+Nebenprodukte; es lohnt sich vor allem in langen Szenarien (Probespieler: Großforstbetrieb etwa +35 %, kurze Szenarien eher Verlust). Die Ziele der Szenarien sind mit zwei Probespielern
 (passiv / klug wirtschaftend) abgestimmt.
