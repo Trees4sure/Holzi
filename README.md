@@ -105,8 +105,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v22";` hochzählen
-(`holzi-v23` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v23";` hochzählen
+(`holzi-v24` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 

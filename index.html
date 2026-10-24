@@ -1061,7 +1061,7 @@ body.ingame{--chrome:400px}
 
 /* ---- Teilen / QR ---- */
 .qr-wrap{display:grid; place-items:center; margin:6px 0}
-.qr-svg{width:min(260px,70vw); height:auto; border-radius:14px; box-shadow:0 0 0 2px var(--line)}
+.qr-svg{width:min(320px,78vw); height:auto; filter:drop-shadow(0 8px 14px rgba(40,20,5,.35))}
 .qr-url{margin:4px 0 0!important; text-align:center; font:700 14px var(--font-body); word-break:break-all; color:var(--muted)}
 .qr-how{margin-top:12px; font-size:13.5px} .qr-how summary{cursor:pointer; font-weight:700} .qr-how p{margin:6px 0 0!important}
 @media (prefers-reduced-motion: reduce){ .hello-holzi{animation:none} .tile,.tile-art svg{transition:none} }
@@ -5969,9 +5969,38 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
   // ---- Teilen: QR-Code mit der Adresse der App (Bibliothek qrcode.js liegt in der App, funktioniert offline) ----
   var PUBLIC_URL='https://trees4sure.github.io/Holzi/';
   function appUrl(){ return /^https?:$/.test(location.protocol)&&!/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname) ? location.origin+location.pathname : PUBLIC_URL; }
-  function qrSvg(text){ if(typeof qrcode!=="function") return ''; var qr=qrcode(0,'M'); qr.addData(text); qr.make(); var n=qr.getModuleCount(), q=4, d='';
-    for(var r=0;r<n;r++) for(var c=0;c<n;c++) if(qr.isDark(r,c)) d+='M'+(c+q)+' '+(r+q)+'h1v1h-1z';
-    return '<svg class="qr-svg" viewBox="0 0 '+(n+2*q)+' '+(n+2*q)+'" shape-rendering="crispEdges" role="img" aria-label="QR-Code für '+text+'"><rect width="100%" height="100%" fill="#fff"/><path d="'+d+'" fill="#2a1708"/></svg>'; }
+  // QR-Code auf einer Baumscheibe: Rinde, Jahrringe, Trockenrisse; die Codeflaeche liegt hell im Kern (gut lesbar),
+  // in der Mitte eine kleine Baumscheibe als Zeichen (Fehlerkorrektur Q verkraftet das)
+  function qrSvg(text){
+    if(typeof qrcode!=="function") return ''; var qr=qrcode(0,'Q'); qr.addData(text); qr.make();
+    var n=qr.getModuleCount(), q=3, S=n+2*q, R=S*0.78, C=R+1.2, W=2*C, rnd=window.HZK.rng(7), h='', i;
+    var off=C-S/2, mid=Math.floor(n/2), lg=n>=29?5:3, l0=mid-Math.floor(lg/2);
+    function wob(r,amp,seed){ var r2=window.HZK.rng(seed), pts=[], ph=r2()*6, k=3+Math.floor(r2()*3); for(var t=0;t<=72;t++){ var a=t/72*Math.PI*2, rr=r*(1+amp*Math.sin(a*k+ph)+amp*0.6*Math.sin(a*(k+2)+ph*1.7)); pts.push((C+Math.cos(a)*rr).toFixed(2)+','+(C+Math.sin(a)*rr*0.97).toFixed(2)); } return 'M'+pts.join('L')+'Z'; }
+    h+='<defs><radialGradient id="qr-wood" cx=".46" cy=".44" r=".62"><stop offset="0" stop-color="#f3dcae"/><stop offset=".7" stop-color="#deb47a"/><stop offset="1" stop-color="#c08a4e"/></radialGradient>'+
+       '<linearGradient id="qr-bark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b4226"/><stop offset="1" stop-color="#3a2210"/></linearGradient></defs>';
+    h+='<path d="'+wob(R+1.1,0.025,3)+'" fill="url(#qr-bark)"/>';
+    for(i=0;i<26;i++){ var a=rnd()*Math.PI*2; h+='<path d="M'+(C+Math.cos(a)*(R+0.2)).toFixed(2)+' '+(C+Math.sin(a)*(R+0.2)).toFixed(2)+'L'+(C+Math.cos(a)*(R+1.0)).toFixed(2)+' '+(C+Math.sin(a)*(R+1.0)).toFixed(2)+'" stroke="#2a1708" stroke-width=".25" opacity=".6"/>'; }
+    h+='<path d="'+wob(R,0.012,5)+'" fill="url(#qr-wood)"/>';
+    // Jahrringe: aussen dichter (spaetere Jahre schmaler), leicht unregelmaessig
+    var r=R*0.97, k2=0; while(r>S*0.3&&k2<60){ h+='<path d="'+wob(r,0.008+rnd()*0.006,11+k2)+'" fill="none" stroke="#8a5a2c" stroke-opacity="'+(0.25+rnd()*0.3).toFixed(2)+'" stroke-width="'+(0.12+rnd()*0.22).toFixed(2)+'"/>'; r-=0.45+rnd()*0.9*(r/R); k2++; }
+    for(i=0;i<3;i++){ var a2=rnd()*Math.PI*2, a3=a2+(rnd()-.5)*0.08; h+='<path d="M'+(C+Math.cos(a2)*R*0.99).toFixed(2)+' '+(C+Math.sin(a2)*R*0.99).toFixed(2)+'L'+(C+Math.cos(a3)*R*0.72).toFixed(2)+' '+(C+Math.sin(a3)*R*0.72).toFixed(2)+'" stroke="#5a3517" stroke-width=".3" stroke-linecap="round" opacity=".55"/>'; }
+    // helle Kernflaeche mit dem Code
+    h+='<rect x="'+off+'" y="'+off+'" width="'+S+'" height="'+S+'" rx="1.6" fill="#fbf1dc"/>';
+    var d='';
+    for(var rr2=0;rr2<n;rr2++) for(var c=0;c<n;c++){
+      if(rr2>=l0&&rr2<l0+lg&&c>=l0&&c<l0+lg) continue;
+      var fin=(rr2<7&&c<7)||(rr2<7&&c>=n-7)||(rr2>=n-7&&c<7); if(fin) continue;
+      if(qr.isDark(rr2,c)) d+='M'+(off+q+c)+' '+(off+q+rr2)+'h1v1h-1z'; }
+    h+='<path d="'+d+'" fill="#2a1708" shape-rendering="crispEdges"/>';
+    // Suchmuster als kleine Holzrahmen
+    [[0,0],[0,n-7],[n-7,0]].forEach(function(f){ var x=off+q+f[1], y=off+q+f[0];
+      h+='<rect x="'+(x+0.5)+'" y="'+(y+0.5)+'" width="6" height="6" rx="1.4" fill="none" stroke="#2a1708" stroke-width="1"/><rect x="'+(x+2)+'" y="'+(y+2)+'" width="3" height="3" rx=".8" fill="#2a1708"/>'; });
+    // kleine Baumscheibe in der Mitte
+    var mx=off+q+l0+lg/2, my=mx, mr=lg/2-0.35;
+    h+='<circle cx="'+mx+'" cy="'+my+'" r="'+(mr+0.3)+'" fill="#4e2e18"/><circle cx="'+mx+'" cy="'+my+'" r="'+mr+'" fill="#e9c58c"/>';
+    for(i=1;i<=3;i++) h+='<circle cx="'+mx+'" cy="'+my+'" r="'+(mr*i/3.6).toFixed(2)+'" fill="none" stroke="#8a5a2c" stroke-width=".15"/>';
+    return '<svg class="qr-svg" viewBox="0 0 '+W.toFixed(2)+' '+W.toFixed(2)+'" role="img" aria-label="QR-Code für '+text+' auf einer Baumscheibe">'+h+'</svg>';
+  }
   function showShare(){
     var url=appUrl(), canShare=!!navigator.share;
     var box=dialog('<h2>Holzi teilen</h2><p class="pf-hint">Scanne den Code mit der Kamera eines anderen Handys oder Tablets – dann öffnet sich Holzis Holzkiste.</p>'+
