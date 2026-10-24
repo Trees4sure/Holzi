@@ -753,7 +753,7 @@ body.ingame{--chrome:400px}
   body.ingame .game > :is(.stage,.tboard,.mboard,.pboard,.board-wrap){grid-column:1; grid-row:1 / -1; justify-self:center; position:sticky; top:84px}
   body.ingame .game > :is(.tboard,.mboard,.pboard,.board-wrap){max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
   #g-sudoku,#g-kreuz,#g-kiste,#g-biber{--xtra:0px}
-  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:0.737} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4} #g-biber{--ar:0.92}
+  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:0.737} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4} #g-biber{--ar:0.92} #g-wuerfel{--ar:var(--wfar,0.8)}
   body.ingame .game > .bubble::after{left:-9px; top:50%; bottom:auto; transform:translateY(-50%) rotate(135deg)}
   body.ingame .levels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
   /* Puzzle quer: Brett und Ablage nebeneinander ueber die ganze Breite, Bedienung darunter */
@@ -976,6 +976,26 @@ label.pf-btn{display:inline-block}
 @keyframes rmnope{25%{transform:translateX(-.8px)} 75%{transform:translateX(.8px)}}
 .rm-pu{transition:transform .15s}
 
+/* ---- Holzwuerfel ---- */
+#g-wuerfel .board-wrap{max-width:min(640px, calc(var(--bh) / var(--wfar,1)))}
+.wf{position:relative}
+#wuerfel-svg{display:block; width:100%; height:auto; touch-action:none; user-select:none; -webkit-user-select:none}
+.wf-slot{fill:color-mix(in srgb, var(--card) 70%, #c8945c); stroke:rgba(120,80,40,.45); stroke-width:.7; stroke-dasharray:2.4 1.6}
+.wf-slot.base{fill:color-mix(in srgb, var(--card) 55%, #c8945c)}
+.wf-lab{font:700 4.2px var(--font-body); fill:var(--muted); opacity:.75; text-anchor:middle; pointer-events:none}
+.wf-tray{fill:rgba(120,80,40,.10); stroke:rgba(120,80,40,.25); stroke-width:.6}
+.wf-p{cursor:grab}
+.wf-p.locked{cursor:default; filter:saturate(.8)}
+.wf-p.sel{filter:drop-shadow(0 0 1.2px #f2b632) drop-shadow(0 0 1.2px #f2b632)}
+.wf-edge{fill:none; stroke:rgba(70,40,15,.6); stroke-width:.5; stroke-linecap:square}
+.wf-lock{font-size:6px; text-anchor:middle; opacity:.55; pointer-events:none}
+.wf-clash{fill:rgba(224,57,43,.55); stroke:#b3261e; stroke-width:.6; pointer-events:none}
+.wf-hole{fill:none; stroke:#e0392b; stroke-width:.9; stroke-dasharray:1.6 1; pointer-events:none}
+.wf-3d{position:absolute; inset:0; border-radius:18px; overflow:hidden; background:radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--card) 75%, #f3d9b0), color-mix(in srgb, var(--bg-soft) 55%, #b98a58))}
+.wf-3d canvas{display:block; width:100%; height:100%; touch-action:none; cursor:grab}
+.wf-x{position:absolute; top:10px; left:10px; border:0; border-radius:999px; padding:8px 14px; font:800 14px var(--font-display); background:var(--card); color:var(--ink); box-shadow:0 2px 8px rgba(40,20,5,.25); cursor:pointer}
+.wf-3dhint{position:absolute; bottom:10px; left:0; right:0; text-align:center; font:700 13px var(--font-body); color:var(--muted); pointer-events:none}
+
 /* ---- Holzkiste fuellen ---- */
 #g-fuellen .board-wrap{max-width:min(680px, calc(var(--bh) / var(--ar,1)))}
 #fuellen-svg{touch-action:none}
@@ -1189,13 +1209,14 @@ label.pf-btn{display:inline-block}
   #g-haus .board-wrap,#g-kiste .board-wrap{max-width:min(980px, calc(var(--bh) / 1.12))}
   #g-wortwald .board-wrap{max-width:min(880px, calc(var(--bh) / 1.4))}
   #g-biber .board-wrap{max-width:min(980px, calc(var(--bh) / 0.92))}
+  #g-wuerfel .board-wrap{max-width:min(900px, calc(var(--bh) / var(--wfar,1)))}
   #g-luecke .board-wrap{max-width:880px}
 }
 .ww-c.has b{font-size:clamp(14px, calc(min(860px, 92vw) / var(--n) * .5), 40px)}
 /* quer: die Feld-Grenzen je Spiel gelten nur hochkant, quer zaehlt nur die Hoehe */
 @media (orientation:landscape) and (min-width:700px){
   body.ingame .app{max-width:1400px}
-  #g-tan .tboard,#g-maze .mboard,#g-worte .board-wrap,#g-sudoku .board-wrap,#g-kreuz .board-wrap,#g-marble .board-wrap,#g-tower .board-wrap,#g-haus .board-wrap,#g-kiste .board-wrap,#g-wortwald .board-wrap,#g-biber .board-wrap{max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
+  #g-tan .tboard,#g-maze .mboard,#g-worte .board-wrap,#g-sudoku .board-wrap,#g-kreuz .board-wrap,#g-marble .board-wrap,#g-tower .board-wrap,#g-haus .board-wrap,#g-kiste .board-wrap,#g-wortwald .board-wrap,#g-biber .board-wrap,#g-wuerfel .board-wrap{max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
   #g-luecke .board-wrap{max-width:900px}
 }
 /* Seite versehentlich vergroessert: Knopf zum Zuruecksetzen */
@@ -1210,7 +1231,7 @@ label.pf-btn{display:inline-block}
     <button class="iconbtn back" id="back" aria-label="Zu allen Spielen" title="Alle Spiele" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="titles">
       <h1 id="h1">Holzis <span>Holzkiste</span></h1>
-      <p class="sub" id="sub">Achtzehn Holzspiele für Kinder</p>
+      <p class="sub" id="sub">Neunzehn Holzspiele für Kinder</p>
     </div>
     <button class="who" id="who" type="button"></button>
     <button class="iconbtn" id="sharebtn" aria-label="App teilen" title="Teilen (QR-Code)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><path d="M14 14h3v3h-3zM20 14v.01M14 20v.01M17 17h3v3"/></svg></button>
@@ -1243,6 +1264,7 @@ label.pf-btn{display:inline-block}
         <button class="tile" id="tile-marble" data-g="marble"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v8a6 6 0 006 6h10"/><circle cx="16" cy="18" r="2.5" fill="currentColor"/></svg></span><span class="tile-txt"><span class="tile-name">Murmeln</span><span class="tile-sub">Rinnen drehen, Murmel rollt</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-raeumen" data-g="raeumen"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="8" width="11" height="11" rx="1.5"/><path d="M9 12h11M9 15.5h11"/><path d="M2.5 13.5h4M5 11l2 2.5L5 16"/></svg></span><span class="tile-txt"><span class="tile-name">Aufräumen</span><span class="tile-sub">Holzi schiebt Kisten</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-fuellen" data-g="fuellen"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h7V3M10 21v-6h11M14 3v7h7"/></svg></span><span class="tile-txt"><span class="tile-name">Kiste füllen</span><span class="tile-sub">Holzteile lückenlos legen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-wuerfel" data-g="wuerfel"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l8 4.4v9.6l-8 4.4-8-4.4V7.2z"/><path d="M4 7.2l8 4.4 8-4.4M12 11.6v9.6"/><path d="M7 9v2.2l2 1.1M15 13.4v2.2l2-1.1" opacity=".7"/></svg></span><span class="tile-txt"><span class="tile-name">Holzwürfel</span><span class="tile-sub">Zackenplatten zum Würfel stecken</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
       </div>
     </section>
     <section class="tgroup g-w" aria-label="Wörter &amp; Zahlen">
@@ -1644,6 +1666,7 @@ label.pf-btn{display:inline-block}
 <section class="game" id="g-biber" hidden></section>
 <section class="game" id="g-raeumen" hidden></section>
 <section class="game" id="g-fuellen" hidden></section>
+<section class="game" id="g-wuerfel" hidden></section>
 <section class="game" id="g-kloetze" hidden></section>
 <section class="game" id="g-forst" hidden></section>
 <section class="game" id="g-luecke" hidden></section>
@@ -7028,15 +7051,258 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
 })();
 </script>
 <script>
+/* ===== Holzwuerfel: Steckwuerfel aus sechs verzahnten Platten (wie Happy Cube) =====
+   Der hohle Wuerfel hat N x N x N Kaestchen, die Schale ist 1 dick. Jede Platte ist N x N gross: innen voll,
+   am Rand Zaehne. Kanten- und Eckkaestchen gehoeren genau einer der angrenzenden Platten. */
+var CM=(function(){
+// Wuerfelnetz (Kreuz): T oben, darunter L F R B, darunter D
+var FACES=["T","L","F","R","B","D"], NET={T:[1,0],L:[0,1],F:[1,1],R:[2,1],B:[3,1],D:[1,2]};
+function toXYZ(f,u,v,N){ var m=N-1;
+  switch(f){ case "F": return [u,m-v,m]; case "T": return [u,m,v]; case "D": return [u,0,m-v];
+    case "L": return [0,m-v,u]; case "R": return [m,m-v,m-u]; case "B": return [m-u,m-v,0]; } }
+function toUV(f,x,y,z,N){ var m=N-1;
+  switch(f){ case "F": return [x,m-y]; case "T": return [x,z]; case "D": return [x,m-z];
+    case "L": return [z,m-y]; case "R": return [m-z,m-y]; case "B": return [m-x,m-y]; } }
+function facesOf(x,y,z,N){ var m=N-1, f=[]; if(y===m) f.push("T"); if(y===0) f.push("D"); if(x===0) f.push("L"); if(x===m) f.push("R"); if(z===m) f.push("F"); if(z===0) f.push("B"); return f; }
+function rng(seed){ var s=(seed>>>0)||1; return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; }; }
+function key(x,y,z){ return x+","+y+","+z; }
+/* Muster: Array N*N (v*N+u) aus 0/1 */
+function rot(p,N){ var q=[]; for(var v=0;v<N;v++) for(var u=0;u<N;u++) q[v*N+u]=p[(N-1-u)*N+v]; return q; } // 90 Grad im Uhrzeigersinn
+function flip(p,N){ var q=[]; for(var v=0;v<N;v++) for(var u=0;u<N;u++) q[v*N+u]=p[v*N+(N-1-u)]; return q; }
+function orient(p,N,r,f){ var q=f?flip(p,N):p.slice(); for(var i=0;i<(r%4+4)%4;i++) q=rot(q,N); return q; }
+function same(a,b){ for(var i=0;i<a.length;i++) if(!!a[i]!==!!b[i]) return false; return true; }
+function generate(N,seed,tries){
+  var r=rng(seed), m=N-1, own={}, cells=[];
+  for(var x=0;x<N;x++) for(var y=0;y<N;y++) for(var z=0;z<N;z++){ var fs=facesOf(x,y,z,N); if(fs.length) cells.push([x,y,z,fs]); }
+  // erst die Kanten, dann die Ecken (damit jede Ecke an einem Zahn ihrer Platte haengt)
+  // Kanten: je Wuerfelkante abwechslungsreich verteilen (nie alle Zaehne auf einer Seite = glatte Kante)
+  var edges={};
+  cells.forEach(function(c){ if(c[3].length===1) own[key(c[0],c[1],c[2])]=c[3][0]; else if(c[3].length===2){ var k=c[3].slice().sort().join(""); (edges[k]||(edges[k]=[])).push(c); } });
+  Object.keys(edges).forEach(function(k){ var es=edges[k], pick;
+    for(var t=0;t<30;t++){ pick=es.map(function(){ return r()<0.5?0:1; }); var s0=pick.reduce(function(a,b){ return a+b; },0); if(es.length<2||(s0>0&&s0<es.length)) break; }
+    es.forEach(function(c,i){ own[key(c[0],c[1],c[2])]=c[3][pick[i]]; }); });
+  cells.forEach(function(c){ if(c[3].length!==3) return; var ok=c[3].filter(function(f){ var uv=toUV(f,c[0],c[1],c[2],N);
+      return [[1,0],[-1,0],[0,1],[0,-1]].some(function(d){ var u=uv[0]+d[0], v=uv[1]+d[1]; if(u<0||v<0||u>m||v>m) return false; var p=toXYZ(f,u,v,N); return own[key(p[0],p[1],p[2])]===f; }); });
+    if(ok.length) own[key(c[0],c[1],c[2])]=ok[Math.floor(r()*ok.length)];
+    else { var f=c[3][Math.floor(r()*3)], uv=toUV(f,c[0],c[1],c[2],N), u=uv[0]===0?1:uv[0]-1, p=toXYZ(f,u,uv[1],N); own[key(p[0],p[1],p[2])]=f; own[key(c[0],c[1],c[2])]=f; } });
+  var pat={}; FACES.forEach(function(f){ var q=[]; for(var v=0;v<N;v++) for(var u=0;u<N;u++){ var p=toXYZ(f,u,v,N); q[v*N+u]=own[key(p[0],p[1],p[2])]===f?1:0; } pat[f]=q; });
+  // keine zwei gleichen Platten (auch nicht gedreht/gewendet) - sonst neu wuerfeln
+  for(var a=0;a<6;a++) for(var b=a+1;b<6;b++) for(var rr=0;rr<4;rr++) for(var ff=0;ff<2;ff++) if(same(pat[FACES[a]],orient(pat[FACES[b]],N,rr,ff))&&(tries||0)<40) return generate(N,seed*31+7,(tries||0)+1);
+  return pat;
+}
+/* Pruefen: belegte Kaestchen zaehlen. placed = {Face: Muster in Face-Lage} */
+function check(placed,N){
+  var cnt={}, from={}, total=0;
+  Object.keys(placed).forEach(function(f){ var q=placed[f]; for(var v=0;v<N;v++) for(var u=0;u<N;u++) if(q[v*N+u]){ var p=toXYZ(f,u,v,N), k=key(p[0],p[1],p[2]); cnt[k]=(cnt[k]||0)+1; (from[k]||(from[k]=[])).push([f,u,v]); } });
+  var clash=[], holes=[];
+  Object.keys(cnt).forEach(function(k){ if(cnt[k]>1) clash.push(k); });
+  var all=Object.keys(placed).length===6;
+  if(all) for(var x=0;x<N;x++) for(var y=0;y<N;y++) for(var z=0;z<N;z++) if(facesOf(x,y,z,N).length&&!cnt[key(x,y,z)]) holes.push(key(x,y,z));
+  return {ok:all&&!clash.length&&!holes.length, clash:clash, holes:holes, from:from};
+}
+return {FACES:FACES,NET:NET,toXYZ:toXYZ,toUV:toUV,facesOf:facesOf,generate:generate,check:check,orient:orient,rot:rot,flip:flip,same:same,rng:rng,key:key};
+})();
+/* ===== Holzwuerfel: Spiel ===== */
+(function(){
+var K=HZK, hz=K.hz, NS="http://www.w3.org/2000/svg";
+var LEVELS=[
+ {name:"Erster Würfel", age:"ab 6",  N:4, pre:["D","F","L","T"]},
+ {name:"Zwei Lücken",   age:"ab 6",  N:4, pre:["D","F","R"]},
+ {name:"Kleiner Würfel",age:"ab 7",  N:4, pre:["D"]},
+ {name:"Mehr Zacken",   age:"ab 7",  N:5, pre:["D","F","L"]},
+ {name:"Halb fertig",   age:"ab 8",  N:5, pre:["D","B"]},
+ {name:"Ganz allein",   age:"ab 9",  N:5, pre:["D"]},
+ {name:"Wendeteile",    age:"ab 10", N:5, pre:["D"], flip:true},
+ {name:"Großer Würfel", age:"ab 10", N:6, pre:["D"]},
+ {name:"Großes Wenden", age:"ab 12", N:6, pre:["D"], flip:true},
+ {name:"Meisterwürfel", age:"Profi", N:7, pre:["D"], flip:true}];
+var WOOD=[["#f2dcae","#cfa972"],["#d58f5e","#9c5434"],["#a06e46","#5e3a20"],["#e6b46c","#a8743a"],["#cdb894","#8f7a58"],["#b8693c","#7a3a1c"]]; // Birke, Kirsche, Nuss, Eiche, Esche, Mahagoni
+var $=K.mount("g-wuerfel",{
+  board:'<div class="wf" id="wuerfel-wf"><svg id="wuerfel-svg" aria-label="Würfelnetz und Ablage"></svg>'+
+        '<div class="wf-3d" id="wuerfel-3d" hidden><canvas id="wuerfel-cv" aria-label="Würfel in 3D"></canvas><button class="wf-x" id="wuerfel-close">✕ Zurück zum Netz</button><span class="wf-3dhint">Mit dem Finger drehen</span></div></div>',
+  tools:[{id:"view",icon:"show",label:"3D ansehen"},{id:"flip",icon:"flip",label:"Wenden"},{id:"hint",icon:"hint",label:"Tipp"},{id:"new",icon:"neu",label:"Neu"}],
+  help:"Sechs Holzplatten mit Zacken ergeben zusammen einen Würfel. Zieh jede Platte auf ein freies Feld im Würfelnetz – das Kreuz ist der aufgeklappte Würfel. Antippen dreht eine Platte, „Wenden“ dreht sie auf die Rückseite. "+
+       "Die Zacken müssen ineinandergreifen, auch an den Kanten, die im Netz nicht nebeneinanderliegen – rot zeigt, wo zwei Platten zusammenstoßen. Mit „3D ansehen“ klappst du das Netz zum Würfel zusammen."
+});
+var st=K.store("holzi-wuerfel"), L=Math.min(st.lvl(),LEVELS.length-1);
+var svg=$("svg"), N=4, sol=null, pieces=[], sel=null, drag=null, done=false, hints=0, fails=0, failArmed=true, bump=0, U=10, G=6, S=40, TS=0.7, layout=null, wide=null, clock=K.timer(null,"wuerfel");
+function el(n,a,p){ var e=document.createElementNS(NS,n); for(var k in a) e.setAttribute(k,a[k]); if(p) p.appendChild(e); return e; }
+function slotXY(f){ var c=CM.NET[f]; return {x:G+c[0]*(S+G)+S/2, y:G+c[1]*(S+G)+S/2}; }
+function wideMode(){ return matchMedia("(orientation: landscape) and (min-width: 700px)").matches; }
+function computeLayout(){
+  wide=wideMode(); S=N*U; var netW=4*S+5*G, netH=3*S+4*G, cell, trays=[];
+  if(wide){ TS=0.66; cell=S*TS+8; for(var i=0;i<6;i++) trays.push({x:netW+4+(i%2)*cell+cell/2, y:G+Math.floor(i/2)*cell+cell/2}); layout={w:netW+4+2*cell+G, h:Math.max(netH,G*2+3*cell), trays:trays}; }
+  else { cell=(netW-2*G)/3; TS=Math.min(0.72,(cell-8)/S); var ch=S*TS+8; for(var j=0;j<6;j++) trays.push({x:G+(j%3)*cell+cell/2, y:netH+2+Math.floor(j/3)*ch+ch/2}); layout={w:netW, h:netH+2+2*ch+G, trays:trays}; }
+  svg.setAttribute("viewBox","0 0 "+layout.w.toFixed(1)+" "+layout.h.toFixed(1));
+  document.getElementById("g-wuerfel").style.setProperty("--wfar",(layout.h/layout.w).toFixed(3));
+}
+/* ---- Level aufbauen ---- */
+function load(i,fresh){
+  L=i; st.setLvl(i); if(fresh) bump++; var lv=LEVELS[i], r=CM.rng(9001+i*7919+bump*104729); N=lv.N; done=false; hints=0; fails=0; failArmed=true; sel=null; close3d();
+  sol=CM.generate(N,1234+i*977+bump*31337);
+  var order=CM.FACES.filter(function(f){ return lv.pre.indexOf(f)<0; }).sort(function(){ return r()-0.5; });
+  pieces=CM.FACES.map(function(f,k){ var pre=lv.pre.indexOf(f)>=0, base=pre?sol[f]:CM.orient(sol[f],N,Math.floor(r()*4),lv.flip&&r()<0.5?1:0);
+    return {id:k,face:f,base:base,r:0,f:0,slot:pre?f:null,locked:pre,tray:pre?-1:order.indexOf(f),col:WOOD[k],x:0,y:0,s:1,ang:0}; });
+  // ohne Wendeteile darf keine Platte gewendet sein: dann ist die Lage nur eine Drehung
+  computeLayout(); draw(); renderLevels(); clock.start(); hud();
+  K.say("wuerfel-say", lv.pre.length>2?"Hier fehlen noch "+(6-lv.pre.length)+" Platten. Zieh sie ins Würfelnetz – antippen dreht sie.":lv.flip?"Profi-Würfel: Manche Platten liegen verkehrt herum. Mit „Wenden“ drehst du sie um.":"Die Grundplatte liegt schon. Bau den Würfel aus den übrigen fünf Platten!");
+}
+function renderLevels(){ K.levels("wuerfel-levels",LEVELS,L,st,function(k){ hz().tok(1.1); load(k,false); }); }
+function eff(p){ return CM.orient(p.base,N,p.r,p.f); }
+function piecePath(q){ var h="", o=-N*U/2, d="";
+  for(var v=0;v<N;v++) for(var u=0;u<N;u++) if(q[v*N+u]){ var x=o+u*U, y=o+v*U; h+="M"+x+" "+y+"h"+U+"v"+U+"h"+(-U)+"z";
+    if(u===0||!q[v*N+u-1]) d+="M"+x+" "+y+"v"+U; if(u===N-1||!q[v*N+u+1]) d+="M"+(x+U)+" "+y+"v"+U;
+    if(v===0||!q[(v-1)*N+u]) d+="M"+x+" "+y+"h"+U; if(v===N-1||!q[(v+1)*N+u]) d+="M"+x+" "+(y+U)+"h"+U; }
+  return [h,d]; }
+function draw(){
+  svg.innerHTML=""; K.defs();
+  var defs=el("defs",{},svg);
+  pieces.forEach(function(p){ var g=el("linearGradient",{id:"wfg"+p.id,x1:0,y1:0,x2:0.4,y2:1},defs); el("stop",{offset:0,"stop-color":p.col[0]},g); el("stop",{offset:1,"stop-color":p.col[1]},g); });
+  // Wuerfelnetz: sechs Felder als Kreuz
+  CM.FACES.forEach(function(f){ var c=slotXY(f); el("rect",{x:c.x-S/2-1.5,y:c.y-S/2-1.5,width:S+3,height:S+3,rx:2.5,"class":"wf-slot"+(f==="D"?" base":"")},svg);
+    var t=el("text",{x:c.x,y:c.y+3.5,"class":"wf-lab"},svg); t.textContent={T:"oben",L:"links",F:"vorne",R:"rechts",B:"hinten",D:"unten"}[f]; });
+  var tr=el("rect",{x:wide?4*S+5*G+2:G/2,y:wide?G/2:3*S+4*G,width:wide?layout.w-(4*S+5*G)-2-G/2:layout.w-G,height:wide?layout.h-G:layout.h-(3*S+4*G)-G/2,rx:4,"class":"wf-tray"},svg);
+  tr.parentNode.insertBefore(tr,svg.firstChild.nextSibling);
+  pieces.forEach(function(p){ p.el=el("g",{"class":"wf-p"+(p.locked?" locked":""),role:"button","aria-label":"Holzplatte"},svg); paint(p); place(p,false);
+    p.el.addEventListener("pointerdown",function(e){ down(e,p); }); });
+  svg.appendChild(el("g",{id:"wuerfel-marks"}));
+  marks();
+}
+function paint(p){ p.el.innerHTML=""; var q=p.f?CM.flip(p.base,N):p.base, pp=piecePath(q);
+  el("path",{d:pp[0],fill:"rgba(40,20,5,.35)",transform:"translate(0.8 1.2)"},p.el);
+  el("path",{d:pp[0],fill:"url(#wfg"+p.id+")"},p.el); el("path",{d:pp[0],fill:"url(#wd-grainH)"},p.el); el("path",{d:pp[0],fill:"url(#wd-sheen)",opacity:0.8},p.el);
+  el("path",{d:pp[1],"class":"wf-edge"},p.el); if(p.locked){ var t=el("text",{x:0,y:2.5,"class":"wf-lock"},p.el); t.textContent="🔒"; } }
+function home(p){ return p.slot?slotXY(p.slot):layout.trays[p.tray]; }
+function render(p){ p.el.setAttribute("transform","translate("+p.x.toFixed(2)+" "+p.y.toFixed(2)+") scale("+p.s.toFixed(3)+") rotate("+p.ang.toFixed(1)+")"); p.el.classList.toggle("sel",p===sel); }
+function place(p,anim){ var h=home(p), s1=p.slot?1:TS, a1=p.r*90;
+  if(!anim||K.reduce){ p.x=h.x; p.y=h.y; p.s=s1; p.ang=a1; render(p); return; }
+  var x0=p.x,y0=p.y,s0=p.s,a0=p.ang; if(a1-a0>180) a0+=360; if(a0-a1>180) a0-=360;
+  K.tween(220,function(e){ p.x=x0+(h.x-x0)*e; p.y=y0+(h.y-y0)*e; p.s=s0+(s1-s0)*e; p.ang=a0+(a1-a0)*e; render(p); },function(){ p.ang=a1; render(p); }); }
+/* ---- Ziehen, Drehen, Wenden ---- */
+function down(e,p){ if(done||p.locked) return; e.preventDefault(); hz().audio(); var q=K.svgPt(svg,e);
+  sel=p; drag={p:p,ox:p.x-q[0],oy:p.y-q[1],x0:e.clientX,y0:e.clientY,moved:false,id:e.pointerId}; try{ p.el.setPointerCapture(e.pointerId); }catch(x){} svg.appendChild(p.el); svg.appendChild(document.getElementById("wuerfel-marks"));
+  pieces.forEach(render); }
+svg.addEventListener("pointermove",function(e){ if(!drag||e.pointerId!==drag.id) return; if(!drag.moved&&Math.hypot(e.clientX-drag.x0,e.clientY-drag.y0)<7) return; drag.moved=true;
+  var q=K.svgPt(svg,e), p=drag.p; p.x=q[0]+drag.ox; p.y=q[1]+drag.oy; p.s=Math.min(1,p.s+0.08); render(p); });
+function up(e){ if(!drag||e.pointerId!==drag.id) return; var d=drag, p=d.p; drag=null;
+  if(!d.moved){ turn(p); return; }
+  var best=null, bd=S*0.62; CM.FACES.forEach(function(f){ var c=slotXY(f), dd=Math.hypot(c.x-p.x,c.y-p.y); if(dd<bd){ bd=dd; best=f; } });
+  if(best){ var other=pieces.filter(function(o){ return o!==p&&o.slot===best; })[0];
+    if(other&&other.locked){ hz().tune([200,160],0.06,"square"); K.say("wuerfel-say","Dieses Feld ist schon fest belegt."); place(p,true); return; }
+    if(other){ other.slot=p.slot; if(!other.slot){ other.tray=p.tray; } place(other,true); }
+    if(!p.slot) p.tray=p.tray; p.slot=best; hz().tok(1.15); }
+  else { if(p.slot){ p.slot=null; freeTray(p); } hz().tok(0.8); }
+  place(p,true); changed(); }
+svg.addEventListener("pointerup",up); svg.addEventListener("pointercancel",up);
+function freeTray(p){ var used=pieces.filter(function(o){ return o!==p&&!o.slot; }).map(function(o){ return o.tray; }); for(var i=0;i<6;i++) if(used.indexOf(i)<0){ p.tray=i; return; } }
+function turn(p){ hz().tok(1.3); p.r=(p.r+1)%4; place(p,true); changed(); }
+$("flip").onclick=function(){ if(done) return; var p=sel&&!sel.locked?sel:null; if(!p){ K.say("wuerfel-say","Tippe zuerst eine Platte an, dann „Wenden“."); return; } hz().tok(1.1);
+  K.tween(K.reduce?1:140,function(e){ p.el.setAttribute("transform","translate("+p.x.toFixed(2)+" "+p.y.toFixed(2)+") scale("+(p.s*(1-e)).toFixed(3)+" "+p.s.toFixed(3)+") rotate("+p.ang.toFixed(1)+")"); },function(){
+    p.f=1-p.f; paint(p); K.tween(K.reduce?1:140,function(e){ p.el.setAttribute("transform","translate("+p.x.toFixed(2)+" "+p.y.toFixed(2)+") scale("+(p.s*e).toFixed(3)+" "+p.s.toFixed(3)+") rotate("+p.ang.toFixed(1)+")"); },function(){ render(p); changed(); }); }); };
+/* ---- Pruefen nach jeder Aenderung ---- */
+function placedMap(){ var m={}; pieces.forEach(function(p){ if(p.slot) m[p.slot]=eff(p); }); return m; }
+function changed(quiet){ marks(); hud(); var m=placedMap(), c=CM.check(m,N), n=Object.keys(m).length;
+  if(c.ok){ win(); return; }
+  if(quiet) return;
+  if(n===6){ if(failArmed){ fails++; failArmed=false; } K.say("wuerfel-say",c.clash.length?"Fast! Rot zeigt, wo zwei Platten zusammenstoßen – vielleicht ist eine verdreht oder vertauscht.":"Fast! Da bleibt noch ein Loch (rot umrandet). Dreh eine Platte oder tausche zwei."); }
+  else { failArmed=true; if(c.clash.length) K.say("wuerfel-say","Hoppla, rot: Da stoßen zwei Platten zusammen. Dreh die Platte oder probier ein anderes Feld."); } }
+function marks(){ var g=document.getElementById("wuerfel-marks"); if(!g) return; g.innerHTML=""; var m=placedMap(), c=CM.check(m,N), o=-S/2;
+  c.clash.forEach(function(k){ (c.from[k]||[]).forEach(function(t){ var sc=slotXY(t[0]); el("rect",{x:sc.x+o+t[1]*U+0.8,y:sc.y+o+t[2]*U+0.8,width:U-1.6,height:U-1.6,rx:1.5,"class":"wf-clash"},g); }); });
+  c.holes.forEach(function(k){ var x=k.split(",").map(Number), f=CM.facesOf(x[0],x[1],x[2],N).filter(function(ff){ return m[ff]; })[0]; if(!f) return; var uv=CM.toUV(f,x[0],x[1],x[2],N), sc=slotXY(f);
+    el("rect",{x:sc.x+o+uv[0]*U+0.8,y:sc.y+o+uv[1]*U+0.8,width:U-1.6,height:U-1.6,rx:1.5,"class":"wf-hole"},g); }); }
+function hud(){ var n=pieces.filter(function(p){ return p.slot; }).length; K.hud("wuerfel-hud",[["Platten",n+"/6"],["Zeit",K.fmt(clock.sec())],["Tipps",hints]]); }
+setInterval(function(){ if(!document.getElementById("g-wuerfel").hidden&&!done&&pieces.length) hud(); },1000);
+$("hint").onclick=function(){ if(done) return; hz().audio();
+  // eine Platte, die noch nicht so liegt wie in der Loesung, an ihren Platz legen
+  var wrong=pieces.filter(function(p){ return !p.locked&&!(p.slot===p.face&&CM.same(eff(p),sol[p.face])); });
+  if(!wrong.length) return; var p=sel&&wrong.indexOf(sel)>=0?sel:wrong[0]; hints++;
+  var other=pieces.filter(function(o){ return o!==p&&o.slot===p.face; })[0]; if(other){ other.slot=p.slot; if(!other.slot) freeTray(other); place(other,true); }
+  for(var r=0;r<4;r++) for(var f=0;f<2;f++) if(CM.same(CM.orient(p.base,N,r,f),sol[p.face])){ p.r=r; p.f=f; }
+  paint(p); p.slot=p.face; sel=p; place(p,true); hz().tune([660,880],0.06); K.say("wuerfel-say","Diese Platte gehört nach „"+{T:"oben",L:"links",F:"vorne",R:"rechts",B:"hinten",D:"unten"}[p.face]+"“ – so herum."); setTimeout(function(){ changed(true); },260); };
+$("new").onclick=function(){ hz().tok(0.9); load(L,true); };
+$("view").onclick=function(){ hz().tok(1.2); open3d(false); };
+$("close").onclick=function(){ hz().tok(1); close3d(); };
+function win(){ if(done) return; done=true; clock.stop(); var t=clock.sec(), stars=hints===0&&fails<=1?3:hints<=1&&fails<=3?2:1;
+  st.set(L,stars); renderLevels(); var rec=K.best("wuerfel",L,Math.round(t));
+  hz().tune([523,659,784,1047],0.1); K.say("wuerfel-say","Klack, klack – der Würfel ist zu! Schau, wie er sich zusammenklappt.");
+  open3d(true,function(){ K.win({title:"Würfel fertig!",text:"In <b>"+K.fmt(t)+"</b> zusammengesteckt.",stars:stars,msg:(rec?"Neuer Rekord! ":"")+(hints?hints+" Tipp"+(hints>1?"s":""):"Ohne Tipp!"),
+    again:"Nochmal",next:L<LEVELS.length-1?"Nächster Würfel":"Neuer Würfel",delay:600,onAgain:function(){ load(L,true); },onNext:function(){ if(L<LEVELS.length-1) load(L+1,false); else load(L,true); }}); }); }
+/* ---- 3D: Netz zum Wuerfel falten ---- */
+var T=null, R3=null, scene=null, cam=null, stage=null, groups=[], marks3=[], spin={x:-0.45,y:0.6,auto:true}, fold=1, foldT=null, onFolded=null, running3=false, view3=$("3d"), cv=$("cv");
+function woodTex(c0,c1){ var c=document.createElement("canvas"); c.width=c.height=64; var g=c.getContext("2d"), gr=g.createLinearGradient(0,0,64,64); gr.addColorStop(0,c0); gr.addColorStop(1,c1); g.fillStyle=gr; g.fillRect(0,0,64,64);
+  for(var i=0;i<14;i++){ g.strokeStyle="rgba(70,40,15,"+(0.08+Math.random()*0.12)+")"; g.lineWidth=1+Math.random(); g.beginPath(); var y=Math.random()*64; g.moveTo(0,y); g.bezierCurveTo(20,y+4,40,y-4,64,y+2); g.stroke(); }
+  var t=new T.CanvasTexture(c); t.encoding=T.sRGBEncoding; return t; }
+/* Faltlage: jede Platte haengt an einer Kante ihrer Elternplatte (unten liegt fest), Scharnier an der Aussenkante */
+var PAR={F:"D",T:"F",L:"F",R:"F",B:"R"}, OUT={T:[1,1],D:[1,-1],L:[0,-1],R:[0,1],F:[2,1],B:[2,-1]}, PHASE={F:[0,0.42],L:[0.32,0.72],R:[0.32,0.72],B:[0.55,0.9],T:[0.62,1]};
+function basis(f){ var a=CM.toXYZ(f,0,0,N), b=CM.toXYZ(f,1,0,N), c=CM.toXYZ(f,0,1,N), m=(N-1)/2;
+  var Uv=new T.Vector3(b[0]-a[0],b[1]-a[1],b[2]-a[2]), Vv=new T.Vector3(c[0]-a[0],c[1]-a[1],c[2]-a[2]), A=new T.Vector3(a[0]-m,a[1]-m+N/2,a[2]-m).addScaledVector(Uv,m).addScaledVector(Vv,m);
+  var M=new T.Matrix4().makeBasis(Uv,Vv.clone().negate(),new T.Vector3().crossVectors(Uv,Vv.clone().negate())); M.setPosition(A); return M; }
+function hinge(f){ var p=PAR[f], a=OUT[f], b=OUT[p], m=(N-1)/2, pt=[0,0,0], ax=[0,0,0];
+  pt[a[0]]=a[1]>0?m+0.5:-0.5; pt[b[0]]=b[1]>0?m+0.5:-0.5; ax[3-a[0]-b[0]]=1;
+  var h=new T.Vector3(pt[0]-m,pt[1]-m+N/2,pt[2]-m), axis=new T.Vector3(ax[0],ax[1],ax[2]);
+  function R(phi){ return new T.Matrix4().makeTranslation(h.x,h.y,h.z).multiply(new T.Matrix4().makeRotationAxis(axis,phi)).multiply(new T.Matrix4().makeTranslation(-h.x,-h.y,-h.z)); }
+  // aufklappen nach aussen: die Richtung, in der die Platte am weitesten von der Elternplatte wegkommt
+  var cc=new T.Vector3().setFromMatrixPosition(MX[f]), cp=new T.Vector3().setFromMatrixPosition(MX[p]);
+  var d1=cc.clone().applyMatrix4(R(Math.PI/2)).distanceTo(cp), d2=cc.clone().applyMatrix4(R(-Math.PI/2)).distanceTo(cp);
+  return {R:R, th:d1>d2?Math.PI/2:-Math.PI/2}; }
+var MX={}, HG={}, flatC=null;
+function build3d(){
+  groups.forEach(function(g){ stage.remove(g.g); }); groups=[]; marks3.forEach(function(m){ stage.remove(m); }); marks3=[];
+  var m=(N-1)/2, box=new T.BoxGeometry(1,1,1);
+  CM.FACES.forEach(function(f){ MX[f]=basis(f); }); HG={}; Object.keys(PAR).forEach(function(f){ HG[f]=hinge(f); });
+  pieces.forEach(function(p){ if(!p.slot) return; var q=eff(p), g=new T.Group(), mat=new T.MeshStandardMaterial({map:woodTex(p.col[0],p.col[1]),roughness:0.75});
+    for(var v=0;v<N;v++) for(var u=0;u<N;u++) if(q[v*N+u]){ var me=new T.Mesh(box,mat); me.position.set(u-m,-(v-m),0); me.castShadow=true; me.receiveShadow=true; g.add(me); }
+    g.matrixAutoUpdate=false; stage.add(g); groups.push({g:g,f:p.slot}); });
+  // Mitte des aufgeklappten Netzes, damit es beim Falten in die Bildmitte rutscht
+  var Hf=hpose(0), c=new T.Vector3(); CM.FACES.forEach(function(f){ c.add(new T.Vector3().setFromMatrixPosition(new T.Matrix4().multiplyMatrices(Hf[f],MX[f]))); }); flatC=c.multiplyScalar(1/6); flatC.y=0;
+  var ch=CM.check(placedMap(),N), rm=new T.MeshBasicMaterial({color:0xe0392b,transparent:true,opacity:0.55});
+  ch.clash.forEach(function(k){ var x=k.split(",").map(Number), me=new T.Mesh(new T.BoxGeometry(1.08,1.08,1.08),rm); me.position.set(x[0]-m,x[1]-m+N/2,x[2]-m); stage.add(me); marks3.push(me); });
+  poseAll();
+}
+function hpose(e){ var H={D:new T.Matrix4()};
+  ["F","L","R","B","T"].forEach(function(f){ var ph=PHASE[f], d=Math.min(1,Math.max(0,(e-ph[0])/(ph[1]-ph[0]))); d=d<0.5?2*d*d:1-Math.pow(-2*d+2,2)/2;
+    H[f]=new T.Matrix4().multiplyMatrices(H[PAR[f]],HG[f].R(HG[f].th*(1-d))); }); return H; }
+function poseAll(){ var H=hpose(fold), off=flatC?flatC.clone().multiplyScalar(-(1-Math.min(1,fold*1.4))):new T.Vector3();
+  groups.forEach(function(g){ g.g.matrix.multiplyMatrices(new T.Matrix4().makeTranslation(off.x,0,off.z),new T.Matrix4().multiplyMatrices(H[g.f],MX[g.f])); g.g.matrixWorldNeedsUpdate=true; });
+  marks3.forEach(function(m){ m.visible=fold>0.98; }); }
+function init3d(cb){ if(T) return cb(); K.lib(["THREE"],function(){ T=window.THREE;
+  R3=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true}); R3.setPixelRatio(Math.min(2,window.devicePixelRatio||1)); R3.outputEncoding=T.sRGBEncoding; R3.shadowMap.enabled=true; R3.shadowMap.type=T.PCFSoftShadowMap;
+  scene=new T.Scene(); cam=new T.PerspectiveCamera(40,1,0.1,200);
+  scene.add(new T.HemisphereLight(0xfff6e8,0x8a6a48,0.75)); var sun=new T.DirectionalLight(0xffffff,0.9); sun.position.set(8,18,10); sun.castShadow=true; sun.shadow.mapSize.set(1024,1024); var sc=sun.shadow.camera; sc.left=-16; sc.right=16; sc.top=16; sc.bottom=-16; scene.add(sun);
+  stage=new T.Group(); scene.add(stage);
+  var tbl=new T.Mesh(new T.CircleGeometry(40,48),new T.MeshStandardMaterial({map:woodTex("#c8945c","#9a6a3a"),roughness:0.9})); tbl.rotation.x=-Math.PI/2; tbl.receiveShadow=true; tbl.material.map.repeat.set(6,6); tbl.material.map.wrapS=tbl.material.map.wrapT=T.RepeatWrapping; stage.add(tbl);
+  var dragging=null; cv.addEventListener("pointerdown",function(e){ dragging={x:e.clientX,y:e.clientY}; spin.auto=false; try{ cv.setPointerCapture(e.pointerId); }catch(x){} });
+  cv.addEventListener("pointermove",function(e){ if(!dragging) return; spin.y+=(e.clientX-dragging.x)*0.01; spin.x=Math.max(-1.3,Math.min(0.2,spin.x+(e.clientY-dragging.y)*0.008)); dragging={x:e.clientX,y:e.clientY}; });
+  cv.addEventListener("pointerup",function(){ dragging=null; }); cv.addEventListener("pointercancel",function(){ dragging=null; });
+  cb(); }, function(){ K.say("wuerfel-say","Für die 3D-Ansicht brauche ich einmal Internet."); }); }
+function open3d(animate,cb){ init3d(function(){ view3.hidden=false; fold=animate?0:1; onFolded=cb||null; spin.auto=true; build3d(); size3d(); if(!running3){ running3=true; requestAnimationFrame(loop3); } }); }
+function close3d(){ view3.hidden=true; }
+function size3d(){ var w=view3.clientWidth||svg.clientWidth||360, h=view3.clientHeight||Math.round(w*0.8); R3.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix(); }
+var last3=0;
+function loop3(now){ if(view3.hidden||document.getElementById("g-wuerfel").hidden){ running3=false; return; }
+  var dt=Math.min(0.05,(now-(last3||now))/1000); last3=now;
+  if(fold<1){ fold=Math.min(1,fold+dt/1.8); poseAll(); if(fold>=1&&onFolded){ var f=onFolded; onFolded=null; hz().tok(1.4); setTimeout(f,700); } }
+  if(spin.auto) spin.y+=dt*0.35;
+  stage.rotation.set(0,spin.y,0); var dist=N*(3.1+1.1*(1-fold))/Math.min(1,cam.aspect*1.1), ex=spin.x;
+  cam.position.set(0,N*0.5+Math.sin(-ex)*dist,Math.cos(ex)*dist); cam.lookAt(0,N*(0.2+0.3*fold),0);
+  R3.render(scene,cam); requestAnimationFrame(loop3); }
+window.addEventListener("resize",function(){ if(document.getElementById("g-wuerfel").hidden||!pieces.length) return; if(wideMode()!==wide){ computeLayout(); draw(); } if(R3&&!view3.hidden) size3d(); });
+window.HZG=window.HZG||{};
+HZG.wuerfel=function(){ if(!pieces.length) load(L,false); else if(wideMode()!==wide){ computeLayout(); draw(); } };
+HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) return; for(var r=0;r<4;r++) for(var f=0;f<2;f++) if(CM.same(CM.orient(p.base,N,r,f),sol[p.face])){ p.r=r; p.f=f; } p.slot=p.face; paint(p); place(p,false); }); changed(); },
+  place:function(i,slot,r){ var p=pieces[i]; p.slot=slot; p.r=r||0; place(p,false); changed(); }, st:function(){ return {N:N,placed:pieces.filter(function(p){ return p.slot; }).length,done:done}; }, lvl:function(i){ load(i,false); }};
+})();
+</script>
+<script>
 /* Startseite, Spielwechsel, Zurueck-Taste, Hilfe und Level-Wahl */
 (function(){
-  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?'],wortwald:['Der <span>Wortwald</span>','Wörter legen, Bäume zudecken, Waldwörter zählen dreifach'],biber:['Der <span>Biberbau</span>','Bäume nagen, Stämme flößen, Damm und Burg bauen']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "luecke", "wortwald", "tower", "haus", "kiste", "biber", "kloetze", "forst"];
-  var HOME=['Holzis <span>Holzkiste</span>','Achtzehn Holzspiele für Kinder'];
+  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],wuerfel:['Der <span>Holzwürfel</span>','Sechs Zackenplatten werden ein Würfel'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?'],wortwald:['Der <span>Wortwald</span>','Wörter legen, Bäume zudecken, Waldwörter zählen dreifach'],biber:['Der <span>Biberbau</span>','Bäume nagen, Stämme flößen, Damm und Burg bauen']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "wuerfel", "sudoku", "kreuz", "worte", "luecke", "wortwald", "tower", "haus", "kiste", "biber", "kloetze", "forst"];
+  var HOME=['Holzis <span>Holzkiste</span>','Neunzehn Holzspiele für Kinder'];
   H.stats=['Holzis <span>Statistik</span>','Sterne, Spielzeit, Rangliste und Abzeichen'];
   H.research=['Holzis <span>Forschung</span>','Münzen verdienen, erforschen, Profi-Level freischalten'];
   function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'||g==='research'; }
   // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
-  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",9],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",30],wortwald:["holzi-wortwald",6],biber:["holzi-biber",6]};
+  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",9],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],wuerfel:["holzi-wuerfel",10],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",30],wortwald:["holzi-wortwald",6],biber:["holzi-biber",6]};
   var $=function(id){ return document.getElementById(id); };
   var STAR_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.2 6.1 20.4l1.3-6.5L2.5 9.3l6.6-.8z" fill="var(--gold)" stroke="#b47d10" stroke-width="1.2" stroke-linejoin="round"/></svg>';
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
@@ -7377,15 +7643,15 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
     box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); };
     box.querySelector('[data-a="copy"]').onclick=function(){ var b=this, ok=function(){ b.textContent='Kopiert ✓'; };
       if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok,function(){ prompt('Link:',url); }); else prompt('Link:',url); };
-    var sh=box.querySelector('[data-a="share"]'); if(sh) sh.onclick=function(){ navigator.share({title:'Holzis Holzkiste', text:'Achtzehn Holzspiele für Kinder – kostenlos und ohne Werbung', url:url}).catch(function(){}); };
+    var sh=box.querySelector('[data-a="share"]'); if(sh) sh.onclick=function(){ navigator.share({title:'Holzis Holzkiste', text:'Neunzehn Holzspiele für Kinder – kostenlos und ohne Werbung', url:url}).catch(function(){}); };
   }
   $('sharebtn').onclick=function(){ window.HZ&&HZ.tok(1.1); showShare(); };
 
 
   // ---- Statistik: Spielzeit und geschaffte Level werden je Kind mitgeschrieben (nur auf diesem Geraet) ----
-  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',raeumen:'k',fuellen:'k',sudoku:'w',kreuz:'w',worte:'w',luecke:'w',wortwald:'w',tower:'b',haus:'b',kiste:'b',biber:'b',kloetze:'b',forst:'f'};
+  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',raeumen:'k',fuellen:'k',wuerfel:'k',sudoku:'w',kreuz:'w',worte:'w',luecke:'w',wortwald:'w',tower:'b',haus:'b',kiste:'b',biber:'b',kloetze:'b',forst:'f'};
   var GRPN={k:'Knobeln & Legen',w:'Wörter & Zahlen',b:'Bauen & Fahren',f:'Wald & Wirtschaft'}, GRPS=['k','w','b','f'];
-  var BEST={tan:'tan',puzzle:'pz',sudoku:'sudoku',kiste:'kiste'};
+  var BEST={tan:'tan',puzzle:'pz',sudoku:'sudoku',kiste:'kiste',wuerfel:'wuerfel'};
   function dkey(d){ d=d||new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
   function loadStats(id){ var s=null; try{ s=JSON.parse(PF.read(id||PF.id,'holzi-stats')||'null'); }catch(e){} if(!s||typeof s!=='object') s={}; s.d=s.d||{}; s.w=s.w||[]; return s; }
   var ST=loadStats(), dirty=false, lastInput=Date.now(), attempt=0;
@@ -7459,6 +7725,7 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
       ['🗝️','Profi-Schlüssel','Alle '+PATHS[3].items.length+' Profi-Werkstätten freischalten',r.pro,PATHS[3].items.length],
       ['📦','Lagermeister','Alle Lager von Holzi aufräumen',G.raeumen.done,G.raeumen.lv.length],
       ['🧱','Kistenpacker','Alle Holzkisten füllen',G.fuellen.done,G.fuellen.lv.length],
+      ['🎲','Würfelbauer','Alle Holzwürfel zusammenstecken',G.wuerfel.done,G.wuerfel.lv.length],
       ['🌧️','Klötzchen-König','In 5 Klötzchen-Leveln drei Sterne holen',Math.min(G.kloetze.three,5),5],
       ['🌲','Förster','Den ersten Forstbetrieb erfolgreich führen',G.forst.done>0?1:0,1],
       ['❓','Rätselfuchs','Alle Lückenrätsel lösen',G.luecke.done,G.luecke.lv.length]
@@ -7627,7 +7894,7 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
   // ---- Holz-Münzen und Forschung (je Kind, nur auf diesem Geraet) ----
   var COIN='<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e3a83a" stroke="#9a6418" stroke-width="1.6"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#9a6418" stroke-width="1.2" opacity=".7"/><path d="M9 8.5c1.6 1 4.4 1 6 0M8.6 12c2 1 4.8 1 6.8 0M9 15.5c1.6 1 4.4 1 6 0" stroke="#9a6418" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>';
   // ab diesem Level ist ein Spiel "Profi" und muss erforscht werden (was schon Sterne hat, bleibt offen)
-  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4,luecke:24,wortwald:4,biber:4};
+  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,wuerfel:7,kloetze:6,forst:4,luecke:24,wortwald:4,biber:4};
   var PATHS=[
     {id:'werk', name:'Werkstatt', ic:'🔨', what:'Mehr Münzen für jeden neuen Stern', items:[
       {id:'schleif', name:'Schleifpapier', ic:'🧻', cost:80, star:2},
@@ -7658,6 +7925,7 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
       {id:'pro_tan', game:'tan', name:'Profi-Figuren', ic:'🔺', cost:400},
       {id:'pro_raeumen', game:'raeumen', name:'Großlager', ic:'📦', cost:250},
       {id:'pro_fuellen', game:'fuellen', name:'Pentomino-Truhen', ic:'🧱', cost:300},
+      {id:'pro_wuerfel', game:'wuerfel', name:'Meisterwürfel', ic:'🎲', cost:300},
       {id:'pro_kloetze', game:'kloetze', name:'Klötzchen-Sturm', ic:'🌧️', cost:250},
       {id:'pro_forst', game:'forst', name:'Großforstbetrieb', ic:'🌲', cost:400},
       {id:'pro_luecke', game:'luecke', name:'Meisterrätsel', ic:'❓', cost:200},
@@ -7803,7 +8071,7 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
 <script>
 /* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
    dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
-window.HOLZI_VERSION="holzi-v33";
+window.HOLZI_VERSION="holzi-v34";
 (function(){
   var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
   if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");

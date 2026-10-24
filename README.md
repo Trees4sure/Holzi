@@ -1,13 +1,13 @@
 # Holzis Holzkiste – PWA
 
-Achtzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
+Neunzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
 
 | Spiel | Worum es geht |
 |---|---|
 | **Schieben** | Holzi muss unten durch den Schlitz (mit Bau-Modus und Lösbarkeits-Prüfung) |
 | **Legen** | Tangram: 16 Figuren aus sieben Holzteilen, ab „Dreieck“ als Profi-Tangram (Tanne, Rakete, Hai, Beil …) |
 | **Labyrinth** | Das Bienchen sucht den Weg durch die Rillen zum Honig, auch im Nebel |
-| **Puzzle** | 12 Holzbilder mit geschwungenen Teilen (4 bis 100 Teile, Profis mit gedrehten Teilen) |
+| **Puzzle** | 12 Holzbilder mit geschwungenen Teilen (4 bis 100 Teile, Profis mit gedrehten Teilen); beim Drehen des Geräts bleiben gelegte Teile liegen |
 | **Sudoku** | Holz-Sudoku mit Birke, Kiefer, Kirsche & Co. statt Zahlen (4×4, 6×6, 9×9), auf Wunsch mit Zahlen |
 | **Kreuzwort** | 10 Kreuzworträtsel rund um Baum, Wald, Werkstatt und Zimmerei, bis zum Profi-Rätsel „Holzmeister“ |
 | **Wörter** | Wörter-Werkstatt: so viele Wörter wie möglich aus vorgegebenen Buchstaben bilden, erkannte Wörter zählen sofort |
@@ -18,6 +18,7 @@ Achtzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | **Biberbau** (3D) | Als Biber Laubbäume annagen (Pappel, Weide, Birke, Erle; Eiche dauert, Fichten mag der Biber nicht), Stämme zum Damm tragen oder im Bach treiben lassen; das Wasser staut sich zum Teich, darin entsteht die Biberburg, und die Biberfamilie zieht ein. Steuerung per Antippen oder Joystick, 6 Level bis Frost-Zeitlimit, Hochwasser und Fuchs am Ufer |
 | **Aufräumen** | Holzi schiebt Kisten auf ihre Plätze (Sokoban): 10 per Löser geprüfte Lager, Lösung zum Zuschauen |
 | **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
+| **Holzwürfel** (2D + 3D) | Steckwürfel wie aus Holzplatten mit Zacken: sechs Platten im aufgeklappten Würfelnetz zusammenstecken, antippen dreht, „Wenden“ dreht auf die Rückseite; rot zeigt, wo zwei Platten an einer Würfelkante zusammenstoßen, ein gestrichelter Rahmen ein Loch. „3D ansehen“ klappt das Netz zum Würfel zusammen (drehbar). 10 Rätsel von 4×4 mit vier fertigen Platten bis zum 7×7-Meisterwürfel mit Wendeteilen |
 | **Klötzchenregen** | Fallende Holzklötze aus 4 bis 8 Holzarten (jeder Klotz mindestens zweifarbig): volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
 | **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; Wachstumskurven je Baumart (Höhe, Vorrat); Klimabaumarten Zerreiche, Orientbuche, Baumhasel; eigenes Sägewerk mit Schnittholz, Aufträgen und Ausbauten; Einführung „Erste Schritte“ und Vorschläge „Was jetzt?“; 6 Szenarien bis 60 Jahre |
 | **Wortwald** | Wörter legen wie beim Scrabble, aber ohne Buchstabenwerte: Punkte für Länge und **Seltenheit** des Wortes (Rang in einer Häufigkeitsliste, 1–5 Blätter von „Alltagswort“ bis „Rarität“), **Naturwörter zählen doppelt, Wald- und Holzwörter (auch Waldtiere) dreifach**; auf dem Feld stehen Tannen (+5 beim Zudecken) und alte Eichen (Wort ×2). Tipps vom Zug-Sucher, drei Level allein mit Punktzielen, drei gegen Holzi (leicht/mittel/stark) |
