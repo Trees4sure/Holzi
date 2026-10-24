@@ -799,6 +799,11 @@ body.ingame{--chrome:400px}
 .pf-xrow .pf-btn{padding:8px 12px; font-size:14px; background:var(--card)}
 label.pf-btn{display:inline-block}
 .pf-paste{display:flex; flex-direction:column; gap:8px; margin-top:10px} .pf-paste textarea{width:100%; border-radius:12px; border:2px solid var(--line); background:var(--card); color:var(--ink); padding:8px; font:12px/1.4 ui-monospace,monospace}
+.qr-send{display:flex; flex-direction:column; align-items:center; gap:8px} .qr-send canvas{max-width:100%; height:auto; border-radius:10px; image-rendering:pixelated}
+.qr-part{font:800 16px var(--font-display)}
+.qr-scan{position:relative; border-radius:16px; overflow:hidden; background:#111; aspect-ratio:4/3} .qr-scan video{width:100%; height:100%; object-fit:cover; display:block}
+.qr-frame{position:absolute; inset:14%; border:3px solid rgba(255,255,255,.85); border-radius:14px; box-shadow:0 0 0 999px rgba(0,0,0,.25)}
+.qr-grid{display:flex; flex-wrap:wrap; gap:4px; margin-top:10px} .qr-grid i{width:16px; height:16px; border-radius:4px; background:var(--line)} .qr-grid i.ok{background:#3fb24a}
 .pf-msg{margin:10px 0 0; font-size:14px; line-height:1.5} .pf-msg.bad{color:#b0331f; font-weight:700} .pf-msg .pf-btn{margin-top:8px}
 .pf-warn{flex:1 1 100%; margin:0 0 4px!important}
 @media (max-width:480px){ .who{padding:4px} .who span:last-child{display:none} }
@@ -7667,9 +7672,10 @@ insektGame("ameisen"); insektGame("bienen");
   function showTransfer(){
     var l=PF.list(), h='<h2>⇄ Spielstand übertragen</h2><p class="pf-hint">So nimmt ein Kind seine Sterne, Rekorde, Münzen und Forschung auf ein anderes Gerät mit. Es geht ohne Internet-Konto: als Datei (z.&nbsp;B. per AirDrop) oder als Text-Code.</p>'+
       '<h3 class="pf-h3">1. Auf diesem Gerät senden</h3><div class="pf-xlist">';
-    l.forEach(function(p){ h+='<div class="pf-xrow">'+ava(p,'pf-ava sm')+'<b>'+(p.name?esc(p.name):'Ohne Namen')+'</b><button type="button" class="pf-btn" data-send="'+p.id+'">Datei</button><button type="button" class="pf-btn" data-code="'+p.id+'">Code</button></div>'; });
+    l.forEach(function(p){ h+='<div class="pf-xrow">'+ava(p,'pf-ava sm')+'<b>'+(p.name?esc(p.name):'Ohne Namen')+'</b><button type="button" class="pf-btn" data-qr="'+p.id+'">QR</button><button type="button" class="pf-btn" data-send="'+p.id+'">Datei</button><button type="button" class="pf-btn" data-code="'+p.id+'">Code</button></div>'; });
     h+='</div><h3 class="pf-h3">2. Auf dem anderen Gerät empfangen</h3><p class="pf-hint">Gibt es dort schon ein Kind mit <b>gleichem Namen und Tier</b>, wird nur <b>ergänzt, nie überschrieben</b>: Neue oder bessere Sterne, Rekorde, Forschung und Abzeichen kommen dazu, alles Vorhandene bleibt. Sonst entsteht ein neues Kind.</p>'+
-      '<div class="pf-foot" style="margin-top:0"><label class="pf-btn">Datei wählen<input type="file" accept=".json,.holzi,application/json,text/plain" hidden></label><button type="button" class="pf-btn" data-a="paste">Code einfügen</button></div>'+
+      '<p class="pf-hint"><b>Android ↔ iPad:</b> Am einfachsten mit <b>QR</b>: Das eine Gerät zeigt wechselnde QR-Codes, das andere filmt sie mit „📷 Kamera“. Ganz ohne Internet und Bluetooth.</p>'+
+      '<div class="pf-foot" style="margin-top:0"><button type="button" class="pf-btn go" data-a="scan">📷 Kamera</button><label class="pf-btn">Datei wählen<input type="file" accept=".json,.holzi,application/json,text/plain" hidden></label><button type="button" class="pf-btn" data-a="paste">Code einfügen</button></div>'+
       '<div class="pf-paste" hidden><textarea rows="4" placeholder="HOLZI1:…" aria-label="Code einfügen"></textarea><button type="button" class="pf-btn go" data-a="take">Übernehmen</button></div>'+
       '<p class="pf-msg" aria-live="polite"></p><div class="pf-foot"><button type="button" class="pf-btn go" data-a="close">Fertig</button></div>';
     var box=dialog(h), msg=box.querySelector('.pf-msg');
@@ -7689,11 +7695,67 @@ insektGame("ameisen"); insektGame("bienen");
         msg.querySelector('[data-a="go"]').onclick=function(){ PF.use(r.p.id); location.hash=''; location.reload(); }; })
       .catch(function(e){ say(e&&e.message==='alt'?'Dieses Gerät ist zu alt für den gepackten Code. Nimm lieber „Datei“.':'Das ist kein Holzi-Spielstand.',false); }); }
     box.querySelector('input[type=file]').onchange=function(){ var f=this.files&&this.files[0]; if(!f) return; take(f.text().then(fromCode)); };
+    box.querySelectorAll('[data-qr]').forEach(function(b){ b.onclick=function(){ window.HZ&&HZ.tok(1.2); showQrSend(b.getAttribute('data-qr')); }; });
+    box.querySelector('[data-a="scan"]').onclick=function(){ window.HZ&&HZ.tok(1.2); showQrScan(function(pkg){ showTransfer(); setTimeout(function(){ var b2=document.querySelector('.pfbox'); if(b2) b2.__take&&b2.__take(Promise.resolve(pkg)); },30); }); };
+    box.__take=take;
     box.querySelector('[data-a="paste"]').onclick=function(){ var p=box.querySelector('.pf-paste'); p.hidden=false; p.querySelector('textarea').focus(); };
     box.querySelector('[data-a="take"]').onclick=function(){ take(fromCode(box.querySelector('.pf-paste textarea').value)); };
     box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); renderWho(); };
   }
-  window.HZXfer={pack:packProfile,receive:receive,toCode:toCode,fromCode:fromCode};
+  /* ---- Uebertragen per QR-Kette: Sender zeigt nacheinander kleine QR-Codes, Empfaenger filmt sie mit der Kamera.
+     Funktioniert zwischen Android und iPad ohne Internet und Bluetooth. Grosse Nebendaten (Geist-Fahrten der
+     Seifenkiste, alter Sieg-Verlauf) bleiben dafuer weg, damit es nur wenige Bilder sind. */
+  var QR_CHUNK=420;
+  function qrPackage(id){ var pkg=packProfile(id), d=pkg.data;
+    delete d['holzi-kiste-ghost'];
+    if(d['holzi-stats']){ var st=J(d['holzi-stats']); if(st&&st.w&&st.w.length>300){ st.w=st.w.slice(-300); d['holzi-stats']=JSON.stringify(st); } }
+    return pkg; }
+  function qrCanvas(cv,text){ var qr=qrcode(0,'L'); qr.addData(text); qr.make(); var n=qr.getModuleCount(), q=4, N=n+2*q, px=Math.max(2,Math.floor(Math.min(560,window.innerWidth-80)/N));
+    cv.width=cv.height=N*px; var g=cv.getContext('2d'); g.fillStyle='#fff'; g.fillRect(0,0,cv.width,cv.height); g.fillStyle='#000';
+    for(var r=0;r<n;r++) for(var c=0;c<n;c++) if(qr.isDark(r,c)) g.fillRect((c+q)*px,(r+q)*px,px,px); }
+  function showQrSend(id){
+    var pkg=qrPackage(id), nm=pkg.name||'Kind';
+    toCode(pkg).then(function(code){
+      var tag=Math.random().toString(36).slice(2,6), parts=[], n=Math.ceil(code.length/QR_CHUNK);
+      for(var i=0;i<n;i++) parts.push('HZQ:'+tag+':'+(i+1)+'/'+n+':'+code.slice(i*QR_CHUNK,(i+1)*QR_CHUNK));
+      var h='<h2>📲 '+esc(nm)+' senden</h2><p class="pf-hint">Öffne auf dem anderen Gerät „Übertragen“ → „📷 Kamera“ und halte es ruhig auf diese Codes. Sie wechseln von selbst, bis alle angekommen sind.</p>'+
+        '<div class="qr-send"><canvas aria-label="QR-Code"></canvas><b class="qr-part"></b></div>'+
+        '<div class="pf-foot"><button type="button" class="pf-btn" data-a="slow">Langsamer</button><button type="button" class="pf-btn" data-a="fast">Schneller</button><button type="button" class="pf-btn go" data-a="close">Fertig</button></div>';
+      var box=dialog(h), cv=box.querySelector('canvas'), lab=box.querySelector('.qr-part'), k=0, ms=650, tm=null;
+      function show(){ if(!document.body.contains(box)){ clearTimeout(tm); return; } qrCanvas(cv,parts[k]); lab.textContent='Teil '+(k+1)+' von '+n; k=(k+1)%n; tm=setTimeout(show,n>1?ms:60000); }
+      show();
+      box.querySelector('[data-a="slow"]').onclick=function(){ ms=Math.min(2000,ms+250); };
+      box.querySelector('[data-a="fast"]').onclick=function(){ ms=Math.max(250,ms-150); };
+      box.querySelector('[data-a="close"]').onclick=function(){ clearTimeout(tm); box.parentNode.remove(); };
+    });
+  }
+  function loadJsQR(cb){ if(window.jsQR) return cb(true); var s=document.createElement('script'); s.src='jsqr.js'; s.onload=function(){ cb(!!window.jsQR); }; s.onerror=function(){ cb(false); }; document.head.appendChild(s); }
+  /* sammelt Teile (aus Kamera oder Test) und meldet das fertige Paket */
+  function qrCollector(onDone,onProgress){ var got={}, tag=null, n=0;
+    return function(text){ var m=/^HZQ:([a-z0-9]+):(\d+)\/(\d+):(.*)$/.exec(text||''); if(!m) return false;
+      if(tag!==m[1]){ tag=m[1]; got={}; n=+m[3]; } if(got[m[2]]) return true; got[m[2]]=m[4]; onProgress(got,n);
+      if(Object.keys(got).length===n){ var code=''; for(var i=1;i<=n;i++) code+=got[i]; fromCode(code).then(onDone,function(){ onProgress(null,n); }); }
+      return true; }; }
+  function showQrScan(onPkg){
+    var h='<h2>📷 Spielstand empfangen</h2><p class="pf-hint">Halte die Kamera auf die QR-Codes am anderen Gerät. Jedes Kästchen unten ist ein Teil – grün heißt angekommen.</p>'+
+      '<div class="qr-scan"><video playsinline muted></video><i class="qr-frame"></i></div><div class="qr-grid"></div><p class="pf-msg" aria-live="polite">Kamera wird gestartet …</p>'+
+      '<div class="pf-foot"><button type="button" class="pf-btn" data-a="close">Abbrechen</button></div>';
+    var box=dialog(h), video=box.querySelector('video'), grid=box.querySelector('.qr-grid'), msg=box.querySelector('.pf-msg'), stream=null, alive=true, cvs=document.createElement('canvas'), g=cvs.getContext('2d',{willReadFrequently:true});
+    function stop(){ alive=false; if(stream) stream.getTracks().forEach(function(t){ t.stop(); }); }
+    var feed=qrCollector(function(pkg){ stop(); window.HZ&&HZ.tune&&HZ.tune([523,659,784,1047],0.08); box.parentNode.remove(); onPkg(pkg); },
+      function(got,n){ if(!got){ msg.textContent='Die Teile passen nicht zusammen – bitte nochmal von vorn.'; return; } var h2=''; for(var i=1;i<=n;i++) h2+='<i class="'+(got[i]?'ok':'')+'"></i>'; grid.innerHTML=h2; msg.textContent=Object.keys(got).length+' von '+n+' Teilen'; window.HZ&&HZ.tok&&HZ.tok(1.4); });
+    box.__feed=feed;
+    box.querySelector('[data-a="close"]').onclick=function(){ stop(); box.parentNode.remove(); };
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){ msg.textContent='Dieses Gerät erlaubt hier keine Kamera. Nimm „Code einfügen“ (z. B. per Nachricht).'; return; }
+    loadJsQR(function(ok){ if(!ok){ msg.textContent='Der QR-Leser konnte nicht geladen werden.'; return; }
+      navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}},audio:false}).then(function(s){ if(!alive){ s.getTracks().forEach(function(t){ t.stop(); }); return; }
+        stream=s; video.srcObject=s; video.play(); msg.textContent='Suche QR-Code …';
+        (function tick(){ if(!alive) return; if(!document.body.contains(box)){ stop(); return; } if(video.readyState>=2){ var w=video.videoWidth, hh=video.videoHeight, sc=Math.min(1,800/Math.max(w,hh)); cvs.width=Math.round(w*sc); cvs.height=Math.round(hh*sc);
+            g.drawImage(video,0,0,cvs.width,cvs.height); var img=g.getImageData(0,0,cvs.width,cvs.height), r=window.jsQR(img.data,img.width,img.height,{inversionAttempts:'dontInvert'}); if(r) feed(r.data); }
+          setTimeout(tick,120); })();
+      },function(){ msg.textContent='Kein Zugriff auf die Kamera. Erlaube die Kamera in den Einstellungen – oder nimm „Code einfügen“.'; }); });
+  }
+  window.HZXfer={pack:packProfile,receive:receive,toCode:toCode,fromCode:fromCode,qrPackage:qrPackage,collector:qrCollector,qrSend:showQrSend,qrScan:showQrScan};
   function editProfile(id){
     var l=PF.list(), p=id?l.filter(function(q){ return q.id===id; })[0]:{id:null,name:"",ava:Math.floor(Math.random()*AVAS.length)}, pick=p.ava||0;
     var h='<h2>'+(id?'Kind ändern':'Neues Kind')+'</h2><label class="pf-name">Name<input type="text" maxlength="16" autocomplete="off" value="'+esc(p.name||'')+'" placeholder="z. B. Mia"></label>'+

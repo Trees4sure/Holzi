@@ -51,7 +51,9 @@ Zwanzig Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersang
   Werkstatt (mehr pro Stern), Wald (pro Tag), Fleiß (pro Sieg, höhere Tagesgrenze) und Profi-Werkstätten,
   die je Spiel die schwersten Level freischalten. Level mit Sternen bleiben immer spielbar. Kaufen mit
   zweimal Tippen. Daten je Profil in `holzi-coins`.
-- **Spielstand übertragen** („Wer spielt?“ → „⇄ Übertragen“): ein Kind als Datei (Teilen/AirDrop) oder als Text-Code
+- **Spielstand übertragen** („Wer spielt?“ → „⇄ Übertragen“): ein Kind per **QR-Kette** (das eine Gerät zeigt wechselnde
+  QR-Codes, das andere filmt sie mit „📷 Kamera“ – Android ↔ iPad ohne Internet und Bluetooth; Geist-Fahrten und alter
+  Sieg-Verlauf bleiben dabei weg, damit es nur wenige Bilder sind), als Datei (Teilen/AirDrop) oder als Text-Code
   (gzip + Base64) mitnehmen und auf dem anderen Gerät empfangen. Gibt es dort ein Kind mit gleichem Namen und Tier, wird
   nur **ergänzt, nie überschrieben**: Sterne und Rekorde nur, wenn sie besser sind, Forschung und gekaufte Teile kommen
   dazu, Münzen nur in Höhe dessen, was das andere Gerät mehr verdient hat, Statistik ohne Doppelte; laufende Spielstände
@@ -71,6 +73,7 @@ Zwanzig Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersang
 | `icon-192.png`, `icon-512.png`, `maskable-512.png`, `apple-touch-icon.png` | App-Icons |
 | `matter.min.js` | Physik-Bibliothek für den Wackelturm (matter-js 0.19, MIT-Lizenz) |
 | `three.min.js` | 3D-Grafik für Zimmerei, Seifenkiste und Biberbau (three.js r128, MIT-Lizenz) |
+| `jsqr.js` | QR-Leser für die Kamera beim Spielstand-Übertragen (jsQR 1.4.0, Apache-2.0, `jsqr-lizenz.txt`), wird erst beim Scannen geladen |
 | `qrcode.js` | QR-Code für „Teilen“ auf der Startseite (qrcode-generator von Kazuhiko Arase, MIT-Lizenz) |
 | `cannon.min.js` | 3D-Physik für die Seifenkiste (cannon.js 0.6.2, MIT-Lizenz) |
 | `wortwald.txt` | Wörterbuch für den Wortwald (~78 000 Wörter mit 2–9 Buchstaben, häufige zuerst = Seltenheits-Rang); wird erst beim Öffnen des Spiels geladen. Lizenz und Quellen in `wortwald-lizenz.txt` |
@@ -117,8 +120,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v28";` hochzählen
-(`holzi-v29` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v29";` hochzählen
+(`holzi-v30` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
