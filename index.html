@@ -17,6 +17,7 @@
 :root{padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0;overscroll-behavior:none}
 button{touch-action:manipulation}
+html{touch-action:manipulation}
 img{max-width:100%}
 </style>
 <script>window.HOLZI_MATTER_SRC="matter.min.js"; window.HOLZI_LOCAL_LIBS=true;</script>
@@ -39,7 +40,10 @@ img{max-width:100%}
     list:function(){ var l=null; try{ l=JSON.parse(get.call(LS,"holzi-profiles")||"null"); }catch(e){} return Array.isArray(l)&&l.length ? l : [{id:"p1",name:"",ava:0}]; },
     save:function(l){ try{ set.call(LS,"holzi-profiles",JSON.stringify(l)); }catch(e){} },
     use:function(id){ try{ set.call(LS,"holzi-profile",id); }catch(e){} },
-    wipe:function(id){ var ks=[]; try{ for(var i=0;i<LS.length;i++){ var k=LS.key(i); if(owns(id,k)) ks.push(k); } ks.forEach(function(k){ del.call(LS,k); }); }catch(e){} }
+    wipe:function(id){ var ks=[]; try{ for(var i=0;i<LS.length;i++){ var k=LS.key(i); if(owns(id,k)) ks.push(k); } ks.forEach(function(k){ del.call(LS,k); }); }catch(e){} },
+    // alle Schluessel eines Kindes (ohne Vorsatz) - fuer das Uebertragen auf ein anderes Geraet
+    keys:function(id){ var ks=[]; try{ for(var i=0;i<LS.length;i++){ var k=LS.key(i); if(owns(id,k)) ks.push(id==="p1"?k:k.slice(("hz:"+id+":").length)); } }catch(e){} return ks; },
+    write:function(id,key,v){ try{ set.call(LS,keyFor(id,key),v); }catch(e){} }
   };
 })();
 </script>
@@ -746,7 +750,7 @@ body.ingame{--chrome:400px}
   body.ingame .game{max-width:none; display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,380px); grid-template-rows:repeat(14,auto) 1fr; column-gap:28px; row-gap:12px; align-items:start}
   body.ingame .game > *{grid-column:2; width:100%; max-width:none}
   body.ingame .game > :is(.stage,.tboard,.mboard,.pboard,.board-wrap){grid-column:1; grid-row:1 / -1; justify-self:center; position:sticky; top:84px}
-  body.ingame .game > :is(.tboard,.mboard,.pboard,.board-wrap){max-width:min(760px, calc(var(--bh) / var(--ar, 1)))}
+  body.ingame .game > :is(.tboard,.mboard,.pboard,.board-wrap){max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
   #g-sudoku,#g-kreuz,#g-kiste,#g-biber{--xtra:0px}
   #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:2.01} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4} #g-biber{--ar:0.92}
   body.ingame .game > .bubble::after{left:-9px; top:50%; bottom:auto; transform:translateY(-50%) rotate(135deg)}
@@ -789,6 +793,13 @@ body.ingame{--chrome:400px}
 .pf-btn{border:0; border-radius:14px; padding:12px 16px; font:800 16px var(--font-display); cursor:pointer; background:var(--bg-soft); color:var(--ink)}
 .pf-btn.go{background:var(--accent); color:var(--accent-ink)}
 .pf-btn.del{background:#c0392b; color:#fff; margin-right:auto}
+.pf-h3{margin:14px 0 6px; font:800 16px var(--font-display)}
+.pf-xlist{display:flex; flex-direction:column; gap:6px}
+.pf-xrow{display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:14px; background:var(--bg-soft)} .pf-xrow b{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis}
+.pf-xrow .pf-btn{padding:8px 12px; font-size:14px; background:var(--card)}
+label.pf-btn{display:inline-block}
+.pf-paste{display:flex; flex-direction:column; gap:8px; margin-top:10px} .pf-paste textarea{width:100%; border-radius:12px; border:2px solid var(--line); background:var(--card); color:var(--ink); padding:8px; font:12px/1.4 ui-monospace,monospace}
+.pf-msg{margin:10px 0 0; font-size:14px; line-height:1.5} .pf-msg.bad{color:#b0331f; font-weight:700} .pf-msg .pf-btn{margin-top:8px}
 .pf-warn{flex:1 1 100%; margin:0 0 4px!important}
 @media (max-width:480px){ .who{padding:4px} .who span:last-child{display:none} }
 
@@ -1081,7 +1092,7 @@ body.ingame{--chrome:400px}
 .ww-ev{display:flex; flex-wrap:wrap; gap:4px 10px; justify-content:center; align-items:center}
 .ww-w{display:inline-flex; flex-wrap:wrap; gap:4px; align-items:center; padding:3px 9px; border-radius:12px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line)}
 .ww-w b{font:800 15px var(--font-display); letter-spacing:.04em} .ww-w em{font-style:normal; font-size:12.5px; color:var(--muted); display:inline-flex; align-items:center; gap:3px}
-.ww-w em.fo{color:var(--moss); font-weight:700} .ww-w em.ol{color:#a0621a; font-weight:700} .ww-w strong{font:800 14px var(--font-display)}
+.ww-w em.fo{color:var(--moss); font-weight:700} .ww-w em.na{color:#b07a10; font-weight:700} .ww-chip.na{box-shadow:inset 0 0 0 1.5px #e2b23e} .ww-w em.ol{color:#a0621a; font-weight:700} .ww-w strong{font:800 14px var(--font-display)}
 .ww-tot{font:900 20px var(--font-display); color:var(--accent)}
 .ww-leaf{display:inline-flex; gap:1px} .ww-leaf i{width:6px; height:9px; border-radius:6px 0 6px 0; background:var(--line)} .ww-leaf i.on{background:var(--moss)}
 .ww-rack{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:6px; padding:8px; border-radius:16px; background:linear-gradient(170deg,var(--tray),var(--tray-dark)); box-shadow:inset 0 -4px 0 rgba(60,30,8,.25), 0 8px 18px -10px rgba(40,20,5,.5)}
@@ -1164,6 +1175,30 @@ body.ingame{--chrome:400px}
 .qr-url{margin:4px 0 0!important; text-align:center; font:700 14px var(--font-body); word-break:break-all; color:var(--muted)}
 .qr-how{margin-top:12px; font-size:13.5px} .qr-how summary{cursor:pointer; font-weight:700} .qr-how p{margin:6px 0 0!important}
 @media (prefers-reduced-motion: reduce){ .hello-holzi{animation:none} .tile,.tile-art svg{transition:none} }
+/* grosse Tablets hochkant (iPad Pro): Spielfelder duerfen breiter werden */
+@media (min-width:900px) and (orientation:portrait){
+  body.ingame .game{max-width:980px}
+  #g-tan .tboard{max-width:min(900px, calc(var(--bh) / 1.38))}
+  #g-maze .mboard{max-width:min(900px, calc(var(--bh) / 1.12))}
+  #g-sudoku .board-wrap,#g-kreuz .board-wrap{max-width:min(900px, var(--bh))}
+  #g-worte .board-wrap{max-width:min(880px, calc(var(--bh) / 1.15))}
+  #g-marble .board-wrap{max-width:min(880px, calc(var(--bh) / 1.2))}
+  #g-tower .board-wrap{max-width:min(820px, calc(var(--bh) / 1.4))}
+  #g-haus .board-wrap,#g-kiste .board-wrap{max-width:min(980px, calc(var(--bh) / 1.12))}
+  #g-wortwald .board-wrap{max-width:min(880px, calc(var(--bh) / 1.4))}
+  #g-biber .board-wrap{max-width:min(980px, calc(var(--bh) / 0.92))}
+  #g-luecke .board-wrap{max-width:880px}
+}
+.ww-c.has b{font-size:clamp(14px, calc(min(860px, 92vw) / var(--n) * .5), 40px)}
+/* quer: die Feld-Grenzen je Spiel gelten nur hochkant, quer zaehlt nur die Hoehe */
+@media (orientation:landscape) and (min-width:700px){
+  body.ingame .app{max-width:1400px}
+  #g-tan .tboard,#g-maze .mboard,#g-worte .board-wrap,#g-sudoku .board-wrap,#g-kreuz .board-wrap,#g-marble .board-wrap,#g-tower .board-wrap,#g-haus .board-wrap,#g-kiste .board-wrap,#g-wortwald .board-wrap,#g-biber .board-wrap{max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
+  #g-luecke .board-wrap{max-width:900px}
+}
+/* Seite versehentlich vergroessert: Knopf zum Zuruecksetzen */
+.zoomfix{position:fixed; z-index:60; right:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px)); border:0; border-radius:999px; padding:12px 18px; background:var(--accent); color:var(--accent-ink); font:800 16px var(--font-display); box-shadow:0 8px 20px rgba(0,0,0,.3); cursor:pointer}
+
 </style>
 
 </head>
@@ -5283,16 +5318,17 @@ HZG.fuellenSolve=function(){ pieces.forEach(function(p){ var mx=Math.min.apply(n
    die sich berühren, platzen (wie Candy Crush). Danach rutscht alles nach, Kettenreaktionen zählen doppelt. */
 var K=HZK, hz=K.hz;
 var WOOD=[{n:"Kirsche",a:"#d0614a",b:"#8e2f22",s:"leaf"},{n:"Ahorn",a:"#f3d79c",b:"#c9a25e",s:"star"},{n:"Nussbaum",a:"#8a5a3a",b:"#4e2e1a",s:"nut"},
-          {n:"Eiche",a:"#e2a94a",b:"#a8701e",s:"drop"},{n:"Esche",a:"#9fc27a",b:"#5d8a3e",s:"ring"}];
+          {n:"Eiche",a:"#e2a94a",b:"#a8701e",s:"drop"},{n:"Esche",a:"#9fc27a",b:"#5d8a3e",s:"ring"},{n:"Birke",a:"#f6f0e4",b:"#c8bba2",s:"tri"},
+          {n:"Pflaume",a:"#a8669a",b:"#5e2f55",s:"moon",l:1},{n:"Mooreiche",a:"#5a4c40",b:"#241c16",s:"cross",l:1}];
 var LEVELS=[
-  {name:"Sanfter Regen",age:"ab 6",cols:8,rows:14,col:3,ms:820,n:30,goal:600},
-  {name:"Vier Holzarten",age:"ab 7",cols:8,rows:14,col:4,ms:760,n:35,goal:1000},
-  {name:"Astknoten",age:"ab 8",cols:8,rows:14,col:4,ms:740,n:40,knots:2,goal:"knots"},
-  {name:"Schneller",age:"ab 9",cols:8,rows:14,col:4,ms:600,n:40,goal:1600},
-  {name:"Fünf Holzarten",age:"ab 10",cols:8,rows:14,col:5,ms:620,n:45,goal:1800},
-  {name:"Knotenwand",age:"ab 11",cols:8,rows:14,col:5,ms:560,n:45,knots:3,goal:"knots"},
-  {name:"Sturm",age:"12+",cols:9,rows:15,col:5,ms:440,n:50,goal:2800},
-  {name:"Holzlawine",age:"Profi",cols:9,rows:15,col:5,ms:380,n:55,knots:4,goal:"knots"}];
+  {name:"Sanfter Regen",age:"ab 6",cols:8,rows:14,col:4,ms:820,n:30,goal:450},
+  {name:"Fünf Holzarten",age:"ab 7",cols:8,rows:14,col:5,ms:760,n:35,goal:750},
+  {name:"Astknoten",age:"ab 8",cols:8,rows:14,col:5,ms:740,n:40,knots:2,goal:"knots"},
+  {name:"Sechs Holzarten",age:"ab 9",cols:8,rows:14,col:6,ms:640,n:40,goal:1100},
+  {name:"Bunter Wald",age:"ab 10",cols:8,rows:14,col:6,ms:600,n:45,goal:1300,mix3:0.3},
+  {name:"Knotenwand",age:"ab 11",cols:8,rows:14,col:7,ms:560,n:45,knots:3,goal:"knots",mix3:0.3},
+  {name:"Sturm",age:"12+",cols:9,rows:15,col:7,ms:440,n:50,goal:1900,mix3:0.4},
+  {name:"Holzlawine",age:"Profi",cols:9,rows:15,col:8,ms:380,n:55,knots:4,goal:"knots",mix3:0.5}];
 var SHAPES=[[[0,0],[1,0],[2,0],[3,0]],[[0,0],[1,0],[0,1],[1,1]],[[0,0],[1,0],[2,0],[1,1]],[[0,0],[1,0],[2,0],[2,1]],[[0,0],[1,0],[2,0],[0,1]],[[1,0],[2,0],[0,1],[1,1]],[[0,0],[1,0],[1,1],[2,1]]];
 var ARR={l:'<path d="M15 5l-7 7 7 7" stroke-width="3"/>',r:'<path d="M9 5l7 7-7 7" stroke-width="3"/>',rot:'<path d="M20 12a8 8 0 11-2.3-5.7"/><path d="M20 4v5h-5"/>',drop:'<path d="M12 4v13M6 12l6 6 6-6"/><path d="M5 21h14"/>'};
 function kb(k,l){ return '<button class="kl-k kl-'+k+'" data-k="'+k+'" aria-label="'+l+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+ARR[k]+'</svg></button>'; }
@@ -5305,9 +5341,11 @@ var $=K.mount("g-kloetze",{
 var st=K.store("holzi-kloetze"), cv=document.getElementById("kloetze-cv"), nx=document.getElementById("kloetze-next"), sec=document.getElementById("g-kloetze");
 var L=Math.min(st.lvl(),LEVELS.length-1), lv, C, R, grid, cur, next, left, score, chainMax, knots0, state="idle", tFall=0, last=0, fx=[], running=false, ctx=cv.getContext("2d"), px=24, lockDelay=0;
 function rnd(n){ return Math.floor(Math.random()*n); }
-function newPiece(){ var sh=SHAPES[rnd(SHAPES.length)], a=rnd(lv.col), b=rnd(lv.col);
-  // zwei Holzarten je Klotz, damit sich Gruppen bilden lassen
-  return {cells:sh.map(function(p,i){ return {x:p[0],y:p[1],t:(i%2&&Math.random()<.6)?b:a}; }), x:Math.floor((C-3)/2), y:-1}; }
+function newPiece(){ var sh=SHAPES[rnd(SHAPES.length)], a=rnd(lv.col), b=(a+1+rnd(lv.col-1))%lv.col, c=(Math.random()<(lv.mix3||0))?(b+1+rnd(lv.col-2))%lv.col:b;
+  if(c===a) c=b;
+  // immer mindestens zwei Holzarten je Klotz (hoechstens 2 gleiche), sonst platzt ein Klotz schon beim Landen von selbst
+  var pat=[a,b,a,c];
+  return {cells:sh.map(function(p,i){ return {x:p[0],y:p[1],t:pat[i]}; }), x:Math.floor((C-3)/2), y:-1}; }
 function load(i){
   L=i; st.setLvl(i); lv=LEVELS[i]; C=lv.cols; R=lv.rows; grid=[]; for(var y=0;y<R;y++){ grid.push([]); for(var x=0;x<C;x++) grid[y].push(null); }
   if(lv.knots){ for(var yy=R-lv.knots;yy<R;yy++){ var gapX=rnd(C); for(var xx=0;xx<C;xx++){ if(xx===gapX) continue; grid[yy][xx]=Math.random()<.45?{t:-1}:{t:rnd(lv.col)}; } } }
@@ -5400,6 +5438,9 @@ function block(g,x,y,s,t,alpha){
   else if(w.s==="star"){ g.beginPath(); for(var i=0;i<10;i++){ var a=-Math.PI/2+i*Math.PI/5, rad=i%2?r*0.5:r*1.2; g.lineTo(cx+Math.cos(a)*rad,cy+Math.sin(a)*rad); } g.closePath(); g.fill(); }
   else if(w.s==="nut"){ g.beginPath(); g.arc(cx,cy+r*0.2,r*0.9,0,7); g.fill(); g.fillRect(cx-r,cy-r*0.9,r*2,r*0.6); }
   else if(w.s==="drop"){ g.beginPath(); g.moveTo(cx,cy-r*1.2); g.quadraticCurveTo(cx+r*1.1,cy+r*0.2,cx,cy+r*1.1); g.quadraticCurveTo(cx-r*1.1,cy+r*0.2,cx,cy-r*1.2); g.fill(); }
+  else if(w.s==="tri"){ g.beginPath(); g.moveTo(cx,cy-r*1.15); g.lineTo(cx+r*1.1,cy+r*0.85); g.lineTo(cx-r*1.1,cy+r*0.85); g.closePath(); g.fill(); }
+  else if(w.s==="moon"){ g.fillStyle="rgba(255,240,230,.75)"; g.beginPath(); g.arc(cx,cy,r*1.05,0,7); g.fill(); g.fillStyle=w.a; g.beginPath(); g.arc(cx+r*0.5,cy-r*0.3,r*0.9,0,7); g.fill(); }
+  else if(w.s==="cross"){ g.fillStyle="rgba(255,240,220,.7)"; g.fillRect(cx-r*1.1,cy-r*0.3,r*2.2,r*0.6); g.fillRect(cx-r*0.3,cy-r*1.1,r*0.6,r*2.2); }
   else { g.beginPath(); g.arc(cx,cy,r*0.95,0,7); g.stroke(); }
   g.globalAlpha=1;
 }
@@ -6128,7 +6169,7 @@ var RAR=[                                        // Seltenheit nach Rang in der 
   {max:12000, pts:2, name:"seltener",    leaf:3},
   {max:1e9,   pts:4, name:"selten",      leaf:4},
   {max:-1,    pts:5, name:"Rarität",     leaf:5}];
-var TREE_PTS=5, BINGO=15, RACK=7;
+var TREE_PTS=5, BINGO=15, RACK=7, NATURE_X=2, FOREST_X=3;   // Naturwort doppelt, Waldwort (auch Waldtiere) dreifach
 var LEVELS=[
  {name:"Lichtung",    age:"ab 7",  n:9,  trees:5,  old:1, turns:6,  goal:[25,45,65], easy:true},
  {name:"Waldweg",     age:"ab 8",  n:11, trees:8,  old:2, turns:8,  goal:[40,65,95], easy:true},
@@ -6143,9 +6184,22 @@ var FOREST_ANY=["WALD","HOLZ","HÖLZ","BAUM","BÄUM","FORST","FÖRST","BLATT","B
   "ZWEIG","WURZEL","ZAPFEN","NADEL","MOOS","PILZ","HARZ","SÄGE","BRETT","BALKEN","STAMM","STÄMM","SPECHT","HIRSCH","DACHS","BIBER","EICHEL","LICHTUNG",
   "DICKICHT","KNOSPE","SCHREINER","TISCHLER","ZIMMERER","KLOTZ","KLÖTZ","PAPPEL","BEERE","BUSCH","BÜSCH","STRAUCH","STRÄUCH","HUMUS","BORKE","KÄFER",
   "FUCHS","FÜCHS","EICHHÖRN","KASTANIE","HOBEL","DÜBEL","SPÄNE","FARN","ROTBUCHE","REISIG","WIPFEL","SETZLING","SÄMLING","SCHÖSSLING","FURNIER","PARKETT","SCHINDEL",
-  "ZUNDER","MULCH","PFAHL","PFÄHL","BOHLE","KORK","PELLET","ÄSTCHEN","SCHNITZ","STIELEICHE","ZERREICHE","SCHWARZERLE","AXT","ÄXTE"];
+  "ZUNDER","MULCH","PFAHL","PFÄHL","BOHLE","KORK","PELLET","ÄSTCHEN","SCHNITZ","STIELEICHE","ZERREICHE","SCHWARZERLE","AXT","ÄXTE",
+  // Waldtiere
+  "WILDSCHWEIN","WILDKATZE","MARDER","LUCHS","KAUZ","KÄUZ","WIESEL","AMEISE","SALAMANDER","BLINDSCHLEICHE","KREUZOTTER","ROTKEHLCHEN","KUCKUCK","HÄHER",
+  "SCHNECKE","HORNISSE","WALDMAUS","ROTWILD","SCHWARZWILD","FRISCHLING","HIRSCHKUH","KITZ","BAUMMARDER","SIEBENSCHLÄFER","GLÜHWÜRMCHEN"];
 /* … und kurze Wörter, die nur als ganzes Wort (mit Endung) zählen – sonst wäre LEICHE eine Eiche und PERLE eine Erle */
-var FOREST_WORD=["EICHE","BUCHE","LINDE","ESCHE","ULME","ERLE","WEIDE","IGEL","REH","AST","ÄSTE","HAIN","HECKE","KEIM","SAMEN","LAUB","LAUBE","BEIL","WILD","JÄGER","RINDE","SCHEIT","LEIM","EULE","SPAN","DIELE","LATTE","BAST","KIEN"];
+var FOREST_WORD=["EICHE","BUCHE","LINDE","ESCHE","ULME","ERLE","WEIDE","IGEL","REH","AST","ÄSTE","HAIN","HECKE","KEIM","SAMEN","LAUB","LAUBE","BEIL","WILD","JÄGER","RINDE","SCHEIT","LEIM","EULE","SPAN","DIELE","LATTE","BAST","KIEN",
+  "WOLF","WÖLFE","UHU","ZECKE","KRÖTE","MEISE","FINK","AMSEL","HASE","MAUS","MÄUSE","BÄR","BACHE","KEILER","DROSSEL","ELSTER","KRÄHE","RABE","MOLCH","MOTTE"];
+/* Naturwörter (zählen doppelt): Wetter, Himmel, Wasser, Landschaft, Blumen und alle Tiere, die nicht im Wald wohnen.
+   Lange Wortteile zählen am Wortanfang oder -ende (SCHNEEBALL, REGENBOGEN, WILDBLUME), kurze nur als ganzes Wort. */
+var NATURE_PART=["SONNE","REGEN","WOLKE","SCHNEE","GEWITTER","BLITZ","DONNER","STERN","HIMMEL","NEBEL","FROST","BLUME","BLÜTE","GRAS","GRÄSER","WIESE",
+  "FELS","STEIN","QUELLE","FLUSS","FLÜSSE","TEICH","MEER","WELLE","STRAND","INSEL","GIPFEL","HÜGEL","WÜSTE","PFLANZE","KRAUT","KRÄUTER","BIENE","HUMMEL",
+  "FALTER","SCHMETTERLING","LIBELLE","VOGEL","VÖGEL","FISCH","FROSCH","FRÖSCHE","SCHWAN","STORCH","ADLER","FALKE","MÖWE","LÖWE","TIGER","ELEFANT","PFERD",
+  "SCHAF","ZIEGE","KATZE","TIER","NATUR","OZEAN","KÜSTE","VULKAN","GLETSCHER","HÖHLE","TULPE","LILIE","VEILCHEN","LÖWENZAHN","WEIZEN","RAUPE","SPINNE",
+  "BLATTLAUS","MARIENKÄFER","REGENWURM","DELFIN","ROBBE","PINGUIN","GIRAFFE","ZEBRA","AFFE","KAMEL","SCHILDKRÖTE","EIDECHSE","SCHLANGE","KROKODIL"];
+var NATURE_WORD=["EIS","SEE","TAL","TÄLER","TAU","MOND","WIND","ERDE","KUH","KÜHE","HUND","ENTE","ROSE","MOHN","KORN","HAGEL","STURM","STÜRME","SAND","BACH","BÄCHE",
+  "BERG","FELD","WURM","WÜRMER","TAUBE","GANS","GÄNSE","HAHN","HUHN","HÜHNER","LAMM","KALB","FOHLEN","KLEE","MOOR","SUMPF","AU","AUE","WATT","DÜNE","FLUT","LUFT"];
 var FOREST_END=["","E","N","EN","S","ES","ER","ERN"];
 
 var $=K.mount("g-wortwald",{
@@ -6154,7 +6208,7 @@ var $=K.mount("g-wortwald",{
   extra:'<div class="ww-log" id="wortwald-log"></div>',
   tools:[{id:"play",icon:"go",label:"Legen",main:true},{id:"back",icon:"undo",label:"Zurück"},{id:"swap",icon:"rot",label:"Tauschen"},{id:"hint",icon:"hint",label:"Tipp"},{id:"mix",icon:"neu",label:"Mischen"}],
   help:"Tippe einen Buchstaben und dann ein Feld (oder zieh ihn hin). Alle neuen Buchstaben müssen in einer Reihe liegen und an Wörter auf dem Feld anschließen. "+
-       "Punkte gibt es für lange und seltene Wörter, Wald- und Holzwörter zählen doppelt. 🌲 Tanne zudecken: +5 · 🌳 alte Eiche: Wort zählt doppelt."
+       "Punkte gibt es für lange und seltene Wörter. 🌼 Naturwörter (Wetter, Wasser, Blumen, Tiere …) zählen doppelt, 🌲 Wald- und Holzwörter (auch Waldtiere wie Fuchs, Reh, Specht) dreifach. 🌲 Tanne zudecken: +5 · 🌳 alte Eiche: Wort zählt doppelt."
 });
 var st=K.store("holzi-wortwald"), L=st.lvl(); if(L>=LEVELS.length) L=0;
 var WORDS=null, BYLEN=null, loading=false;
@@ -6175,6 +6229,14 @@ function loadDict(cb){
 }
 function isWord(w){ return WORDS.has(w); }
 function rarity(w){ var r=WORDS.get(w); if(r===-1) return RAR[4]; for(var i=0;i<4;i++) if(r<RAR[i].max) return RAR[i]; return RAR[3]; }
+var NATURE_NOT=["EISEN","EISERN","REGENT","REGENTEN","TAUEN"];   // sieht nach Natur aus, ist es aber nicht
+function nature(w){
+  if(NATURE_NOT.indexOf(w)>=0) return false;
+  for(var i=0;i<NATURE_PART.length;i++){ var f=NATURE_PART[i], k=w.lastIndexOf(f);
+    if(w.indexOf(f)===0) return true; if(k>0&&FOREST_END.indexOf(w.slice(k+f.length))>=0) return true; }
+  for(var j=0;j<NATURE_WORD.length;j++){ var g=NATURE_WORD[j]; if(w.indexOf(g)===0&&FOREST_END.indexOf(w.slice(g.length))>=0) return true; }
+  return false;
+}
 function forest(w){
   for(var i=0;i<FOREST_ANY.length;i++) if(w.indexOf(FOREST_ANY[i])>=0) return true;
   for(var j=0;j<FOREST_WORD.length;j++){ var f=FOREST_WORD[j]; if(w.indexOf(f)===0&&FOREST_END.indexOf(w.slice(f.length))>=0) return true; }
@@ -6241,8 +6303,8 @@ function evalMove(tiles, quick){
   if(bad.length) return {ok:false,err:"„"+bad.map(function(w){ return w.w; }).join("“, „")+"“ kennt Holzi nicht.", bad:bad};
   var total=0, trees=0, parts=[];
   words.forEach(function(w){
-    var rar=rarity(w.w), base=LEN_PTS[Math.min(9,w.w.length)]+Math.max(0,w.w.length-9)*4, f=forest(w.w), old=w.cells.some(function(c){ return newK[c[0]*N+c[1]]&&B[c[0]][c[1]].t==="old"; });
-    var p=(base+rar.pts)*(f?2:1)*(old?2:1); total+=p; parts.push({w:w.w,base:base,rar:rar,forest:f,old:old,pts:p,cells:w.cells});
+    var rar=rarity(w.w), base=LEN_PTS[Math.min(9,w.w.length)]+Math.max(0,w.w.length-9)*4, f=forest(w.w), nat=!f&&nature(w.w), old=w.cells.some(function(c){ return newK[c[0]*N+c[1]]&&B[c[0]][c[1]].t==="old"; });
+    var p=(base+rar.pts)*(f?FOREST_X:nat?NATURE_X:1)*(old?2:1); total+=p; parts.push({w:w.w,base:base,rar:rar,forest:f,nature:nat,old:old,pts:p,cells:w.cells});
   });
   tiles.forEach(function(t){ if(B[t.r][t.c].t==="tree") trees++; });
   total+=trees*TREE_PTS; var bingo=tiles.length===RACK; if(bingo) total+=BINGO;
@@ -6300,7 +6362,7 @@ function newGame(i){
   K.levels("wortwald-levels",LEVELS,L,st,function(k){ hz().tok(1.1); newGame(k); });
   render();
   K.say("wortwald-say", lv.cpu?"Du spielst gegen Holzi! Wer nach "+lv.turns+" Zügen mehr Punkte hat, gewinnt. Du fängst an – über die Lichtung ☀️ in der Mitte."
-    :lv.forest?"Wald- und Holzwörter zählen doppelt! Schaffst du "+lv.goal[0]+" Punkte in "+lv.turns+" Zügen?"
+    :lv.forest?"Wald- und Holzwörter zählen dreifach, Naturwörter doppelt! Schaffst du "+lv.goal[0]+" Punkte in "+lv.turns+" Zügen?"
     :"Leg ein Wort über die Lichtung ☀️ in der Mitte. Du hast "+lv.turns+" Züge – schaffst du "+lv.goal[0]+" Punkte?");
 }
 function pendAt(r,c){ for(var i=0;i<pend.length;i++) if(pend[i].r===r&&pend[i].c===c) return i; return -1; }
@@ -6345,7 +6407,7 @@ function leaves(n){ var s=''; for(var i=0;i<5;i++) s+='<i class="'+(i<n?'on':'')
 function evHtml(ev){
   return '<div class="ww-ev">'+ev.parts.map(function(p){
     return '<span class="ww-w"><b>'+p.w+'</b> <em>'+p.w.length+' Buchst. '+p.base+'</em>'+(p.rar.pts?' <em>'+leaves(p.rar.leaf)+p.rar.name+' +'+p.rar.pts+'</em>':' <em>'+leaves(p.rar.leaf)+p.rar.name+'</em>')+
-      (p.forest?' <em class="fo">🌲 Waldwort ×2</em>':'')+(p.old?' <em class="ol">🌳 Eiche ×2</em>':'')+' <strong>= '+p.pts+'</strong></span>'; }).join('')+
+      (p.forest?' <em class="fo">🌲 Waldwort ×'+FOREST_X+'</em>':p.nature?' <em class="na">🌼 Naturwort ×'+NATURE_X+'</em>':'')+(p.old?' <em class="ol">🌳 Eiche ×2</em>':'')+' <strong>= '+p.pts+'</strong></span>'; }).join('')+
     (ev.trees?'<span class="ww-w"><em class="fo">🌲 '+ev.trees+'× Tanne zugedeckt</em> <strong>+'+ev.trees*TREE_PTS+'</strong></span>':'')+
     (ev.bingo?'<span class="ww-w"><em class="ol">Alle 7 Steine!</em> <strong>+'+BINGO+'</strong></span>':'')+
     '<span class="ww-tot">'+ev.total+' Punkte</span></div>';
@@ -6353,7 +6415,7 @@ function evHtml(ev){
 function renderLog(){
   if(!log.length){ $("log").innerHTML=''; return; }
   $("log").innerHTML='<h4>Wortbuch</h4><div class="ww-chips">'+log.slice().reverse().map(function(x){
-    return '<span class="ww-chip'+(x.who==="h"?' cpu':'')+(x.forest?' fo':'')+'" title="'+x.info+'">'+(x.who==="h"?'🪵 ':'')+x.w+(x.forest?' 🌲':'')+' <b>'+x.pts+'</b></span>'; }).join('')+'</div>';
+    return '<span class="ww-chip'+(x.who==="h"?' cpu':'')+(x.forest?' fo':x.nature?' na':'')+'" title="'+x.info+'">'+(x.who==="h"?'🪵 ':'')+x.w+(x.forest?' 🌲':x.nature?' 🌼':'')+' <b>'+x.pts+'</b></span>'; }).join('')+'</div>';
 }
 
 /* ---- Bedienung: Antippen oder Ziehen ---- */
@@ -6391,7 +6453,7 @@ function commit(tiles, who){
   var ev=evalMove(tiles); if(!ev.ok) return null;
   tiles.forEach(function(t){ B[t.r][t.c].L=t.L; B[t.r][t.c].by=who; });
   lastMove=tiles.map(function(t){ return {r:t.r,c:t.c}; });
-  ev.parts.forEach(function(p,k){ log.push({w:p.w,pts:p.pts+(k===0?ev.trees*TREE_PTS+(ev.bingo?BINGO:0):0),who:who,forest:p.forest,info:p.rar.name+(p.forest?", Waldwort":"")+(p.old?", alte Eiche":"")}); });
+  ev.parts.forEach(function(p,k){ log.push({w:p.w,pts:p.pts+(k===0?ev.trees*TREE_PTS+(ev.bingo?BINGO:0):0),who:who,forest:p.forest,nature:p.nature,info:p.rar.name+(p.forest?", Waldwort":p.nature?", Naturwort":"")+(p.old?", alte Eiche":"")}); });
   return ev;
 }
 $("play").onclick=function(){
@@ -6402,7 +6464,7 @@ $("play").onclick=function(){
   score+=ev.total; draw(rack); turn++;
   hz().tune(ev.total>=30?[523,659,784,1047]:[659,784],0.07);
   var best=ev.parts[0], msg="„"+best.w+"“: "+ev.total+" Punkte!";
-  if(best.forest) msg+=" Ein Waldwort – doppelt!"; else if(best.rar.leaf>=4) msg+=" Seltenheitsbonus: „"+best.rar.name+"“!"; else if(ev.trees) msg+=" Tanne zugedeckt!";
+  if(best.forest) msg+=" Ein Waldwort – dreifach!"; else if(best.nature) msg+=" Ein Naturwort – doppelt!"; else if(best.rar.leaf>=4) msg+=" Seltenheitsbonus: „"+best.rar.name+"“!"; else if(ev.trees) msg+=" Tanne zugedeckt!";
   K.say("wortwald-say",msg); afterTurn();
 };
 $("back").onclick=function(){ if(!pend.length||busy) return; hz().tok(0.9); pend=[]; sel=-1; render(); };
@@ -6459,7 +6521,7 @@ window.HZG=window.HZG||{};
 HZG.wortwald=function(){ if(!WORDS) loadDict(function(){ newGame(L); }); else if(!B) newGame(L); };
 HZG.wortwaldDebug={gen:function(){ return genMoves(rack); }, ev:evalMove, st:function(){ return {B:B,rack:rack,score:score,cpu:cpuScore,turn:turn,done:done,bag:bag.length}; },
   play:function(m){ pend=[]; var taken={}; m.tiles.forEach(function(t){ for(var i=0;i<rack.length;i++) if(!taken[i]&&rack[i]===t.L){ taken[i]=1; pend.push({r:t.r,c:t.c,L:t.L,ri:i}); break; } }); render(); $("play").onclick(); },
-  forest:function(w){ return forest(w); }, lvl:function(i){ newGame(i); }, rarity:function(w){ return rarity(w); }};
+  forest:function(w){ return forest(w); }, nature:function(w){ return nature(w); }, lvl:function(i){ newGame(i); }, rarity:function(w){ return rarity(w); }};
 })();
 </script>
 <script>
@@ -6937,9 +6999,23 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
 })();
 </script>
 <script>
+/* Kein Zoom-Gefaengnis: Pinch-Zoom und Doppeltipp-Zoom aus (iOS), und falls die Seite doch vergroessert ist,
+   bringt ein Knopf sie zurueck (Spielfelder fangen Wischgesten ab, dann ginge Rauszoomen sonst nicht mehr). */
+(function(){
+  ["gesturestart","gesturechange"].forEach(function(t){ document.addEventListener(t,function(e){ e.preventDefault(); },{passive:false}); });
+  document.addEventListener("touchmove",function(e){ if(e.touches&&e.touches.length>1&&e.scale!==undefined&&e.scale!==1) e.preventDefault(); },{passive:false});
+  var vv=window.visualViewport, btn=null, meta=document.querySelector('meta[name="viewport"]');
+  function reset(){ var c=meta.getAttribute("content"); meta.setAttribute("content",c+", maximum-scale=1"); setTimeout(function(){ meta.setAttribute("content",c); check(); },300); }
+  function check(){ var z=vv&&vv.scale>1.05;
+    if(z&&!btn){ btn=document.createElement("button"); btn.className="zoomfix"; btn.textContent="🔍 Normale Größe"; btn.onclick=reset; document.body.appendChild(btn); }
+    if(btn){ btn.hidden=!z; if(z&&vv){ btn.style.transform="translate("+(vv.offsetLeft+vv.width-window.innerWidth)+"px,"+(vv.offsetTop+vv.height-window.innerHeight)+"px) scale("+(1/vv.scale)+")"; btn.style.transformOrigin="100% 100%"; } } }
+  if(vv){ vv.addEventListener("resize",check); vv.addEventListener("scroll",check); }
+})();
+</script>
+<script>
 /* Startseite, Spielwechsel, Zurueck-Taste, Hilfe und Level-Wahl */
 (function(){
-  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?'],wortwald:['Der <span>Wortwald</span>','Wörter legen, Bäume zudecken, Waldwörter zählen doppelt'],biber:['Der <span>Biberbau</span>','Bäume nagen, Stämme flößen, Damm und Burg bauen']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "luecke", "wortwald", "tower", "haus", "kiste", "biber", "kloetze", "forst"];
+  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?'],wortwald:['Der <span>Wortwald</span>','Wörter legen, Bäume zudecken, Waldwörter zählen dreifach'],biber:['Der <span>Biberbau</span>','Bäume nagen, Stämme flößen, Damm und Burg bauen']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "luecke", "wortwald", "tower", "haus", "kiste", "biber", "kloetze", "forst"];
   var HOME=['Holzis <span>Holzkiste</span>','Achtzehn Holzspiele für Kinder'];
   H.stats=['Holzis <span>Statistik</span>','Sterne, Spielzeit, Rangliste und Abzeichen'];
   H.research=['Holzis <span>Forschung</span>','Münzen verdienen, erforschen, Profi-Level freischalten'];
@@ -7044,14 +7120,90 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
     l.forEach(function(p){ var st=allStars(p.id);
       h+='<button type="button" class="pf-card'+(p.id===PF.id?' on':'')+(editing?' edit':'')+'" data-id="'+p.id+'">'+ava(p)+'<b>'+(p.name?esc(p.name):'Ohne Namen')+'</b><small>'+STAR_ON+st[0]+'</small>'+(editing?'<i class="pf-pen" aria-hidden="true">✎</i>':'')+'</button>'; });
     if(!editing&&l.length<8) h+='<button type="button" class="pf-card pf-add">'+'<span class="pf-ava" style="--c:var(--bg-soft)">+</span><b>Neues Kind</b><small>&nbsp;</small></button>';
-    h+='</div><div class="pf-foot"><button type="button" class="pf-btn" data-a="edit">'+(editing?'Zurück':'Bearbeiten')+'</button><button type="button" class="pf-btn go" data-a="close">Fertig</button></div>';
+    h+='</div><div class="pf-foot">'+(editing?'':'<button type="button" class="pf-btn" data-a="xfer">⇄ Übertragen</button>')+'<button type="button" class="pf-btn" data-a="edit">'+(editing?'Zurück':'Bearbeiten')+'</button><button type="button" class="pf-btn go" data-a="close">Fertig</button></div>';
     var box=dialog(h);
+    var xf=box.querySelector('[data-a="xfer"]'); if(xf) xf.onclick=function(){ window.HZ&&HZ.tok(1.2); showTransfer(); };
     box.querySelectorAll('.pf-card[data-id]').forEach(function(b){ b.onclick=function(){ window.HZ&&HZ.tok(1.2); var id=b.getAttribute('data-id');
       if(editing) editProfile(id); else if(id===PF.id) box.parentNode.remove(); else { PF.use(id); location.hash=''; location.reload(); } }; });
     var add=box.querySelector('.pf-add'); if(add) add.onclick=function(){ window.HZ&&HZ.tok(1.2); editProfile(null); };
     box.querySelector('[data-a="edit"]').onclick=function(){ showProfiles(!editing); };
     box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); };
   }
+  /* ---- Spielstand auf ein anderes Geraet uebertragen (ohne Server: Datei oder Code) ----
+     Empfangen fuehrt zusammen statt zu ersetzen: Sterne, Rekorde und Forschung nehmen jeweils das Bessere,
+     so geht auf keinem Geraet etwas verloren, auch wenn man zweimal uebertraegt. */
+  var HIGHER={kloetze:1,forst:1,wortwald:1};
+  function packProfile(id){ var p=PF.list().filter(function(q){ return q.id===id; })[0]||{}, data={};
+    PF.keys(id).forEach(function(k){ var v=PF.read(id,k); if(v!=null) data[k]=v; });
+    return {app:"holzi",v:1,name:p.name||"",ava:p.ava||0,at:Date.now(),data:data}; }
+  function b64(bytes){ var s='', i; for(i=0;i<bytes.length;i+=8192) s+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192)); return btoa(s); }
+  function unb64(t){ var s=atob(t), a=new Uint8Array(s.length); for(var i=0;i<s.length;i++) a[i]=s.charCodeAt(i); return a; }
+  function toCode(obj){ var txt=JSON.stringify(obj), raw=new TextEncoder().encode(txt);
+    if(!window.CompressionStream) return Promise.resolve('HOLZI0:'+b64(raw));
+    return new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer().then(function(b){ return 'HOLZI1:'+b64(new Uint8Array(b)); }); }
+  function fromCode(t){ t=String(t||'').trim();
+    if(t.charAt(0)==='{') return Promise.resolve(JSON.parse(t));
+    var m=/^HOLZI([01]):([A-Za-z0-9+\/=\s]+)$/.exec(t); if(!m) return Promise.reject(new Error('code'));
+    var bytes=unb64(m[2].replace(/\s+/g,''));
+    if(m[1]==='0') return Promise.resolve(JSON.parse(new TextDecoder().decode(bytes)));
+    if(!window.DecompressionStream) return Promise.reject(new Error('alt'));
+    return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).text().then(JSON.parse); }
+  function J(t){ try{ return JSON.parse(t); }catch(e){ return null; } }
+  function mergeKey(k,a,b){ // a = hier, b = mitgebracht; Rueckgabe: neuer Wert (Text)
+    if(a==null) return b;
+    var A=J(a), B=J(b); if(!A||!B||typeof A!=='object'||typeof B!=='object') return a;
+    var game=null; Object.keys(STARS).forEach(function(g){ if(STARS[g][0]===k) game=g; });
+    if(game||/^holzi-(worte|kreuz|v1)/.test(k)){ Object.keys(B).forEach(function(i){ if(i==='_lvl'){ if(A._lvl==null) A._lvl=B._lvl; return; } if(typeof B[i]==='number') A[i]=Math.max(A[i]||0,B[i]); else if(A[i]==null) A[i]=B[i]; }); return JSON.stringify(A); }
+    var bm=/^holzi-best-(.+)$/.exec(k);
+    if(bm){ var hi=HIGHER[bm[1]]; Object.keys(B).forEach(function(i){ if(A[i]==null||(hi?B[i]>A[i]:B[i]<A[i])) A[i]=B[i]; }); return JSON.stringify(A); }
+    if(k==='holzi-coins'){ var r=Object.assign({},A.r||{},B.r||{}), base=(B.earned||0)>(A.earned||0)?B:A; base.r=r;
+      var got=base.got||{}; [A,B].forEach(function(x){ Object.keys(x.got||{}).forEach(function(g){ var o=got[g]||[]; (x.got[g]||[]).forEach(function(v,i){ o[i]=Math.max(o[i]||0,v||0); }); got[g]=o; }); }); base.got=got; return JSON.stringify(base); }
+    if(k==='holzi-stats'){ A.d=A.d||{}; Object.keys(B.d||{}).forEach(function(day){ var x=A.d[day]||(A.d[day]={g:{},h:{}}), y=B.d[day]; ['g','h'].forEach(function(f){ x[f]=x[f]||{}; Object.keys(y[f]||{}).forEach(function(q){ x[f][q]=Math.max(x[f][q]||0,y[f][q]); }); }); });
+      var seen={}; A.w=(A.w||[]).concat(B.w||[]).filter(function(w){ var id=w[0]+'|'+w[1]+'|'+w[2]; if(seen[id]) return false; seen[id]=1; return true; }).sort(function(x,y){ return x[0]-y[0]; }); return JSON.stringify(A); }
+    if(k==='holzi-kiste-save'){ A.acorns=Math.max(A.acorns||0,B.acorns||0); Object.keys(B.owned||{}).forEach(function(c){ var o=A.owned[c]||[]; (B.owned[c]||[]).forEach(function(v){ if(o.indexOf(v)<0) o.push(v); }); A.owned[c]=o; }); return JSON.stringify(A); }
+    if(k==='holzi-kiste-ghost'){ Object.keys(B).forEach(function(i){ if(!A[i]||B[i].t<A[i].t) A[i]=B[i]; }); return JSON.stringify(A); }
+    return a; // sonstige Spielstaende (z. B. ein laufendes Forst-Szenario): das Geraet behaelt seinen eigenen
+  }
+  function receive(pkg){
+    if(!pkg||pkg.app!=="holzi"||!pkg.data) throw new Error('kein Holzi-Spielstand');
+    var l=PF.list(), nm=(pkg.name||'').trim().toLowerCase();
+    var tgt=l.filter(function(q){ return (q.name||'').trim().toLowerCase()===nm&&(q.ava||0)===(pkg.ava||0); })[0], fresh=false;
+    if(!tgt){ var n=1; l.forEach(function(q){ var k=parseInt(String(q.id).slice(1),10); if(k>=n) n=k+1; });
+      if(l.length===1&&!l[0].name&&!PF.keys('p1').some(function(k){ return STARS[Object.keys(STARS).filter(function(g){ return STARS[g][0]===k; })[0]]; })){ tgt=l[0]; tgt.name=pkg.name; tgt.ava=pkg.ava; }
+      else { tgt={id:'p'+n,name:pkg.name,ava:pkg.ava}; l.push(tgt); } fresh=true; PF.save(l); }
+    var changed=0; Object.keys(pkg.data).forEach(function(k){ if(!/^holzi-/.test(k)||k==='holzi-profiles'||k==='holzi-profile'||k==='holzi-mute') return; var a=PF.read(tgt.id,k), v=mergeKey(k,a,pkg.data[k]); if(v!=null&&v!==a){ PF.write(tgt.id,k,v); changed++; } });
+    return {p:tgt,fresh:fresh,changed:changed};
+  }
+  function showTransfer(){
+    var l=PF.list(), h='<h2>⇄ Spielstand übertragen</h2><p class="pf-hint">So nimmt ein Kind seine Sterne, Rekorde, Münzen und Forschung auf ein anderes Gerät mit. Es geht ohne Internet-Konto: als Datei (z.&nbsp;B. per AirDrop) oder als Text-Code.</p>'+
+      '<h3 class="pf-h3">1. Auf diesem Gerät senden</h3><div class="pf-xlist">';
+    l.forEach(function(p){ h+='<div class="pf-xrow">'+ava(p,'pf-ava sm')+'<b>'+(p.name?esc(p.name):'Ohne Namen')+'</b><button type="button" class="pf-btn" data-send="'+p.id+'">Datei</button><button type="button" class="pf-btn" data-code="'+p.id+'">Code</button></div>'; });
+    h+='</div><h3 class="pf-h3">2. Auf dem anderen Gerät empfangen</h3><p class="pf-hint">Gibt es dort schon ein Kind mit <b>gleichem Namen und Tier</b>, wird zusammengeführt: Es zählt jeweils das Bessere, nichts geht verloren. Sonst entsteht ein neues Kind.</p>'+
+      '<div class="pf-foot" style="margin-top:0"><label class="pf-btn">Datei wählen<input type="file" accept=".json,.holzi,application/json,text/plain" hidden></label><button type="button" class="pf-btn" data-a="paste">Code einfügen</button></div>'+
+      '<div class="pf-paste" hidden><textarea rows="4" placeholder="HOLZI1:…" aria-label="Code einfügen"></textarea><button type="button" class="pf-btn go" data-a="take">Übernehmen</button></div>'+
+      '<p class="pf-msg" aria-live="polite"></p><div class="pf-foot"><button type="button" class="pf-btn go" data-a="close">Fertig</button></div>';
+    var box=dialog(h), msg=box.querySelector('.pf-msg');
+    function say(t,ok){ msg.innerHTML=t; msg.className='pf-msg'+(ok===false?' bad':''); }
+    function nameOf(id){ var p=l.filter(function(q){ return q.id===id; })[0]; return p&&p.name?p.name:'kind'; }
+    box.querySelectorAll('[data-send]').forEach(function(b){ b.onclick=function(){ var id=b.getAttribute('data-send'), pkg=packProfile(id), txt=JSON.stringify(pkg), fn='Holzi-'+nameOf(id).replace(/[^A-Za-z0-9ÄÖÜäöüß_-]+/g,'_')+'.json';
+      var file=null; try{ file=new File([txt],fn,{type:'application/json'}); }catch(e){}
+      if(file&&navigator.canShare&&navigator.canShare({files:[file]})){ navigator.share({files:[file],title:'Holzi-Spielstand',text:'Spielstand von '+nameOf(id)}).then(function(){ say('Gesendet! Öffne auf dem anderen Gerät „Übertragen“ → „Datei wählen“.'); }).catch(function(){}); return; }
+      var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'})); a.download=fn; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },1500);
+      say('Die Datei <b>'+esc(fn)+'</b> wurde gespeichert. Schick sie auf das andere Gerät und wähle sie dort unter „Datei wählen“.'); }; });
+    box.querySelectorAll('[data-code]').forEach(function(b){ b.onclick=function(){ var id=b.getAttribute('data-code');
+      toCode(packProfile(id)).then(function(code){ var done=function(ok){ say(ok?'Code kopiert ('+Math.round(code.length/1000)+' KB Text). Füge ihn auf dem anderen Gerät unter „Code einfügen“ ein – z. B. über eine Nachricht an dich selbst.':'Kopieren ging nicht – markiere den Code unten und kopiere ihn von Hand.'); if(!ok){ var p=box.querySelector('.pf-paste'); p.hidden=false; p.querySelector('textarea').value=code; } };
+        if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(function(){ done(true); },function(){ done(false); }); else done(false); }); }; });
+    function take(p){ p.then(function(pkg){ var r=receive(pkg); window.HZ&&HZ.tune&&HZ.tune([523,659,784],0.08);
+        if(r.p.id===PF.id){ ST=loadStats(); dirty=false; CS=coinState(); renderHome(); } // laufende Werte nicht mit alten ueberschreiben
+        say('Übernommen: <b>'+esc(r.p.name||'Kind')+'</b>'+(r.fresh?' ist jetzt auf diesem Gerät.':' – zusammengeführt ('+r.changed+' Spielstände aktualisiert).')+' <button type="button" class="pf-btn go" data-a="go">Als '+esc(r.p.name||'Kind')+' spielen</button>');
+        msg.querySelector('[data-a="go"]').onclick=function(){ PF.use(r.p.id); location.hash=''; location.reload(); }; })
+      .catch(function(e){ say(e&&e.message==='alt'?'Dieses Gerät ist zu alt für den gepackten Code. Nimm lieber „Datei“.':'Das ist kein Holzi-Spielstand.',false); }); }
+    box.querySelector('input[type=file]').onchange=function(){ var f=this.files&&this.files[0]; if(!f) return; take(f.text().then(fromCode)); };
+    box.querySelector('[data-a="paste"]').onclick=function(){ var p=box.querySelector('.pf-paste'); p.hidden=false; p.querySelector('textarea').focus(); };
+    box.querySelector('[data-a="take"]').onclick=function(){ take(fromCode(box.querySelector('.pf-paste textarea').value)); };
+    box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); renderWho(); };
+  }
+  window.HZXfer={pack:packProfile,receive:receive,toCode:toCode,fromCode:fromCode};
   function editProfile(id){
     var l=PF.list(), p=id?l.filter(function(q){ return q.id===id; })[0]:{id:null,name:"",ava:Math.floor(Math.random()*AVAS.length)}, pick=p.ava||0;
     var h='<h2>'+(id?'Kind ändern':'Neues Kind')+'</h2><label class="pf-name">Name<input type="text" maxlength="16" autocomplete="off" value="'+esc(p.name||'')+'" placeholder="z. B. Mia"></label>'+

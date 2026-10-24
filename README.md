@@ -18,9 +18,9 @@ Achtzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | **Biberbau** (3D) | Als Biber Laubbäume annagen (Pappel, Weide, Birke, Erle; Eiche dauert, Fichten mag der Biber nicht), Stämme zum Damm tragen oder im Bach treiben lassen; das Wasser staut sich zum Teich, darin entsteht die Biberburg, und die Biberfamilie zieht ein. Steuerung per Antippen oder Joystick, 6 Level bis Frost-Zeitlimit, Hochwasser und Fuchs am Ufer |
 | **Aufräumen** | Holzi schiebt Kisten auf ihre Plätze (Sokoban): 10 per Löser geprüfte Lager, Lösung zum Zuschauen |
 | **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
-| **Klötzchenregen** | Fallende Holzklötze: volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
+| **Klötzchenregen** | Fallende Holzklötze aus 4 bis 8 Holzarten (jeder Klotz mindestens zweifarbig): volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
 | **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; Wachstumskurven je Baumart (Höhe, Vorrat); Klimabaumarten Zerreiche, Orientbuche, Baumhasel; eigenes Sägewerk mit Schnittholz, Aufträgen und Ausbauten; Einführung „Erste Schritte“ und Vorschläge „Was jetzt?“; 6 Szenarien bis 60 Jahre |
-| **Wortwald** | Wörter legen wie beim Scrabble, aber ohne Buchstabenwerte: Punkte für Länge und **Seltenheit** des Wortes (Rang in einer Häufigkeitsliste, 1–5 Blätter von „Alltagswort“ bis „Rarität“), **Wald- und Holzwörter zählen doppelt**; auf dem Feld stehen Tannen (+5 beim Zudecken) und alte Eichen (Wort ×2). Tipps vom Zug-Sucher, drei Level allein mit Punktzielen, drei gegen Holzi (leicht/mittel/stark) |
+| **Wortwald** | Wörter legen wie beim Scrabble, aber ohne Buchstabenwerte: Punkte für Länge und **Seltenheit** des Wortes (Rang in einer Häufigkeitsliste, 1–5 Blätter von „Alltagswort“ bis „Rarität“), **Naturwörter zählen doppelt, Wald- und Holzwörter (auch Waldtiere) dreifach**; auf dem Feld stehen Tannen (+5 beim Zudecken) und alte Eichen (Wort ×2). Tipps vom Zug-Sucher, drei Level allein mit Punktzielen, drei gegen Holzi (leicht/mittel/stark) |
 | **Lückenrätsel** | 30 Rätsel über Wald, Tiere und Werkstatt: erst fehlende Buchstaben, dann ganze Wörter (mit Ablenkwörtern), am Ende „Wer bin ich?“ |
 
 ## Aufbau
@@ -48,6 +48,11 @@ Achtzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
   Werkstatt (mehr pro Stern), Wald (pro Tag), Fleiß (pro Sieg, höhere Tagesgrenze) und Profi-Werkstätten,
   die je Spiel die schwersten Level freischalten. Level mit Sternen bleiben immer spielbar. Kaufen mit
   zweimal Tippen. Daten je Profil in `holzi-coins`.
+- **Spielstand übertragen** („Wer spielt?“ → „⇄ Übertragen“): ein Kind als Datei (Teilen/AirDrop) oder als Text-Code
+  (gzip + Base64) mitnehmen und auf dem anderen Gerät empfangen. Gibt es dort ein Kind mit gleichem Namen und Tier, wird
+  zusammengeführt (Sterne je Level das Maximum, Rekorde das Bessere, Forschung vereinigt, Münzstand vom Gerät mit mehr
+  verdienten Münzen, Statistik ohne Doppelte); sonst entsteht ein neues Kind. Kein Server, keine Anmeldung.
+- **Kein Zoom-Gefängnis:** Pinch- und Doppeltipp-Zoom sind aus; ist die Seite doch vergrößert, erscheint „Normale Größe“.
 - **Mitspieler-Übersicht:** Startseite zeigt die drei Besten; die Rangliste vergleicht alle Kinder über Sterne,
   Level, Münzen/Vermögen, Forschung, Spielzeit, Serie und Abzeichen (Krone für den Besten je Spalte).
 
@@ -108,8 +113,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v25";` hochzählen
-(`holzi-v26` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v26";` hochzählen
+(`holzi-v27` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
