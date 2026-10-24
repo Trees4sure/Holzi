@@ -1,6 +1,6 @@
 # Holzis Holzkiste – PWA
 
-Siebzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
+Achtzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
 
 | Spiel | Worum es geht |
 |---|---|
@@ -14,7 +14,8 @@ Siebzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | **Murmeln** | Rinnen drehen, bis die Murmel in Holzis Becher rollt. Punkte nach Bahngröße |
 | **Turm** | Wackelturm mit echter Schwerkraft bis über die Fahne bauen |
 | **Zimmerei** | Tierkunden bestellen Gebäude vom Hasenstall bis zum Rathaus: Balken zusägen, Holzverbindungen wählen, Fachwerk mit dem Kran aufrichten, Richtfest feiern, Zimmerei ausbauen |
-| **Seifenkiste** | Rennen gegen Fuchs, Bär und Igel mit echter 3D-Fahrphysik, Eicheln sammeln und die Kiste in der Werkstatt aufrüsten |
+| **Seifenkiste** | Rennen gegen Fuchs, Bär und Igel mit echter 3D-Fahrphysik auf 9 Strecken mit eigener Stimmung (Sommer, Wald, Berg, Festtag, Herbstlaub, Winter mit Glätte, Mondschein mit Laternen und Glühwürmchen); Startampel, Curbs, Banden, Wimpelketten, Zuschauer mit Fähnchen; orange Schwung-Pfeile, Schanzen und ein Turbo, den jede Eichel auflädt; Werkstatt mit 6 Karosserien (bis Badewanne, Fass, Rakete), Rädern, Achse, Bremse, Lenkung, Flügel, Farbe, Zierstreifen und Startnummer; Zeitfahren gegen den eigenen Geist (Bestfahrt); Tacho und Fortschrittsleiste |
+| **Biberbau** (3D) | Als Biber Laubbäume annagen (Pappel, Weide, Birke, Erle; Eiche dauert, Fichten mag der Biber nicht), Stämme zum Damm tragen oder im Bach treiben lassen; das Wasser staut sich zum Teich, darin entsteht die Biberburg, und die Biberfamilie zieht ein. Steuerung per Antippen oder Joystick, 6 Level bis Frost-Zeitlimit, Hochwasser und Fuchs am Ufer |
 | **Aufräumen** | Holzi schiebt Kisten auf ihre Plätze (Sokoban): 10 per Löser geprüfte Lager, Lösung zum Zuschauen |
 | **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
 | **Klötzchenregen** | Fallende Holzklötze: volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
@@ -60,7 +61,7 @@ Siebzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | `sw.js` | Service Worker: speichert alles für den Offline-Betrieb |
 | `icon-192.png`, `icon-512.png`, `maskable-512.png`, `apple-touch-icon.png` | App-Icons |
 | `matter.min.js` | Physik-Bibliothek für den Wackelturm (matter-js 0.19, MIT-Lizenz) |
-| `three.min.js` | 3D-Grafik für Zimmerei und Seifenkiste (three.js r128, MIT-Lizenz) |
+| `three.min.js` | 3D-Grafik für Zimmerei, Seifenkiste und Biberbau (three.js r128, MIT-Lizenz) |
 | `qrcode.js` | QR-Code für „Teilen“ auf der Startseite (qrcode-generator von Kazuhiko Arase, MIT-Lizenz) |
 | `cannon.min.js` | 3D-Physik für die Seifenkiste (cannon.js 0.6.2, MIT-Lizenz) |
 | `wortwald.txt` | Wörterbuch für den Wortwald (~78 000 Wörter mit 2–9 Buchstaben, häufige zuerst = Seltenheits-Rang); wird erst beim Öffnen des Spiels geladen. Lizenz und Quellen in `wortwald-lizenz.txt` |
@@ -107,8 +108,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v24";` hochzählen
-(`holzi-v25` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v25";` hochzählen
+(`holzi-v26` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
