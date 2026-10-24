@@ -15,7 +15,7 @@ Fünfzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersa
 | **Turm** | Wackelturm mit echter Schwerkraft bis über die Fahne bauen |
 | **Zimmerei** | Tierkunden bestellen Gebäude vom Hasenstall bis zum Rathaus: Balken zusägen, Holzverbindungen wählen, Fachwerk mit dem Kran aufrichten, Richtfest feiern, Zimmerei ausbauen |
 | **Seifenkiste** | Rennen gegen Fuchs, Bär und Igel mit echter 3D-Fahrphysik, Eicheln sammeln und die Kiste in der Werkstatt aufrüsten |
-| **Aufräumen** | Holzi schiebt Kisten auf ihre Plätze (Sokoban): 9 per Löser geprüfte Lager, Lösung zum Zuschauen |
+| **Aufräumen** | Holzi schiebt Kisten auf ihre Plätze (Sokoban): 10 per Löser geprüfte Lager, Lösung zum Zuschauen |
 | **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
 | **Klötzchenregen** | Fallende Holzklötze: volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
 | **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; 6 Szenarien bis 60 Jahre |
@@ -103,8 +103,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v18";` hochzählen
-(`holzi-v19` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v19";` hochzählen
+(`holzi-v20` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
