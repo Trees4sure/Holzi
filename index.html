@@ -7761,7 +7761,7 @@ insektGame("ameisen"); insektGame("bienen");
     var h='<h2>'+(id?'Kind ändern':'Neues Kind')+'</h2><label class="pf-name">Name<input type="text" maxlength="16" autocomplete="off" value="'+esc(p.name||'')+'" placeholder="z. B. Mia"></label>'+
       '<p class="pf-hint">Welches Tier bist du?</p><div class="pf-avas" role="radiogroup">';
     AVAS.forEach(function(a,i){ h+='<button type="button" role="radio" aria-label="'+a[1]+'" aria-checked="'+(i===pick)+'" data-i="'+i+'">'+ava({ava:i})+'</button>'; });
-    h+='</div><div class="pf-foot">'+(id&&l.length>1?'<button type="button" class="pf-btn del" data-a="del">Löschen</button>':'')+
+    h+='</div><div class="pf-foot">'+(id&&l.length>1?'<button type="button" class="pf-btn del" data-a="del">Löschen</button>':'')+(id?'<button type="button" class="pf-btn" data-a="reset">Zurücksetzen</button>':'')+
       '<button type="button" class="pf-btn" data-a="back">Abbrechen</button><button type="button" class="pf-btn go" data-a="ok">Speichern</button></div>';
     var box=dialog(h), inp=box.querySelector('input');
     box.querySelectorAll('.pf-avas button').forEach(function(b){ b.onclick=function(){ pick=+b.getAttribute('data-i'); window.HZ&&HZ.tok(1.3);
@@ -7773,6 +7773,23 @@ insektGame("ameisen"); insektGame("bienen");
       // neues Kind: freie Nummer suchen, anlegen und gleich hineinwechseln
       var n=1; l.forEach(function(q){ var k=parseInt(String(q.id).slice(1),10); if(k>=n) n=k+1; });
       l.push({id:'p'+n,name:name,ava:pick}); PF.save(l); PF.use('p'+n); location.hash=''; location.reload();
+    };
+    // Zuruecksetzen: Name und Tier bleiben, alle Sterne, Rekorde, Muenzen, Forschung und Statistik werden geloescht
+    var rs=box.querySelector('[data-a="reset"]');
+    if(rs) rs.onclick=function(){
+      var f=box.querySelector('.pf-foot'), nm=p.name?esc(p.name):'dieses Kind';
+      f.innerHTML='<p class="pf-warn">Alles von <b>'+nm+'</b> auf Anfang? Sterne, Rekorde, Münzen, Forschung, Statistik und angefangene Spiele werden gelöscht. Name und Tier bleiben.</p>'+
+        '<p class="pf-hint" style="margin:0 0 6px!important">Tipp: Vorher sichern – dann kann man den Stand später über „Übertragen → Datei wählen“ zurückholen.</p>'+
+        '<button type="button" class="pf-btn" data-a="save">Erst als Datei sichern</button><button type="button" class="pf-btn" data-a="no">Nein</button><button type="button" class="pf-btn del" data-a="yes">Ja, auf Anfang</button>';
+      f.querySelector('[data-a="save"]').onclick=function(){ var txt=JSON.stringify(packProfile(id)), fn='Holzi-'+(p.name||'Kind').replace(/[^A-Za-z0-9ÄÖÜäöüß_-]+/g,'_')+'-Sicherung.json', file=null; try{ file=new File([txt],fn,{type:'application/json'}); }catch(e){}
+        if(file&&navigator.canShare&&navigator.canShare({files:[file]})){ navigator.share({files:[file],title:'Holzi-Sicherung'}).catch(function(){}); return; }
+        var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'})); a.download=fn; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },1500); };
+      f.querySelector('[data-a="no"]').onclick=function(){ editProfile(id); };
+      f.querySelector('[data-a="yes"]').onclick=function(){
+        if(id===PF.id){ dirty=false; ST={d:{},w:[]}; }   // laufende Statistik nicht beim Neuladen zurueckschreiben
+        PF.wipe(id);
+        if(id===PF.id){ location.hash=''; location.reload(); } else { window.HZ&&HZ.tune&&HZ.tune([440,330],0.08); showProfiles(true); }
+      };
     };
     var del=box.querySelector('[data-a="del"]');
     if(del) del.onclick=function(){
