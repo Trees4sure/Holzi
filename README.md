@@ -1,6 +1,6 @@
 # Holzis Holzkiste – PWA
 
-Elf Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
+Fünfzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe von „ab 4“ bis „12+“, dazu Profi-Ziel, Rekorde und Sterne.
 
 | Spiel | Worum es geht |
 |---|---|
@@ -15,6 +15,10 @@ Elf Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersangabe 
 | **Turm** | Wackelturm mit echter Schwerkraft bis über die Fahne bauen |
 | **Zimmerei** | Tierkunden bestellen Gebäude vom Hasenstall bis zum Rathaus: Balken zusägen, Holzverbindungen wählen, Fachwerk mit dem Kran aufrichten, Richtfest feiern, Zimmerei ausbauen |
 | **Seifenkiste** | Rennen gegen Fuchs, Bär und Igel mit echter 3D-Fahrphysik, Eicheln sammeln und die Kiste in der Werkstatt aufrüsten |
+| **Aufräumen** | Holzi schiebt Kisten auf ihre Plätze (Sokoban): 9 per Löser geprüfte Lager, Lösung zum Zuschauen |
+| **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
+| **Klötzchenregen** | Fallende Holzklötze: volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
+| **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; 6 Szenarien bis 60 Jahre |
 
 ## Aufbau
 
@@ -99,9 +103,18 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v17";` hochzählen
-(`holzi-v18` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v18";` hochzählen
+(`holzi-v19` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 
 Die Wortlisten der Wörter-Werkstatt sind aus der [deutschen Wortliste von davidak](https://github.com/davidak/wortliste) (GPL-3.0) und den [FrequencyWords von Hermit Dave](https://github.com/hermitdave/FrequencyWords) (CC-BY-SA-4.0) abgeleitet.
+
+## Forstbetrieb – Modell
+
+Höhenwachstum je Baumart nach Chapman-Richards, angepasst an die Oberhöhen der Ertragstafeln
+(EKl I, NW-FVA 2021, Näherung); Standort (Wasser/Nährstoff) skaliert die Bonität. Vorrat ≈ Formzahl × Höhe²
+× Bestockung, Mischbestände +8 % und weniger Schadrisiko. Durchforsten senkt die Bestockung um 25 %, hebt
+Qualität und Stabilität; überdichte Bestände verlieren Qualität. Risiken (Trockenheit, Borkenkäfer, Sturm,
+Verbiss) steigen mit dem Klimawandel über die Spielzeit. Die Ziele der Szenarien sind mit zwei Probespielern
+(passiv / klug wirtschaftend) abgestimmt.

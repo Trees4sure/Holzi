@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#e4ecdc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141c16" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Holzis Holzkiste: elf Holzspiele für Kinder – Schieben, Tangram, Labyrinth, Puzzle, Sudoku, Kreuzworträtsel, Wörter, Murmelbahn, Wackelturm, Zimmerei und Seifenkiste.">
+<meta name="description" content="Holzis Holzkiste: fünfzehn Holzspiele für Kinder – Schieben, Tangram, Labyrinth, Puzzle, Sudoku, Kreuzworträtsel, Wörter, Murmelbahn, Wackelturm, Zimmerei und Seifenkiste.">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -628,7 +628,14 @@ body.ingame header.top h1{font-size:clamp(22px,5vw,32px)}
 .groups{display:grid; gap:26px}
 .tiles{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
 @media (min-width:600px){ .tiles{grid-template-columns:repeat(3,minmax(0,1fr))} }
-@media (min-width:1000px){ .groups{grid-template-columns:1fr 1fr; column-gap:14px} .g-k{grid-column:1 / -1} .g-k .tiles{grid-template-columns:repeat(6,minmax(0,1fr))} }
+@media (min-width:1000px){ .tiles{grid-template-columns:repeat(4,minmax(0,1fr))} }
+.tile.hero{grid-column:1 / -1; flex-direction:row; align-items:stretch; gap:16px}
+.tile.hero .tile-art{flex:0 0 min(46%,340px); aspect-ratio:auto; min-height:130px; margin:0}
+.tile.hero .tile-txt{justify-content:center; padding:8px 4px}
+.tile.hero .tile-name{font-size:26px}
+.tile.hero .tile-sub{min-height:0; font-size:14px}
+.g-f,#g-forst{--t1:#e8b93e; --t2:#a8761a}
+.s-f{fill:var(--v-f); background:var(--v-f)}
 .tile-txt{display:flex; flex-direction:column; gap:4px; flex:1}
 /* breite Kachel: fuellt die Luecke, wenn eine Gruppe nicht aufgeht (Bild links, Text rechts) */
 .tile.wide{grid-column:span 2; flex-direction:row; align-items:stretch; gap:12px}
@@ -636,13 +643,6 @@ body.ingame header.top h1{font-size:clamp(22px,5vw,32px)}
 .tile.wide .tile-txt{justify-content:center; padding:6px 0}
 .tile.wide .tile-name{font-size:23px}
 .tile.wide .tile-sub{min-height:0}
-@media (max-width:599px){
-  .tile.wide-sm{grid-column:span 2; flex-direction:row; align-items:stretch; gap:12px}
-  .tile.wide-sm .tile-art{flex:0 0 calc(50% - 13px); aspect-ratio:auto; min-height:110px; margin:0}
-  .tile.wide-sm .tile-txt{justify-content:center; padding:6px 0}
-  .tile.wide-sm .tile-name{font-size:23px}
-  .tile.wide-sm .tile-sub{min-height:0}
-}
 .tile{position:relative; border:0; text-align:left; cursor:pointer; padding:8px 8px 12px; border-radius:24px; background:var(--card); color:var(--ink); font-family:var(--font-body);
   display:flex; flex-direction:column; gap:4px; box-shadow:inset 0 0 0 2px var(--line), 0 4px 0 var(--line); transition:transform .15s}
 .tile:hover{transform:translateY(-3px)}
@@ -763,9 +763,9 @@ body.ingame{--chrome:400px}
 @media (max-width:420px){ .who{max-width:40vw; font-size:14px} }
 
 /* ---- Statistik & Rangliste ---- */
-:root{--v-k:#eb6834; --v-w:#1baf7a; --v-b:#2a78d6; --v-one:#b98213; --v-two:#4c7a36; --lv1:#f6dfa0; --lv2:#e8b54a; --lv3:#b98213}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--v-k:#d95926; --v-w:#199e70; --v-b:#3987e5; --v-one:#c98500; --v-two:#8cc06b; --lv1:#6b5a2a; --lv2:#a8822e; --lv3:#e2b23e} }
-:root[data-theme="dark"]{--v-k:#d95926; --v-w:#199e70; --v-b:#3987e5; --v-one:#c98500; --v-two:#8cc06b; --lv1:#6b5a2a; --lv2:#a8822e; --lv3:#e2b23e}
+:root{--v-k:#eb6834; --v-w:#1baf7a; --v-b:#2a78d6; --v-f:#eda100; --v-one:#b98213; --v-two:#4c7a36; --lv1:#f6dfa0; --lv2:#e8b54a; --lv3:#b98213}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--v-k:#d95926; --v-w:#199e70; --v-b:#3987e5; --v-f:#c98500; --v-one:#c98500; --v-two:#8cc06b; --lv1:#6b5a2a; --lv2:#a8822e; --lv3:#e2b23e} }
+:root[data-theme="dark"]{--v-k:#d95926; --v-w:#199e70; --v-b:#3987e5; --v-f:#c98500; --v-one:#c98500; --v-two:#8cc06b; --lv1:#6b5a2a; --lv2:#a8822e; --lv3:#e2b23e}
 .s-k{fill:var(--v-k); background:var(--v-k)} .s-w{fill:var(--v-w); background:var(--v-w)} .s-b{fill:var(--v-b); background:var(--v-b)}
 .s-one{fill:var(--v-one)} .s-two{fill:var(--v-two)}
 .hello-stat{flex:none; border:0; border-radius:16px; padding:10px 16px; background:var(--card); color:var(--ink); font:800 16px var(--font-display); cursor:pointer; display:flex; align-items:center; gap:10px; text-align:left; box-shadow:inset 0 0 0 2px var(--line), 0 4px 0 var(--line)}
@@ -917,6 +917,90 @@ body.ingame{--chrome:400px}
 .st-rank td.nm{white-space:nowrap} .st-rank td.nm small{display:block; margin-left:36px; color:var(--muted); font-size:11.5px; font-weight:400}
 .st-rank td.top{font-weight:800; color:var(--ink); background:color-mix(in srgb, var(--gold) 16%, transparent)}
 @media (max-width:560px){ .st-rank th:nth-child(3),.st-rank td:nth-child(3),.st-rank th:nth-child(5),.st-rank td:nth-child(5){display:table-cell} }
+
+/* ---- Holzi raeumt auf ---- */
+#g-raeumen{--xtra:130px}
+#g-raeumen .board-wrap{max-width:min(680px, calc(var(--bh) / var(--ar,1)))}
+.rm-pad{display:grid; grid-template-columns:repeat(3,60px); grid-template-rows:repeat(2,50px); gap:6px; justify-content:center; grid-template-areas:". u ." "l d r"; user-select:none; -webkit-user-select:none}
+.rm-k{border:0; border-radius:14px; background:var(--card); color:var(--ink); box-shadow:inset 0 0 0 2px var(--line), 0 3px 0 var(--line); display:grid; place-items:center; cursor:pointer; touch-action:manipulation}
+.rm-k:active{transform:translateY(2px); box-shadow:inset 0 0 0 2px var(--line), 0 1px 0 var(--line)}
+.rm-k svg{width:26px; height:26px}
+.rm-u{grid-area:u} .rm-l{grid-area:l} .rm-d{grid-area:d} .rm-r{grid-area:r}
+#raeumen-svg{touch-action:none}
+.rm-crate .rm-cb{fill:url(#rm-crate)} .rm-crate.on .rm-cb{fill:url(#rm-ok)}
+.rm-crate.stuck rect:last-child{stroke:#c0392b; stroke-width:1.3}
+.rm-holzi.nope > *{animation:rmnope .25s}
+@keyframes rmnope{25%{transform:translateX(-.8px)} 75%{transform:translateX(.8px)}}
+.rm-pu{transition:transform .15s}
+
+/* ---- Holzkiste fuellen ---- */
+#g-fuellen .board-wrap{max-width:min(680px, calc(var(--bh) / var(--ar,1)))}
+#fuellen-svg{touch-action:none}
+.fu-p{cursor:grab}
+.fu-p.sel{filter:drop-shadow(0 0 1.2px #f2b632) drop-shadow(0 0 1.2px #f2b632)}
+.fu-p.lift{filter:drop-shadow(0 2px 2px rgba(40,20,5,.45)); cursor:grabbing}
+.fu-p.in{filter:drop-shadow(0 .4px .4px rgba(40,20,5,.35))}
+.fu-p.hop{animation:fuhop .5s}
+@keyframes fuhop{50%{filter:brightness(1.25)}}
+
+/* ---- Kloetzchenregen ---- */
+#g-kloetze{--xtra:130px}
+#g-kloetze .board-wrap{max-width:min(620px, max(min(100%,330px), calc(var(--bh) / var(--ar,1.6))))}
+.kl-wrap{display:flex; gap:10px; align-items:flex-start}
+#kloetze-cv{flex:1; min-width:0; display:block; width:100%; border-radius:10px; box-shadow:0 0 0 5px #b4844b, 0 0 0 7px #8a5a2c, 0 10px 24px rgba(40,25,10,.3); touch-action:none}
+.kl-side{flex:0 0 auto; width:84px; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:12px; font-weight:700; color:var(--muted); text-align:center}
+#kloetze-next{width:80px; height:80px; border-radius:12px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line)}
+.kl-pad{width:100%; display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; user-select:none; -webkit-user-select:none}
+.kl-k{border:0; border-radius:16px; height:58px; background:var(--card); color:var(--ink); box-shadow:inset 0 0 0 2px var(--line), 0 3px 0 var(--line); display:grid; place-items:center; cursor:pointer; touch-action:manipulation}
+.kl-k:active{transform:translateY(2px); box-shadow:inset 0 0 0 2px var(--line), 0 1px 0 var(--line)}
+.kl-k svg{width:28px; height:28px}
+.kl-drop{background:var(--accent); color:var(--accent-ink); box-shadow:0 3px 0 color-mix(in srgb, var(--accent) 60%, #000)}
+
+/* ---- Forstbetrieb ---- */
+#g-forst .board-wrap{max-width:min(760px, max(min(100%,340px), calc(var(--bh) / var(--ar,0.6))))}
+#forst-svg{font-family:var(--font-body)}
+.fo-plot{cursor:pointer} .fo-plot.foreign{opacity:.92}
+.fo-name{font:800 9px var(--font-display); fill:#3c2610} .fo-ha{font-size:6.5px; fill:#5a3a1a; font-weight:700}
+.fo-lbl{font-size:7px; fill:#6b4a2a; font-weight:700} .fo-sale{font-size:6px; fill:#8a5630; font-weight:800} .fo-warn{font:900 6.5px var(--font-body); fill:#fff}
+.fo-panel{width:100%; display:flex; flex-direction:column; gap:10px}
+.fo-tabs{align-self:stretch} .fo-tabs button{flex:1}
+.fo-body{padding:14px; border-radius:20px; background:var(--card); box-shadow:inset 0 0 0 2px var(--line); display:flex; flex-direction:column; gap:10px}
+.fo-head{display:flex; flex-direction:column} .fo-head b{font:800 18px var(--font-display)} .fo-head span{color:var(--muted); font-size:13px}
+.fo-sp{display:flex; flex-wrap:wrap; gap:6px}
+.fo-chip{display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:999px; font-size:13px; font-weight:700; color:#fff; background:var(--c)}
+.fo-chip.nat{background:var(--bg-soft); color:var(--ink)}
+.fo-kv{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:6px 12px; margin:0}
+.fo-kv div{display:flex; justify-content:space-between; gap:6px; border-bottom:1px solid var(--line); padding:3px 0; font-size:13.5px}
+.fo-kv dt{color:var(--muted)} .fo-kv dd{margin:0; font-weight:700; font-variant-numeric:tabular-nums}
+.ok{color:var(--moss)} .mid{color:#b07b10} .bad{color:#c0392b}
+.fo-acts{display:flex; flex-wrap:wrap; gap:8px}
+.fo-b{flex:1 1 130px; border:0; border-radius:14px; padding:10px 12px; background:var(--bg-soft); color:var(--ink); font:800 15px var(--font-display); cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center}
+.fo-b small{font:700 11.5px var(--font-body); opacity:.85}
+.fo-b.go{background:var(--accent); color:var(--accent-ink); box-shadow:0 3px 0 color-mix(in srgb, var(--accent) 60%, #000)}
+.fo-b.armed{background:#c0392b; color:#fff}
+.fo-b:disabled{opacity:.5; cursor:default}
+.fo-tip{margin:0; font-size:13px; color:var(--muted); line-height:1.45}
+.fo-suit summary{cursor:pointer; font-weight:700; font-size:14px}
+.fo-suit ul{list-style:none; margin:8px 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:4px 12px}
+.fo-suit li{display:flex; align-items:center; gap:6px; font-size:13.5px} .fo-suit li small{color:var(--muted); font-size:11.5px}
+.fo-dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; flex:none}
+.fo-stars{color:#d79a12; letter-spacing:1px; font-size:13px} .fo-stars i{font-style:normal; color:var(--line)}
+.fo-pick{display:flex; flex-wrap:wrap; gap:6px}
+.fo-pick button{display:flex; align-items:center; gap:6px; border:0; border-radius:12px; padding:7px 10px; background:var(--bg-soft); color:var(--ink); font:700 13px var(--font-body); cursor:pointer}
+.fo-pick button i{width:10px; height:10px; border-radius:50%}
+.fo-pick button[aria-pressed="true"]{box-shadow:inset 0 0 0 2.5px var(--accent); background:color-mix(in srgb, var(--accent) 12%, var(--card))}
+.fo-pick button:disabled{opacity:.5}
+.fo-body h4{margin:4px 0 0; font:800 14px var(--font-display)}
+.fo-range,.fo-chk{display:flex; align-items:center; gap:8px; font-size:13.5px; flex-wrap:wrap} .fo-range input{flex:1; min-width:140px; accent-color:var(--accent)}
+.fo-gear{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px}
+.fo-g{display:flex; flex-direction:column; align-items:center; text-align:center; gap:3px; padding:10px; border-radius:16px; background:var(--bg-soft)}
+.fo-g > span{font-size:28px} .fo-g b{font:800 15px var(--font-display)} .fo-g small{font-size:12px; color:var(--muted); min-height:3em} .fo-g em{font-style:normal; font-size:12px; font-weight:700; color:var(--muted)}
+.fo-g.own{box-shadow:inset 0 0 0 2px var(--moss)} .fo-g.own em{color:var(--moss)} .fo-g .fo-b{flex:none; width:100%}
+.fo-tab{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums} .fo-tab th,.fo-tab td{padding:5px 6px; border-bottom:1px solid var(--line); text-align:left} .fo-tab th{color:var(--muted); font-size:12px}
+.fo-chart{margin:0} .fo-chart .vz-ax{font-size:7px} .fo-chart figcaption{font:800 14px var(--font-display); margin-bottom:4px} .fo-chart svg{width:100%; height:auto; display:block}
+.fo-log{list-style:none; margin:0; padding:0; max-height:260px; overflow:auto; font-size:13px}
+.fo-log li{display:flex; gap:8px; padding:5px 0; border-bottom:1px solid var(--line)} .fo-log li span{flex:none; width:44px; color:var(--muted); font-variant-numeric:tabular-nums}
+.fo-log li.bad{color:#b0331f} .fo-log li.harvest,.fo-log li.thin{color:var(--moss)}
 @media (prefers-reduced-motion: reduce){ .hello-holzi{animation:none} .tile,.tile-art svg{transition:none} }
 </style>
 
@@ -927,7 +1011,7 @@ body.ingame{--chrome:400px}
     <button class="iconbtn back" id="back" aria-label="Zu allen Spielen" title="Alle Spiele" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="titles">
       <h1 id="h1">Holzis <span>Holzkiste</span></h1>
-      <p class="sub" id="sub">Elf Holzspiele für Kinder</p>
+      <p class="sub" id="sub">Fünfzehn Holzspiele für Kinder</p>
     </div>
     <button class="who" id="who" type="button"></button>
     <button class="iconbtn" id="helpbtn" aria-label="So geht's" title="So geht's" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 014.8 1c0 1.7-2.4 2.2-2.4 3.7"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></button>
@@ -952,17 +1036,19 @@ body.ingame{--chrome:400px}
     <section class="tgroup g-k" aria-label="Knobeln &amp; Legen">
       <h2 class="tg-h">Knobeln &amp; Legen</h2>
       <div class="tiles">
-        <button class="tile wide" id="tile-slide" data-g="slide"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="6" width="8" height="7" rx="1.5" fill="currentColor" opacity=".35"/><path d="M10 21v-2h4v2"/></svg></span><span class="tile-txt"><span class="tile-name">Schieben</span><span class="tile-sub">Holzi will raus</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-slide" data-g="slide"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="6" width="8" height="7" rx="1.5" fill="currentColor" opacity=".35"/><path d="M10 21v-2h4v2"/></svg></span><span class="tile-txt"><span class="tile-name">Schieben</span><span class="tile-sub">Holzi will raus</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-tan" data-g="tan"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 3l18 18M21 3L12 12M12 12l-4.5 4.5 4.5 4.5"/></svg></span><span class="tile-txt"><span class="tile-name">Legen</span><span class="tile-sub">Tangram mit sieben Teilen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-maze" data-g="maze"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 12a3 3 0 103-3M18 12a6 6 0 01-11.2 3"/></svg></span><span class="tile-txt"><span class="tile-name">Labyrinth</span><span class="tile-sub">Der Weg zum Honig</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-puzzle" data-g="puzzle"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6a2 2 0 104 0h6v6a2 2 0 100 4v6h-6a2 2 0 10-4 0H4v-6a2 2 0 110-4z"/></svg></span><span class="tile-txt"><span class="tile-name">Puzzle</span><span class="tile-sub">Holzbilder zusammensetzen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-marble" data-g="marble"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v8a6 6 0 006 6h10"/><circle cx="16" cy="18" r="2.5" fill="currentColor"/></svg></span><span class="tile-txt"><span class="tile-name">Murmeln</span><span class="tile-sub">Rinnen drehen, Murmel rollt</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-raeumen" data-g="raeumen"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="8" width="11" height="11" rx="1.5"/><path d="M9 12h11M9 15.5h11"/><path d="M2.5 13.5h4M5 11l2 2.5L5 16"/></svg></span><span class="tile-txt"><span class="tile-name">Aufräumen</span><span class="tile-sub">Holzi schiebt Kisten</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-fuellen" data-g="fuellen"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h7V3M10 21v-6h11M14 3v7h7"/></svg></span><span class="tile-txt"><span class="tile-name">Kiste füllen</span><span class="tile-sub">Holzteile lückenlos legen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
       </div>
     </section>
     <section class="tgroup g-w" aria-label="Wörter &amp; Zahlen">
       <h2 class="tg-h">Wörter &amp; Zahlen</h2>
       <div class="tiles">
-        <button class="tile wide-sm" id="tile-sudoku" data-g="sudoku"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/></svg></span><span class="tile-txt"><span class="tile-name">Sudoku</span><span class="tile-sub">Holzarten statt Zahlen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-sudoku" data-g="sudoku"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/></svg></span><span class="tile-txt"><span class="tile-name">Sudoku</span><span class="tile-sub">Holzarten statt Zahlen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-kreuz" data-g="kreuz"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9.5" y="3" width="5" height="18"/><rect x="3" y="9.5" width="18" height="5"/><path d="M9.5 8h5M9.5 16h5"/></svg></span><span class="tile-txt"><span class="tile-name">Kreuzwort</span><span class="tile-sub">Rund um Baum und Wald</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-worte" data-g="worte"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16l3-8 3 8M10.2 13h3.6"/></svg></span><span class="tile-txt"><span class="tile-name">Wörter</span><span class="tile-sub">Die Wörter-Werkstatt</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
       </div>
@@ -970,9 +1056,16 @@ body.ingame{--chrome:400px}
     <section class="tgroup g-b" aria-label="Bauen &amp; Fahren">
       <h2 class="tg-h">Bauen &amp; Fahren</h2>
       <div class="tiles">
-        <button class="tile wide-sm" id="tile-tower" data-g="tower"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="15" width="10" height="6"/><rect x="5" y="10" width="14" height="5"/><rect x="9" y="4" width="6" height="6"/></svg></span><span class="tile-txt"><span class="tile-name">Turm</span><span class="tile-sub">Der Wackelturm</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-tower" data-g="tower"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="15" width="10" height="6"/><rect x="5" y="10" width="14" height="5"/><rect x="9" y="4" width="6" height="6"/></svg></span><span class="tile-txt"><span class="tile-name">Turm</span><span class="tile-sub">Der Wackelturm</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-haus" data-g="haus"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M5 15h14M9 10v10M15 10v10M5 10l4 5M19 10l-4 5"/></svg></span><span class="tile-txt"><span class="tile-name">Zimmerei</span><span class="tile-sub">Bauen für Tierkunden</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
         <button class="tile" id="tile-kiste" data-g="kiste"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="14" height="6" rx="1"/><circle cx="7" cy="17" r="2.5"/><circle cx="16" cy="17" r="2.5"/><path d="M18 11l3-2"/></svg></span><span class="tile-txt"><span class="tile-name">Seifenkiste</span><span class="tile-sub">Rennen in 3D</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+        <button class="tile" id="tile-kloetze" data-g="kloetze"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="14" width="5.5" height="5.5" rx="1.2"/><rect x="9.25" y="14" width="5.5" height="5.5" rx="1.2"/><rect x="15" y="14" width="5.5" height="5.5" rx="1.2"/><rect x="9.25" y="3.5" width="5.5" height="5.5" rx="1.2"/><path d="M12 10.5v1.5"/></svg></span><span class="tile-txt"><span class="tile-name">Klötzchenregen</span><span class="tile-sub">Stapeln und platzen lassen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
+      </div>
+    </section>
+    <section class="tgroup g-f" aria-label="Wald &amp; Wirtschaft">
+      <h2 class="tg-h">Wald &amp; Wirtschaft</h2>
+      <div class="tiles">
+        <button class="tile" id="tile-forst" data-g="forst"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l4.5 6.5H11l4 6H3l4-6H4.5z"/><path d="M9 15.5V21"/><circle cx="18" cy="17" r="3.5"/><path d="M18 15.5v3"/></svg></span><span class="tile-txt"><span class="tile-name">Forstbetrieb</span><span class="tile-sub">Wald kaufen, pflanzen und ernten · ab 12</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
       </div>
     </section>
     </div>
@@ -1345,6 +1438,10 @@ body.ingame{--chrome:400px}
 <section class="game" id="g-tower" hidden></section>
 <section class="game" id="g-haus" hidden></section>
 <section class="game" id="g-kiste" hidden></section>
+<section class="game" id="g-raeumen" hidden></section>
+<section class="game" id="g-fuellen" hidden></section>
+<section class="game" id="g-kloetze" hidden></section>
+<section class="game" id="g-forst" hidden></section>
 
 </div>
 <canvas id="leaves" hidden></canvas>
@@ -4543,15 +4640,861 @@ HZG.kiste=function(){
 </script>
 
 <script>
+(function(){
+"use strict";
+/* Holzi räumt auf: Kisten auf ihre Plätze schieben (Sokoban). Level erzeugt und gelöst per Skript (sokoban_gen.py) */
+var K=HZK, hz=K.hz;
+var LEVELS=[{"name":"Erste Kiste","age":"ab 5","map":["######","#   ##","#   ##","#  $+#","######"],"push":3,"moves":7,"sol":"lulldrr"},{"name":"Zwei Kisten","age":"ab 6","map":["#######","#.   ##","#   $@#","#.#$ ##","# #  ##","#######"],"push":8,"moves":18,"sol":"llrddluululdrrrull"},{"name":"Die Ecke","age":"ab 6","map":["#######","##   .#","#@$  ##","### . #","#  $# #","#     #","#######"],"push":8,"moves":31,"sol":"rurrddlulurrddrddlluuruulldrurd"},{"name":"Drei Kisten","age":"ab 7","map":["########","#    . #","#.#.   #","#  # $##","#  $ $@#","#    ###","########"],"push":10,"moves":32,"sol":"luluulllddddrrruudlldluudrrrurul"},{"name":"Werkstatt","age":"ab 8","map":["########","#  . ..#","#    ###","#    $@#","##$   ##","##  $  #","##     #","########"],"push":14,"moves":54,"sol":"ldlldluuuddrrudlddruluurudlddruluuurrldlddruulurdlllur"},{"name":"Holzlager","age":"ab 9","map":["#########","#.  #@.##","# $ ##$##","#       #","# $  $  #","#  ###. #","#   .#  #","#########"],"push":13,"moves":45,"sol":"rddrddluulldrurudllllddldrrluuurrrrdullllurul"},{"name":"Enge Gänge","age":"ab 10","map":["#########","#      .#","# $###$##","#       #","# ###   #","##@$ .$.#","###.    #","#       #","#########"],"push":16,"moves":74,"sol":"rrdrrruuuludllllluurrrrrdddldurrddlllrrruluuuulllldldrrrrllluurrrrddldrurd"},{"name":"Sägewerk","age":"ab 11","map":["##########","###      #","# .$##$#@#","# .  # $ #","# .    ###","#  # $ ###","#  #     #","#  .     #","##########"],"push":26,"moves":99,"sol":"ulldduullldlddrruldludrrddruluuluurrrdddlllullddrurrrrddrdllluuurruuurrddlruullddddlddrruldluurulll"},{"name":"Großes Lager","age":"12+","map":["##########","#     #  #","#    .$ ##","# . * #  #","## $+$   #","## ##    #","#  .# ## #","#   #  $ #","#        #","##########"],"push":17,"moves":117,"sol":"lulduurrrddrruulrdddrddlruuulllllldurrrrdrrdddllluuudddrruldlllullurddrrrrurruuulllllrrdrrrdddllllluluuuddddrrruuurul"}];
+var ARROW={u:'<path d="M12 5l-7 8h4v6h6v-6h4z"/>',d:'<path d="M12 19l7-8h-4V5H9v6H5z"/>',l:'<path d="M5 12l8-7v4h6v6h-6v4z"/>',r:'<path d="M19 12l-8 7v-4H5V9h6V5z"/>'};
+function padBtn(k,lbl){ return '<button class="rm-k rm-'+k+'" data-d="'+k+'" aria-label="'+lbl+'"><svg viewBox="0 0 24 24" fill="currentColor">'+ARROW[k]+'</svg></button>'; }
+var $=K.mount("g-raeumen",{
+  board:'<svg id="raeumen-svg" viewBox="0 0 100 100" aria-label="Holzlager"></svg>',
+  extra:'<div class="rm-pad" id="raeumen-pad">'+padBtn('u','hoch')+padBtn('l','links')+padBtn('d','runter')+padBtn('r','rechts')+'</div>',
+  tools:[{id:"undo",label:"Zurück",icon:"undo"},{id:"show",label:"Lösung",icon:"show"},{id:"new",label:"Neu",icon:"neu"}],
+  help:"Schiebe alle Holzkisten auf die markierten Plätze. Holzi kann Kisten nur schieben, nie ziehen, und immer nur eine auf einmal. Wisch über das Lager, tippe ein Feld an (Holzi läuft hin) oder nimm die Pfeile. Steckt eine Kiste in einer Ecke fest, hilft „Zurück“. Drei Sterne gibt es, wenn du so wenige Schritte brauchst wie Holzi selbst."
+});
+var st=K.store("holzi-raeumen"), svg=document.getElementById("raeumen-svg"), sec=document.getElementById("g-raeumen"), NS="http://www.w3.org/2000/svg";
+var D={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]};
+var L=Math.min(st.lvl(),LEVELS.length-1), W, H, wall, goal, crates, pl, hist, moves, pushes, done, helped, playing=null, queue=[], gC, gP, face="d";
+function key(x,y){ return x+","+y; }
+function crateAt(x,y){ for(var i=0;i<crates.length;i++) if(crates[i][0]===x&&crates[i][1]===y) return i; return -1; }
+function el(n,a,p){ var e=document.createElementNS(NS,n); for(var k in a) e.setAttribute(k,a[k]); if(p) p.appendChild(e); return e; }
+function load(i){
+  L=i; st.setLvl(i); stopPlay();
+  var m=LEVELS[i].map; H=m.length; W=0; m.forEach(function(r){ W=Math.max(W,r.length); });
+  wall={}; goal={}; crates=[]; pl=null;
+  m.forEach(function(r,y){ for(var x=0;x<W;x++){ var c=r[x]||"#";
+    if(c==="#") wall[key(x,y)]=1; if(c==="."||c==="*"||c==="+") goal[key(x,y)]=1;
+    if(c==="$"||c==="*") crates.push([x,y]); if(c==="@"||c==="+") pl=[x,y]; } });
+  hist=[]; moves=0; pushes=0; done=false; helped=false; face="d";
+  sec.style.setProperty("--ar", (H/W).toFixed(3));
+  draw(); K.levels("raeumen-levels",LEVELS,L,st,pick); hud();
+  K.say("raeumen-say", i===0?"Hilf mir aufräumen! Schieb die Kiste auf den markierten Platz.":"Lager „"+LEVELS[i].name+"“: "+crates.length+" Kisten müssen auf ihre Plätze.");
+}
+function pick(i){ hz().tok(1.1); load(i); }
+/* Holz-Optik: Bretterboden, Balkenwaende, Kisten mit Latten, Holzi als Holzklotz */
+function draw(){
+  var S=10; svg.setAttribute("viewBox","-1 -1 "+(W*S+2)+" "+(H*S+2)); svg.innerHTML="";
+  var defs=el("defs",{},svg);
+  defs.innerHTML='<linearGradient id="rm-crate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9a05a"/><stop offset="1" stop-color="#a86b32"/></linearGradient>'+
+    '<linearGradient id="rm-ok" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fcf72"/><stop offset="1" stop-color="#5f9a3e"/></linearGradient>'+
+    '<linearGradient id="rm-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a4f2c"/><stop offset="1" stop-color="#4e3018"/></linearGradient>';
+  var g=el("g",{},svg);
+  for(var y=0;y<H;y++) for(var x=0;x<W;x++){
+    var k=key(x,y);
+    if(wall[k]){ if(!isInnerVoid(x,y)) { el("rect",{x:x*S+0.3,y:y*S+0.3,width:S-0.6,height:S-0.6,rx:1.2,fill:"url(#rm-wall)"},g); el("path",{d:"M"+(x*S+1)+" "+(y*S+3.5)+"h"+(S-2)+"M"+(x*S+1)+" "+(y*S+6.8)+"h"+(S-2),stroke:"rgba(255,220,170,.14)","stroke-width":0.5},g); } continue; }
+    el("rect",{x:x*S,y:y*S,width:S,height:S,fill:(x+y)%2?"#efd6a6":"#ecd09c"},g);
+    el("path",{d:"M"+(x*S)+" "+(y*S+5)+"h"+S,stroke:"rgba(120,70,20,.12)","stroke-width":0.4},g);
+    if(goal[k]){ el("circle",{cx:x*S+5,cy:y*S+5,r:3.2,fill:"rgba(76,122,54,.16)",stroke:"#4c7a36","stroke-width":0.7,"stroke-dasharray":"1.4 1"},g);
+      el("path",{d:"M"+(x*S+3.6)+" "+(y*S+5)+"l1 1.1 1.9-2.3",stroke:"#4c7a36","stroke-width":0.8,fill:"none","stroke-linecap":"round"},g); }
+  }
+  gC=el("g",{},svg); gP=el("g",{"class":"rm-holzi"},svg);
+  crates.forEach(function(c,i){ var cg=el("g",{"class":"rm-crate","data-i":i},gC);
+    el("rect",{x:0.8,y:0.8,width:8.4,height:8.4,rx:1,"class":"rm-cb"},cg);
+    el("path",{d:"M0.8 3.6h8.4M0.8 6.4h8.4",stroke:"rgba(80,40,10,.45)","stroke-width":0.5},cg);
+    el("path",{d:"M1.6 1.6l6.8 6.8",stroke:"rgba(80,40,10,.4)","stroke-width":0.7},cg);
+    el("rect",{x:0.8,y:0.8,width:8.4,height:8.4,rx:1,fill:"none",stroke:"#5a3517","stroke-width":0.6},cg); });
+  el("rect",{x:1,y:1,width:8,height:8,rx:1.6,fill:"#f3dcae",stroke:"#b88a4e","stroke-width":0.5},gP);
+  el("path",{d:"M2 3.2q3 -1 6 0M2 7q3 1 6 0",stroke:"rgba(150,95,35,.35)","stroke-width":0.4,fill:"none"},gP);
+  var eyes=el("g",{"class":"rm-eyes"},gP);
+  el("circle",{cx:3.6,cy:4.4,r:1.3,fill:"#fff",stroke:"#3c2610","stroke-width":0.35},eyes); el("circle",{cx:6.4,cy:4.4,r:1.3,fill:"#fff",stroke:"#3c2610","stroke-width":0.35},eyes);
+  el("circle",{cx:3.6,cy:4.6,r:0.6,fill:"#2a1708","class":"rm-pu"},eyes); el("circle",{cx:6.4,cy:4.6,r:0.6,fill:"#2a1708","class":"rm-pu"},eyes);
+  el("path",{d:"M3.8 6.6q1.2 1 2.4 0",stroke:"#7a2e14","stroke-width":0.5,fill:"none","stroke-linecap":"round"},gP);
+  place(false);
+}
+// Wandfelder ganz ohne Bodennachbarn bleiben leer (sieht aufgeraeumter aus)
+function isInnerVoid(x,y){ for(var dy=-1;dy<=1;dy++) for(var dx=-1;dx<=1;dx++){ var k=key(x+dx,y+dy); if(!wall[k]&&x+dx>=0&&y+dy>=0&&x+dx<W&&y+dy<H) return false; } return true; }
+function place(anim){
+  [].forEach.call(gC.children,function(cg,i){ var c=crates[i]; cg.style.transition=anim&&!K.reduce?"transform .12s":"none"; cg.style.transform="translate("+c[0]*10+"px,"+c[1]*10+"px)"; cg.classList.toggle("on", !!goal[key(c[0],c[1])]); });
+  gP.style.transition=anim&&!K.reduce?"transform .12s":"none"; gP.style.transform="translate("+pl[0]*10+"px,"+pl[1]*10+"px)";
+  var o={u:[0,-0.5],d:[0,0.4],l:[-0.5,0],r:[0.5,0]}[face]; gP.querySelectorAll(".rm-pu").forEach(function(p){ p.style.transform="translate("+o[0]+"px,"+o[1]+"px)"; });
+}
+function hud(){ var on=crates.filter(function(c){ return goal[key(c[0],c[1])]; }).length;
+  K.hud("raeumen-hud",[["Schritte",moves],["Holzis Bestwert",LEVELS[L].moves],["Kisten am Platz",on+"/"+crates.length]]); }
+function step(d){
+  if(done) return false;
+  var v=D[d], nx=pl[0]+v[0], ny=pl[1]+v[1]; face=d;
+  if(wall[key(nx,ny)]){ nope(); return false; }
+  var ci=crateAt(nx,ny);
+  if(ci>=0){ var bx=nx+v[0], by=ny+v[1]; if(wall[key(bx,by)]||crateAt(bx,by)>=0){ nope(); return false; } }
+  hist.push({c:crates.map(function(c){ return c.slice(); }), p:pl.slice(), m:moves, s:pushes, f:face});
+  if(ci>=0){ crates[ci]=[nx+v[0],ny+v[1]]; pushes++; hz().tok(0.75); } else hz().tok(1.3);
+  pl=[nx,ny]; moves++; place(true); hud();
+  if(ci>=0) checkStuck(ci);
+  if(crates.every(function(c){ return goal[key(c[0],c[1])]; })) win();
+  return true;
+}
+function nope(){ hz().tune([180],0.05,"square"); gP.classList.remove("nope"); void gP.getBBox(); gP.classList.add("nope"); place(false); }
+// Kiste in einer Ecke ohne Ziel: kommt nie wieder heraus
+function checkStuck(i){ var c=crates[i]; if(goal[key(c[0],c[1])]) return;
+  var w=function(dx,dy){ return !!wall[key(c[0]+dx,c[1]+dy)]; };
+  if((w(-1,0)||w(1,0))&&(w(0,-1)||w(0,1))){ K.say("raeumen-say","Oh! Diese Kiste steckt in der Ecke fest. Tipp auf „Zurück“."); hz().tune([300,200],0.08,"square");
+    var cg=gC.children[i]; cg.classList.remove("stuck"); void cg.getBBox(); cg.classList.add("stuck"); } }
+function win(){
+  done=true; stopPlay(); var best=LEVELS[L].moves, stars=helped?1:(moves<=best?3:(moves<=Math.ceil(best*1.5)?2:1));
+  st.set(L,stars); K.levels("raeumen-levels",LEVELS,L,st,pick);
+  K.say("raeumen-say","Alles aufgeräumt! Danke!");
+  K.win({title:"Aufgeräumt!",text:"Alle Kisten stehen am Platz. "+moves+" Schritte, "+pushes+" mal geschoben.",stars:stars,
+    msg:helped?"Mit Holzis Lösung. Schaffst du es allein?":(moves<=best?"So wenige Schritte wie Holzi selbst!":"Holzi schafft es in "+best+" Schritten."),
+    again:"Nochmal",next:L<LEVELS.length-1?"Nächstes Lager":"Zum ersten",onAgain:function(){ load(L); },onNext:function(){ load(L<LEVELS.length-1?L+1:0); }});
+}
+// Weg zu einem angetippten Feld (ohne Kisten zu schieben)
+function walkTo(tx,ty){
+  var start=key(pl[0],pl[1]), prev={}, q=[pl.slice()]; prev[start]=null;
+  while(q.length){ var c=q.shift(); if(c[0]===tx&&c[1]===ty) break;
+    for(var d in D){ var nx=c[0]+D[d][0], ny=c[1]+D[d][1], k=key(nx,ny); if(k in prev||wall[k]||crateAt(nx,ny)>=0) continue; prev[k]={from:key(c[0],c[1]),d:d}; q.push([nx,ny]); } }
+  var k=key(tx,ty); if(!(k in prev)) return false;
+  var path=[]; while(prev[k]){ path.unshift(prev[k].d); k=prev[k].from; }
+  queue=path; runQueue(); return true;
+}
+var qT=null;
+function runQueue(){ clearTimeout(qT); if(!queue.length) return; var d=queue.shift(); if(!step(d)){ queue=[]; return; } qT=setTimeout(runQueue, K.reduce?20:110); }
+function stopPlay(){ clearTimeout(qT); queue=[]; if(playing){ clearInterval(playing); playing=null; } }
+function cellAt(e){ var p=K.svgPt(svg,e); return [Math.floor(p[0]/10), Math.floor(p[1]/10)]; }
+var down=null;
+svg.addEventListener("pointerdown",function(e){ hz().audio(); down={x:e.clientX,y:e.clientY,t:Date.now()}; e.preventDefault(); });
+svg.addEventListener("pointerup",function(e){
+  if(!down||done||playing) return; var dx=e.clientX-down.x, dy=e.clientY-down.y, dist=Math.hypot(dx,dy); var c0=cellAt(e); down=null;
+  if(dist>24){ queue=[]; step(Math.abs(dx)>Math.abs(dy)?(dx>0?"r":"l"):(dy>0?"d":"u")); return; }
+  var ddx=c0[0]-pl[0], ddy=c0[1]-pl[1];
+  if(Math.abs(ddx)+Math.abs(ddy)===1){ queue=[]; step(ddx?(ddx>0?"r":"l"):(ddy>0?"d":"u")); return; }
+  if(!wall[key(c0[0],c0[1])]&&crateAt(c0[0],c0[1])<0) walkTo(c0[0],c0[1]);
+});
+document.getElementById("raeumen-pad").querySelectorAll(".rm-k").forEach(function(b){ b.addEventListener("pointerdown",function(e){ e.preventDefault(); hz().audio(); if(playing) return; queue=[]; step(b.getAttribute("data-d")); }); });
+document.addEventListener("keydown",function(e){ if(sec.hidden||document.querySelector(".overlay")) return;
+  var d={ArrowUp:"u",ArrowDown:"d",ArrowLeft:"l",ArrowRight:"r"}[e.key]; if(d){ e.preventDefault(); if(!playing){ queue=[]; step(d); } }
+  else if(e.key==="z"||e.key==="Backspace"){ undo(); } });
+function undo(){ if(done||playing||!hist.length) return; stopPlay(); var h=hist.pop(); crates=h.c; pl=h.p; moves=h.m; pushes=h.s; face=h.f; place(true); hud(); hz().tok(0.9); }
+$("undo").onclick=undo;
+$("new").onclick=function(){ hz().tok(1); load(L); };
+$("show").onclick=function(){
+  if(done) return; load(L); helped=true; var sol=LEVELS[L].sol.split(""), i=0;
+  K.say("raeumen-say","Schau zu, so räume ich auf!");
+  playing=setInterval(function(){ if(i>=sol.length||done){ clearInterval(playing); playing=null; return; } step(sol[i++]); }, K.reduce?40:230);
+};
+window.HZG=window.HZG||{};
+HZG.raeumen=function(){ if(!crates) load(L); };
+HZG.raeumenSolve=function(){ load(L); LEVELS[L].sol.split("").forEach(function(d){ step(d); }); };
+})();
+</script>
+
+<script>
+(function(){
+"use strict";
+/* Die Holzkiste füllen: Holzteile (3-5 Kästchen) lückenlos in die Kiste legen. Level aus pento_gen.py */
+var K=HZK, hz=K.hz;
+K.ic.flip=K.ic.flip||'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M9 7L4 12l5 5z"/><path d="M15 7l5 5-5 5z" fill="currentColor"/></svg>';
+var LEVELS=[{"name":"Kleine Kiste","age":"ab 5","w":3,"h":4,"holes":[],"sol":[[[0,2],[0,3],[1,2]],[[1,3],[2,2],[2,3]],[[0,0],[0,1],[1,1]],[[1,0],[2,0],[2,1]]]},{"name":"Brotkasten","age":"ab 5","w":4,"h":4,"holes":[],"sol":[[[2,2],[2,3],[3,3]],[[3,0],[3,1],[3,2]],[[0,3],[1,1],[1,2],[1,3]],[[0,0],[0,1],[0,2]],[[1,0],[2,0],[2,1]]]},{"name":"Schuhkarton","age":"ab 6","w":5,"h":4,"holes":[],"sol":[[[3,0],[3,1],[3,2],[4,0],[4,1]],[[1,3],[2,3],[3,3],[4,2],[4,3]],[[0,0],[0,1],[0,2],[0,3],[1,1]],[[1,0],[1,2],[2,0],[2,1],[2,2]]]},{"name":"Werkzeugkiste","age":"ab 7","w":5,"h":5,"holes":[[1,3]],"sol":[[[0,2],[0,3],[1,1],[1,2],[2,2]],[[0,4],[1,4],[2,3],[2,4],[3,4]],[[0,0],[0,1],[1,0],[2,0],[2,1]],[[3,3],[4,1],[4,2],[4,3],[4,4]],[[3,0],[3,1],[3,2],[4,0]]]},{"name":"Obstkiste","age":"ab 8","w":6,"h":5,"holes":[],"sol":[[[0,0],[0,1],[0,2],[1,0],[1,2]],[[1,1],[2,0],[2,1],[3,0]],[[2,2],[2,3],[3,1],[3,2],[3,3]],[[0,3],[0,4],[1,3],[1,4]],[[2,4],[3,4],[4,3],[4,4]],[[5,1],[5,2],[5,3],[5,4]],[[4,0],[4,1],[4,2],[5,0]]]},{"name":"Spielzeugkiste","age":"ab 9","w":6,"h":6,"holes":[[2,2],[3,4]],"sol":[[[0,0],[0,1],[0,2],[1,0],[1,1]],[[0,3],[1,2],[1,3],[2,3],[3,3]],[[0,4],[0,5],[1,4],[1,5]],[[2,4],[2,5],[3,5],[4,5]],[[4,4],[5,3],[5,4],[5,5]],[[4,1],[4,2],[4,3],[5,2]],[[3,0],[4,0],[5,0],[5,1]],[[2,0],[2,1],[3,1],[3,2]]]},{"name":"Holzkoffer","age":"ab 10","w":7,"h":6,"holes":[[2,3],[4,1]],"sol":[[[4,5],[5,4],[5,5],[6,4],[6,5]],[[2,0],[3,0],[4,0],[5,0]],[[6,0],[6,1],[6,2],[6,3]],[[4,2],[4,3],[5,1],[5,2],[5,3]],[[2,4],[2,5],[3,4],[3,5],[4,4]],[[2,2],[3,1],[3,2],[3,3]],[[1,0],[1,1],[1,2],[1,3],[2,1]],[[0,0],[0,1],[0,2],[0,3]],[[0,4],[0,5],[1,4],[1,5]]]},{"name":"Schatztruhe","age":"ab 11","w":8,"h":6,"holes":[[1,1],[2,3],[5,1]],"sol":[[[0,1],[0,2],[0,3],[1,3],[1,4]],[[0,4],[0,5],[1,5],[2,5],[3,5]],[[2,4],[3,4],[4,4],[5,3],[5,4]],[[0,0],[1,0],[2,0],[3,0],[3,1]],[[1,2],[2,1],[2,2],[3,2],[3,3]],[[4,5],[5,5],[6,4],[6,5],[7,5]],[[4,0],[4,1],[4,2],[4,3],[5,2]],[[5,0],[6,0],[7,0],[7,1],[7,2]],[[6,1],[6,2],[6,3],[7,3],[7,4]]]},{"name":"Pentomino-Kiste","age":"12+","w":10,"h":6,"holes":[],"sol":[[[8,3],[8,4],[9,3],[9,4],[9,5]],[[5,5],[6,5],[7,4],[7,5],[8,5]],[[7,1],[8,1],[9,0],[9,1],[9,2]],[[4,0],[5,0],[6,0],[7,0],[8,0]],[[6,3],[6,4],[7,2],[7,3],[8,2]],[[4,1],[4,2],[5,1],[6,1],[6,2]],[[4,4],[4,5],[5,2],[5,3],[5,4]],[[0,3],[0,4],[0,5],[1,5],[2,5]],[[1,4],[2,3],[2,4],[3,4],[3,5]],[[2,1],[3,1],[3,2],[3,3],[4,3]],[[0,0],[0,1],[1,0],[2,0],[3,0]],[[0,2],[1,1],[1,2],[1,3],[2,2]]]},{"name":"Schachbrett-Truhe","age":"Profi","w":8,"h":8,"holes":[[3,3],[4,3],[3,4],[4,4]],"sol":[[[6,5],[6,7],[7,5],[7,6],[7,7]],[[4,6],[5,5],[5,6],[5,7],[6,6]],[[0,7],[1,7],[2,7],[3,7],[4,7]],[[1,4],[2,4],[2,5],[3,5],[4,5]],[[0,6],[1,5],[1,6],[2,6],[3,6]],[[0,3],[0,4],[0,5],[1,3],[2,3]],[[0,0],[0,1],[0,2],[1,0],[1,1]],[[1,2],[2,0],[2,1],[2,2],[3,0]],[[5,4],[6,2],[6,3],[6,4],[7,4]],[[6,0],[7,0],[7,1],[7,2],[7,3]],[[4,2],[5,1],[5,2],[5,3],[6,1]],[[3,1],[3,2],[4,0],[4,1],[5,0]]]},{"name":"Lange Truhe","age":"Profi","w":12,"h":5,"holes":[],"sol":[[[9,4],[10,3],[10,4],[11,3],[11,4]],[[10,0],[10,2],[11,0],[11,1],[11,2]],[[8,3],[9,1],[9,2],[9,3],[10,1]],[[6,0],[7,0],[8,0],[8,1],[9,0]],[[4,4],[5,4],[6,4],[7,4],[8,4]],[[5,3],[6,3],[7,2],[7,3],[8,2]],[[5,0],[5,1],[6,1],[6,2],[7,1]],[[3,2],[4,1],[4,2],[4,3],[5,2]],[[2,1],[2,2],[3,0],[3,1],[4,0]],[[0,0],[1,0],[1,1],[1,2],[2,0]],[[0,1],[0,2],[0,3],[1,3],[2,3]],[[0,4],[1,4],[2,4],[3,3],[3,4]]]}];
+var $=K.mount("g-fuellen",{
+  board:'<svg id="fuellen-svg" viewBox="0 0 100 100" aria-label="Holzkiste"></svg>',
+  tools:[{id:"rot",label:"Drehen",icon:"rot"},{id:"flip",label:"Wenden",icon:"flip"},{id:"hint",label:"Tipp",icon:"hint",main:true},{id:"new",label:"Neu",icon:"neu"}],
+  help:"Zieh alle Holzteile in die Kiste, bis sie ganz voll ist. Antippen dreht ein Teil, „Wenden“ dreht das zuletzt berührte Teil auf die Rückseite. Die dunklen Astlöcher bleiben frei. Ab der Pentomino-Kiste sind es die zwölf berühmten Fünfer-Teile – für echte Profis!"
+});
+var st=K.store("holzi-fuellen"), svg=document.getElementById("fuellen-svg"), sec=document.getElementById("g-fuellen"), NS="http://www.w3.org/2000/svg";
+var TONES=[["#d9a05a","#a86b32"],["#8a5630","#5e3519"],["#f0d29a","#c9a062"],["#b8673a","#7d3a1c"],["#c98b4b","#8f5a26"],["#6b4226","#3f2814"],["#e2b56f","#b07b3a"],["#a0602e","#6a3a16"],["#d8c08f","#a88d58"],["#7a3b22","#4c2010"],["#c9a16a","#946c3a"],["#9a6a35","#62401a"]];
+var U=10, L=Math.min(st.lvl(),LEVELS.length-1), bx, by, W, H, holes, pieces, sel=null, hints=0, done=false, drag=null, timer=K.timer(function(){ hud(); },"fuellen"), VW, VH;
+function el(n,a,p){ var e=document.createElementNS(NS,n); for(var k in a) e.setAttribute(k,a[k]); if(p) p.appendChild(e); return e; }
+function norm(c){ var mx=Math.min.apply(null,c.map(function(p){ return p[0]; })), my=Math.min.apply(null,c.map(function(p){ return p[1]; })); return c.map(function(p){ return [p[0]-mx,p[1]-my]; }); }
+function size(c){ return [1+Math.max.apply(null,c.map(function(p){ return p[0]; })), 1+Math.max.apply(null,c.map(function(p){ return p[1]; }))]; }
+function rot(c){ return norm(c.map(function(p){ return [-p[1],p[0]]; })); }
+function flip(c){ return norm(c.map(function(p){ return [-p[0],p[1]]; })); }
+function key(x,y){ return x+","+y; }
+function load(i){
+  L=i; st.setLvl(i); var lv=LEVELS[i], rand=K.rng(4242+i*313);
+  W=lv.w; H=lv.h; holes={}; lv.holes.forEach(function(h){ holes[key(h[0],h[1])]=1; });
+  pieces=lv.sol.map(function(cells,k){ var c=norm(cells), r=Math.floor(rand()*4); for(var q=0;q<r;q++) c=rot(c); if(rand()<.5) c=flip(c);
+    return {k:k, cells:c, sol:cells.map(function(p){ return p.slice(); }), x:0, y:0, tx:0, ty:0, inBox:false, tone:TONES[k%TONES.length]}; });
+  pieces.sort(function(){ return rand()-.5; });
+  hints=0; done=false; sel=null; layout(); draw(); timer.start(); hud();
+  K.levels("fuellen-levels",LEVELS,L,st,pick);
+  K.say("fuellen-say", i===0?"Pack alle Holzteile in die Kiste. Sie passen ganz genau!":"„"+lv.name+"“: "+pieces.length+" Teile, "+(W*H-lv.holes.length)+" Kästchen."+(lv.holes.length?" Die Astlöcher bleiben frei.":""));
+}
+function pick(i){ hz().tok(1.1); load(i); }
+// Kiste oben (oder links im Querformat), darunter (daneben) die Werkbank mit den Teilen
+function layout(){
+  var wide=matchMedia("(orientation: landscape) and (min-width: 700px)").matches;
+  bx=2; by=2; var gap=4;
+  if(wide){ var trayX=bx+W*U+8, trayW=Math.max(W*U, 60); shelf(trayX, by, trayW); VW=trayX+trayW+2; VH=Math.max(by+H*U, trayBottom)+2; }
+  else { var trayY=by+H*U+8, tw=Math.max(W*U, 70); shelf(bx, trayY, tw); VW=bx+tw+2; VH=trayBottom+2; }
+  sec.style.setProperty("--ar",(VH/VW).toFixed(3));
+}
+var trayBottom=0;
+function shelf(x0,y0,w){ var x=x0, y=y0, rowH=0;
+  pieces.forEach(function(p){ var s=size(p.cells); if(x+s[0]*U>x0+w+0.1&&x>x0){ x=x0; y+=rowH+4; rowH=0; }
+    p.tx=x; p.ty=y; p.x=x; p.y=y; x+=s[0]*U+4; rowH=Math.max(rowH,s[1]*U); });
+  trayBottom=y+rowH; }
+function draw(){
+  svg.setAttribute("viewBox","0 0 "+VW+" "+VH); svg.innerHTML="";
+  var defs=el("defs",{},svg);
+  defs.innerHTML='<pattern id="fu-grain" width="10" height="3" patternUnits="userSpaceOnUse"><path d="M0 1Q5 0.4 10 1.2" stroke="rgba(60,30,5,.16)" stroke-width="0.4" fill="none"/><path d="M0 2.4Q5 2.8 10 2.2" stroke="rgba(255,235,200,.14)" stroke-width="0.3" fill="none"/></pattern>';
+  pieces.forEach(function(p,k){ defs.insertAdjacentHTML("beforeend",'<linearGradient id="fu-t'+k+'" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="'+p.tone[0]+'"/><stop offset="1" stop-color="'+p.tone[1]+'"/></linearGradient>'); });
+  K.tray(svg, bx, by, W*U, H*U, {rim:2.2, r:2});
+  var g=el("g",{},svg);
+  for(var y=0;y<H;y++) for(var x=0;x<W;x++){
+    if(holes[key(x,y)]){ el("circle",{cx:bx+x*U+5,cy:by+y*U+5,r:3.6,fill:"#4a2a12"},g); el("circle",{cx:bx+x*U+5,cy:by+y*U+5,r:2,fill:"#2b1508"},g); el("circle",{cx:bx+x*U+5,cy:by+y*U+5,r:4.6,fill:"none",stroke:"rgba(74,42,18,.35)","stroke-width":0.6},g); }
+    else el("rect",{x:bx+x*U+0.5,y:by+y*U+0.5,width:U-1,height:U-1,rx:1,fill:"none",stroke:"rgba(120,70,20,.18)","stroke-width":0.4},g);
+  }
+  pieces.forEach(function(p,k){ p.el=el("g",{"class":"fu-p"},svg); drawPiece(p,k); render(p); p.el.addEventListener("pointerdown",function(e){ down(e,p); }); });
+}
+function drawPiece(p,k){
+  p.el.innerHTML=""; var set={}; p.cells.forEach(function(c){ set[key(c[0],c[1])]=1; });
+  p.cells.forEach(function(c){ el("rect",{x:c[0]*U-0.02,y:c[1]*U-0.02,width:U+0.04,height:U+0.04,fill:"url(#fu-t"+k+")"},p.el); el("rect",{x:c[0]*U,y:c[1]*U,width:U,height:U,fill:"url(#fu-grain)"},p.el); });
+  var d="";
+  p.cells.forEach(function(c){ var x=c[0]*U, y=c[1]*U;
+    if(!set[key(c[0],c[1]-1)]) d+="M"+x+" "+y+"h"+U; if(!set[key(c[0],c[1]+1)]) d+="M"+x+" "+(y+U)+"h"+U;
+    if(!set[key(c[0]-1,c[1])]) d+="M"+x+" "+y+"v"+U; if(!set[key(c[0]+1,c[1])]) d+="M"+(x+U)+" "+y+"v"+U; });
+  el("path",{d:d,stroke:"#3c2610","stroke-width":0.8,"stroke-linecap":"round",fill:"none"},p.el);
+  // Fugen innen, damit man die Kaestchen zaehlen kann
+  var inner=""; p.cells.forEach(function(c){ var x=c[0]*U, y=c[1]*U; if(set[key(c[0]+1,c[1])]) inner+="M"+(x+U)+" "+(y+1.5)+"v"+(U-3); if(set[key(c[0],c[1]+1)]) inner+="M"+(x+1.5)+" "+(y+U)+"h"+(U-3); });
+  el("path",{d:inner,stroke:"rgba(40,20,5,.28)","stroke-width":0.5,fill:"none"},p.el);
+}
+function render(p,anim){ p.el.style.transition=anim&&!K.reduce?"transform .2s":"none"; p.el.style.transform="translate("+p.x+"px,"+p.y+"px)"; p.el.classList.toggle("sel",p===sel); p.el.classList.toggle("in",p.inBox); }
+function cellsAt(p,gx,gy){ return p.cells.map(function(c){ return [gx+c[0],gy+c[1]]; }); }
+function fits(p,gx,gy){ var occ={}; pieces.forEach(function(q){ if(q!==p&&q.inBox) cellsAt(q,q.gx,q.gy).forEach(function(c){ occ[key(c[0],c[1])]=1; }); });
+  return cellsAt(p,gx,gy).every(function(c){ return c[0]>=0&&c[1]>=0&&c[0]<W&&c[1]<H&&!holes[key(c[0],c[1])]&&!occ[key(c[0],c[1])]; }); }
+function svgPt(e){ return K.svgPt(svg,e); }
+function down(e,p){
+  if(done) return; e.preventDefault(); hz().audio(); var q=svgPt(e);
+  drag={p:p, ox:p.x-q[0], oy:p.y-q[1], x0:e.clientX, y0:e.clientY, moved:false, id:e.pointerId};
+  try{ p.el.setPointerCapture(e.pointerId); }catch(err){}
+  sel=p; svg.appendChild(p.el); pieces.forEach(function(x){ x.el.classList.toggle("sel",x===sel); }); p.el.classList.add("lift");
+}
+svg.addEventListener("pointermove",function(e){ if(!drag||e.pointerId!==drag.id) return; var p=drag.p, q=svgPt(e);
+  if(!drag.moved&&Math.hypot(e.clientX-drag.x0,e.clientY-drag.y0)<6) return; drag.moved=true; p.inBox=false;
+  var s=size(p.cells); p.x=Math.max(-s[0]*U*0.4, Math.min(VW-s[0]*U*0.6, q[0]+drag.ox)); p.y=Math.max(-s[1]*U*0.4, Math.min(VH-s[1]*U*0.6, q[1]+drag.oy)); render(p); });
+function up(e){
+  if(!drag||e.pointerId!==drag.id) return; var p=drag.p, moved=drag.moved; drag=null; p.el.classList.remove("lift");
+  if(!moved){ turn(p, rot); return; }
+  drop(p);
+}
+svg.addEventListener("pointerup",up); svg.addEventListener("pointercancel",up);
+// einrasten, wenn das Teil in die Kiste passt; halb drauf und passt nicht: zurueck auf die Werkbank
+function drop(p){
+  var gx=Math.round((p.x-bx)/U), gy=Math.round((p.y-by)/U), s=size(p.cells);
+  var over=p.x+s[0]*U>bx&&p.x<bx+W*U&&p.y+s[1]*U>by&&p.y<by+H*U;
+  if(over&&fits(p,gx,gy)){ p.inBox=true; p.gx=gx; p.gy=gy; p.x=bx+gx*U; p.y=by+gy*U; render(p,true); hz().tok(1.45); check(); }
+  else if(over){ p.inBox=false; p.x=p.tx; p.y=p.ty; render(p,true); hz().tune([200,160],0.06,"square"); }
+  else { p.inBox=false; render(p); hz().tok(0.9); }
+  hud();
+}
+function turn(p, f){
+  if(done) return; var cx=p.x+size(p.cells)[0]*U/2, cy=p.y+size(p.cells)[1]*U/2;
+  var was=p.inBox; p.cells=f(p.cells); var s=size(p.cells); p.x=cx-s[0]*U/2; p.y=cy-s[1]*U/2; p.inBox=false;
+  drawPiece(p, pieces.indexOf(p)>=0?p.k:0); hz().tok(1.25);
+  if(was){ var gx=Math.round((p.x-bx)/U), gy=Math.round((p.y-by)/U); if(fits(p,gx,gy)){ p.inBox=true; p.gx=gx; p.gy=gy; p.x=bx+gx*U; p.y=by+gy*U; } else { p.x=p.tx; p.y=p.ty; } }
+  render(p,true); hud(); check();
+}
+$("rot").onclick=function(){ if(sel) turn(sel, rot); else K.say("fuellen-say","Tipp erst ein Teil an, dann kann ich es drehen."); };
+$("flip").onclick=function(){ if(sel) turn(sel, flip); else K.say("fuellen-say","Tipp erst ein Teil an, dann kann ich es wenden."); };
+function hud(){ var n=pieces.filter(function(p){ return p.inBox; }).length; K.hud("fuellen-hud",[["Teile in der Kiste",n+"/"+pieces.length],["Zeit",K.fmt(timer.sec())],["Tipps",hints]]); }
+function check(){
+  var cov={}, need=W*H-Object.keys(holes).length, n=0; pieces.forEach(function(p){ if(p.inBox) cellsAt(p,p.gx,p.gy).forEach(function(c){ cov[key(c[0],c[1])]=1; }); });
+  n=Object.keys(cov).length; if(n<need||done) return;
+  done=true; timer.stop(); var t=Math.round(timer.sec()), stars=hints===0?3:(hints<=2?2:1); st.set(L,stars); K.levels("fuellen-levels",LEVELS,L,st,pick);
+  var rec=hints===0&&K.best("fuellen",L,t);
+  pieces.forEach(function(p,i){ setTimeout(function(){ p.el.classList.add("hop"); }, K.reduce?0:i*60); });
+  K.win({title:"Kiste voll!",text:"Alle "+pieces.length+" Holzteile passen genau. Zeit: <b>"+K.fmt(t)+"</b>",stars:stars,msg:(rec?"Neuer Rekord! ":"")+(hints?"Mit "+hints+" Tipp"+(hints>1?"s":"")+".":"Ganz ohne Tipps!"),
+    again:"Nochmal",next:L<LEVELS.length-1?"Nächste Kiste":"Zur ersten",onAgain:function(){ load(L); },onNext:function(){ load(L<LEVELS.length-1?L+1:0); }});
+}
+// Tipp: ein Teil fliegt an seinen Platz aus der Loesung; was dort im Weg liegt, kommt zurueck auf die Werkbank
+$("hint").onclick=function(){
+  if(done) return; hz().audio();
+  var target=pieces.filter(function(p){ if(!p.inBox) return true; var a=cellsAt(p,p.gx,p.gy).map(function(c){ return key(c[0],c[1]); }).sort().join(";"); return a!==p.sol.map(function(c){ return key(c[0],c[1]); }).sort().join(";"); })[0];
+  if(!target) return; hints++;
+  var solSet={}; target.sol.forEach(function(c){ solSet[key(c[0],c[1])]=1; });
+  pieces.forEach(function(q){ if(q!==target&&q.inBox&&cellsAt(q,q.gx,q.gy).some(function(c){ return solSet[key(c[0],c[1])]; })){ q.inBox=false; q.x=q.tx; q.y=q.ty; render(q,true); } });
+  target.cells=norm(target.sol); var mx=Math.min.apply(null,target.sol.map(function(c){ return c[0]; })), my=Math.min.apply(null,target.sol.map(function(c){ return c[1]; }));
+  target.inBox=true; target.gx=mx; target.gy=my; target.x=bx+mx*U; target.y=by+my*U; drawPiece(target,target.k); svg.appendChild(target.el); render(target,true);
+  hz().tune([660,880],0.07); K.say("fuellen-say","Dieses Teil gehört genau hierhin!"); hud(); setTimeout(check,250);
+};
+$("new").onclick=function(){ hz().tok(1); load(L); };
+window.addEventListener("resize",function(){ if(sec.hidden||!pieces) return; var old=VW; layout(); if(VW!==old){ pieces.forEach(function(p){ if(p.inBox){ p.x=bx+p.gx*U; p.y=by+p.gy*U; } else { p.x=p.tx; p.y=p.ty; } }); draw(); } });
+window.HZG=window.HZG||{};
+HZG.fuellen=function(){ if(!pieces) load(L); else { var old=VW; layout(); if(VW!==old){ pieces.forEach(function(p){ if(!p.inBox){ p.x=p.tx; p.y=p.ty; } else { p.x=bx+p.gx*U; p.y=by+p.gy*U; } }); draw(); } } };
+HZG.fuellenSolve=function(){ pieces.forEach(function(p){ var mx=Math.min.apply(null,p.sol.map(function(c){ return c[0]; })), my=Math.min.apply(null,p.sol.map(function(c){ return c[1]; })); p.cells=norm(p.sol); p.inBox=true; p.gx=mx; p.gy=my; p.x=bx+mx*U; p.y=by+my*U; drawPiece(p,p.k); render(p); }); check(); };
+})();
+</script>
+
+<script>
+(function(){
+"use strict";
+/* Klötzchenregen: fallende Holzklötze (wie Tetris). Volle Reihen verschwinden, und 4 gleiche Holzarten,
+   die sich berühren, platzen (wie Candy Crush). Danach rutscht alles nach, Kettenreaktionen zählen doppelt. */
+var K=HZK, hz=K.hz;
+var WOOD=[{n:"Kirsche",a:"#d0614a",b:"#8e2f22",s:"leaf"},{n:"Ahorn",a:"#f3d79c",b:"#c9a25e",s:"star"},{n:"Nussbaum",a:"#8a5a3a",b:"#4e2e1a",s:"nut"},
+          {n:"Eiche",a:"#e2a94a",b:"#a8701e",s:"drop"},{n:"Esche",a:"#9fc27a",b:"#5d8a3e",s:"ring"}];
+var LEVELS=[
+  {name:"Sanfter Regen",age:"ab 6",cols:8,rows:14,col:3,ms:820,n:30,goal:600},
+  {name:"Vier Holzarten",age:"ab 7",cols:8,rows:14,col:4,ms:760,n:35,goal:1000},
+  {name:"Astknoten",age:"ab 8",cols:8,rows:14,col:4,ms:740,n:40,knots:2,goal:"knots"},
+  {name:"Schneller",age:"ab 9",cols:8,rows:14,col:4,ms:600,n:40,goal:1600},
+  {name:"Fünf Holzarten",age:"ab 10",cols:8,rows:14,col:5,ms:620,n:45,goal:1800},
+  {name:"Knotenwand",age:"ab 11",cols:8,rows:14,col:5,ms:560,n:45,knots:3,goal:"knots"},
+  {name:"Sturm",age:"12+",cols:9,rows:15,col:5,ms:440,n:50,goal:2800},
+  {name:"Holzlawine",age:"Profi",cols:9,rows:15,col:5,ms:380,n:55,knots:4,goal:"knots"}];
+var SHAPES=[[[0,0],[1,0],[2,0],[3,0]],[[0,0],[1,0],[0,1],[1,1]],[[0,0],[1,0],[2,0],[1,1]],[[0,0],[1,0],[2,0],[2,1]],[[0,0],[1,0],[2,0],[0,1]],[[1,0],[2,0],[0,1],[1,1]],[[0,0],[1,0],[1,1],[2,1]]];
+var ARR={l:'<path d="M15 5l-7 7 7 7" stroke-width="3"/>',r:'<path d="M9 5l7 7-7 7" stroke-width="3"/>',rot:'<path d="M20 12a8 8 0 11-2.3-5.7"/><path d="M20 4v5h-5"/>',drop:'<path d="M12 4v13M6 12l6 6 6-6"/><path d="M5 21h14"/>'};
+function kb(k,l){ return '<button class="kl-k kl-'+k+'" data-k="'+k+'" aria-label="'+l+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+ARR[k]+'</svg></button>'; }
+var $=K.mount("g-kloetze",{
+  board:'<div class="kl-wrap"><canvas id="kloetze-cv" aria-label="Klötzchenregen"></canvas><div class="kl-side"><span>Nächster</span><canvas id="kloetze-next" width="80" height="80"></canvas><span id="kloetze-goal"></span></div></div>',
+  extra:'<div class="kl-pad">'+kb('l','nach links')+kb('rot','drehen')+kb('drop','fallen lassen')+kb('r','nach rechts')+'</div>',
+  tools:[{id:"go",label:"Start",icon:"go",main:true},{id:"new",label:"Neu",icon:"neu"}],
+  help:"Holzklötze fallen in die Kiste. Schiebe sie mit den Pfeilen oder durch Wischen, tippe aufs Brett zum Drehen, wisch nach unten zum Fallenlassen. Eine volle Reihe verschwindet. Berühren sich vier oder mehr Klötze derselben Holzart, platzen sie auch! Danach rutscht alles nach – das gibt Kettenreaktionen mit doppelten Punkten. Die grauen Astknoten gehen nur mit vollen Reihen weg."
+});
+var st=K.store("holzi-kloetze"), cv=document.getElementById("kloetze-cv"), nx=document.getElementById("kloetze-next"), sec=document.getElementById("g-kloetze");
+var L=Math.min(st.lvl(),LEVELS.length-1), lv, C, R, grid, cur, next, left, score, chainMax, knots0, state="idle", tFall=0, last=0, fx=[], running=false, ctx=cv.getContext("2d"), px=24, lockDelay=0;
+function rnd(n){ return Math.floor(Math.random()*n); }
+function newPiece(){ var sh=SHAPES[rnd(SHAPES.length)], a=rnd(lv.col), b=rnd(lv.col);
+  // zwei Holzarten je Klotz, damit sich Gruppen bilden lassen
+  return {cells:sh.map(function(p,i){ return {x:p[0],y:p[1],t:(i%2&&Math.random()<.6)?b:a}; }), x:Math.floor((C-3)/2), y:-1}; }
+function load(i){
+  L=i; st.setLvl(i); lv=LEVELS[i]; C=lv.cols; R=lv.rows; grid=[]; for(var y=0;y<R;y++){ grid.push([]); for(var x=0;x<C;x++) grid[y].push(null); }
+  if(lv.knots){ for(var yy=R-lv.knots;yy<R;yy++){ var gapX=rnd(C); for(var xx=0;xx<C;xx++){ if(xx===gapX) continue; grid[yy][xx]=Math.random()<.45?{t:-1}:{t:rnd(lv.col)}; } } }
+  knots0=countKnots(); left=lv.n; score=0; chainMax=0; fx=[]; cur=null; next=newPiece(); state="idle";
+  sec.style.setProperty("--ar",(R/(C+2.4)).toFixed(3)); resize();
+  K.levels("kloetze-levels",LEVELS,L,st,pick); hud(); draw(); drawNext();
+  $("go").innerHTML=K.ic.go+"Start";
+  K.say("kloetze-say", lv.goal==="knots"?"„"+lv.name+"“: Räum alle "+knots0+" Astknoten ab! Du hast "+lv.n+" Klötze.":"„"+lv.name+"“: Schaffe "+lv.goal+" Punkte mit "+lv.n+" Klötzen. Drück auf Start!");
+}
+function pick(i){ hz().tok(1.1); load(i); }
+function countKnots(){ var n=0; grid.forEach(function(r){ r.forEach(function(c){ if(c&&c.t<0) n++; }); }); return n; }
+function goalText(){ return lv.goal==="knots"?"Astknoten: "+countKnots():"Ziel: "+lv.goal; }
+function hud(){ K.hud("kloetze-hud",[["Punkte",score],["Klötze übrig",left],[lv.goal==="knots"?"Astknoten":"Ziel",lv.goal==="knots"?countKnots():lv.goal]]); document.getElementById("kloetze-goal").textContent=goalText(); }
+function cellsOf(p,dx,dy){ return p.cells.map(function(c){ return {x:p.x+c.x+(dx||0), y:p.y+c.y+(dy||0), t:c.t}; }); }
+function ok(p,dx,dy){ return cellsOf(p,dx,dy).every(function(c){ return c.x>=0&&c.x<C&&c.y<R&&(c.y<0||!grid[c.y][c.x]); }); }
+function spawn(){
+  if(left<=0){ end(false); return; }
+  cur=next; next=newPiece(); left--; drawNext(); hud();
+  if(!ok(cur,0,0)){ cur=null; end(false,true); return; }
+  state="fall"; tFall=0;
+}
+function move(dx){ if(state!=="fall"||!cur) return; if(ok(cur,dx,0)){ cur.x+=dx; hz().tok(1.5); } }
+function rotate(){ if(state!=="fall"||!cur) return;
+  var maxY=Math.max.apply(null,cur.cells.map(function(c){ return c.y; })), old=cur.cells;
+  cur.cells=cur.cells.map(function(c){ return {x:maxY-c.y, y:c.x, t:c.t}; });
+  var kicks=[0,-1,1,-2,2]; for(var k=0;k<kicks.length;k++){ if(ok(cur,kicks[k],0)){ cur.x+=kicks[k]; hz().tok(1.3); return; } }
+  cur.cells=old; }
+function drop(){ if(state!=="fall"||!cur) return; var d=0; while(ok(cur,0,d+1)) d++; cur.y+=d; score+=d*2; land(); }
+function land(){
+  cellsOf(cur).forEach(function(c){ if(c.y>=0) grid[c.y][c.x]={t:c.t}; });
+  var over=cellsOf(cur).some(function(c){ return c.y<0; }); cur=null; hz().tok(0.7);
+  if(over){ end(false,true); return; }
+  chain=0; resolve();
+}
+var chain=0;
+// ein Aufloese-Schritt: volle Reihen + Gruppen ab 4 markieren, kurz aufleuchten, entfernen, nachrutschen, wiederholen
+function resolve(){
+  var mark={}, rows=0, groups=0;
+  for(var y=0;y<R;y++){ if(grid[y].every(function(c){ return c; })){ rows++; for(var x=0;x<C;x++) mark[x+","+y]=1; } }
+  var seen={};
+  for(y=0;y<R;y++) for(x=0;x<C;x++){ var c=grid[y][x]; if(!c||c.t<0||seen[x+","+y]) continue;
+    var stack=[[x,y]], grp=[]; seen[x+","+y]=1;
+    while(stack.length){ var p=stack.pop(); grp.push(p); [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){ var qx=p[0]+d[0], qy=p[1]+d[1]; if(qx<0||qy<0||qx>=C||qy>=R||seen[qx+","+qy]) return; var q=grid[qy][qx]; if(q&&q.t===c.t){ seen[qx+","+qy]=1; stack.push([qx,qy]); } }); }
+    if(grp.length>=4){ groups++; grp.forEach(function(p){ mark[p[0]+","+p[1]]=1; }); } }
+  var n=Object.keys(mark).length;
+  if(!n){ state="idle2"; afterResolve(); return; }
+  chain++; chainMax=Math.max(chainMax,chain);
+  var pts=(rows*100+n*10)*chain; score+=pts;
+  Object.keys(mark).forEach(function(k){ var p=k.split(",").map(Number), c=grid[p[1]][p[0]]; fx.push({x:p[0],y:p[1],t:c.t,age:0}); grid[p[1]][p[0]]=null; });
+  hz().tune(chain>1?[523,659,784,1047].slice(0,Math.min(4,chain+1)):[659,880],0.07);
+  if(chain>1) K.say("kloetze-say","Kettenreaktion ×"+chain+"! +"+pts);
+  else if(rows) K.say("kloetze-say",(rows>1?rows+" Reihen":"Volle Reihe")+"! +"+pts);
+  hud(); state="pop";
+  setTimeout(function(){ gravity(); setTimeout(resolve, K.reduce?20:160); }, K.reduce?20:240);
+}
+function gravity(){ for(var x=0;x<C;x++){ var col=[]; for(var y=R-1;y>=0;y--) if(grid[y][x]) col.push(grid[y][x]); for(y=R-1;y>=0;y--) grid[y][x]=col[R-1-y]||null; } }
+function afterResolve(){
+  if(lv.goal==="knots"&&countKnots()===0){ end(true); return; }
+  if(lv.goal!=="knots"&&score>=lv.goal*2){ end(true); return; }
+  if(left<=0){ end(lv.goal!=="knots"&&score>=lv.goal); return; }
+  spawn();
+}
+function stars(){ if(lv.goal==="knots") return left>=lv.n*0.4?3:left>=lv.n*0.15?2:1; return score>=lv.goal*2?3:score>=lv.goal*1.5?2:1; }
+function end(won,topped){
+  state="over"; cur=null; draw();
+  if(won){ var s=stars(); st.set(L,s); K.levels("kloetze-levels",LEVELS,L,st,pick); var rec=K.best("kloetze",L,score,false);
+    K.win({title:"Super gestapelt!",text:(lv.goal==="knots"?"Alle Astknoten sind weg. ":"")+"<b>"+score+"</b> Punkte"+(chainMax>1?", längste Kette ×"+chainMax:"")+".",stars:s,
+      msg:(rec?"Neuer Rekord! ":"")+(lv.goal==="knots"?left+" Klötze übrig.":"Drei Sterne ab "+lv.goal*2+" Punkten."),again:"Nochmal",next:L<LEVELS.length-1?"Nächstes Level":"Zum ersten",
+      onAgain:function(){ load(L); },onNext:function(){ load(L<LEVELS.length-1?L+1:0); }});
+    return; }
+  hz().tune([392,330,262],0.12);
+  K.say("kloetze-say", topped?"Die Kiste ist bis oben voll! Versuch es nochmal.":lv.goal==="knots"?"Keine Klötze mehr, und es sind noch Astknoten da. Nochmal!":"Keine Klötze mehr: "+score+" von "+lv.goal+" Punkten. Gleich nochmal!");
+  $("go").innerHTML=K.ic.neu+"Nochmal";
+}
+/* Zeichnen */
+function resize(){ var w=cv.clientWidth||300; px=Math.floor(w/C); var dpr=Math.min(2,window.devicePixelRatio||1); cv.width=C*px*dpr; cv.height=R*px*dpr; cv.style.height=(R*px)+"px"; ctx.setTransform(dpr,0,0,dpr,0,0); draw(); }
+function rr(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+function block(g,x,y,s,t,alpha){
+  var w=t<0?{a:"#9a948a",b:"#5f5a52"}:WOOD[t]; g.globalAlpha=alpha==null?1:alpha;
+  var gr=g.createLinearGradient(x,y,x+s*0.3,y+s); gr.addColorStop(0,w.a); gr.addColorStop(1,w.b);
+  rr(g,x+1,y+1,s-2,s-2,s*0.16); g.fillStyle=gr; g.fill();
+  g.strokeStyle="rgba(60,30,10,.18)"; g.lineWidth=Math.max(1,s*0.03);
+  for(var k=1;k<4;k++){ g.beginPath(); g.moveTo(x+3,y+s*k/4); g.quadraticCurveTo(x+s/2,y+s*k/4+(k%2?2:-2),x+s-3,y+s*k/4); g.stroke(); }
+  g.fillStyle="rgba(255,255,255,.22)"; rr(g,x+2,y+2,s-4,s*0.18,s*0.1); g.fill();
+  g.strokeStyle="rgba(40,20,5,.55)"; g.lineWidth=Math.max(1,s*0.05); rr(g,x+1,y+1,s-2,s-2,s*0.16); g.stroke();
+  // eingebranntes Zeichen je Holzart, damit man die Arten auch ohne Farben unterscheidet
+  var cx=x+s/2, cy=y+s/2, r=s*0.2; g.fillStyle="rgba(40,18,4,.42)"; g.strokeStyle="rgba(40,18,4,.42)"; g.lineWidth=Math.max(1.2,s*0.07);
+  if(t<0){ g.beginPath(); g.ellipse(cx,cy,r*1.3,r*0.9,0.3,0,7); g.fillStyle="#3a332b"; g.fill(); g.beginPath(); g.ellipse(cx,cy,r*1.8,r*1.3,0.3,0,7); g.strokeStyle="rgba(40,30,20,.45)"; g.stroke(); }
+  else if(w.s==="leaf"){ g.beginPath(); g.moveTo(cx,cy-r*1.2); g.quadraticCurveTo(cx+r*1.2,cy,cx,cy+r*1.2); g.quadraticCurveTo(cx-r*1.2,cy,cx,cy-r*1.2); g.fill(); }
+  else if(w.s==="star"){ g.beginPath(); for(var i=0;i<10;i++){ var a=-Math.PI/2+i*Math.PI/5, rad=i%2?r*0.5:r*1.2; g.lineTo(cx+Math.cos(a)*rad,cy+Math.sin(a)*rad); } g.closePath(); g.fill(); }
+  else if(w.s==="nut"){ g.beginPath(); g.arc(cx,cy+r*0.2,r*0.9,0,7); g.fill(); g.fillRect(cx-r,cy-r*0.9,r*2,r*0.6); }
+  else if(w.s==="drop"){ g.beginPath(); g.moveTo(cx,cy-r*1.2); g.quadraticCurveTo(cx+r*1.1,cy+r*0.2,cx,cy+r*1.1); g.quadraticCurveTo(cx-r*1.1,cy+r*0.2,cx,cy-r*1.2); g.fill(); }
+  else { g.beginPath(); g.arc(cx,cy,r*0.95,0,7); g.stroke(); }
+  g.globalAlpha=1;
+}
+function draw(){
+  var W=C*px, H=R*px; ctx.clearRect(0,0,W,H);
+  var bg=ctx.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#f2ddb0"); bg.addColorStop(1,"#e2c38c"); ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle="rgba(120,70,20,.10)"; ctx.lineWidth=1; for(var x=1;x<C;x++){ ctx.beginPath(); ctx.moveTo(x*px,0); ctx.lineTo(x*px,H); ctx.stroke(); }
+  for(var y=0;y<R;y++) for(x=0;x<C;x++){ var c=grid[y][x]; if(c) block(ctx,x*px,y*px,px,c.t); }
+  if(cur&&state==="fall"){ var d=0; while(ok(cur,0,d+1)) d++;
+    cellsOf(cur,0,d).forEach(function(c){ if(c.y>=0){ ctx.strokeStyle="rgba(90,50,15,.45)"; ctx.setLineDash([4,3]); ctx.lineWidth=1.5; rr(ctx,c.x*px+3,c.y*px+3,px-6,px-6,px*0.14); ctx.stroke(); ctx.setLineDash([]); } });
+    cellsOf(cur).forEach(function(c){ if(c.y>=0) block(ctx,c.x*px,c.y*px,px,c.t); }); }
+  fx=fx.filter(function(f){ return f.age<1; });
+  fx.forEach(function(f){ var s=px*(1+f.age*0.6); block(ctx,f.x*px+px/2-s/2,f.y*px+px/2-s/2,s,f.t,1-f.age); });
+  if(state==="idle"||state==="over"){ ctx.fillStyle="rgba(40,24,8,.35)"; ctx.fillRect(0,0,W,H); ctx.fillStyle="#fff8ef"; ctx.font="800 "+Math.round(px*0.7)+"px Grandstander, sans-serif"; ctx.textAlign="center";
+    ctx.fillText(state==="idle"?"Start drücken!":"Nochmal?",W/2,H/2); }
+}
+function drawNext(){ var g=nx.getContext("2d"); g.clearRect(0,0,80,80); if(!next) return; var s=18, mx=Math.max.apply(null,next.cells.map(function(c){ return c.x; }))+1, my=Math.max.apply(null,next.cells.map(function(c){ return c.y; }))+1;
+  next.cells.forEach(function(c){ block(g,40-mx*s/2+c.x*s,40-my*s/2+c.y*s,s,c.t); }); }
+function loop(now){
+  if(sec.hidden||!running){ running=false; return; }
+  var dt=Math.min(100,now-(last||now)); last=now;
+  fx.forEach(function(f){ f.age+=dt/260; });
+  if(state==="fall"&&cur){ tFall+=dt; if(tFall>=lv.ms){ tFall=0; if(ok(cur,0,1)) cur.y++; else land(); } }
+  draw(); requestAnimationFrame(loop);
+}
+function start(){ if(running) return; running=true; last=0; requestAnimationFrame(loop); }
+$("go").onclick=function(){ hz().audio(); if(state==="over"){ load(L); } if(state==="idle"){ $("go").innerHTML=K.ic.go+"Läuft"; spawn(); start(); hz().tune([523,784],0.08); } };
+$("new").onclick=function(){ hz().tok(1); load(L); };
+sec.querySelectorAll(".kl-k").forEach(function(b){ b.addEventListener("pointerdown",function(e){ e.preventDefault(); hz().audio(); var k=b.getAttribute("data-k"); if(k==="l") move(-1); else if(k==="r") move(1); else if(k==="rot") rotate(); else drop(); }); });
+// Wischen: waagerecht schieben (je Feldbreite ein Schritt), nach unten fallen lassen, Tippen dreht
+var sw=null;
+cv.addEventListener("pointerdown",function(e){ e.preventDefault(); hz().audio(); sw={x:e.clientX,y:e.clientY,sx:e.clientX,moved:false}; try{ cv.setPointerCapture(e.pointerId); }catch(err){} });
+cv.addEventListener("pointermove",function(e){ if(!sw) return; var dx=e.clientX-sw.sx; while(Math.abs(dx)>=px*0.8){ move(dx>0?1:-1); sw.sx+=dx>0?px*0.8:-px*0.8; dx=e.clientX-sw.sx; sw.moved=true; } });
+cv.addEventListener("pointerup",function(e){ if(!sw) return; var dy=e.clientY-sw.y, dx=e.clientX-sw.x;
+  if(dy>px*2&&Math.abs(dy)>Math.abs(dx)) drop(); else if(!sw.moved&&Math.hypot(dx,dy)<10){ if(state==="idle"||state==="over") $("go").onclick(); else rotate(); } sw=null; });
+document.addEventListener("keydown",function(e){ if(sec.hidden||document.querySelector(".overlay")) return;
+  var k={ArrowLeft:-1,ArrowRight:1}[e.key]; if(k){ e.preventDefault(); move(k); } else if(e.key==="ArrowUp"){ e.preventDefault(); rotate(); } else if(e.key==="ArrowDown"||e.key===" "){ e.preventDefault(); if(state==="fall") drop(); else $("go").onclick(); } });
+window.addEventListener("resize",function(){ if(!sec.hidden&&grid) resize(); });
+window.HZG=window.HZG||{};
+HZG.kloetze=function(){ if(!grid) load(L); else resize(); if(state==="fall"||state==="pop") start(); };
+HZG.kloetzeState=function(){ return {state:state,score:score,left:left,knots:countKnots()}; };
+HZG.kloetzeWin=function(){ score=lv.goal==="knots"?0:lv.goal*2; grid.forEach(function(r,y){ r.forEach(function(c,x){ if(c&&c.t<0) grid[y][x]=null; }); }); state="idle2"; afterResolve(); };
+})();
+</script>
+
+<script>
+/* Holzis Forstbetrieb: Rechenkern, Szenarien, Oberflaeche */
+(function(){
+/* Forstbetrieb – Rechenkern (ohne Bildschirm). Wachstum nach Chapman-Richards-Höhenkurven, angepasst an
+   Ertragstafel-Oberhöhen (EKl I, NW-FVA 2021, Näherung); Vorrat aus Höhe, Bestockung und Standort. */
+var FM=(function(){
+var SP={
+  Fi:{n:"Fichte",  A:40.0,k:0.0285,c:1.65,cv:0.55,price:90, plant:2500,water:[0.3,1,0.8],nutr:[0.7,1,1],storm:1.0,beetle:1.0,drought:1.0,browse:0.2,u:80, nadel:true,col:"#2f5a3a"},
+  Ki:{n:"Kiefer",  A:34.5,k:0.0205,c:1.60,cv:0.40,price:72, plant:2200,water:[1,0.9,0.5],nutr:[1,0.9,0.7],storm:0.4,beetle:0.25,drought:0.25,browse:0.2,u:110,nadel:true,col:"#4e7a3a"},
+  Bu:{n:"Buche",   A:59.0,k:0.0110,c:1.25,cv:0.41,price:85, plant:4500,water:[0.4,1,0.6],nutr:[0.4,0.9,1],storm:0.35,beetle:0,drought:0.7,browse:0.6,u:130,col:"#6a9a3c"},
+  Ei:{n:"Eiche",   A:33.0,k:0.0200,c:1.70,cv:0.50,price:150,plant:6000,water:[0.8,1,1],nutr:[0.6,0.9,1],storm:0.25,beetle:0,drought:0.2,browse:0.9,u:160,col:"#7a8a32",oak:true},
+  Dgl:{n:"Douglasie",A:50.5,k:0.0260,c:1.70,cv:0.39,price:100,plant:4000,water:[0.8,1,0.5],nutr:[0.7,1,1],storm:0.6,beetle:0.1,drought:0.4,browse:0.3,u:90,nadel:true,col:"#2e6a52",need:"klima"},
+  Lae:{n:"Lärche", A:37.5,k:0.0255,c:1.55,cv:0.44,price:95, plant:3500,water:[0.6,1,0.6],nutr:[0.7,1,1],storm:0.5,beetle:0.2,drought:0.5,browse:0.4,u:100,nadel:true,col:"#8aa040",need:"klima"},
+  Bi:{n:"Birke",   A:27.0,k:0.0310,c:1.25,cv:0.45,price:45, plant:1500,water:[0.9,1,1],nutr:[1,1,1],storm:0.3,beetle:0,drought:0.3,browse:0.5,u:60, col:"#9ab85a",birch:true}
+};
+var WATER=["trocken","frisch","feucht"], NUTR=["arm","mittel","reich"];
+var GEAR=[  // Forschung im Spiel, bezahlt mit Talern aus dem Betrieb
+  {id:"motor", n:"Motorsäge",    ic:"🪚", cost:3000, d:"900 statt 250 Festmeter im Jahr, Erntekosten 26 statt 40 Taler je Fm"},
+  {id:"pferd", n:"Rückepferd",   ic:"🐴", cost:2500, d:"Rückt schonend: Durchforsten ohne Schäden am Bestand, +5 % Holzqualität"},
+  {id:"gasse", n:"Rückegassen",  ic:"🛤️", cost:5000, req:"motor", d:"Feste Fahrwege im Wald – Voraussetzung für Maschinen"},
+  {id:"harv",  n:"Harvester",    ic:"🚜", cost:40000,req:"gasse", d:"5.000 Fm im Jahr, Erntekosten 14 Taler je Fm"},
+  {id:"forw",  n:"Forwarder",    ic:"🚛", cost:25000,req:"harv",  d:"Rückt das Holz aus dem Wald: −6 Taler je Fm, weniger Schäden"},
+  {id:"pflanz",n:"Pflanzmaschine",ic:"🌱",cost:6000, d:"Pflanzen 30 % billiger"},
+  {id:"jagd",  n:"Jagdpacht",    ic:"🦌", cost:4000, d:"Weniger Wild: Verbiss an jungen Bäumen −70 %, Zäune unnötig"},
+  {id:"klima", n:"Klimawald-Wissen",ic:"📚",cost:5000,d:"Schaltet Douglasie und Lärche zum Pflanzen frei"},
+  {id:"drohne",n:"Käfer-Drohne", ic:"🛸", cost:8000, d:"Findet Borkenkäfer früh: Käferschäden −60 %"},
+  {id:"weg",   n:"Waldwege",     ic:"🛣️", cost:12000,d:"Lkw kommen bis an den Bestand: −5 Taler je Fm"},
+  {id:"saege", n:"Sägewerk-Vertrag",ic:"🏭",cost:10000,d:"Fester Abnehmer: +10 % auf alle Holzpreise"},
+  {id:"brenn", n:"Brennholz-Hof",ic:"🔥", cost:4000, d:"Dünnes Holz und Birke bringen 40 % mehr"},
+  {id:"buero", n:"Forstbüro",    ic:"🏢", cost:15000,d:"Eine Försterin hilft: +50 % Arbeitskraft und Warnungen vor Risiken"}
+];
+function rng(seed){ var s=(seed>>>0)||1; return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; }; }
+function H(sp,age,site){ var p=SP[sp]; if(age<=0) return 0; return p.A*site*Math.pow(1-Math.exp(-p.k*age),p.c); }
+function suit(sp,w,n){ var p=SP[sp]; return p.water[w]*p.nutr[n]; }
+function siteF(sp,w,n){ return 0.62+0.48*suit(sp,w,n); }
+function Vmod(sp,h){ return SP[sp].cv*h*h; }
+function has(S,id){ return !!S.gear[id]; }
+function capacity(S){ var c=has(S,"harv")?5000:has(S,"motor")?900:250; if(has(S,"buero")) c*=1.5; return Math.round(c); }
+function costFm(S){ var c=has(S,"harv")?14:has(S,"motor")?26:40; if(has(S,"forw")) c-=6; if(has(S,"weg")) c-=5; return c; }
+/* Bestand: parts=[{sp,share}], age, b (Bestockung 0..1.2), q (Qualitaet 0.5..1.2), dmg (Schaden 0..1) */
+function standH(pl){ return pl.parts.reduce(function(a,x){ return a+x.share*H(x.sp,pl.age,pl.site[x.sp]||siteF(x.sp,pl.w,pl.n)); },0); }
+function standV(pl){ if(!pl.parts.length||pl.age<=0) return 0; var mix=pl.parts.length>1?1.08:1;
+  return pl.parts.reduce(function(a,x){ return a+x.share*Vmod(x.sp,H(x.sp,pl.age,siteF(x.sp,pl.w,pl.n))); },0)*pl.b*mix*(1-pl.dmg); }
+function mainSp(pl){ return pl.parts.length?pl.parts.slice().sort(function(a,b){ return b.share-a.share; })[0].sp:null; }
+// Preis je Festmeter: Holzart, Stärke (aus der Höhe), Pflegezustand, Markt
+function priceFm(S,pl,thin){ var h=standH(pl), dim=Math.max(0,Math.min(1,(h-10)/22)); if(thin) dim*=0.55;
+  return pl.parts.reduce(function(a,x){ var p=SP[x.sp], base=p.price;
+    if(p.oak) base=dim>0.75&&pl.age>=110?260:dim>0.5?110:60;
+    var thinWood=dim<0.35||p.birch, pr=base*(0.35+0.65*dim)*(S.mkt[x.sp]||1)*(has(S,"saege")?1.1:1)*(thinWood&&has(S,"brenn")?1.4:1);
+    return a+x.share*pr; },0)*pl.q; }
+// Wert eines Bestandes: Holz, das man heute verkaufen koennte, plus Kulturwert junger Pflanzungen (sonst waere jede Pflanzung erstmal ein Verlust)
+function value(S,pl){ if(!pl.parts.length) return 0; var cult=pl.parts.reduce(function(a,x){ return a+x.share*SP[x.sp].plant; },0)*pl.ha*Math.max(0,1-pl.age/45)*(pl.nat?0.5:1);
+  return standV(pl)*pl.ha*Math.max(0,priceFm(S,pl,false)-costFm(S))*0.6+cult; }
+function landValue(pl){ return pl.ha*(5000+3000*(pl.w===1?1:0.5)+2000*pl.n); }
+function plotPrice(S,pl){ return Math.round((landValue(pl)+value(S,pl)*1.15)/100)*100; }
+function worth(S){ var v=S.money; S.plots.forEach(function(pl){ if(pl.own) v+=landValue(pl)+value(S,pl); }); return Math.round(v); }
+function risk(S,pl){ // grobe Gefahr je Jahr (fuer die Ampel)
+  if(!pl.parts.length||pl.age<3) return 0; var h=standH(pl), r=0;
+  pl.parts.forEach(function(x){ var p=SP[x.sp], dry=p.water[0]<0.5&&pl.w===0?1.6:1;
+    r+=x.share*(p.storm*0.06*Math.min(1,h/30)*(pl.b>1.05?1.5:1) + p.beetle*0.08*dry*(pl.age>40?1:0.3) + p.drought*0.04*dry); });
+  if(pl.parts.length>1) r*=0.65; return Math.min(1,r*S.clim); }
+function newState(sc,seed){
+  var r=rng(seed), S={year:0, end:sc.years, money:sc.money, gear:{}, mkt:{}, plots:[], log:[], used:0, clim:sc.clim, climUp:sc.climUp, seed:seed, hist:[], dryYears:0, events:[]};
+  Object.keys(SP).forEach(function(k){ S.mkt[k]=1; });
+  sc.plots.forEach(function(d,i){ S.plots.push({id:i, x:d[0], y:d[1], ha:d[2], w:d[3], n:d[4], own:!!d[5], parts:d[6]?d[6].map(function(p){ return {sp:p[0],share:p[1]}; }):[], age:d[7]||0, b:d[8]||1, q:1, dmg:0, fence:false, site:{}, nat:false, lastThin:-9}); });
+  S.start=worth(S); S.hist.push({y:0, w:S.start, m:S.money}); return S;
+}
+function addLog(S,t,kind){ S.log.unshift({y:S.year,t:t,k:kind||""}); if(S.log.length>60) S.log.pop(); }
+/* Massnahmen */
+function canWork(S,fm){ return S.used+fm<=capacity(S); }
+function thin(S,pl){ var v=standV(pl)*pl.ha, take=v*0.25, h=standH(pl);
+  if(!pl.own||!pl.parts.length||h<9) return {err:"Zu jung zum Durchforsten (erst ab etwa 9 m Höhe)."};
+  if(pl.b<0.8) return {err:"Gerade erst durchforstet – lass den Bestand erst wieder zuwachsen."};
+  if(!canWork(S,take)) return {err:"Dafür reicht die Arbeitskraft in diesem Jahr nicht ("+Math.round(capacity(S)-S.used)+" Fm frei)."};
+  var pr=priceFm(S,pl,true), net=take*(pr-costFm(S)); S.money+=net; S.used+=take;
+  var harm=has(S,"pferd")||has(S,"forw")?0:(has(S,"harv")&&!has(S,"gasse")?0.08:0.03);
+  pl.b*=0.75; pl.q=Math.min(1.2,pl.q+0.08+(has(S,"pferd")?0.02:0)-harm); pl.lastThin=S.year;
+  addLog(S,"Parzelle "+name(pl)+" durchforstet: "+Math.round(take)+" Fm, "+(net>=0?"+":"")+Math.round(net)+" Taler","thin"); return {ok:true,fm:take,net:net}; }
+// Ernte so weit die Arbeitskraft reicht; der Rest bleibt stehen (Teilernte) und wird spaeter geholt
+function harvest(S,pl){ var all=standV(pl)*pl.ha, free=capacity(S)-S.used;
+  if(!pl.own||!pl.parts.length) return {err:"Hier steht nichts zum Ernten."};
+  if(free<20) return {err:"Die Arbeitskraft für dieses Jahr ist aufgebraucht. Bessere Ausrüstung hilft!"};
+  var v=Math.min(all,free), pr=priceFm(S,pl,false), net=v*(pr-costFm(S)), rest=all-v; S.money+=net; S.used+=v;
+  var part=rest>all*0.25;
+  addLog(S,"Parzelle "+name(pl)+(part?" teilweise":"")+" geerntet ("+SP[mainSp(pl)].n+", "+pl.age+" J.): "+Math.round(v)+" Fm, "+(net>=0?"+":"")+Math.round(net)+" Taler"+(part?" – "+Math.round(rest)+" Fm stehen noch":""),"harvest");
+  if(part){ pl.b*=rest/all; return {ok:true,fm:v,net:net,part:true}; }
+  if(rest>0){ var n2=rest*(pr-costFm(S)); S.money+=n2; }
+  pl.prev=pl.parts; pl.parts=[]; pl.age=0; pl.b=1; pl.q=1; pl.dmg=0; pl.fence=false; return {ok:true,fm:v,net:net}; }
+function plantCost(S,pl,parts){ var c=parts.reduce(function(a,x){ return a+x[1]*SP[x[0]].plant; },0)*pl.ha; if(has(S,"pflanz")) c*=0.7; return Math.round(c); }
+function plant(S,pl,parts,fence){ if(!pl.own||pl.parts.length) return {err:"Nur auf eigenen, freien Flächen."};
+  for(var i=0;i<parts.length;i++){ var need=SP[parts[i][0]].need; if(need&&!has(S,need)) return {err:SP[parts[i][0]].n+" braucht erst die Forschung „Klimawald-Wissen“."}; }
+  var c=plantCost(S,pl,parts)+(fence?1500*pl.ha:0); if(S.money<c) return {err:"Dafür fehlen "+Math.round(c-S.money)+" Taler."};
+  S.money-=c; pl.parts=parts.map(function(x){ return {sp:x[0],share:x[1]}; }); pl.age=1; pl.b=1; pl.q=1; pl.dmg=0; pl.fence=!!fence; pl.nat=false;
+  addLog(S,"Parzelle "+name(pl)+" gepflanzt: "+parts.map(function(x){ return SP[x[0]].n; }).join(" + ")+" ("+c+" Taler)","plant"); return {ok:true}; }
+function natural(S,pl){ if(!pl.own||pl.parts.length) return {err:"Nur auf eigenen, freien Flächen."};
+  // Naturverjuengung: was vorher stand oder nebenan waechst; sonst Pionierbaeume
+  var src=(pl.prev||[]).map(function(x){ return x.sp; }).filter(function(s){ return s!=="Fi"||Math.random()<0.5; });
+  S.plots.forEach(function(o){ if(Math.abs(o.x-pl.x)+Math.abs(o.y-pl.y)===1&&o.parts.length&&o.age>30) o.parts.forEach(function(x){ src.push(x.sp); }); });
+  var sp=src.length?src[Math.floor(Math.random()*src.length)]:"Bi", parts=sp==="Bi"?[["Bi",1]]:[[sp,0.6],["Bi",0.4]];
+  pl.parts=parts.map(function(x){ return {sp:x[0],share:x[1]}; }); pl.age=1; pl.b=0.7; pl.q=0.85; pl.dmg=0; pl.nat=true;
+  addLog(S,"Parzelle "+name(pl)+": Naturverjüngung mit "+parts.map(function(x){ return SP[x[0]].n; }).join(" + ")+" (kostenlos)","plant"); return {ok:true}; }
+function buy(S,pl){ var p=plotPrice(S,pl); if(pl.own) return {err:"Gehört dir schon."}; if(S.money<p) return {err:"Dafür fehlen "+(p-S.money)+" Taler."};
+  S.money-=p; pl.own=true; addLog(S,"Parzelle "+name(pl)+" gekauft für "+p+" Taler","buy"); return {ok:true}; }
+function sell(S,pl){ if(!pl.own) return {err:"Gehört dir nicht."}; var p=Math.round(plotPrice(S,pl)*0.9/100)*100; S.money+=p; pl.own=false; addLog(S,"Parzelle "+name(pl)+" verkauft für "+p+" Taler","buy"); return {ok:true,p:p}; }
+function research(S,id){ var g=GEAR.filter(function(x){ return x.id===id; })[0]; if(!g||has(S,id)) return {err:"Schon erforscht."};
+  if(g.req&&!has(S,g.req)) return {err:"Braucht erst „"+GEAR.filter(function(x){ return x.id===g.req; })[0].n+"“."};
+  if(S.money<g.cost) return {err:"Dafür fehlen "+(g.cost-S.money)+" Taler."}; S.money-=g.cost; S.gear[id]=S.year; addLog(S,"Neu im Betrieb: "+g.n,"gear"); return {ok:true}; }
+function name(pl){ return "ABCDEFGH"[pl.y]+(pl.x+1); }
+/* ein Jahr vergeht */
+function step(S){
+  var r=rng(S.seed*7919+S.year*104729+1); S.year++; S.used=0; S.events=[];
+  var cl=S.clim+S.climUp*S.year/S.end, dry=r()<0.07+0.13*cl, storm=r()<0.06+0.04*cl;
+  if(dry) S.dryYears++;
+  // Markt: Zufallsweg, Kaeferjahre druecken den Fichtenpreis
+  Object.keys(S.mkt).forEach(function(k){ S.mkt[k]=Math.max(0.7,Math.min(1.3,S.mkt[k]*(0.94+r()*0.12)+(1-S.mkt[k])*0.15)); });
+  var beetleYear=dry&&r()<0.6;
+  if(beetleYear){ S.mkt.Fi=Math.max(0.6,S.mkt.Fi*0.75); S.events.push("Trockenjahr mit Borkenkäfern – der Fichtenpreis fällt."); }
+  else if(dry) S.events.push("Trockenjahr – junge Bäume und Buchen auf trockenen Böden leiden.");
+  if(storm) S.events.push("Sturm zieht über das Land!");
+  var fixed=0;
+  S.plots.forEach(function(pl){
+    if(!pl.own) { if(pl.parts.length) pl.age++; return; }
+    fixed+=25*pl.ha;
+    if(!pl.parts.length) return;
+    pl.age++;
+    // Bestockung waechst wieder zu; ueberdicht ohne Pflege senkt die Qualitaet
+    if(pl.b<1.15) pl.b=Math.min(1.15,pl.b+0.035);
+    if(pl.b>1.08&&standH(pl)>12) pl.q=Math.max(0.55,pl.q-0.012);
+    pl.dmg=Math.max(0,pl.dmg-0.04);
+    var h=standH(pl), mix=pl.parts.length>1?0.6:1, loss=0, why="";
+    // Verbiss an jungen Baeumen
+    if(pl.age<12&&!pl.fence){ var br=pl.parts.reduce(function(a,x){ return a+x.share*SP[x.sp].browse; },0)*(has(S,"jagd")?0.3:1);
+      if(r()<br*0.5){ pl.b=Math.max(0.5,pl.b-0.1*br); pl.q=Math.max(0.6,pl.q-0.03); if(pl.age<6&&r()<0.4) S.events.push("Rehe haben in "+name(pl)+" junge Bäume angeknabbert."); } }
+    pl.parts.forEach(function(x){ var p=SP[x.sp], drySite=p.water[pl.w]<0.5;
+      if(dry&&(drySite||pl.age<6)) { var d=p.drought*(drySite?0.18:0.08)*(pl.age<6?1.5:1)*mix*x.share*cl*1.4; if(d>0.02){ loss+=d; why="Trockenheit"; } }
+      if(beetleYear&&p.beetle>0&&pl.age>35){ var bt=p.beetle*(0.06+0.2*r())*(drySite?1.6:1)*mix*x.share*(has(S,"drohne")?0.4:1)*cl*1.2; if(bt>0.02){ loss+=bt; why="Borkenkäfer"; } }
+      if(storm){ var st=p.storm*Math.min(1,h/28)*(pl.b>1.05?1.4:1)*(S.year-pl.lastThin<=2?1.3:1)*mix*x.share*(0.03+0.18*r())*cl; if(st>0.02){ loss+=st; why=why?why+" und Sturm":"Sturm"; } } });
+    loss=Math.min(0.9,loss);
+    if(loss>0.02){
+      var v=standV(pl)*pl.ha*loss, pr=priceFm(S,pl,false)*0.5, net=v*Math.max(0,pr-costFm(S));
+      S.money+=net; pl.b=Math.max(0.25,pl.b*(1-loss)); pl.dmg=Math.min(0.5,pl.dmg+loss*0.3);
+      if(pl.age<15) addLog(S,why+" in "+name(pl)+": "+Math.round(loss*100)+" % der jungen Bäume sind eingegangen.","bad");
+      else addLog(S,why+" in "+name(pl)+": "+Math.round(v)+" Fm Schadholz, nur noch halber Preis ("+(net>=0?"+":"")+Math.round(net)+" Taler)","bad");
+      if(pl.b<0.35){ addLog(S,"Parzelle "+name(pl)+" ist fast kahl – die Reste wurden geräumt.","bad"); pl.prev=pl.parts; pl.parts=[]; pl.age=0; pl.b=1; pl.q=1; pl.dmg=0; }
+    }
+    // Ueberalterung: weit ueber dem Erntealter steigt das Risiko, Birken sterben ab
+    var u=SP[mainSp(pl)||"Fi"].u; if(pl.age>u*1.6&&r()<0.1){ pl.b=Math.max(0.3,pl.b-0.15); addLog(S,"Parzelle "+name(pl)+": alte Bäume sterben ab – Zeit zum Ernten!","bad"); }
+  });
+  S.money-=Math.round(fixed); if(fixed) S.lastFixed=Math.round(fixed);
+  // Zuwachs-Hilfe: Forstbuero warnt
+  S.hist.push({y:S.year, w:worth(S), m:Math.round(S.money)});
+  return S;
+}
+return {SP:SP, GEAR:GEAR, WATER:WATER, NUTR:NUTR, H:H, suit:suit, siteF:siteF, standH:standH, standV:standV, mainSp:mainSp, priceFm:priceFm, value:value, landValue:landValue,
+  plotPrice:plotPrice, worth:worth, risk:risk, newState:newState, thin:thin, harvest:harvest, plant:plant, plantCost:plantCost, natural:natural, buy:buy, sell:sell, research:research,
+  step:step, capacity:capacity, costFm:costFm, has:has, name:name};
+})();
+/* Szenarien (Level) – Parzelle: [x, y, ha, Wasser 0-2, Naehrstoff 0-2, eigen, Bestand, Alter, Bestockung] */
+var FSC=[
+ {name:"Erster Wald", age:"ab 12", years:25, stars:[120000,140000,165000], money:8000, clim:0.8, climUp:0.2, cols:3, rows:2,
+  intro:"Du erbst drei Waldstücke. Pflege sie, ernte zur richtigen Zeit und pflanze neu. Nach 25 Jahren zählt, was dein Betrieb wert ist.",
+  plots:[[0,0,1.5,1,1,1,[["Fi",1]],62,1.1],[1,0,1.5,1,2,1,[["Bu",1]],85,1],[2,0,1.5,0,0,1,[["Ki",1]],38,1.1],
+         [0,1,1.5,1,1,1,null,0],[1,1,2,2,1,0,[["Ei",0.7],["Bu",0.3]],95,1],[2,1,1.5,0,1,0,null,0]]},
+ {name:"Neuanfang", age:"ab 12", years:30, stars:[122000,132000,142000], money:30000, clim:0.9, climUp:0.3, cols:3, rows:2,
+  intro:"Kahle Flächen nach einem Sturm. Wähle passende Baumarten für jeden Boden – und denk daran: junge Bäume brauchen Schutz vor Rehen.",
+  plots:[[0,0,2,0,0,1,null,0],[1,0,2,1,1,1,null,0],[2,0,2,2,2,1,null,0],[0,1,2,1,2,1,[["Bu",1]],55,1.1],[1,1,2,1,0,0,[["Ki",1]],70,1],[2,1,2,1,1,0,[["Fi",1]],50,1.1]]},
+ {name:"Fichten-Erbe", age:"12+", years:30, stars:[220000,300000,400000], money:10000, clim:1.1, climUp:0.5, cols:3, rows:2, goalMix:0.5,
+  intro:"Nur Fichten – und es wird trockener. Baue den Wald um: Ziel ist am Ende mindestens die Hälfte Mischwald oder Laubholz.",
+  plots:[[0,0,2,1,1,1,[["Fi",1]],70,1.1],[1,0,2,0,1,1,[["Fi",1]],55,1.1],[2,0,2,1,2,1,[["Fi",1]],40,1.1],[0,1,2,0,1,1,[["Fi",1]],85,1.05],[1,1,2,1,1,1,[["Fi",1]],25,1.1],[2,1,2,2,1,1,[["Fi",1]],60,1.1]]},
+ {name:"Waldwachstum", age:"12+", years:40, stars:[200000,240000,290000], money:20000, clim:1, climUp:0.4, cols:4, rows:3, goalHa:12,
+  intro:"Werde ein großer Forstbetrieb: Kaufe dazu, bis du mindestens 12 Hektar besitzt – und vermehre den Wert.",
+  plots:[[0,0,1.5,1,1,1,[["Fi",1]],58,1.1],[1,0,1.5,1,2,1,[["Bu",0.6],["Ei",0.4]],90,1],[2,0,2,0,0,0,[["Ki",1]],65,1],[3,0,1.5,1,1,0,null,0],
+         [0,1,2,1,1,1,null,0],[1,1,1.5,2,2,0,[["Ei",1]],120,1],[2,1,2,1,1,0,[["Fi",1]],45,1.1],[3,1,1.5,0,1,0,[["Ki",0.6],["Bi",0.4]],30,1],
+         [0,2,2,1,2,0,[["Bu",1]],70,1],[1,2,1.5,1,1,0,[["Dgl",1]],35,1],[2,2,2,2,1,0,[["Fi",1]],80,1.1],[3,2,1.5,0,0,0,null,0]]},
+ {name:"Klimawandel", age:"Profi", years:50, stars:[200000,250000,300000], money:25000, clim:1.3, climUp:0.9, cols:4, rows:3, goalMix:0.6,
+  intro:"Die Sommer werden heiß. Nur ein bunter, gepflegter Wald übersteht die nächsten 50 Jahre. Ziel: viel Wert und 60 % Mischwald.",
+  plots:[[0,0,2,1,1,1,[["Fi",1]],60,1.1],[1,0,2,0,1,1,[["Fi",1]],45,1.1],[2,0,2,1,2,1,[["Bu",1]],80,1],[3,0,2,0,0,1,[["Ki",1]],50,1.05],
+         [0,1,2,1,1,1,null,0],[1,1,2,2,2,1,[["Fi",1]],30,1.1],[2,1,2,1,1,0,[["Ei",0.5],["Bu",0.5]],110,1],[3,1,2,0,1,0,null,0],
+         [0,2,2,1,2,0,[["Dgl",1]],40,1],[1,2,2,1,1,0,[["Fi",1]],70,1.1],[2,2,2,2,1,0,null,0],[3,2,2,1,0,0,[["Ki",1]],90,1]]},
+ {name:"Großforstbetrieb", age:"Profi", years:60, stars:[350000,500000,700000], money:40000, clim:1.1, climUp:0.7, cols:4, rows:4, goalHa:24,
+  intro:"Das Meisterstück: 60 Jahre, 16 Parzellen. Kaufe Maschinen, baue Wege, besitze am Ende mindestens 24 Hektar und mach den Betrieb so wertvoll wie möglich.",
+  plots:[[0,0,2,1,1,1,[["Fi",1]],50,1.1],[1,0,2,1,2,1,[["Bu",1]],95,1],[2,0,2,0,0,0,[["Ki",1]],80,1],[3,0,2,1,1,0,[["Lae",1]],45,1],
+         [0,1,2,1,1,1,[["Ei",0.6],["Bu",0.4]],60,1],[1,1,2,2,1,1,null,0],[2,1,2,1,1,0,[["Fi",1]],70,1.1],[3,1,2,0,1,0,[["Ki",1]],30,1],
+         [0,2,2,1,2,0,[["Bu",1]],120,1],[1,2,2,1,1,0,[["Dgl",1]],55,1],[2,2,2,2,2,0,[["Ei",1]],140,1],[3,2,2,1,1,0,null,0],
+         [0,3,2,0,0,0,[["Ki",1]],100,1],[1,3,2,1,1,0,[["Fi",0.5],["Bu",0.5]],40,1],[2,3,2,1,2,0,[["Fi",1]],90,1.1],[3,3,2,2,1,0,[["Bi",1]],25,1]]}
+];
+(function(){
+"use strict";
+var K=HZK, hz=K.hz, SP=FM.SP;
+var LEVELS=FSC;
+K.ic.year=K.ic.year||'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l8 8-8 8z" fill="currentColor"/><path d="M15 4v16"/></svg>';
+K.ic.ff=K.ic.ff||'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5l8 7-8 7zM12 5l8 7-8 7z"/></svg>';
+var $=K.mount("g-forst",{
+  board:'<svg id="forst-svg" viewBox="0 0 300 200" aria-label="Waldkarte"></svg>',
+  extra:'<div class="fo-panel"><nav class="seg small fo-tabs" role="tablist"><button data-t="plot" aria-selected="true">Parzelle</button><button data-t="gear" aria-selected="false">Ausrüstung</button><button data-t="mkt" aria-selected="false">Markt</button><button data-t="log" aria-selected="false">Bericht</button></nav><div id="forst-body" class="fo-body"></div></div>',
+  tools:[{id:"year",label:"1 Jahr",icon:"year",main:true},{id:"five",label:"5 Jahre",icon:"ff"},{id:"new",label:"Neu",icon:"neu"}],
+  help:"Du leitest einen Forstbetrieb. Tippe eine Parzelle auf der Karte an: Dort kannst du durchforsten, ernten, pflanzen oder Wald kaufen. Jede Baumart mag andere Böden – die Sterne bei „Pflanzen“ zeigen, wie gut sie passt. Durchforsten macht den Wald stabiler und das Holz wertvoller. Mischwald übersteht Sturm, Trockenheit und Borkenkäfer besser. Unter „Ausrüstung“ kaufst du Motorsäge, Harvester, Forwarder und mehr. Mit „1 Jahr“ läuft die Zeit weiter. Am Ende zählt der Betriebswert: Geld + Wald + Boden."
+});
+var st=K.store("holzi-forst"), svg=document.getElementById("forst-svg"), body=document.getElementById("forst-body"), sec=document.getElementById("g-forst");
+var L=Math.min(st.lvl(),LEVELS.length-1), S=null, sc=null, sel=null, tab="plot", busy=false, planting=null;
+function T(n){ return Math.round(n).toLocaleString("de-DE"); }
+function fmtT(n){ return '<span class="fo-t">'+T(n)+'</span>'; }
+function esc(t){ return String(t).replace(/[&<>"]/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function saveGame(){ try{ localStorage.setItem("holzi-forst-save-"+L, JSON.stringify(S)); }catch(e){} }
+function load(i,fresh){
+  L=i; st.setLvl(i); sc=LEVELS[i]; S=null;
+  if(!fresh){ try{ S=JSON.parse(localStorage.getItem("holzi-forst-save-"+L)||"null"); }catch(e){} }
+  if(!S||S.year>=S.end) S=FM.newState(sc, 1000+Math.floor(Math.random()*90000));
+  sel=S.plots.filter(function(p){ return p.own; })[0]||S.plots[0]; tab="plot"; planting=null; saveGame();
+  sec.style.setProperty("--ar",(sc.rows*72/(sc.cols*100)).toFixed(3));
+  K.levels("forst-levels",LEVELS,L,st,pick); render();
+  K.say("forst-say", S.year===0?sc.intro:"Weiter geht's in Jahr "+S.year+" von "+S.end+".");
+}
+function pick(i){ hz().tok(1.1); load(i,false); }
+function ownHa(){ return S.plots.filter(function(p){ return p.own; }).reduce(function(a,p){ return a+p.ha; },0); }
+function mixShare(){ var t=0,m=0; S.plots.forEach(function(p){ if(!p.own) return; t+=p.ha; if(p.parts.length>1||p.parts.some(function(x){ return !SP[x.sp].nadel; })) m+=p.ha; }); return t?m/t:0; }
+function hud(){
+  var items=[["Jahr",S.year+" / "+S.end],["Kasse",T(S.money)+" T"],["Betriebswert",T(FM.worth(S))+" T"],["Arbeitskraft",T(Math.max(0,FM.capacity(S)-S.used))+" Fm"]];
+  if(sc.goalHa) items.push(["Fläche",String(ownHa()).replace(".",",")+" / "+sc.goalHa+" ha"]);
+  if(sc.goalMix) items.push(["Mischwald",Math.round(mixShare()*100)+" / "+Math.round(sc.goalMix*100)+" %"]);
+  K.hud("forst-hud",items);
+}
+function render(){ drawMap(); drawPanel(); hud(); }
+/* ---- Karte ---- */
+var GROUND=[["#ead39a","#d9bd7c"],["#c5d595","#a9bf74"],["#9cc49a","#7aa77c"]];
+function tree(sp,x,y,s,dead){
+  var p=SP[sp], trunk='<rect x="'+(x-0.6*s)+'" y="'+(y-1.6*s)+'" width="'+(1.2*s)+'" height="'+(1.8*s)+'" fill="'+(p.birch?"#f2efe6":"#6b4226")+'"/>', col=dead?"#9a7a4a":p.col;
+  if(p.nadel) return trunk+'<path d="M'+x+' '+(y-9*s)+'L'+(x+3.4*s)+' '+(y-1.4*s)+'H'+(x-3.4*s)+'Z" fill="'+col+'"/><path d="M'+x+' '+(y-10.5*s)+'L'+(x+2.4*s)+' '+(y-5*s)+'H'+(x-2.4*s)+'Z" fill="'+col+'" opacity=".85"/>';
+  var r=p.oak?3.5:p.birch?2.4:3;
+  return trunk+'<ellipse cx="'+x+'" cy="'+(y-4.6*s)+'" rx="'+(r*s)+'" ry="'+(3.3*s)+'" fill="'+col+'"/><ellipse cx="'+(x-0.9*s)+'" cy="'+(y-5.6*s)+'" rx="'+(r*0.5*s)+'" ry="'+(1.4*s)+'" fill="rgba(255,255,255,.18)"/>';
+}
+function drawMap(){
+  var W=100, Hh=72, h='';
+  svg.setAttribute("viewBox","-2 -2 "+(sc.cols*W+4)+" "+(sc.rows*Hh+4));
+  h+='<defs><pattern id="fo-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="rgba(70,60,50,.28)"/><path d="M0 0v6" stroke="rgba(255,255,255,.35)" stroke-width="2"/></pattern></defs>';
+  S.plots.forEach(function(pl){
+    var x=pl.x*W, y=pl.y*Hh, g=GROUND[pl.w], r=FM.risk(S,pl);
+    h+='<g class="fo-plot'+(pl===sel?' sel':'')+(pl.own?'':' foreign')+'" data-i="'+pl.id+'">';
+    h+='<rect x="'+(x+1)+'" y="'+(y+1)+'" width="'+(W-2)+'" height="'+(Hh-2)+'" rx="5" fill="'+g[0]+'" stroke="'+g[1]+'" stroke-width="1.5"/>';
+    for(var k=0;k<pl.n+1;k++) h+='<circle cx="'+(x+8+k*5)+'" cy="'+(y+Hh-7)+'" r="1.6" fill="#6b4a2a" opacity=".55"/>';
+    if(pl.parts.length){
+      var hh=FM.standH(pl), s=Math.max(0.35,Math.min(1.35,0.3+hh/28)), n=pl.age<6?12:Math.max(5,Math.min(10,Math.round(10*pl.b))), dead=Math.round(n*pl.dmg*1.5);
+      var cols=pl.age<6?6:5, rows=Math.ceil(n/cols);
+      for(var t=0;t<n;t++){ var cx=x+12+(t%cols)*((W-22)/(cols-1||1))+(Math.floor(t/cols)%2?5:0), cy=y+Hh-14-(rows-1-Math.floor(t/cols))*(Hh-30)/(Math.max(1,rows-1)||1)*0.8;
+        var sp=pl.parts.length>1&&t%2?pl.parts[1].sp:pl.parts[0].sp; h+=tree(sp,Math.min(x+W-8,cx),cy,s,t<dead); }
+    } else {
+      for(var q=0;q<5;q++){ var sx=x+18+q*15, sy=y+30+(q%2)*16; h+='<ellipse cx="'+sx+'" cy="'+sy+'" rx="3.2" ry="1.6" fill="#a8763e"/><ellipse cx="'+sx+'" cy="'+(sy-0.6)+'" rx="2.4" ry="1" fill="#e4c58f"/>'; }
+      if(pl.own) h+='<text x="'+(x+W/2)+'" y="'+(y+Hh/2+18)+'" class="fo-lbl" text-anchor="middle">Kahlfläche</text>';
+    }
+    if(pl.fence&&pl.age<12) h+='<rect x="'+(x+4)+'" y="'+(y+4)+'" width="'+(W-8)+'" height="'+(Hh-8)+'" rx="4" fill="none" stroke="#8a6a3a" stroke-width="1.2" stroke-dasharray="3 2"/>';
+    if(!pl.own){ h+='<rect x="'+(x+1)+'" y="'+(y+1)+'" width="'+(W-2)+'" height="'+(Hh-2)+'" rx="5" fill="url(#fo-hatch)"/>';
+      h+='<g transform="translate('+(x+W-36)+' '+(y+5)+')"><rect width="32" height="12" rx="3" fill="#fff8ef" stroke="#8a5630" stroke-width=".8"/><text x="16" y="8.6" text-anchor="middle" class="fo-sale">zu kaufen</text></g>'; }
+    h+='<rect x="'+(x+3.5)+'" y="'+(y+3.5)+'" width="27" height="18" rx="4" fill="rgba(255,250,240,.88)"/><text x="'+(x+7)+'" y="'+(y+12)+'" class="fo-name">'+FM.name(pl)+'</text><text x="'+(x+7)+'" y="'+(y+19)+'" class="fo-ha">'+String(pl.ha).replace(".",",")+' ha</text>';
+    if(pl.own&&r>0.08) h+='<circle cx="'+(x+W-8)+'" cy="'+(y+9)+'" r="4" fill="'+(r>0.18?"#c0392b":"#e0a020")+'" stroke="#fff" stroke-width="1"/><text x="'+(x+W-8)+'" y="'+(y+11.4)+'" text-anchor="middle" class="fo-warn">!</text>';
+    if(pl===sel) h+='<rect x="'+(x+1)+'" y="'+(y+1)+'" width="'+(W-2)+'" height="'+(Hh-2)+'" rx="5" fill="none" stroke="#d8612a" stroke-width="3"/>';
+    h+='</g>';
+  });
+  svg.innerHTML=h;
+  svg.querySelectorAll(".fo-plot").forEach(function(g){ g.addEventListener("click",function(){ hz().tok(1.2); sel=S.plots[+g.getAttribute("data-i")]; tab="plot"; planting=null; render(); }); });
+}
+/* ---- Seitenleiste ---- */
+function stars(v){ var n=v>=0.85?3:v>=0.6?2:v>=0.35?1:0; return '<span class="fo-stars" aria-label="'+n+' von 3">'+"★★★".slice(0,n)+'<i>'+"★★★".slice(n)+'</i></span>'; }
+function riskTxt(pl){ var r=FM.risk(S,pl); return r<0.06?'<b class="ok">gering</b>':r<0.15?'<b class="mid">mittel</b>':'<b class="bad">hoch</b>'; }
+function drawPanel(){
+  sec.querySelectorAll(".fo-tabs button").forEach(function(b){ b.setAttribute("aria-selected", b.getAttribute("data-t")===tab); });
+  var h='';
+  if(tab==="plot") h=plotPanel(sel);
+  else if(tab==="gear") h=gearPanel();
+  else if(tab==="mkt") h=mktPanel();
+  else h=logPanel();
+  body.innerHTML=h;
+  body.querySelectorAll("[data-a]").forEach(function(b){ b.onclick=function(){ act(b.getAttribute("data-a"), b); }; });
+}
+function plotPanel(pl){
+  var h='<div class="fo-head"><b>Parzelle '+FM.name(pl)+'</b><span>'+String(pl.ha).replace(".",",")+' ha · Boden '+FM.NUTR[pl.n]+', '+FM.WATER[pl.w]+'</span></div>';
+  if(!pl.own){
+    h+=standInfo(pl)+'<div class="fo-acts"><button class="fo-b go" data-a="buy">Kaufen für '+fmtT(FM.plotPrice(S,pl))+' T</button></div>';
+    return h+suitTable(pl);
+  }
+  if(planting) return h+plantPanel(pl);
+  if(pl.parts.length){
+    h+=standInfo(pl);
+    var v=FM.standV(pl)*pl.ha, hh=FM.standH(pl), free=FM.capacity(S)-S.used, net=FM.priceFm(S,pl,false)-FM.costFm(S), thinNet=v*0.25*(FM.priceFm(S,pl,true)-FM.costFm(S));
+    var u=SP[FM.mainSp(pl)].u;
+    h+='<div class="fo-acts">'+
+      '<button class="fo-b" data-a="thin"'+(hh<9||pl.b<0.8?' disabled':'')+'>🪓 Durchforsten<small>'+(hh<9?'ab ~9 m Höhe':pl.b<0.8?'gerade erst gemacht':'≈ '+T(v*0.25)+' Fm · '+(thinNet>=0?'+':'')+T(thinNet)+' T')+'</small></button>'+
+      '<button class="fo-b'+(pl.age>=u?' go':'')+'" data-a="harvest">🌲 Ernten<small>'+(free<20?'Arbeitskraft aufgebraucht':(v>free?'Teilernte '+T(free)+' von '+T(v)+' Fm':'≈ '+T(v)+' Fm · '+(net*v>=0?'+':'')+T(net*v)+' T'))+'</small></button>'+
+      '<button class="fo-b" data-a="sell">Verkaufen<small>'+T(Math.round(FM.plotPrice(S,pl)*0.9/100)*100)+' T</small></button></div>';
+    h+='<p class="fo-tip">'+(pl.age>=u?'🌟 Erntereif! ':'')+'Erntealter für '+SP[FM.mainSp(pl)].n+': etwa '+u+' Jahre.'+(pl.b>1.05&&hh>12?' Der Bestand ist zu dicht – durchforsten bringt Geld, Stabilität und besseres Holz.':'')+(FM.has(S,"buero")&&FM.risk(S,pl)>0.15?' 🏢 Die Försterin warnt: hohes Risiko hier!':'')+'</p>';
+  } else {
+    h+='<p class="fo-tip">Diese Fläche ist kahl. Pflanze einen neuen Wald – oder lass ihn von selbst wachsen (Naturverjüngung: kostenlos, aber langsamer und weniger wertvoll).</p>'+
+      '<div class="fo-acts"><button class="fo-b go" data-a="plantui">🌱 Pflanzen…</button><button class="fo-b" data-a="natural">🍃 Naturverjüngung<small>kostenlos</small></button><button class="fo-b" data-a="sell">Verkaufen<small>'+T(Math.round(FM.plotPrice(S,pl)*0.9/100)*100)+' T</small></button></div>';
+    h+=suitTable(pl);
+  }
+  return h;
+}
+function standInfo(pl){
+  if(!pl.parts.length) return '<p class="fo-tip">Kahlfläche</p>';
+  var hh=FM.standH(pl), v=FM.standV(pl), inc=0;
+  var age0=pl.age; pl.age++; inc=FM.standV(pl)-v; pl.age=age0;
+  var sp=pl.parts.map(function(x){ return '<span class="fo-chip" style="--c:'+SP[x.sp].col+'">'+SP[x.sp].n+(pl.parts.length>1?' '+Math.round(x.share*100)+' %':'')+'</span>'; }).join('');
+  var dens=pl.b>1.05?"zu dicht":pl.b<0.7?"licht":"gut";
+  return '<div class="fo-sp">'+sp+(pl.nat?'<span class="fo-chip nat">Naturverjüngung</span>':'')+(pl.fence&&pl.age<12?'<span class="fo-chip nat">Wildzaun</span>':'')+'</div>'+
+    '<dl class="fo-kv"><div><dt>Alter</dt><dd>'+pl.age+' J.</dd></div><div><dt>Höhe</dt><dd>'+hh.toFixed(1).replace(".",",")+' m</dd></div>'+
+    '<div><dt>Holzvorrat</dt><dd>'+T(v*pl.ha)+' Fm</dd></div><div><dt>Zuwachs</dt><dd>+'+T(inc*pl.ha)+' Fm/J.</dd></div>'+
+    '<div><dt>Dichte</dt><dd>'+dens+'</dd></div><div><dt>Holzqualität</dt><dd>'+Math.round(pl.q*100)+' %</dd></div>'+
+    '<div><dt>Wert</dt><dd>'+T(FM.value(S,pl))+' T</dd></div><div><dt>Risiko</dt><dd>'+riskTxt(pl)+'</dd></div></dl>';
+}
+function suitTable(pl){
+  return '<details class="fo-suit"'+(pl.parts.length?'':' open')+'><summary>Welche Baumart passt hierher?</summary><ul>'+Object.keys(SP).map(function(k){ var p=SP[k];
+    return '<li><span class="fo-dot" style="background:'+p.col+'"></span><b>'+p.n+'</b>'+stars(FM.suit(k,pl.w,pl.n))+'<small>'+(p.drought<=0.3?'verträgt Trockenheit':p.drought>=0.7?'leidet bei Trockenheit':'')+'</small></li>'; }).join('')+'</ul></details>';
+}
+function plantPanel(pl){
+  var p1=planting.a, p2=planting.b, share=planting.s, opts=Object.keys(SP);
+  var cost=FM.plantCost(S,pl,p2?[[p1,share],[p2,1-share]]:[[p1,1]])+(planting.fence?1500*pl.ha:0);
+  function chooser(cur,key,allowNone){ return '<div class="fo-pick">'+(allowNone?'<button data-a="pk" data-k="'+key+'" data-v="" aria-pressed="'+(!cur)+'">keine</button>':'')+opts.map(function(k){ var lock=SP[k].need&&!FM.has(S,SP[k].need);
+    return '<button data-a="pk" data-k="'+key+'" data-v="'+k+'" aria-pressed="'+(cur===k)+'"'+(lock?' disabled title="braucht Klimawald-Wissen"':'')+'><i style="background:'+SP[k].col+'"></i>'+SP[k].n+stars(FM.suit(k,pl.w,pl.n))+(lock?' 🔒':'')+'</button>'; }).join('')+'</div>'; }
+  return '<h4>Hauptbaumart</h4>'+chooser(p1,"a",false)+'<h4>Mischbaumart (macht den Wald stabiler)</h4>'+chooser(p2,"b",true)+
+    (p2?'<label class="fo-range">Anteil '+SP[p1].n+': <b>'+Math.round(share*100)+' %</b><input type="range" min="30" max="80" step="10" value="'+Math.round(share*100)+'" data-a="share"></label>':'')+
+    '<label class="fo-chk"><input type="checkbox" data-a="fence"'+(planting.fence?' checked':'')+(FM.has(S,"jagd")?' disabled':'')+'> Wildzaun bauen ('+T(1500*pl.ha)+' T)'+(FM.has(S,"jagd")?' – nicht nötig dank Jagdpacht':'')+'</label>'+
+    '<div class="fo-acts"><button class="fo-b" data-a="cancel">Abbrechen</button><button class="fo-b go" data-a="plant">Pflanzen für '+fmtT(cost)+' T</button></div>';
+}
+function gearPanel(){
+  return '<p class="fo-tip">Arbeitskraft: <b>'+T(FM.capacity(S))+' Fm</b> im Jahr · Erntekosten: <b>'+FM.costFm(S)+' T</b> je Festmeter. Bessere Ausrüstung schafft mehr Holz zu geringeren Kosten.</p><div class="fo-gear">'+
+    '<div class="fo-g own"><span>🪚</span><b>Handsäge</b><small>Damit fängt jeder an: 250 Fm im Jahr</small><em>✓ vorhanden</em></div>'+
+    FM.GEAR.map(function(g){ var own=FM.has(S,g.id), lock=g.req&&!FM.has(S,g.req);
+      return '<div class="fo-g'+(own?' own':'')+'"><span>'+g.ic+'</span><b>'+g.n+'</b><small>'+g.d+'</small>'+(own?'<em>✓ im Betrieb</em>':lock?'<em>braucht erst „'+FM.GEAR.filter(function(x){ return x.id===g.req; })[0].n+'“</em>':'<button class="fo-b go" data-a="gear" data-g="'+g.id+'"'+(S.money<g.cost?' disabled':'')+'>'+fmtT(g.cost)+' T</button>')+'</div>'; }).join('')+'</div>';
+}
+function mktPanel(){
+  var rows=Object.keys(SP).map(function(k){ var m=S.mkt[k], arrow=m>1.05?'▲':m<0.95?'▼':'●', cls=m>1.05?'ok':m<0.95?'bad':'';
+    var ex={parts:[{sp:k,share:1}],age:SP[k].u,w:1,n:1,b:1,q:1,dmg:0,site:{},ha:1}, pr=FM.priceFm(S,ex,false);
+    return '<tr><td><span class="fo-dot" style="background:'+SP[k].col+'"></span>'+SP[k].n+'</td><td>'+T(pr)+' T</td><td class="'+cls+'">'+arrow+' '+Math.round(m*100)+' %</td><td>'+T(SP[k].plant)+' T</td><td>'+SP[k].u+' J.</td></tr>'; }).join('');
+  return '<p class="fo-tip">Holzpreise schwanken jedes Jahr. Nach Käferjahren ist viel Fichtenholz auf dem Markt – dann fällt der Preis. Starkes, gepflegtes Holz bringt am meisten.</p>'+
+    '<table class="fo-tab"><thead><tr><th>Baumart</th><th>Preis / Fm*</th><th>Markt</th><th>Pflanzen / ha</th><th>Erntealter</th></tr></thead><tbody>'+rows+'</tbody></table><p class="fo-tip">* für erntereifes Holz guter Qualität, vor Erntekosten.</p>';
+}
+function logPanel(){
+  var hs=S.hist, w=300, hgt=90, all=hs.map(function(x){ return x.w; }).concat([sc.stars[0]]), mx=Math.max.apply(null,all)*1.05, mn=Math.min.apply(null,all)*0.9;
+  var pts=hs.map(function(x,i){ return (hs.length>1?i/(S.end)*w:0).toFixed(1)+","+(hgt-(x.w-mn)/(mx-mn||1)*hgt).toFixed(1); }).join(" ");
+  var goal=sc.stars[0], gy=hgt-(goal-mn)/(mx-mn||1)*hgt;
+  var chart='<figure class="fo-chart"><figcaption>Betriebswert über die Jahre</figcaption><svg viewBox="-34 -6 '+(w+40)+' '+(hgt+20)+'"><line x1="0" x2="'+w+'" y1="'+hgt+'" y2="'+hgt+'" class="vz-grid base"/>'+
+    (gy>=0&&gy<=hgt?'<line x1="0" x2="'+w+'" y1="'+gy+'" y2="'+gy+'" stroke="var(--moss)" stroke-dasharray="4 3"/><text x="'+w+'" y="'+(gy-3)+'" text-anchor="end" class="vz-ax">1 Stern</text>':'')+
+    '<text x="-4" y="4" text-anchor="end" class="vz-ax">'+T(mx/1000)+'k</text><text x="-4" y="'+hgt+'" text-anchor="end" class="vz-ax">'+T(mn/1000)+'k</text>'+
+    '<polyline points="'+pts+'" fill="none" stroke="var(--v-f)" stroke-width="2.5" stroke-linejoin="round"/></svg></figure>';
+  return chart+'<ul class="fo-log">'+(S.log.length?S.log.slice(0,30).map(function(l){ return '<li class="'+l.k+'"><span>J. '+l.y+'</span>'+esc(l.t)+'</li>'; }).join(''):'<li>Noch nichts passiert.</li>')+'</ul>';
+}
+function msg(r){ if(r&&r.err){ hz().tune([220,180],0.07,"square"); K.say("forst-say",r.err); return false; } return true; }
+function act(a,b){
+  if(busy) return; hz().audio();
+  if(a==="buy"){ if(msg(FM.buy(S,sel))){ hz().tune([523,784],0.08); K.say("forst-say","Parzelle "+FM.name(sel)+" gehört jetzt dir!"); } }
+  else if(a==="sell"){ if(!b.classList.contains("armed")){ b.classList.add("armed"); b.innerHTML="Wirklich verkaufen?"; return; } if(msg(FM.sell(S,sel))){ hz().tok(1); } }
+  else if(a==="thin"){ var r=FM.thin(S,sel); if(msg(r)){ hz().tune([392,523],0.07); K.say("forst-say","Durchforstet! Die besten Bäume haben jetzt mehr Platz. "+(r.net>=0?"+":"")+T(r.net)+" Taler."); } }
+  else if(a==="harvest"){ var r2=FM.harvest(S,sel); if(msg(r2)){ hz().tune([330,262,196],0.09); K.say("forst-say",r2.part?"Teilernte: Mehr schafft deine Ausrüstung dieses Jahr nicht. Der Rest folgt nächstes Jahr.":"Geerntet! "+(r2.net>=0?"+":"")+T(r2.net)+" Taler. Jetzt neu pflanzen!"); } }
+  else if(a==="natural"){ if(msg(FM.natural(S,sel))) hz().tune([523,659],0.07); }
+  else if(a==="plantui"){ var best=Object.keys(SP).filter(function(k){ return !SP[k].need||FM.has(S,SP[k].need); }).sort(function(x,y){ return FM.suit(y,sel.w,sel.n)-FM.suit(x,sel.w,sel.n); }); planting={a:best[0],b:null,s:0.6,fence:!FM.has(S,"jagd")}; }
+  else if(a==="pk"){ var v=b.getAttribute("data-v")||null; if(b.getAttribute("data-k")==="a"){ planting.a=v; if(planting.b===v) planting.b=null; } else planting.b=v===planting.a?null:v; }
+  else if(a==="fence"){ planting.fence=b.checked; }
+  else if(a==="share"){ planting.s=(+b.value)/100; }
+  else if(a==="cancel"){ planting=null; }
+  else if(a==="plant"){ var parts=planting.b?[[planting.a,planting.s],[planting.b,1-planting.s]]:[[planting.a,1]]; if(msg(FM.plant(S,sel,parts,planting.fence))){ planting=null; hz().tune([523,659,784],0.08); K.say("forst-say","Gepflanzt! In ein paar Jahren wächst hier ein neuer Wald."); } }
+  else if(a==="gear"){ if(msg(FM.research(S,b.getAttribute("data-g")))){ hz().tune([523,659,784,1047],0.09); hz().leaves(); K.say("forst-say","Neu im Betrieb: "+FM.GEAR.filter(function(x){ return x.id===b.getAttribute("data-g"); })[0].n+"!"); } }
+  saveGame(); render();
+}
+body.addEventListener("input",function(e){ if(e.target.getAttribute("data-a")==="share"){ planting.s=(+e.target.value)/100; drawPanel(); } });
+sec.querySelector(".fo-tabs").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b) return; hz().tok(1.15); tab=b.getAttribute("data-t"); planting=null; drawPanel(); });
+function years(n){
+  if(busy||!S) return; if(S.year>=S.end){ finish(); return; }
+  busy=true; var k=0, events=[];
+  (function one(){
+    FM.step(S); events=events.concat(S.events); k++;
+    var bad=S.log.length&&S.log[0].y===S.year&&S.log[0].k==="bad";
+    render();
+    if(S.year>=S.end){ busy=false; saveGame(); finish(); return; }
+    if(k<n&&!bad){ setTimeout(one, K.reduce?10:260); return; }
+    busy=false; saveGame();
+    var last=S.log.filter(function(l){ return l.y===S.year&&l.k==="bad"; });
+    K.say("forst-say", last.length?last[0].t:(S.events[0]||"Ein ruhiges Jahr. Der Wald wächst.")+(S.lastFixed?" (Laufende Kosten: "+T(S.lastFixed)+" T)":""));
+    if(last.length){ hz().tune([300,200],0.1,"square"); }
+  })();
+}
+$("year").onclick=function(){ hz().tok(1.1); years(1); };
+$("five").onclick=function(){ hz().tok(1.1); years(5); };
+$("new").onclick=function(){ if(!this.classList.contains("armed")){ this.classList.add("armed"); var me=this; this.innerHTML=K.ic.neu+"Sicher?"; setTimeout(function(){ me.classList.remove("armed"); me.innerHTML=K.ic.neu+"Neu"; },3000); return; }
+  this.classList.remove("armed"); this.innerHTML=K.ic.neu+"Neu"; hz().tok(1); load(L,true); };
+function finish(){
+  var w=FM.worth(S), ha=ownHa(), mix=mixShare(), fails=[];
+  if(sc.goalHa&&ha<sc.goalHa) fails.push("nur "+String(ha).replace(".",",")+" statt "+sc.goalHa+" Hektar");
+  if(sc.goalMix&&mix<sc.goalMix) fails.push("nur "+Math.round(mix*100)+" % statt "+Math.round(sc.goalMix*100)+" % Mischwald");
+  var s=w>=sc.stars[2]?3:w>=sc.stars[1]?2:w>=sc.stars[0]?1:0;
+  if(s&&!fails.length){ st.set(L,s); K.levels("forst-levels",LEVELS,L,st,pick); K.best("forst",L,w,false);
+    K.win({title:"Gut gewirtschaftet!",text:"Nach "+S.end+" Jahren ist dein Forstbetrieb <b>"+T(w)+" Taler</b> wert (am Anfang "+T(S.start)+").",stars:s,
+      msg:"Drei Sterne ab "+T(sc.stars[2])+" Talern.",again:"Nochmal",next:L<LEVELS.length-1?"Nächster Betrieb":"Zum ersten",
+      onAgain:function(){ load(L,true); },onNext:function(){ load(L<LEVELS.length-1?L+1:0,true); }}); }
+  else K.say("forst-say","Die "+S.end+" Jahre sind um. Betriebswert "+T(w)+" Taler"+(s?"":" – für einen Stern braucht es "+T(sc.stars[0]))+(fails.length?", aber "+fails.join(" und "):"")+". Mit „Neu“ startest du nochmal.");
+}
+window.HZG=window.HZG||{};
+HZG.forst=function(){ if(!S) load(L,false); else render(); };
+HZG.forstState=function(){ return S; };
+})();
+})();
+</script>
+
+<script>
 /* Startseite, Spielwechsel, Zurueck-Taste, Hilfe und Level-Wahl */
 (function(){
-  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel']}, ORDER=["slide", "tan", "maze", "puzzle", "sudoku", "kreuz", "worte", "marble", "tower", "haus", "kiste"];
-  var HOME=['Holzis <span>Holzkiste</span>','Elf Holzspiele für Kinder'];
+  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "tower", "haus", "kiste", "kloetze", "forst"];
+  var HOME=['Holzis <span>Holzkiste</span>','Fünfzehn Holzspiele für Kinder'];
   H.stats=['Holzis <span>Statistik</span>','Sterne, Spielzeit, Rangliste und Abzeichen'];
   H.research=['Holzis <span>Forschung</span>','Münzen verdienen, erforschen, Profi-Level freischalten'];
   function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'||g==='research'; }
   // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
-  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6]};
+  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6],raeumen:["holzi-raeumen",9],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6]};
   var $=function(id){ return document.getElementById(id); };
   var STAR_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.2 6.1 20.4l1.3-6.5L2.5 9.3l6.6-.8z" fill="var(--gold)" stroke="#b47d10" stroke-width="1.2" stroke-linejoin="round"/></svg>';
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
@@ -4566,7 +5509,13 @@ HZG.kiste=function(){
     for(var i=0;i<n;i++){ var v=s[i]; if(v&&typeof v==="object") v=v.stars; sum+=Math.min(3, +v||0); }
     return [sum, n*3];
   }
+  // Kacheln: so viele breit machen, dass jede Gruppe ohne Luecke aufgeht (eine einzelne Kachel geht ueber die ganze Breite)
+  function layoutTiles(){ document.querySelectorAll('#home .tiles').forEach(function(t){ var ts=[].slice.call(t.children), cols=getComputedStyle(t).gridTemplateColumns.split(' ').filter(Boolean).length||1, n=ts.length, w=n===1?0:(cols-n%cols)%cols;
+    // breite Kacheln jeweils an den Anfang einer Zeile: eine breite + (Spalten-2) schmale fuellen die Zeile, die Reihenfolge bleibt
+    ts.forEach(function(x,i){ x.classList.toggle('hero', n===1); x.classList.toggle('wide', n>1&&cols>1&&i%(cols-1)===0&&i/(cols-1)<w); }); }); }
+  window.addEventListener('resize', layoutTiles);
   function renderHome(){
+    layoutTiles();
     var all=0, max=0;
     ORDER.forEach(function(g){
       var st=stars(g), t=$('tile-'+g); all+=st[0]; max+=st[1];
@@ -4686,8 +5635,8 @@ HZG.kiste=function(){
 
 
   // ---- Statistik: Spielzeit und geschaffte Level werden je Kind mitgeschrieben (nur auf diesem Geraet) ----
-  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',sudoku:'w',kreuz:'w',worte:'w',tower:'b',haus:'b',kiste:'b'};
-  var GRPN={k:'Knobeln & Legen',w:'Wörter & Zahlen',b:'Bauen & Fahren'}, GRPS=['k','w','b'];
+  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',raeumen:'k',fuellen:'k',sudoku:'w',kreuz:'w',worte:'w',tower:'b',haus:'b',kiste:'b',kloetze:'b',forst:'f'};
+  var GRPN={k:'Knobeln & Legen',w:'Wörter & Zahlen',b:'Bauen & Fahren',f:'Wald & Wirtschaft'}, GRPS=['k','w','b','f'];
   var BEST={tan:'tan',puzzle:'pz',sudoku:'sudoku',kiste:'kiste'};
   function dkey(d){ d=d||new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
   function loadStats(id){ var s=null; try{ s=JSON.parse(PF.read(id||PF.id,'holzi-stats')||'null'); }catch(e){} if(!s||typeof s!=='object') s={}; s.d=s.d||{}; s.w=s.w||[]; return s; }
@@ -4745,7 +5694,7 @@ HZG.kiste=function(){
       ['⭐','Sternensammler','50 Sterne sammeln',Math.min(r.stars,50),50],
       ['🌟','Sternenhimmel','150 Sterne sammeln',Math.min(r.stars,150),150],
       ['👑','Holzi-Legende','Alle '+r.max+' Sterne sammeln',r.stars,r.max],
-      ['🧭','Entdecker','In jedem der 11 Spiele einen Stern holen',tried,11],
+      ['🧭','Entdecker','In jedem der '+ORDER.length+' Spiele einen Stern holen',tried,ORDER.length],
       ['💯','Perfektionist','10 Level mit drei Sternen schaffen',Math.min(r.three,10),10],
       ['🔥','Dranbleiber','3 Tage hintereinander spielen',Math.min(r.streak.best,3),3],
       ['📅','Wochenheld','7 Tage hintereinander spielen',Math.min(r.streak.best,7),7],
@@ -4758,7 +5707,11 @@ HZG.kiste=function(){
       ['🐝','Honigfinder','Alle Labyrinthe schaffen',G.maze.done,G.maze.lv.length],
       ['🔓','Ausbrecher','Holzi aus allen vier Kisten befreien',G.slide.done,G.slide.lv.length],
       ['🔬','Forscher','5 Forschungen abschließen',Math.min(r.research,5),5],
-      ['🗝️','Profi-Schlüssel','Alle 11 Profi-Werkstätten freischalten',r.pro,11]
+      ['🗝️','Profi-Schlüssel','Alle '+PATHS[3].items.length+' Profi-Werkstätten freischalten',r.pro,PATHS[3].items.length],
+      ['📦','Lagermeister','Alle Lager von Holzi aufräumen',G.raeumen.done,G.raeumen.lv.length],
+      ['🧱','Kistenpacker','Alle Holzkisten füllen',G.fuellen.done,G.fuellen.lv.length],
+      ['🌧️','Klötzchen-König','In 5 Klötzchen-Leveln drei Sterne holen',Math.min(G.kloetze.three,5),5],
+      ['🌲','Förster','Den ersten Forstbetrieb erfolgreich führen',G.forst.done>0?1:0,1]
     ].map(function(b){ return {ic:b[0], name:b[1], desc:b[2], have:b[3], need:b[4], ok:b[3]>=b[4]&&b[4]>0}; });
   }
   function fmtDur(s){ s=Math.round(s||0); if(s<60) return s?'< 1 min':'0 min'; var m=Math.round(s/60); if(m<60) return m+' min'; return Math.floor(m/60)+' h '+('0'+m%60).slice(-2)+' min'; }
@@ -4917,7 +5870,7 @@ HZG.kiste=function(){
   // ---- Holz-Münzen und Forschung (je Kind, nur auf diesem Geraet) ----
   var COIN='<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e3a83a" stroke="#9a6418" stroke-width="1.6"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#9a6418" stroke-width="1.2" opacity=".7"/><path d="M9 8.5c1.6 1 4.4 1 6 0M8.6 12c2 1 4.8 1 6.8 0M9 15.5c1.6 1 4.4 1 6 0" stroke="#9a6418" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>';
   // ab diesem Level ist ein Spiel "Profi" und muss erforscht werden (was schon Sterne hat, bleibt offen)
-  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5};
+  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4};
   var PATHS=[
     {id:'werk', name:'Werkstatt', ic:'🔨', what:'Mehr Münzen für jeden neuen Stern', items:[
       {id:'schleif', name:'Schleifpapier', ic:'🧻', cost:80, star:2},
@@ -4945,7 +5898,11 @@ HZG.kiste=function(){
       {id:'pro_marble', game:'marble', name:'Riesenbahnen', ic:'🔵', cost:250},
       {id:'pro_kreuz', game:'kreuz', name:'Profi-Rätsel', ic:'📝', cost:300},
       {id:'pro_puzzle', game:'puzzle', name:'Großpuzzles', ic:'🧩', cost:400},
-      {id:'pro_tan', game:'tan', name:'Profi-Figuren', ic:'🔺', cost:400}]}
+      {id:'pro_tan', game:'tan', name:'Profi-Figuren', ic:'🔺', cost:400},
+      {id:'pro_raeumen', game:'raeumen', name:'Großlager', ic:'📦', cost:250},
+      {id:'pro_fuellen', game:'fuellen', name:'Pentomino-Truhen', ic:'🧱', cost:300},
+      {id:'pro_kloetze', game:'kloetze', name:'Klötzchen-Sturm', ic:'🌧️', cost:250},
+      {id:'pro_forst', game:'forst', name:'Großforstbetrieb', ic:'🌲', cost:400}]}
   ];
   var ITEMS={}; PATHS.forEach(function(p){ p.items.forEach(function(it){ it.path=p.id; ITEMS[it.id]=it; }); });
   var BASE={star:10, win:2, day:0, cap:40};
