@@ -124,8 +124,11 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v32";` hochzählen
-(`holzi-v33` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen die Version an **zwei** Stellen hochzählen: in `sw.js` `const VERSION = "holzi-v33";` und in `index.html`
+`window.HOLZI_VERSION="holzi-v33";` (`holzi-v34` …). Die Seite selbst holt sich die App online immer frisch (höchstens
+3 Sekunden warten, sonst aus dem Speicher); der neue Service Worker lädt beim Installieren alles am Browser-Cache vorbei
+und die App lädt dann neu – auf der Startseite sofort, im Spiel nach Tippen auf „Neue Version“. Unten auf der Startseite
+stehen die Versionsnummer und „Nach Update suchen“.
 
 ## Quellen
 

@@ -696,6 +696,7 @@ body.ingame header.top h1{font-size:clamp(22px,5vw,32px)}
 .tile-stars{display:flex; align-items:center; gap:2px; font-size:12px; font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap}
 .tile-stars svg{width:14px; height:14px}
 .tile.last::after{content:"Zuletzt"; position:absolute; top:14px; right:14px; padding:3px 8px; border-radius:999px; background:rgba(255,250,240,.92); color:#5a3517; font:800 11px var(--font-display); letter-spacing:.02em}
+.upd-btn{border:0; background:none; color:var(--accent); font:700 12.5px var(--font-body); text-decoration:underline; cursor:pointer; padding:2px 4px}
 .home-foot{margin:4px 0 0; text-align:center; color:var(--muted); font-size:13px}
 
 /* ---- Spielansicht ---- */
@@ -1314,7 +1315,7 @@ label.pf-btn{display:inline-block}
       </div>
     </section>
     </div>
-    <p class="home-foot">Alle Spiele laufen auch ohne Internet. Fortschritt und Rekorde bleiben auf diesem Gerät.</p>
+    <p class="home-foot">Alle Spiele laufen auch ohne Internet. Fortschritt und Rekorde bleiben auf diesem Gerät.<br><span id="appver"></span> <button type="button" class="upd-btn" id="updbtn">Nach Update suchen</button></p>
   </section>
 
   <section class="statsv" id="stats" hidden aria-label="Statistik"></section>
@@ -8280,9 +8281,23 @@ insektGame("ameisen"); insektGame("bienen");
 </script>
 
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
-}
+/* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
+   dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
+window.HOLZI_VERSION="holzi-v33";
+(function(){
+  var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
+  if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");
+  if(!("serviceWorker" in navigator)){ if(btn) btn.hidden=true; return; }
+  var hadCtrl=!!navigator.serviceWorker.controller, reloading=false, reg=null;
+  function inGame(){ return document.body.classList.contains("ingame"); }
+  function reloadNow(){ if(reloading) return; reloading=true; location.reload(); }
+  function toast(){ if(document.getElementById("updtoast")) return; var t=document.createElement("button"); t.id="updtoast"; t.className="zoomfix"; t.textContent="✨ Neue Version – tippen zum Laden"; t.onclick=reloadNow; document.body.appendChild(t); }
+  navigator.serviceWorker.addEventListener("controllerchange",function(){ if(!hadCtrl){ hadCtrl=true; return; } if(inGame()) toast(); else reloadNow(); });
+  function check(manual){ if(!reg) return; reg.update().then(function(){ if(manual&&!reg.installing&&!reg.waiting&&btn){ btn.textContent="Ist aktuell ✓"; setTimeout(function(){ btn.textContent="Nach Update suchen"; },2500); } }).catch(function(){ if(manual&&btn){ btn.textContent="Kein Internet"; setTimeout(function(){ btn.textContent="Nach Update suchen"; },2500); } }); }
+  window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){ reg=r; check(false); }).catch(function(){}); });
+  document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible") check(false); });
+  if(btn) btn.onclick=function(){ btn.textContent="Suche …"; check(true); };
+})();
 </script>
 </body>
 </html>

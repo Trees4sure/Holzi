@@ -1,5 +1,5 @@
 // Holzi will raus – Service Worker: alles offline verfügbar
-const VERSION = "holzi-v32";
+const VERSION = "holzi-v33";
 const CORE = [
   "./",
   "./index.html",
@@ -22,7 +22,8 @@ const CORE = [
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(VERSION).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
+  // cache:"reload" holt die Dateien am Browser-Zwischenspeicher vorbei – sonst landet kurz nach einem Update noch die alte Seite im neuen Cache
+  e.waitUntil(caches.open(VERSION).then((c) => c.addAll(CORE.map((u) => new Request(u, { cache: "reload" })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (e) => {
@@ -48,6 +49,21 @@ self.addEventListener("fetch", (e) => {
         })
       )
     );
+    return;
+  }
+
+  // Die Seite selbst: erst das Netz (höchstens 3 Sekunden), sonst der Cache – so kommt ein Update sofort an,
+  // und ohne Internet startet die App wie gewohnt aus dem Speicher
+  if (req.mode === "navigate" && url.origin === self.location.origin) {
+    e.respondWith(new Promise((resolve) => {
+      let done = false;
+      const fromCache = () => caches.match("./index.html").then((hit) => hit || caches.match("./"));
+      const timer = setTimeout(() => { if (!done) { done = true; fromCache().then(resolve); } }, 3000);
+      fetch(req, { cache: "no-cache" }).then((res) => {
+        if (res && res.ok) { const copy = res.clone(); caches.open(VERSION).then((c) => c.put("./index.html", copy)); }
+        if (!done) { done = true; clearTimeout(timer); resolve(res); }
+      }).catch(() => { if (!done) { done = true; clearTimeout(timer); fromCache().then(resolve); } });
+    }));
     return;
   }
 
