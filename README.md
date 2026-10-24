@@ -19,7 +19,7 @@ Sechzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | **Kiste füllen** | Holzteile lückenlos in eine Kiste legen (Polyomino/Pentomino), bis zu den 12 Pentominos im 6×10- und 8×8-Kasten |
 | **Klötzchenregen** | Fallende Holzklötze: volle Reihen verschwinden, vier gleiche Holzarten platzen, Kettenreaktionen, Astknoten-Level |
 | **Forstbetrieb** (ab 12) | Wirtschaftsspiel: Wald kaufen, Baumarten passend zum Boden pflanzen, durchforsten, ernten, Holzmarkt, Sturm, Dürre, Borkenkäfer; Ausrüstung von Handsäge über Motorsäge bis Harvester und Forwarder; Wachstumskurven je Baumart (Höhe, Vorrat); Klimabaumarten Zerreiche, Orientbuche, Baumhasel; eigenes Sägewerk mit Schnittholz, Aufträgen und Ausbauten; Einführung „Erste Schritte“ und Vorschläge „Was jetzt?“; 6 Szenarien bis 60 Jahre |
-| **Lückenrätsel** | Rätsel über Wald und Werkstatt: erst fehlende Buchstaben, dann ganze Wörter (mit Ablenkwörtern), am Ende „Wer bin ich?“ |
+| **Lückenrätsel** | 30 Rätsel über Wald, Tiere und Werkstatt: erst fehlende Buchstaben, dann ganze Wörter (mit Ablenkwörtern), am Ende „Wer bin ich?“ |
 
 ## Aufbau
 
@@ -60,6 +60,7 @@ Sechzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
 | `icon-192.png`, `icon-512.png`, `maskable-512.png`, `apple-touch-icon.png` | App-Icons |
 | `matter.min.js` | Physik-Bibliothek für den Wackelturm (matter-js 0.19, MIT-Lizenz) |
 | `three.min.js` | 3D-Grafik für Zimmerei und Seifenkiste (three.js r128, MIT-Lizenz) |
+| `qrcode.js` | QR-Code für „Teilen“ auf der Startseite (qrcode-generator von Kazuhiko Arase, MIT-Lizenz) |
 | `cannon.min.js` | 3D-Physik für die Seifenkiste (cannon.js 0.6.2, MIT-Lizenz) |
 
 ## Lokal testen
@@ -104,8 +105,8 @@ Ein Play-Store-Entwicklerkonto kostet einmalig 25 US-Dollar. Für die eigene Fam
 
 ## Updates
 
-Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v21";` hochzählen
-(`holzi-v22` …). Sonst behalten installierte Geräte die alte Version im Cache.
+Nach Änderungen an `index.html` in `sw.js` die Zeile `const VERSION = "holzi-v22";` hochzählen
+(`holzi-v23` …). Sonst behalten installierte Geräte die alte Version im Cache.
 
 ## Quellen
 

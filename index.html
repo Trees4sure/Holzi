@@ -760,7 +760,7 @@ body.ingame{--chrome:400px}
 .pf-btn.go{background:var(--accent); color:var(--accent-ink)}
 .pf-btn.del{background:#c0392b; color:#fff; margin-right:auto}
 .pf-warn{flex:1 1 100%; margin:0 0 4px!important}
-@media (max-width:420px){ .who{max-width:40vw; font-size:14px} }
+@media (max-width:480px){ .who{padding:4px} .who span:last-child{display:none} }
 
 /* ---- Statistik & Rangliste ---- */
 :root{--v-k:#eb6834; --v-w:#1baf7a; --v-b:#2a78d6; --v-f:#eda100; --v-one:#b98213; --v-two:#4c7a36; --lv1:#f6dfa0; --lv2:#e8b54a; --lv3:#b98213}
@@ -1058,6 +1058,12 @@ body.ingame{--chrome:400px}
 .fo-hint{animation:fohint 1.4s ease-in-out infinite}
 @keyframes fohint{50%{stroke-opacity:.15}}
 @media (prefers-reduced-motion: reduce){ .fo-hint{animation:none} }
+
+/* ---- Teilen / QR ---- */
+.qr-wrap{display:grid; place-items:center; margin:6px 0}
+.qr-svg{width:min(260px,70vw); height:auto; border-radius:14px; box-shadow:0 0 0 2px var(--line)}
+.qr-url{margin:4px 0 0!important; text-align:center; font:700 14px var(--font-body); word-break:break-all; color:var(--muted)}
+.qr-how{margin-top:12px; font-size:13.5px} .qr-how summary{cursor:pointer; font-weight:700} .qr-how p{margin:6px 0 0!important}
 @media (prefers-reduced-motion: reduce){ .hello-holzi{animation:none} .tile,.tile-art svg{transition:none} }
 </style>
 
@@ -1071,6 +1077,7 @@ body.ingame{--chrome:400px}
       <p class="sub" id="sub">Sechzehn Holzspiele für Kinder</p>
     </div>
     <button class="who" id="who" type="button"></button>
+    <button class="iconbtn" id="sharebtn" aria-label="App teilen" title="Teilen (QR-Code)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><path d="M14 14h3v3h-3zM20 14v.01M14 20v.01M17 17h3v3"/></svg></button>
     <button class="iconbtn" id="helpbtn" aria-label="So geht's" title="So geht's" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 014.8 1c0 1.7-2.4 2.2-2.4 3.7"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></button>
     <button class="iconbtn" id="sound" aria-label="Ton aus" title="Ton an/aus"></button>
   </header>
@@ -5701,16 +5708,36 @@ HZG.forstState=function(){ return S; };
    vollständig, wird das Rätsel gelöst: „Wer bin ich?“. {x} = Buchstabenlücke, [Wort] = Wortlücke */
 var K=HZK, hz=K.hz;
 var LEVELS=[
- {name:"Immer grün",age:"ab 6",t:"Ich {h}abe vi{e}le Nadeln, aber ich nä{h}e nicht. Im Winter bleibe ich {g}rün. Wer bin ich?",a:"🌲 Tanne",o:["🍂 Buche","🍄 Pilz","🦔 Igel"]},
- {name:"Stachelkugel",age:"ab 6",t:"Ich trage meine Sta{c}heln wie einen M{a}ntel. Bei Gefahr rolle ich mich zu einer K{u}gel. Im Winter s{c}hlafe ich im Laub. Wer bin ich?",a:"🦔 Igel",o:["🦊 Fuchs","🐿️ Eichhörnchen","🦉 Eule"]},
- {name:"Der Klopfer",age:"ab 7",t:"Ich klop{f}e den ganzen Tag an die Bäume. Ich su{c}he Käfer unter der R{i}nde. Mein Schnabel ist mein Hamm{e}r. Wer bin ich?",a:"🐦 Specht",o:["🦉 Eule","🐝 Biene","🦫 Biber"]},
- {name:"Hut ohne Kopf",age:"ab 7",t:"Ich wa{ch}se nach dem Regen aus dem Bo{de}n. Ich habe einen H{ut}, aber keinen Kopf. Manche von mir sind gi{ft}ig. Wer bin ich?",a:"🍄 Pilz",o:["🌰 Eichel","🪨 Stein","🐌 Schnecke"]},
- {name:"Baumeister",age:"ab 8",t:"Ich b{au}e Dä{mm}e aus Ästen. Mit meinen Zä{hn}en fälle ich Bä{um}e. Mein Sch{wa}nz ist platt wie eine Kelle. Wer bin ich?",a:"🦫 Biber",o:["🦔 Igel","🐻 Bär","🦦 Otter"]},
- {name:"Viele Zähne",age:"ab 8",t:"Ich habe viele scharfe [Zähne], aber ich beiße nie. Ich gehe [hin] und [her] und mache das Holz [klein]. Wer bin ich?",a:"🪚 Säge",o:["🔨 Hammer","🪓 Axt","📏 Zollstock"]},
- {name:"Nachtjäger",age:"ab 9",t:"Ich schlafe am [Tag] und jage in der [Nacht]. Meinen [Kopf] kann ich fast ganz [herumdrehen]. Ich fliege ganz [leise]. Wer bin ich?",a:"🦉 Eule",o:["🦇 Fledermaus","🐦 Specht","🦊 Fuchs"],x:["Mittag","Schwanz","laut"]},
- {name:"Samenhüter",age:"ab 10",t:"Ich hänge an den [Ästen] und halte die [Samen] fest. Wenn es [trocken] ist, öffne ich meine [Schuppen]. Eichhörnchen [knabbern] mich gern an. Wer bin ich?",a:"Tannenzapfen",o:["Eichel","Kastanie","Haselnuss"],x:["Wurzeln","nass","Federn","verstecken"]},
- {name:"Baumuhr",age:"12+",t:"Ich komme jedes [Jahr] einmal dazu. Im [Frühling] bin ich hell, im [Herbst] dunkel. Wer mich [zählt], weiß, wie [alt] ein Baum ist. Am [Baumstumpf] sieht man mich gut. Wer bin ich?",a:"Jahresring",o:["Rinde","Astloch","Wurzel"],x:["Monat","Winter","groß","Blatt"]},
- {name:"Waldwissen",age:"Profi",t:"In mir wachsen [alte] und [junge] Bäume nebeneinander. Einen [Kahlschlag] gibt es bei mir nicht, denn man [erntet] immer nur [einzelne] Bäume. Dadurch bin ich [stabil] gegen Sturm und bleibe [dauerhaft] grün. Wer bin ich?",a:"Dauerwald",o:["Fichtenforst","Baumschule","Kahlfläche"],x:["schnelle","alle","Plantage","pflanzt","wackelig"]}
+ {"name":"Immer grün","age":"ab 6","t":"Ich {h}abe vi{e}le Nadeln, aber ich nä{h}e nicht. Im Winter bleibe ich {g}rün. Wer bin ich?","a":"🌲 Tanne","o":["🍂 Buche","🍄 Pilz","🦔 Igel"]},
+ {"name":"Stachelkugel","age":"ab 6","t":"Ich trage meine Sta{c}heln wie einen M{a}ntel. Bei Gefahr rolle ich mich zu einer K{u}gel. Im Winter s{c}hlafe ich im Laub. Wer bin ich?","a":"🦔 Igel","o":["🦊 Fuchs","🐿️ Eichhörnchen","🦉 Eule"]},
+ {"name":"Rote Mütze","age":"ab 6","t":"Ich trage einen r{o}ten Hut mit weißen P{u}nkten. Ich sehe hübsch aus, aber ich bin gi{f}tig. Niemand darf mich e{s}sen. Wer bin ich?","a":"🍄 Fliegenpilz","o":["🍓 Erdbeere","🐞 Marienkäfer","🌹 Rose"]},
+ {"name":"Nussversteck","age":"ab 6","t":"Ich habe einen bu{s}chigen Schwanz. Ich kl{e}ttere schnell auf Bäume. Im Herbst ve{r}stecke ich Nüsse für den Win{t}er. Wer bin ich?","a":"🐿️ Eichhörnchen","o":["🦊 Fuchs","🐭 Maus","🦔 Igel"]},
+ {"name":"Der Klopfer","age":"ab 7","t":"Ich klop{f}e den ganzen Tag an die Bäume. Ich su{c}he Käfer unter der R{i}nde. Mein Schnabel ist mein Hamm{e}r. Wer bin ich?","a":"🐦 Specht","o":["🦉 Eule","🐝 Biene","🦫 Biber"]},
+ {"name":"Schlaues Rot","age":"ab 7","t":"Mein Fell ist r{o}t, mein Schwanz ist l{a}ng und buschig. Ich wohne in einem B{a}u unter der Erde. Im Märchen bin ich sehr schl{a}u. Wer bin ich?","a":"🦊 Fuchs","o":["🐺 Wolf","🐿️ Eichhörnchen","🦡 Dachs"]},
+ {"name":"Kopf aus Eisen","age":"ab 7","t":"Ich habe einen K{o}pf aus Eisen und einen Stiel aus H{o}lz. Ich schlage Nä{g}el in das Brett. Pass auf deine Fin{g}er auf! Wer bin ich?","a":"🔨 Hammer","o":["🪚 Säge","🪛 Schraubenzieher","📏 Zollstock"]},
+ {"name":"Honigsammler","age":"ab 7","t":"Ich fl{i}ege von Blüte zu Blüte. Ich sa{m}mle Nektar und mache daraus H{o}nig. Ich wohne mit vielen anderen in einem St{o}ck. Wer bin ich?","a":"🐝 Biene","o":["🦋 Schmetterling","🐞 Marienkäfer","🐜 Ameise"]},
+ {"name":"Hut ohne Kopf","age":"ab 7","t":"Ich wa{ch}se nach dem Regen aus dem Bo{de}n. Ich habe einen H{ut}, aber keinen Kopf. Manche von mir sind gi{ft}ig. Wer bin ich?","a":"🍄 Pilz","o":["🌰 Eichel","🪨 Stein","🐌 Schnecke"]},
+ {"name":"Baumeister","age":"ab 8","t":"Ich b{au}e Dä{mm}e aus Ästen. Mit meinen Zä{hn}en fälle ich Bä{um}e. Mein Sch{wa}nz ist platt wie eine Kelle. Wer bin ich?","a":"🦫 Biber","o":["🦔 Igel","🐻 Bär","🦦 Otter"]},
+ {"name":"Kleine Riesen","age":"ab 8","t":"Ich bin kl{ei}n, aber sehr st{ar}k. Ich trage viel mehr, als ich selbst wi{eg}e. Mit Tausenden anderen baue ich einen Hü{ge}l aus Nadeln. Wer bin ich?","a":"🐜 Ameise","o":["🐝 Biene","🐞 Marienkäfer","🕷️ Spinne"]},
+ {"name":"Unter der Wiese","age":"ab 8","t":"Ich gr{ab}e Gänge unter der W{ie}se. Ich sehe fast ni{ch}ts, aber ich rie{ch}e sehr gut. Meine Erdhügel ärgern manchen Gärt{ner}. Wer bin ich?","a":"Maulwurf","o":["🐇 Hase","🦫 Biber","🦔 Igel"]},
+ {"name":"Stachelhülle","age":"ab 8","t":"Ich wa{chs}e in einer gr{ün}en, stach{el}igen Hülle. Im He{rb}st falle ich vom Baum. Kinder ba{st}eln gern Tiere aus mir. Wer bin ich?","a":"🌰 Kastanie","o":["Eichel","Bucheckern","🍎 Apfel"]},
+ {"name":"Holz spalten","age":"ab 8","t":"Ich habe eine sch{ar}fe Kl{in}ge und einen la{ng}en Stiel. Mit mir sp{al}tet man Brennholz. Holzfäller tr{ag}en mich über der Schulter. Wer bin ich?","a":"🪓 Axt","o":["🪚 Säge","🔨 Hammer","🧹 Besen"]},
+ {"name":"Scheu am Waldrand","age":"ab 9","t":"Ich bin scheu und l{eb}e am W{al}drand. Mein Kind heißt K{itz} und hat weiße Pun{kt}e im Fell. Ich fr{ess}e gern junge Triebe. Wer bin ich?","a":"🦌 Reh","o":["🐗 Wildschwein","🦊 Fuchs","🐇 Hase"]},
+ {"name":"Viele Zähne","age":"ab 8","t":"Ich habe viele scharfe [Zähne], aber ich beiße nie. Ich gehe [hin] und [her] und mache das Holz [klein]. Wer bin ich?","a":"🪚 Säge","o":["🔨 Hammer","🪓 Axt","📏 Zollstock"]},
+ {"name":"Gestreifte Kinder","age":"ab 8","t":"Ich [wühle] mit meiner [Schnauze] im Boden. Meine Kinder heißen [Frischlinge] und haben [Streifen] auf dem Rücken. Wer bin ich?","a":"🐗 Wildschwein","o":["🐻 Bär","🦌 Reh","🦡 Dachs"]},
+ {"name":"Bunt im Herbst","age":"ab 8","t":"Im Frühling bin ich [hellgrün], im Sommer [dunkelgrün]. Im Herbst werde ich [bunt] und falle zu [Boden]. Wer bin ich?","a":"🍂 Blatt","o":["🌸 Blüte","🌰 Kastanie","🍄 Pilz"]},
+ {"name":"Nachtjäger","age":"ab 9","t":"Ich schlafe am [Tag] und jage in der [Nacht]. Meinen [Kopf] kann ich fast ganz [herumdrehen]. Ich fliege ganz [leise]. Wer bin ich?","a":"🦉 Eule","o":["🦇 Fledermaus","🐦 Specht","🦊 Fuchs"],"x":["Mittag","Schwanz","laut"]},
+ {"name":"Zum Messen","age":"ab 9","t":"Ich bin aus [Holz] und kann mich [zusammenklappen]. Auf mir stehen viele [Zahlen]. Der Handwerker [misst] mit mir, wie lang ein Brett ist. Wer bin ich?","a":"📏 Zollstock","o":["🔨 Hammer","🪚 Säge","✏️ Bleistift"],"x":["Eisen","Farben","sägt"]},
+ {"name":"Samenhüter","age":"ab 10","t":"Ich hänge an den [Ästen] und halte die [Samen] fest. Wenn es [trocken] ist, öffne ich meine [Schuppen]. Eichhörnchen [knabbern] mich gern an. Wer bin ich?","a":"Tannenzapfen","o":["Eichel","Kastanie","Haselnuss"],"x":["Wurzeln","nass","Federn","verstecken"]},
+ {"name":"Beruf im Wald","age":"ab 10","t":"Ich arbeite jeden Tag im [Wald]. Ich [pflanze] junge Bäume und [markiere] die, die gefällt werden sollen. Ich passe auf, dass der Wald [gesund] bleibt. Wer bin ich?","a":"Förster","o":["Zimmermann","Bäcker","Jäger"],"x":["Büro","verkaufe","krank"]},
+ {"name":"Grüner Teppich","age":"ab 10","t":"Ich bin [weich] wie ein Teppich und [wachse] auf Steinen und Baumstümpfen. Ich kann viel [Wasser] speichern wie ein [Schwamm]. Blüten habe ich [keine]. Wer bin ich?","a":"Moos","o":["Farn","Gras","🍄 Pilz"],"x":["hart","Sand","viele"]},
+ {"name":"Baumuhr","age":"ab 11","t":"Ich komme jedes [Jahr] einmal dazu. Im [Frühling] bin ich hell, im [Herbst] dunkel. Wer mich [zählt], weiß, wie [alt] ein Baum ist. Am [Baumstumpf] sieht man mich gut. Wer bin ich?","a":"Jahresring","o":["Rinde","Astloch","Wurzel"],"x":["Monat","Winter","groß","Blatt"]},
+ {"name":"Waldmaschine","age":"12+","t":"Ich bin eine große [Maschine] mit einem langen [Arm]. Ich [fälle] einen Baum, [entaste] ihn und säge ihn in Stücke – alles in einer [Minute]. Wer bin ich?","a":"Harvester","o":["🚜 Traktor","Kran","Forwarder"],"x":["Brücke","pflanze","Stunde"]},
+ {"name":"Winziger Schädling","age":"12+","t":"Ich bin [winzig] und lebe unter der [Rinde] von Fichten. Wenn es lange [trocken] ist, werden wir [Millionen]. Dann [sterben] ganze Wälder. Wer bin ich?","a":"Borkenkäfer","o":["🐞 Marienkäfer","🐜 Ameise","Holzwurm"],"x":["riesig","Erde","nass","wachsen"]},
+ {"name":"Holz im Haus","age":"12+","t":"Ich bin eine [Wand] aus Holzbalken. Zwischen den [Balken] ist Lehm oder [Stein]. Die [schrägen] Hölzer heißen [Streben] und machen mich [stabil]. Wer bin ich?","a":"Fachwerk","o":["Blockhaus","Baumhaus","Brücke"],"x":["Dach","Glas","Sparren","wackelig"]},
+ {"name":"Unten fest","age":"Profi","t":"Ich [lebe] unter der [Erde]. Ich [halte] den Baum fest, damit ihn der [Sturm] nicht umwirft. Außerdem [trinke] ich Wasser für den ganzen Baum. Wer bin ich?","a":"Wurzel","o":["Rinde","Ast","Blatt"],"x":["über","Regen","esse","Himmel"]},
+ {"name":"Unsichtbar","age":"Profi","t":"Bäume [nehmen] Kohlendioxid aus der Luft auf und geben mich wieder [ab]. Ohne mich könnte kein [Mensch] und kein [Tier] leben. Man kann mich nicht [sehen] und nicht riechen. Wer bin ich?","a":"Sauerstoff","o":["Wasser","Zucker","Wind"],"x":["aus","Stein","hören"]},
+ {"name":"Waldwissen","age":"Profi","t":"In mir wachsen [alte] und [junge] Bäume nebeneinander. Einen [Kahlschlag] gibt es bei mir nicht, denn man [erntet] immer nur [einzelne] Bäume. Dadurch bin ich [stabil] gegen Sturm und bleibe [dauerhaft] grün. Wer bin ich?","a":"Dauerwald","o":["Fichtenforst","Baumschule","Kahlfläche"],"x":["schnelle","alle","Plantage","pflanzt","wackelig"]}
 ];
 var $=K.mount("g-luecke",{
   board:'<div class="lu-card" id="luecke-card"></div>',
@@ -5790,6 +5817,7 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
 })();
 </script>
 
+<script src="qrcode.js"></script>
 <script>
 /* Startseite, Spielwechsel, Zurueck-Taste, Hilfe und Level-Wahl */
 (function(){
@@ -5799,7 +5827,7 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
   H.research=['Holzis <span>Forschung</span>','Münzen verdienen, erforschen, Profi-Level freischalten'];
   function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'||g==='research'; }
   // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
-  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",10]};
+  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",6],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",30]};
   var $=function(id){ return document.getElementById(id); };
   var STAR_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.2 6.1 20.4l1.3-6.5L2.5 9.3l6.6-.8z" fill="var(--gold)" stroke="#b47d10" stroke-width="1.2" stroke-linejoin="round"/></svg>';
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
@@ -5849,7 +5877,7 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
     var game=ORDER.indexOf(g)>=0;
     saveStats(); cur=g; window.HZK&&(HZK.cur=game?g:null);
     document.body.classList.toggle('ingame', game); document.body.classList.toggle('instats', g==='stats'||g==='research');
-    $('home').hidden=!!g; $('back').hidden=!g; $('helpbtn').hidden=!game; $('who').hidden=!!g; $('stats').hidden=g!=='stats'; $('research').hidden=g!=='research';
+    $('home').hidden=!!g; $('back').hidden=!g; $('helpbtn').hidden=!game; $('who').hidden=!!g; $('sharebtn').hidden=!!g; $('stats').hidden=g!=='stats'; $('research').hidden=g!=='research';
     ORDER.forEach(function(k){ $('g-'+k).hidden = k!==g; });
     var h=g?H[g]:HOME; $('h1').innerHTML=h[0]; $('sub').textContent=h[1];
     document.title=g?$('h1').textContent+' · Holzis Holzkiste':'Holzis Holzkiste';
@@ -5937,6 +5965,25 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
     setTimeout(function(){ inp.focus(); }, 50);
   }
   $('who').onclick=function(){ window.HZ&&HZ.tok(1.1); showProfiles(false); };
+
+  // ---- Teilen: QR-Code mit der Adresse der App (Bibliothek qrcode.js liegt in der App, funktioniert offline) ----
+  var PUBLIC_URL='https://trees4sure.github.io/Holzi/';
+  function appUrl(){ return /^https?:$/.test(location.protocol)&&!/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname) ? location.origin+location.pathname : PUBLIC_URL; }
+  function qrSvg(text){ if(typeof qrcode!=="function") return ''; var qr=qrcode(0,'M'); qr.addData(text); qr.make(); var n=qr.getModuleCount(), q=4, d='';
+    for(var r=0;r<n;r++) for(var c=0;c<n;c++) if(qr.isDark(r,c)) d+='M'+(c+q)+' '+(r+q)+'h1v1h-1z';
+    return '<svg class="qr-svg" viewBox="0 0 '+(n+2*q)+' '+(n+2*q)+'" shape-rendering="crispEdges" role="img" aria-label="QR-Code für '+text+'"><rect width="100%" height="100%" fill="#fff"/><path d="'+d+'" fill="#2a1708"/></svg>'; }
+  function showShare(){
+    var url=appUrl(), canShare=!!navigator.share;
+    var box=dialog('<h2>Holzi teilen</h2><p class="pf-hint">Scanne den Code mit der Kamera eines anderen Handys oder Tablets – dann öffnet sich Holzis Holzkiste.</p>'+
+      '<div class="qr-wrap">'+qrSvg(url)+'</div><p class="qr-url">'+esc(url)+'</p>'+
+      '<div class="pf-foot"><button type="button" class="pf-btn" data-a="copy">Link kopieren</button>'+(canShare?'<button type="button" class="pf-btn" data-a="share">Teilen …</button>':'')+'<button type="button" class="pf-btn go" data-a="close">Fertig</button></div>'+
+      '<details class="qr-how"><summary>Und dann als App installieren?</summary><p><b>iPad/iPhone:</b> In Safari öffnen → Teilen-Symbol → „Zum Home-Bildschirm“.<br><b>Android:</b> In Chrome öffnen → Menü ⋮ → „App installieren“.</p><p>Spielstände bleiben auf jedem Gerät für sich – Sterne und Profile werden nicht mitgeteilt.</p></details>');
+    box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); };
+    box.querySelector('[data-a="copy"]').onclick=function(){ var b=this, ok=function(){ b.textContent='Kopiert ✓'; };
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok,function(){ prompt('Link:',url); }); else prompt('Link:',url); };
+    var sh=box.querySelector('[data-a="share"]'); if(sh) sh.onclick=function(){ navigator.share({title:'Holzis Holzkiste', text:'Sechzehn Holzspiele für Kinder – kostenlos und ohne Werbung', url:url}).catch(function(){}); };
+  }
+  $('sharebtn').onclick=function(){ window.HZ&&HZ.tok(1.1); showShare(); };
 
 
   // ---- Statistik: Spielzeit und geschaffte Level werden je Kind mitgeschrieben (nur auf diesem Geraet) ----
@@ -6176,7 +6223,7 @@ HZG.lueckeSolve=function(){ gaps.forEach(function(g){ if(!g.ok){ sel=g.i; fill(g
   // ---- Holz-Münzen und Forschung (je Kind, nur auf diesem Geraet) ----
   var COIN='<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e3a83a" stroke="#9a6418" stroke-width="1.6"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#9a6418" stroke-width="1.2" opacity=".7"/><path d="M9 8.5c1.6 1 4.4 1 6 0M8.6 12c2 1 4.8 1 6.8 0M9 15.5c1.6 1 4.4 1 6 0" stroke="#9a6418" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>';
   // ab diesem Level ist ein Spiel "Profi" und muss erforscht werden (was schon Sterne hat, bleibt offen)
-  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4,luecke:8};
+  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4,luecke:24};
   var PATHS=[
     {id:'werk', name:'Werkstatt', ic:'🔨', what:'Mehr Münzen für jeden neuen Stern', items:[
       {id:'schleif', name:'Schleifpapier', ic:'🧻', cost:80, star:2},
