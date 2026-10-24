@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#e4ecdc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141c16" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Holzis Holzkiste: zwanzig Holzspiele für Kinder – Schieben, Tangram, Labyrinth, Puzzle, Sudoku, Kreuzworträtsel, Wörter, Wortwald, Murmelbahn, Wackelturm, Zimmerei, Seifenkiste, Biberbau, Forstbetrieb, Ameisenstaat, Bienenvolk und mehr.">
+<meta name="description" content="Holzis Holzkiste: achtzehn Holzspiele für Kinder – Schieben, Tangram, Labyrinth, Puzzle, Sudoku, Kreuzworträtsel, Wörter, Wortwald, Murmelbahn, Wackelturm, Zimmerei, Seifenkiste, Biberbau, Forstbetrieb und mehr.">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -753,7 +753,7 @@ body.ingame{--chrome:400px}
   body.ingame .game > :is(.stage,.tboard,.mboard,.pboard,.board-wrap){grid-column:1; grid-row:1 / -1; justify-self:center; position:sticky; top:84px}
   body.ingame .game > :is(.tboard,.mboard,.pboard,.board-wrap){max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
   #g-sudoku,#g-kreuz,#g-kiste,#g-biber{--xtra:0px}
-  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:0.737} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4} #g-biber{--ar:0.92} #g-ameisen,#g-bienen{--ar:0.86}
+  #g-tan{--ar:1.38} #g-maze{--ar:1.12} #g-puzzle{--ar:0.737} #g-worte{--ar:1.15} #g-marble{--ar:1.2} #g-tower{--ar:1.4} #g-haus,#g-kiste{--ar:1.12} #g-wortwald{--ar:1.4} #g-biber{--ar:0.92}
   body.ingame .game > .bubble::after{left:-9px; top:50%; bottom:auto; transform:translateY(-50%) rotate(135deg)}
   body.ingame .levels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
   /* Puzzle quer: Brett und Ablage nebeneinander ueber die ganze Breite, Bedienung darunter */
@@ -1060,42 +1060,6 @@ label.pf-btn{display:inline-block}
 .bb-time.low{background:#c0392b; color:#fff; animation:lublink 1s ease-in-out infinite}
 @media (max-width:480px){ .bb-act{min-width:78px; height:78px; font-size:14px} }
 
-/* ---- Ameisenstaat / Bienenvolk ---- */
-#g-ameisen .board-wrap,#g-bienen .board-wrap{max-width:820px}
-.ins{width:100%; display:flex; flex-direction:column; gap:8px}
-.ins-top{display:flex; flex-wrap:wrap; gap:5px; justify-content:center}
-.ins-chip{display:inline-flex; align-items:center; gap:5px; padding:4px 10px 4px 7px; border-radius:99px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line); font-size:12px}
-.ins-chip i{font-style:normal; font-size:15px} .ins-chip em{font-style:normal; color:var(--muted); font-weight:700} .ins-chip b{font:800 15px var(--font-display); font-variant-numeric:tabular-nums} .ins-chip small{font:700 10.5px var(--font-body); color:var(--muted)}
-.ins-view{position:relative; border-radius:18px; overflow:hidden; box-shadow:0 0 0 3px #b4844b, 0 10px 24px -10px rgba(40,25,10,.45); background:#cfe6f2}
-.ins-view canvas{display:block; width:100%; touch-action:manipulation}
-.ins-vbtn{position:absolute; right:8px; top:8px; display:flex; border-radius:12px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,.2)}
-.ins-vbtn button{border:0; padding:7px 11px; background:rgba(255,250,240,.88); color:#2a1708; font:800 12.5px var(--font-body); cursor:pointer}
-.ins-vbtn button[aria-pressed="true"]{background:var(--accent); color:var(--accent-ink)}
-.ins-season{position:absolute; left:8px; top:8px; padding:5px 10px; border-radius:12px; background:rgba(255,250,240,.88); color:#2a1708; font-size:12.5px; pointer-events:none} .ins-season em{color:#b0331f; font-style:normal; font-weight:800}
-.ins-ev{position:absolute; left:8px; right:8px; bottom:8px; padding:8px 12px; border-radius:12px; background:rgba(255,250,240,.94); color:#2a1708; font:700 13.5px/1.35 var(--font-body); box-shadow:0 4px 12px rgba(0,0,0,.25); animation:pop .35s cubic-bezier(.3,1.6,.6,1); pointer-events:none}
-.ins-ev.bad{box-shadow:inset 4px 0 0 #c0392b, 0 4px 12px rgba(0,0,0,.25)} .ins-ev.good{box-shadow:inset 4px 0 0 #3fb24a, 0 4px 12px rgba(0,0,0,.25)}
-.ins-goal{display:flex; flex-direction:column; gap:4px; font:700 13px var(--font-body); color:var(--ink)}
-.ins-goal i{display:block; height:9px; border-radius:99px; background:var(--line); overflow:hidden} .ins-goal b{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#4c9a46,#8cc06b); transition:width .4s}
-.ins-panel{width:100%; display:flex; flex-direction:column; gap:6px}
-.ins-panel h4{margin:6px 0 0; font:800 15px var(--font-display)}
-.ins-tasks{display:flex; flex-direction:column; gap:5px}
-.ins-t{display:grid; grid-template-columns:30px minmax(0,1fr) auto; grid-template-areas:"ic name step" "ic bar n"; column-gap:8px; row-gap:3px; align-items:center; padding:7px 10px; border-radius:14px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line)}
-.ins-ic{grid-area:ic; font-size:22px; text-align:center}
-.ins-tn{grid-area:name; min-width:0} .ins-tn b{display:block; font:800 14.5px var(--font-display)} .ins-tn small{display:block; font-size:11.5px; color:var(--muted); line-height:1.25}
-.ins-step{grid-area:step; display:flex; align-items:center; gap:4px} .ins-step b{min-width:46px; text-align:center; font:900 16px var(--font-display); font-variant-numeric:tabular-nums}
-.ins-step button{width:34px; height:32px; border:0; border-radius:10px; background:var(--bg-soft); color:var(--ink); font:900 20px var(--font-display); cursor:pointer}
-.ins-step button:active{transform:translateY(1px)}
-.ins-bar{grid-area:bar; height:7px; border-radius:99px; background:var(--line); overflow:hidden} .ins-bar i{display:block; height:100%; background:var(--accent); border-radius:99px; transition:width .25s}
-.ins-n{grid-area:n; font-size:11.5px; color:var(--muted); font-weight:700; text-align:right; font-variant-numeric:tabular-nums}
-.ins-t.locked{opacity:.6; grid-template-areas:"ic name name" "ic name name"}
-.ins-presets{display:flex; flex-wrap:wrap; gap:5px; align-items:center; font-size:12px; color:var(--muted); font-weight:700}
-.ins-presets button{border:0; border-radius:99px; padding:6px 11px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line); color:var(--ink); font:700 12.5px var(--font-body); cursor:pointer}
-.ins-log{list-style:none; margin:0; padding:0; font-size:12.5px; max-height:220px; overflow:auto}
-.ins-log li{display:flex; gap:8px; padding:4px 0; border-bottom:1px solid var(--line)} .ins-log li span{flex:none; width:52px; color:var(--muted); font-variant-numeric:tabular-nums}
-.ins-log li.bad{color:#b0331f} .ins-log li.good{color:var(--moss)} .ins-log li.season{font-weight:700}
-#ameisen-swarm.ready,#bienen-swarm.ready{background:linear-gradient(170deg,#f2b632,#d8902a); color:#2a1708; animation:kxpulse .9s ease-in-out infinite}
-@media (max-width:480px){ .ins-chip{padding:3px 8px 3px 6px} .ins-chip em{display:none} .ins-t{padding:6px 8px} }
-
 /* ---- Wortwald ---- */
 #g-wortwald .board-wrap{max-width:min(600px, max(330px, calc(var(--bh) / 1.4)))}
 .ww{width:100%; display:flex; flex-direction:column; gap:10px; align-items:stretch}
@@ -1225,14 +1189,13 @@ label.pf-btn{display:inline-block}
   #g-haus .board-wrap,#g-kiste .board-wrap{max-width:min(980px, calc(var(--bh) / 1.12))}
   #g-wortwald .board-wrap{max-width:min(880px, calc(var(--bh) / 1.4))}
   #g-biber .board-wrap{max-width:min(980px, calc(var(--bh) / 0.92))}
-  #g-ameisen .board-wrap,#g-bienen .board-wrap{max-width:980px}
   #g-luecke .board-wrap{max-width:880px}
 }
 .ww-c.has b{font-size:clamp(14px, calc(min(860px, 92vw) / var(--n) * .5), 40px)}
 /* quer: die Feld-Grenzen je Spiel gelten nur hochkant, quer zaehlt nur die Hoehe */
 @media (orientation:landscape) and (min-width:700px){
   body.ingame .app{max-width:1400px}
-  #g-tan .tboard,#g-maze .mboard,#g-worte .board-wrap,#g-sudoku .board-wrap,#g-kreuz .board-wrap,#g-marble .board-wrap,#g-tower .board-wrap,#g-haus .board-wrap,#g-kiste .board-wrap,#g-wortwald .board-wrap,#g-biber .board-wrap,#g-ameisen .board-wrap,#g-bienen .board-wrap{max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
+  #g-tan .tboard,#g-maze .mboard,#g-worte .board-wrap,#g-sudoku .board-wrap,#g-kreuz .board-wrap,#g-marble .board-wrap,#g-tower .board-wrap,#g-haus .board-wrap,#g-kiste .board-wrap,#g-wortwald .board-wrap,#g-biber .board-wrap{max-width:min(1040px, calc(var(--bh) / var(--ar, 1)))}
   #g-luecke .board-wrap{max-width:900px}
 }
 /* Seite versehentlich vergroessert: Knopf zum Zuruecksetzen */
@@ -1247,7 +1210,7 @@ label.pf-btn{display:inline-block}
     <button class="iconbtn back" id="back" aria-label="Zu allen Spielen" title="Alle Spiele" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="titles">
       <h1 id="h1">Holzis <span>Holzkiste</span></h1>
-      <p class="sub" id="sub">Zwanzig Holzspiele für Kinder</p>
+      <p class="sub" id="sub">Achtzehn Holzspiele für Kinder</p>
     </div>
     <button class="who" id="who" type="button"></button>
     <button class="iconbtn" id="sharebtn" aria-label="App teilen" title="Teilen (QR-Code)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><path d="M14 14h3v3h-3zM20 14v.01M14 20v.01M17 17h3v3"/></svg></button>
@@ -1306,8 +1269,6 @@ label.pf-btn{display:inline-block}
       <h2 class="tg-h">Wald &amp; Wirtschaft</h2>
       <div class="tiles">
         <button class="tile" id="tile-forst" data-g="forst"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l4.5 6.5H11l4 6H3l4-6H4.5z"/><path d="M9 15.5V21"/><circle cx="18" cy="17" r="3.5"/><path d="M18 15.5v3"/></svg></span><span class="tile-txt"><span class="tile-name">Forstbetrieb</span><span class="tile-sub">Wald kaufen, pflanzen und ernten · ab 12</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
-        <button class="tile" id="tile-ameisen" data-g="ameisen"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="5" cy="13" rx="3.4" ry="2.6"/><circle cx="11.2" cy="12.6" r="1.4"/><circle cx="16.4" cy="11.8" r="2.1"/><path d="M18 9.9l1.8-3.2M18.6 10.7l3.2-1.2"/><path d="M10.4 11.6L8 8.2M11.2 11.2V7.6M12 11.6l2.4-3.2M10.4 13.6l-2.2 4M11.2 14v4.4M12 13.6l2.4 3.8"/></svg></span><span class="tile-txt"><span class="tile-name">Ameisenstaat</span><span class="tile-sub">Aufgaben verteilen, Volk wachsen lassen</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
-        <button class="tile" id="tile-bienen" data-g="bienen"><span class="tile-art" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="14" rx="4.5" ry="5.5"/><path d="M7.8 12.5h8.4M7.6 15.5h8.8"/><path d="M10.5 9C8 5.5 4 6 4.5 9s4.5 2.5 6 1.5M13.5 9C16 5.5 20 6 19.5 9s-4.5 2.5-6 1.5"/><path d="M12 19.5V21"/></svg></span><span class="tile-txt"><span class="tile-name">Bienenvolk</span><span class="tile-sub">Nektar, Waben, Honig für den Winter</span><span class="tile-foot"><span class="tile-prog"><i></i></span><span class="tile-stars"></span></span></span></button>
       </div>
     </section>
     </div>
@@ -1686,8 +1647,6 @@ label.pf-btn{display:inline-block}
 <section class="game" id="g-kloetze" hidden></section>
 <section class="game" id="g-forst" hidden></section>
 <section class="game" id="g-luecke" hidden></section>
-<section class="game" id="g-ameisen" hidden></section>
-<section class="game" id="g-bienen" hidden></section>
 <section class="game" id="g-wortwald" hidden></section>
 
 </div>
@@ -7069,461 +7028,15 @@ HZG.biberDebug={st:function(){ return bv&&{x:+bv.x.toFixed(1),z:+bv.z.toFixed(1)
 })();
 </script>
 <script>
-(function(){
-"use strict";
-/* ===== Insektenstaat: Rechenmodell (Ameisen und Bienen), ein Schritt = ein Tag ===== */
-var IM=(function(){
-var SEASONS=["Frühling","Sommer","Herbst","Winter"], YEAR=120, SEASON_LEN=30;
-/* Arten: Aufgaben, Zahlen, Texte. share = Anteil der Arbeiterinnen in % */
-var SPECIES={
-  ameisen:{unit:"Ameisen", one:"Ameise", queen:"Königin", store:"Vorrat", room:"Kammern", child:"Tochtervölker", flight:"Hochzeitsflug",
-    tasks:[{id:"forage",n:"Futter suchen",ic:"🍂",d:"Insekten, Samen und Honigtau holen"},
-           {id:"build", n:"Baumaterial",  ic:"🪵",d:"Nadeln und Zweige: der Hügel wächst, mehr Kammern"},
-           {id:"farm",  n:"Pilze züchten",ic:"🍄",d:"Pilzgarten: Futter auch bei Regen und im Winter"},
-           {id:"brood", n:"Eier hüten",   ic:"🥚",d:"Brutpflege: mehr Eier werden zu Ameisen"},
-           {id:"defend",n:"Verteidigen",  ic:"🛡️",d:"Soldatinnen gegen Specht, Spinnen und fremde Ameisen"},
-           {id:"extra", n:"Blattläuse",   ic:"🐛",d:"Blattläuse melken: Honigtau im Sommer",lock:"blattlaus"}],
-    lay:[9,12,4,0], forage:0.2, farm:0.1, farmWinter:0.6, extra:0.16, eat:0.05, dur:[6,6,6], swarmSeasons:[0,1], swarmMin:300, swarmFood:120, swarmLoss:0.2},
-  bienen:{unit:"Bienen", one:"Biene", queen:"Königin", store:"Honig", room:"Waben", child:"Schwärme", flight:"Schwarm",
-    tasks:[{id:"forage",n:"Nektar sammeln",ic:"🌼",d:"Blüten besuchen, Nektar heimbringen"},
-           {id:"build", n:"Waben bauen",   ic:"⬡",d:"Wachs schwitzen: mehr Platz für Brut und Honig"},
-           {id:"farm",  n:"Honig machen",  ic:"🍯",d:"Nektar eindicken: Honig hält bis zum Winter"},
-           {id:"brood", n:"Ammenbienen",   ic:"🥚",d:"Brut füttern und putzen (auch gegen Milben)"},
-           {id:"defend",n:"Wächterinnen",  ic:"🛡️",d:"Flugloch bewachen gegen Wespen und Räuber"},
-           {id:"extra", n:"Pollen sammeln",ic:"🟠",d:"Eiweiß für die Brut – ohne Pollen keine Larven"}],
-    lay:[11,15,5,0], forage:0.34, farm:0.3, farmWinter:0, extra:0.07, eat:0.05, dur:[3,6,12], swarmSeasons:[0,1], swarmMin:320, swarmFood:90, swarmLoss:0.45}
-};
-var PRESETS={
-  ameisen:{"Ausgewogen":{forage:35,build:20,farm:10,brood:20,defend:15,extra:0},"Wachstum":{forage:35,build:25,farm:5,brood:30,defend:5,extra:0},"Verteidigung":{forage:30,build:10,farm:10,brood:15,defend:35,extra:0},"Wintervorrat":{forage:45,build:10,farm:25,brood:10,defend:10,extra:0}},
-  bienen:{"Ausgewogen":{forage:30,build:15,farm:15,brood:20,defend:10,extra:10},"Wachstum":{forage:25,build:20,farm:10,brood:30,defend:5,extra:10},"Verteidigung":{forage:25,build:10,farm:15,brood:15,defend:30,extra:5},"Wintervorrat":{forage:40,build:5,farm:35,brood:10,defend:5,extra:5}}
-};
-function rng(seed){ var s=(seed>>>0)||1; return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; }; }
-function create(kind,lv,seed){
-  var sp=SPECIES[kind], S={kind:kind,lv:lv,day:0,W:100,queen:true,food:60,raw:0,pollen:20,mat:0,cap:3,brood:[[],[],[]],hatched:0,gens:0,dead:0,
-    share:Object.assign({},PRESETS[kind]["Ausgewogen"]),unlock:{},mods:[],log:[],swarmCool:0,over:false,won:false,r:rng(seed||1),stat:[],ev:null,maxW:100};
-  if(kind==="ameisen") S.unlock.blattlaus=!!lv.aphids;
-  for(var k=0;k<3;k++) for(var d=0;d<sp.dur[k];d++) S.brood[k].push(k===0?4:2);
-  return S;
-}
-function season(S){ return Math.floor((S.day%YEAR)/SEASON_LEN); }
-function cap(S){ return 60+S.cap*45; }
-function broodTotal(S){ var n=0; S.brood.forEach(function(st){ st.forEach(function(x){ n+=x; }); }); return n; }
-function roomCost(S){ return 14+S.cap*6; }
-function mod(S,key){ var v=1; S.mods.forEach(function(m){ if(m.k===key) v*=m.v; }); return v; }
-function addMod(S,k,v,days){ S.mods.push({k:k,v:v,t:days}); }
-function log(S,t,kind){ S.log.unshift({d:S.day,t:t,k:kind||""}); if(S.log.length>40) S.log.pop(); S.ev={t:t,k:kind||""}; }
-function score(S){ return Math.round(S.W+S.cap*15+S.gens*300+S.hatched*0.5); }
-function canSwarm(S){ var sp=SPECIES[S.kind]; return S.queen&&!S.over&&sp.swarmSeasons.indexOf(season(S))>=0&&S.W>=sp.swarmMin&&S.food>=sp.swarmFood&&S.swarmCool<=0; }
-function swarm(S){ var sp=SPECIES[S.kind]; if(!canSwarm(S)) return false;
-  var leave=Math.round(S.W*sp.swarmLoss); S.W-=leave; S.food-=sp.swarmFood*0.6; S.gens++; S.swarmCool=40;
-  log(S,S.kind==="bienen"?"Schwarm! Die alte Königin zieht mit "+leave+" Bienen aus – eine junge Königin übernimmt. Neues Volk Nr. "+S.gens+"!":"Hochzeitsflug! Junge Königinnen fliegen aus und gründen Volk Nr. "+S.gens+". "+leave+" Ameisen helfen beim Umzug.","good");
-  return true; }
-/* Feinde und Ereignisse: Wahrscheinlichkeit je Tag, abhaengig von Jahreszeit und Level */
-var EVENTS={
-  ameisen:[
-    {id:"specht",p:[0.02,0.006,0.012,0.035],bad:1,f:function(S,def){ var l=Math.round(S.W*0.07*(1-def)); S.W-=l; var c=S.cap>3&&S.r()<0.35*(1-def); if(c) S.cap--; return "Ein Grünspecht hackt in den Hügel! "+(l?l+" Ameisen gefressen":"Die Soldatinnen vertreiben ihn")+(c?", eine Kammer ist kaputt.":"."); }},
-    {id:"raub",p:[0.012,0.02,0.015,0],bad:1,f:function(S,def){ if(def>0.55){ var b=Math.round(10+S.W*0.03); S.food+=b; return "Fremde Ameisen greifen an – abgewehrt! Beute: +"+b+" Futter."; } var l=Math.round(S.W*0.11*(1-def)), br=0.45*(1-def); S.W-=l; S.brood.forEach(function(st){ for(var i=0;i<st.length;i++) st[i]*=1-br; }); S.food*=1-0.25*(1-def); return "Raubzug fremder Ameisen! "+l+" Ameisen verloren, Brut und Vorrat geraubt."; }},
-    {id:"spinne",p:[0.02,0.03,0.02,0],bad:1,f:function(S,def){ var l=Math.round(S.W*S.share.forage/100*0.08*(1-def*0.6)); S.W-=l; return "Eine Spinne lauert am Ameisenpfad: "+l+" Sammlerinnen verloren."; }},
-    {id:"ameisenloewe",p:[0.006,0.012,0.006,0],bad:1,f:function(S,def){ var l=Math.round(3+S.W*0.015*(1-def*0.5)); S.W-=l; return "Ein Ameisenlöwe im Sandtrichter erwischt "+l+" Ameisen."; }},
-    {id:"regen",p:[0.03,0.02,0.04,0.01],bad:1,f:function(S){ addMod(S,"forage",0.2,2); var low=S.cap<5; if(low) S.brood.forEach(function(st){ for(var i=0;i<st.length;i++) st[i]*=0.75; }); return "Starkregen! Zwei Tage kaum Futtersuche."+(low?" Wasser läuft in die Brutkammern – ein höherer Hügel hätte geschützt.":" Der hohe Hügel hält dicht."); }},
-    {id:"kaelte",p:[0.025,0,0.015,0],bad:1,f:function(S){ S.brood[0].forEach(function(x,i){ S.brood[0][i]*=0.7; }); addMod(S,"lay",0.5,4); return "Kälteeinbruch! Eier erfrieren, die Königin legt ein paar Tage weniger."; }},
-    {id:"hitze",p:[0,0.03,0,0],bad:1,f:function(S){ addMod(S,"forage",0.6,3); return "Hitze! Mittags bleiben die Sammlerinnen im Nest."; }},
-    {id:"kaefer",p:[0.02,0.03,0.02,0],good:1,f:function(S){ var b=25+Math.round(S.W*0.05); S.food+=b; return "Ein toter Käfer am Weg! Die Sammlerinnen schleppen +"+b+" Futter heim."; }},
-    {id:"blattlaus",p:[0.015,0.03,0.01,0],good:1,f:function(S){ if(!S.unlock.blattlaus){ S.unlock.blattlaus=true; return "Blattläuse an der Kiefer entdeckt! Neue Aufgabe: Blattläuse melken (Honigtau)."; } S.food+=20; return "Die Blattläuse geben viel Honigtau: +20 Futter."; }},
-    {id:"pilz",p:[0.01,0.01,0.01,0.01],bad:1,cond:function(S){ return S.share.farm>0&&S.share.brood<10; },f:function(S){ addMod(S,"farm",0.3,6); return "Schimmel im Pilzgarten! Ohne genug Pflege wächst er ein paar Tage kaum."; }}],
-  bienen:[
-    {id:"wespe",p:[0.01,0.025,0.035,0],bad:1,f:function(S,def){ var l=Math.round(S.W*0.04*(1-def)), h=S.food*0.12*(1-def); S.W-=l; S.food-=h; return def>0.5?"Wespen am Flugloch – die Wächterinnen halten sie draußen!":"Wespen rauben Honig! "+l+" Bienen verloren, "+Math.round(h)+" Honig weg."; }},
-    {id:"hornisse",p:[0,0.012,0.02,0],bad:1,f:function(S,def){ var l=Math.round(S.W*0.07*(1-def)); S.W-=l; return "Eine Hornisse jagt vor dem Stock: "+l+" Bienen verloren."; }},
-    {id:"varroa",p:[0.01,0.02,0.02,0],bad:1,f:function(S){ var care=S.share.brood/100; if(care>=0.28){ return "Varroa-Milben! Die Ammenbienen putzen sie fleißig weg."; } addMod(S,"brood",0.6,10); return "Varroa-Milben in der Brut! Zehn Tage schlüpfen weniger Bienen – mehr Ammenbienen helfen."; }},
-    {id:"baer",p:[0.003,0.006,0.006,0],bad:1,f:function(S,def){ var h=S.food*0.35*(1-def*1.2); h=Math.max(0,h); S.food-=h; var c=S.cap>3&&def<0.4; if(c) S.cap--; return "Ein Dachs wühlt am Bienenstock und nascht "+Math.round(h)+" Honig"+(c?" – eine Wabe ist zerbrochen.":"."); }},
-    {id:"specht",p:[0,0,0.005,0.03],bad:1,f:function(S,def){ var l=Math.round(S.W*0.04*(1-def)); S.W-=l; return "Ein Specht klopft im Winter am Stock: "+l+" Bienen verloren."; }},
-    {id:"regen",p:[0.04,0.03,0.04,0],bad:1,f:function(S){ addMod(S,"forage",0.15,2); return "Regentage – kein Flugwetter, die Bienen bleiben zu Hause."; }},
-    {id:"kaelte",p:[0.03,0,0.02,0],bad:1,f:function(S){ S.brood[1].forEach(function(x,i){ S.brood[1][i]*=0.75; }); return "Kalte Nacht: Die Bienen wärmen die Brut, aber manche Larve erfriert."; }},
-    {id:"raps",p:[0.03,0.01,0,0],good:1,f:function(S){ addMod(S,"forage",1.8,5); return "Das Rapsfeld blüht! Fünf Tage gibt es doppelt viel Nektar."; }},
-    {id:"linde",p:[0,0.03,0,0],good:1,f:function(S){ addMod(S,"forage",1.6,5); return "Die Linden blühen – Nektar im Überfluss!"; }},
-    {id:"pollen",p:[0.02,0.02,0.02,0],good:1,f:function(S){ S.pollen+=25; return "Eine Wiese voller Löwenzahn: +25 Pollen."; }}]
-};
-function step(S){
-  if(S.over) return;
-  var sp=SPECIES[S.kind], lv=S.lv, se=season(S), W=S.W, sh=S.share, sf=[0.9,1.25,0.75,0][se], win=se===3;
-  var nF=W*sh.forage/100, nB=W*sh.build/100, nM=W*sh.farm/100, nC=W*sh.brood/100, nD=W*sh.defend/100, nX=(S.kind==="ameisen"&&!S.unlock.blattlaus)?0:W*sh.extra/100;
-  var bt=broodTotal(S);
-  // Einnahmen
-  var fo=nF*sp.forage*sf*mod(S,"forage")*(lv.rich||1);
-  var fa=nM*sp.farm*(win?sp.farmWinter:1)*mod(S,"farm");
-  if(S.kind==="ameisen"){ S.food+=fo+fa+nX*sp.extra*[0.6,1.3,0.6,0][se]; }
-  else { S.raw+=fo; var conv=Math.min(S.raw,fa+0.02*S.raw); S.raw-=conv; S.food+=conv; S.raw*=0.95; S.pollen+=nX*sp.extra*sf; }
-  // Bauen: neue Kammern / Waben
-  S.mat+=nB*0.09*(win?0.25:sf);
-  while(S.mat>=roomCost(S)){ S.mat-=roomCost(S); S.cap++; if(S.cap%3===0) log(S,(S.kind==="bienen"?"Neue Waben! Jetzt ":"Der Hügel wächst! Jetzt ")+S.cap+" "+sp.room+".","good"); }
-  // Verbrauch (Winter: Ruhe)
-  var eat=(W*sp.eat+bt*0.02+0.5)*(win?0.42:1)*(lv.hunger||1);
-  if(S.kind==="bienen"&&S.raw>0){ var r=Math.min(S.raw,eat*0.6); S.raw-=r; eat-=r; }
-  S.food-=eat; var starving=false;
-  if(S.food<0){ starving=true; S.food=0; var l=Math.ceil(W*0.025); S.W-=l; S.brood.forEach(function(st){ for(var i=0;i<st.length;i++) st[i]*=0.7; }); if(S.day%3===0) log(S,"Hunger! Der "+sp.store+" ist leer – "+l+" "+sp.unit+" sterben. Schick mehr Sammlerinnen los!","bad"); }
-  // Brut: Eier -> Larven -> Puppen -> Arbeiterinnen
-  var care=Math.min(1,nC/(bt/6+2)), surv=1-(1-care)*0.07-(starving?0.15:0), bmod=mod(S,"brood");
-  var pollenOk=S.kind!=="bienen"||S.pollen>0;
-  var out=S.brood[2].shift()||0; S.brood[2].push((S.brood[1].shift()||0)*(pollenOk?1:0.4)); S.brood[1].push(S.brood[0].shift()||0);
-  if(S.kind==="bienen"){ var need=broodTotal(S)*0.012; S.pollen=Math.max(0,S.pollen-need); }
-  S.brood.forEach(function(st){ for(var i=0;i<st.length;i++) st[i]*=surv*(st===S.brood[2]?bmod:1); });
-  var hatch=Math.floor(out+S.r()*0.999); S.W+=hatch; S.hatched+=hatch;
-  // Koenigin legt Eier (wenn Platz und Futter da sind)
-  var room=cap(S)-(S.W+bt*0.5), lay=sp.lay[se]*(lv.fertile||1)*mod(S,"lay")*(S.food>15?1:0.3)*(room>0?Math.min(1,room/30):0);
-  if(S.queen) S.brood[0].push(Math.max(0,lay)); else S.brood[0].push(0);
-  if(room<=0&&S.day%10===0&&se<3) log(S,"Kein Platz mehr! Die "+sp.queen+" legt keine Eier – mehr "+(S.kind==="bienen"?"Waben bauen":"Baumaterial holen")+".","bad");
-  // natuerlicher Tod
-  var die=S.W*(win?0.0025:0.0045); S.dead+=die; S.W-=die;
-  // Feinde und Ereignisse
-  var def=Math.min(0.85,nD/(W+1)*2.4);
-  var evs=EVENTS[S.kind];
-  for(var e=0;e<evs.length;e++){ var ev=evs[e], p=ev.p[se]*(ev.bad?(lv.danger||1):1); if(ev.cond&&!ev.cond(S)) continue; if(S.r()<p){ log(S,ev.f(S,def),ev.good?"good":"bad"); break; } }
-  S.mods.forEach(function(m){ m.t--; }); S.mods=S.mods.filter(function(m){ return m.t>0; });
-  if(S.swarmCool>0) S.swarmCool--;
-  S.W=Math.max(0,S.W); S.maxW=Math.max(S.maxW,S.W);
-  if(S.W<12){ S.queen=false; S.over=true; log(S,"Das Volk ist zu klein geworden – die "+sp.queen+" ist allein. Das Spiel ist aus.","bad"); }
-  S.day++;
-  if(S.day%YEAR===0) log(S,"Ein Jahr geschafft! Das Volk hat "+Math.round(S.W)+" "+sp.unit+".","good");
-  else if(S.day%SEASON_LEN===0) log(S,SEASONS[season(S)]+" beginnt."+(season(S)===3?" Kein Futter mehr draußen – jetzt zählt der "+sp.store+".":season(S)===2?" In 30 Tagen kommt der Winter!":""),"season");
-  if(S.day%2===0) S.stat.push([S.day,Math.round(S.W),Math.round(bt),Math.round(S.food)]);
-}
-/* Rat von Holzi: das Dringendste zuerst */
-function advice(S){
-  var sp=SPECIES[S.kind], se=season(S), left=YEAR-S.day%YEAR, eatDay=S.W*sp.eat+broodTotal(S)*0.02+0.5, out=[];
-  if(S.food<eatDay*4&&se<3) out.push([5,"Der "+sp.store+" reicht nur noch wenige Tage – mehr "+(S.kind==="bienen"?"Nektar sammeln und Honig machen":"Futter suchen")+"!"]);
-  if(se===2&&S.food<eatDay*0.42*35) out.push([4,"Der Winter kommt in "+(left-30)+" Tagen. Leg Vorrat an: "+Math.round(eatDay*0.42*35)+" "+sp.store+" sollten es sein."]);
-  if(cap(S)-(S.W+broodTotal(S)*0.5)<20&&se<3) out.push([4,"Bald ist kein Platz mehr – mehr "+(S.kind==="bienen"?"Waben bauen":"Baumaterial")+"!"]);
-  if(S.kind==="bienen"&&S.pollen<10&&se<3) out.push([4,"Kein Pollen – die Larven brauchen Eiweiß. Schick Pollensammlerinnen los!"]);
-  if(S.share.defend<10&&S.log.slice(0,6).some(function(l){ return l.k==="bad"&&/Specht|Raub|Wespe|Hornisse|Spinne/.test(l.t); })) out.push([3,"Feinde in der Nähe – stell mehr Wächterinnen auf."]);
-  if(S.share.brood<12&&broodTotal(S)>30) out.push([3,"Viel Brut, wenig Pflege – mehr "+(S.kind==="bienen"?"Ammenbienen":"Eier hüten")+"!"]);
-  if(canSwarm(S)) out.push([4,"Das Volk ist groß genug für einen "+sp.flight+"! Das bringt viele Punkte."]);
-  if(!out.length) out.push([0,se===3?"Winterruhe: Das Volk zehrt vom "+sp.store+". Im Frühling geht es weiter.":"Alles im Lot. Schau zu, wie das Volk wächst!"]);
-  return out.sort(function(a,b){ return b[0]-a[0]; }).map(function(x){ return x[1]; });
-}
-return {SPECIES:SPECIES,PRESETS:PRESETS,SEASONS:SEASONS,YEAR:YEAR,create:create,step:step,season:season,cap:cap,broodTotal:broodTotal,score:score,canSwarm:canSwarm,swarm:swarm,advice:advice,roomCost:roomCost};
-})();
-/* ===== Insektenstaat: Spiel (ein Bauplan fuer Ameisen und Bienen) ===== */
-function insektGame(kind){
-var K=HZK, hz=K.hz, sp=IM.SPECIES[kind], P=kind, ANT=kind==="ameisen";
-var LEVELS=ANT?[
- {name:"Kleines Volk",  age:"ab 7",  g:{t:"reach",W:250},        days:90,  st:[45,65],  danger:0.5, txt:"Lass dein Volk auf 250 Ameisen wachsen."},
- {name:"Großer Hügel",  age:"ab 8",  g:{t:"reach",W:400,cap:12}, days:180, st:[140,162], danger:0.8, txt:"Bau einen Hügel mit 12 Kammern und 400 Ameisen."},
- {name:"Feinde im Wald",age:"ab 9",  g:{t:"survive",W:350},      days:240, danger:3,   txt:"Specht, Spinnen und fremde Ameisen! Überlebe zwei Jahre mit mindestens 350 Ameisen."},
- {name:"Langer Winter", age:"ab 10", g:{t:"survive",W:400},      days:240, danger:1, hunger:1.35, txt:"Hungrige Winter: Leg Vorrat an und züchte Pilze. Am Ende des 2. Winters: 400 Ameisen."},
- {name:"Hochzeitsflug", age:"ab 11", g:{t:"reach",gens:2},       days:240, st:[125,165], danger:1.2, txt:"Schick zweimal junge Königinnen auf den Hochzeitsflug – zwei neue Völker!"},
- {name:"Großer Staat",  age:"12+",   g:{t:"score",s:[2200,2800,3300]}, days:360, danger:1.5, hunger:1.15, txt:"Drei Jahre Zeit: So viele Punkte wie möglich – Ameisen, Kammern und Tochtervölker zählen."}]
-:[
- {name:"Erster Sommer", age:"ab 7",  g:{t:"reach",W:250},        days:90,  st:[45,65],  danger:0.5, txt:"Lass dein Bienenvolk auf 250 Bienen wachsen."},
- {name:"Volle Waben",   age:"ab 8",  g:{t:"reach",W:350,cap:10}, days:180, st:[155,172], danger:0.8, txt:"Baut 10 Waben und wachst auf 350 Bienen."},
- {name:"Wespenherbst",  age:"ab 9",  g:{t:"survive",W:250},      days:240, danger:3,   txt:"Wespen, Hornissen und Milben! Überlebe zwei Jahre mit mindestens 250 Bienen."},
- {name:"Winterhonig",   age:"ab 10", g:{t:"survive",W:220},      days:240, danger:1, hunger:1.4, txt:"Lange, kalte Winter: Ohne genug Honig verhungert das Volk. Am Ende: 220 Bienen."},
- {name:"Schwarmzeit",   age:"ab 11", g:{t:"reach",gens:2},       days:240, st:[160,200], danger:1.2, txt:"Lass das Volk zweimal schwärmen – zwei neue Bienenvölker!"},
- {name:"Imkermeister",  age:"12+",   g:{t:"score",s:[1800,2300,2700]}, days:360, danger:1.4, hunger:1.15, txt:"Drei Jahre Zeit: So viele Punkte wie möglich – Bienen, Waben und Schwärme zählen."}];
-var $=K.mount("g-"+P,{
-  board:'<div class="ins"><div class="ins-top" id="'+P+'-top"></div><div class="ins-view" id="'+P+'-view"><canvas id="'+P+'-cv" aria-label="'+(ANT?"Ameisenhügel":"Bienenstock")+'"></canvas>'+
-    '<div class="ins-vbtn" role="group" aria-label="Ansicht"><button data-v="side" aria-pressed="true">Seite</button><button data-v="top" aria-pressed="false">Von oben</button></div>'+
-    '<div class="ins-season" id="'+P+'-season"></div><div class="ins-ev" id="'+P+'-ev" hidden></div></div>'+
-    '<div class="ins-goal" id="'+P+'-goal"></div></div>',
-  extra:'<div class="ins-panel"><h4>Aufgaben verteilen</h4><div class="ins-tasks" id="'+P+'-tasks"></div><div class="ins-presets" id="'+P+'-presets"></div>'+
-    '<h4>Was passiert</h4><ul class="ins-log" id="'+P+'-log"></ul></div>',
-  tools:[{id:"go",icon:"go",label:"Los!",main:true},{id:"speed",icon:"ff",label:"Tempo 1×"},{id:"swarm",icon:"year",label:sp.flight},{id:"new",icon:"neu",label:"Neu"}],
-  help:ANT?"Du bist ein Ameisenvolk mit 100 Ameisen. Verteile die Arbeit: Futter suchen, Baumaterial holen (der Hügel bekommt neue Kammern), Pilze züchten (Futter auch im Winter), Eier hüten und verteidigen. Dann drück „Los!“ und schau zu, wie das Volk lebt. Du kannst jederzeit umverteilen. Im Winter gibt es draußen nichts – vorher Vorrat anlegen! Ist das Volk im Frühling oder Sommer groß genug, schick junge Königinnen auf den Hochzeitsflug: Jedes neue Volk bringt viele Punkte."
-    :"Du bist ein Bienenvolk mit 100 Bienen. Verteile die Arbeit: Nektar sammeln, Waben bauen, Honig machen, Ammenbienen für die Brut, Wächterinnen und Pollen sammeln (ohne Pollen keine Larven). Dann drück „Los!“. Im Winter fliegt keine Biene – das Volk lebt vom Honig. Ist es im Frühling oder Sommer groß genug, kann es schwärmen: Die alte Königin zieht mit vielen Bienen aus und gründet ein neues Volk."
-});
-var st=K.store("holzi-"+P), L=Math.min(st.lvl(),LEVELS.length-1);
-var cv=$("cv"), view=$("view"), g=cv.getContext("2d"), S=null, running=false, speed=1, acc=0, last=0, loopOn=false, viewMode="side", lay=null, sprites=[], fx=[], done=false, seed=1, sayDay=0;
-var SEAS=["🌱","☀️","🍂","❄️"];
-/* ---- Spielstand ---- */
-function load(i){
-  L=i; st.setLvl(i); var lv=LEVELS[i]; seed=Math.floor(Math.random()*1e6)+1;
-  S=IM.create(kind,lv,seed); running=false; done=false; acc=0; fx=[]; lay=null; sprites=[];
-  K.levels(P+"-levels",LEVELS,L,st,function(k){ hz().tok(1.1); load(k); });
-  renderTasks(); renderTop(); renderLog(); goBtn();
-  K.say(P+"-say",lv.txt+" Verteile die Aufgaben und drück „Los!“.");
-}
-function goal(){ var lv=LEVELS[L], gg=lv.g, h='', pr=0;
-  if(gg.t==="reach"){ var parts=[]; if(gg.W){ parts.push(Math.round(S.W)+" / "+gg.W+" "+sp.unit); pr=S.W/gg.W; } if(gg.cap){ parts.push(S.cap+" / "+gg.cap+" "+sp.room); pr=Math.min(pr||1,S.cap/gg.cap); } if(gg.gens){ parts.push(S.gens+" / "+gg.gens+" "+sp.child); pr=S.gens/gg.gens; } h=parts.join(" · "); }
-  else if(gg.t==="survive"){ h="Durchhalten bis Tag "+lv.days+" mit mindestens "+gg.W+" "+sp.unit; pr=S.day/lv.days; }
-  else { h="Punkte: "+IM.score(S)+" (Sterne ab "+gg.s.join(" / ")+")"; pr=Math.min(1,IM.score(S)/gg.s[2]); }
-  return {h:h,pr:Math.min(1,pr)}; }
-function renderTop(){
-  var bt=IM.broodTotal(S), se=IM.season(S), lv=LEVELS[L];
-  var it=[[ANT?"🐜":"🐝",sp.unit,Math.round(S.W)],["🥚","Brut",Math.round(bt)],[ANT?"🍂":"🍯",sp.store,Math.round(S.food)]];
-  if(!ANT) it.push(["🟠","Pollen",Math.round(S.pollen)]);
-  it.push([ANT?"🏠":"⬡",sp.room,S.cap+" <small>(Platz "+IM.cap(S)+")</small>"],["👑",sp.child,S.gens],["⭐","Punkte",IM.score(S)]);
-  $("top").innerHTML=it.map(function(x){ return '<span class="ins-chip"><i aria-hidden="true">'+x[0]+'</i><em>'+x[1]+'</em><b>'+x[2]+'</b></span>'; }).join("");
-  $("season").innerHTML='<b>'+SEAS[se]+' '+IM.SEASONS[se]+'</b> · Tag '+(S.day+1)+' / '+lv.days+(running?'':' · <em>Pause</em>');
-  var gl=goal(); $("goal").innerHTML='<span>🎯 '+gl.h+'</span><i><b style="width:'+(gl.pr*100).toFixed(0)+'%"></b></i>';
-  var sb=$("swarm"); sb.disabled=!IM.canSwarm(S)||done; sb.classList.toggle("ready",IM.canSwarm(S)&&!done);
-}
-function renderTasks(){
-  var h='';
-  sp.tasks.forEach(function(t){ var locked=t.lock&&!S.unlock[t.lock], v=S.share[t.id]||0, n=Math.round(S.W*v/100);
-    h+='<div class="ins-t'+(locked?' locked':'')+'" data-id="'+t.id+'"><span class="ins-ic" aria-hidden="true">'+t.ic+'</span><span class="ins-tn"><b>'+t.n+'</b><small>'+(locked?'🔒 Noch nicht entdeckt':t.d)+'</small></span>'+
-      (locked?'':'<span class="ins-step"><button data-d="-5" aria-label="'+t.n+' weniger">−</button><b>'+v+' %</b><button data-d="5" aria-label="'+t.n+' mehr">+</button></span><span class="ins-bar"><i style="width:'+v+'%"></i></span><span class="ins-n">'+n+' '+sp.unit+'</span>')+'</div>'; });
-  $("tasks").innerHTML=h;
-  $("tasks").querySelectorAll("button[data-d]").forEach(function(b){ b.onclick=function(){ change(b.closest(".ins-t").getAttribute("data-id"),+b.getAttribute("data-d")); }; });
-  var pr=IM.PRESETS[kind]; $("presets").innerHTML='<span>Schnell wählen:</span>'+Object.keys(pr).map(function(k){ return '<button data-p="'+k+'">'+k+'</button>'; }).join("");
-  $("presets").querySelectorAll("button").forEach(function(b){ b.onclick=function(){ hz().tok(1.2); var p=Object.assign({},pr[b.getAttribute("data-p")]); if(ANT&&!S.unlock.blattlaus){ p.forage+=p.extra; p.extra=0; } S.share=p; renderTasks(); sprites=[]; K.say(P+"-say","„"+b.getAttribute("data-p")+"“ – "+presetTip(b.getAttribute("data-p"))); }; });
-}
-function presetTip(k){ return {"Ausgewogen":"von allem etwas.","Wachstum":"viel Brutpflege und Bauen, damit das Volk schnell wächst.","Verteidigung":"viele Wächterinnen gegen Feinde.","Wintervorrat":"Vorrat anlegen, bevor der Winter kommt."}[k]||""; }
-/* + nimmt von der groessten anderen Aufgabe, − gibt an die Futtersuche (oder ans Bauen) ab: die Summe bleibt 100 % */
-function change(id,d){
-  var sh=S.share, ids=sp.tasks.filter(function(t){ return !(t.lock&&!S.unlock[t.lock]); }).map(function(t){ return t.id; });
-  if(d>0){ var from=ids.filter(function(x){ return x!==id&&sh[x]>=5; }).sort(function(a,b){ return sh[b]-sh[a]; })[0]; if(!from){ hz().tune([200,160],0.05,"square"); return; } sh[from]-=5; sh[id]+=5; }
-  else { if(sh[id]<5) return; var to=id==="forage"?"build":"forage"; sh[id]-=5; sh[to]+=5; }
-  hz().tok(d>0?1.3:1); sprites=[]; renderTasks(); renderTop();
-}
-function renderLog(){ $("log").innerHTML=S.log.slice(0,7).map(function(l){ return '<li class="'+l.k+'"><span>Tag '+(l.d+1)+'</span>'+l.t+'</li>'; }).join("")||'<li><span></span>Noch ist alles ruhig.</li>'; }
-function goBtn(){ var b=$("go"); b.lastChild.textContent=done?"Fertig":running?"Pause":(S.day?"Weiter":"Los!"); b.disabled=done; }
-$("go").onclick=function(){ if(done) return; hz().audio(); running=!running; goBtn(); renderTop(); if(running){ hz().tune([523,659],0.06); K.say(P+"-say",S.day?"Weiter geht's!":ANT?"Los geht's! Die Ameisen schwärmen aus.":"Los geht's! Die Bienen fliegen aus."); } };
-$("speed").onclick=function(){ hz().tok(1.2); speed=speed===1?2:speed===2?4:1; $("speed").lastChild.textContent="Tempo "+speed+"×"; };
-$("swarm").onclick=function(){ if(!S||done) return; hz().audio(); if(IM.swarm(S)){ hz().tune([523,659,784,1047],0.09); fx.push({k:"swarm",t:4}); renderTop(); renderLog(); sprites=[]; check(); } else K.say(P+"-say","Für einen "+sp.flight+" braucht das Volk mindestens "+sp.swarmMin+" "+sp.unit+", genug "+sp.store+" und die richtige Jahreszeit (Frühling oder Sommer)."); };
-$("new").onclick=function(){ hz().tok(1); load(L); };
-view.querySelectorAll(".ins-vbtn button").forEach(function(b){ b.onclick=function(){ hz().tok(1.2); viewMode=b.getAttribute("data-v"); view.querySelectorAll(".ins-vbtn button").forEach(function(x){ x.setAttribute("aria-pressed",x===b?"true":"false"); }); lay=null; sprites=[]; }; });
-/* ---- ein Tag vergeht ---- */
-function day(){
-  var n0=S.log.length?S.log[0]:null; IM.step(S);
-  if(S.log.length&&S.log[0]!==n0){ var e=S.log[0]; showEv(e); renderLog(); if(e.k==="bad") hz().tune([300,240],0.06,"triangle"); else if(e.k==="good") hz().tune([660,880],0.05); }
-  if(S.day-sayDay>=9){ sayDay=S.day; K.say(P+"-say",IM.advice(S)[0]); }
-  renderTop(); if(S.day%3===0) renderTasks(); check();
-}
-function showEv(e){ var el=$("ev"); el.hidden=false; el.className="ins-ev "+e.k; el.textContent=e.t; clearTimeout(showEv.t); showEv.t=setTimeout(function(){ el.hidden=true; },4200);
-  var m=/Specht/.test(e.t)?"specht":/Raub|fremde Ameisen/.test(e.t)?"raub":/Spinne/.test(e.t)?"spinne":/Regen|Starkregen/.test(e.t)?"regen":/Kälte|Kalte/.test(e.t)?"kalt":/Wespe/.test(e.t)?"wespe":/Hornisse/.test(e.t)?"hornisse":/Dachs/.test(e.t)?"dachs":/Käfer/.test(e.t)?"kaefer":/Blattl/.test(e.t)?"laus":/Raps|Linde|Löwenzahn/.test(e.t)?"bluete":/Hitze/.test(e.t)?"hitze":/Ameisenlöwe/.test(e.t)?"loewe":/Milben/.test(e.t)?"milbe":null;
-  if(m) fx.push({k:m,t:4}); if(fx.length>2) fx.shift(); }
-function check(){
-  if(done) return; var lv=LEVELS[L], gg=lv.g, stars=-1, msg="";
-  var hit=gg.t==="reach"&&(!gg.W||S.W>=gg.W)&&(!gg.cap||S.cap>=gg.cap)&&(!gg.gens||S.gens>=gg.gens);
-  if(hit){ stars=S.day<=lv.st[0]?3:S.day<=lv.st[1]?2:1; msg="Geschafft an Tag "+S.day+"!"; }
-  else if(S.over){ stars=0; msg="Das Volk ist eingegangen."; }
-  else if(S.day>=lv.days){
-    if(gg.t==="reach"){ stars=0; msg="Die Zeit ist um."; }
-    else if(gg.t==="survive"){ stars=S.W>=gg.W*1.5?3:S.W>=gg.W*1.2?2:S.W>=gg.W?1:0; msg=stars?"Durchgehalten mit "+Math.round(S.W)+" "+sp.unit+"!":"Nur noch "+Math.round(S.W)+" "+sp.unit+" – "+gg.W+" wären nötig gewesen."; }
-    else { var sc=IM.score(S); stars=sc>=gg.s[2]?3:sc>=gg.s[1]?2:sc>=gg.s[0]?1:0; msg=sc+" Punkte."; } }
-  if(stars<0) return;
-  done=true; running=false; goBtn(); renderTop();
-  if(stars) st.set(L,stars); K.levels(P+"-levels",LEVELS,L,st,function(k){ hz().tok(1.1); load(k); });
-  var best=K.best(P,L,IM.score(S),false);
-  K.win({title:stars?"Geschafft!":"Leider nicht",text:msg+"<br>"+Math.round(S.W)+" "+sp.unit+" · "+S.cap+" "+sp.room+" · "+S.gens+" "+sp.child+" · <b>"+IM.score(S)+" Punkte</b>",stars:stars,
-    msg:(best?"Neuer Rekord! ":"")+(stars?"":"Tipp: "+IM.advice(S)[0]),again:"Nochmal",next:stars&&L<LEVELS.length-1?"Nächstes Level":"Nochmal",delay:600,
-    onAgain:function(){ load(L); },onNext:function(){ load(stars&&L<LEVELS.length-1?L+1:L); }});
-}
-/* ---- Zeichnen ---- */
-function size(){ var w=view.clientWidth||360, h=Math.round(w*0.66), d=Math.min(2,window.devicePixelRatio||1); if(cv.width!==Math.round(w*d)){ cv.width=Math.round(w*d); cv.height=Math.round(h*d); cv.style.height=h+"px"; lay=null; sprites=[]; } return {w:w,h:h,d:d}; }
-function rnd(a){ var s=a; return function(){ s=(s*16807)%2147483647; return s/2147483647; }; }
-var SKY=[["#bfe3f5","#e8f6e8"],["#8fd0f2","#dff2fa"],["#f2d2a8","#f8ecd8"],["#b9c6d2","#e6edf2"]];
-function layout(w,h){
-  var r=rnd(seed%100000+7), u=w/600, c={u:u,w:w,h:h,cap:S.cap,mode:viewMode};
-  if(viewMode==="side"&&ANT){
-    c.gy=h*0.4; c.x0=w*0.5; c.rx=u*(64+Math.min(S.cap,30)*5.2); c.ry=Math.min(h*0.3,c.rx*0.5); c.ent={x:c.x0,y:c.gy-c.ry*0.92};
-    var n=S.cap, levels=Math.ceil(n/2), top=c.gy-c.ry*0.62, bot=h*0.93, sp2=(bot-top)/Math.max(1,levels);
-    c.ch=[]; for(var i=0;i<n;i++){ var lvI=Math.floor(i/2), side=i%2?1:-1, y=top+(lvI+0.5)*sp2;
-      c.ch.push({x:c.x0+side*(u*62+((lvI*29)%34)*u),y:y,rx:u*34,ry:Math.min(u*14,sp2*0.38),sx:c.x0,sy:y}); }
-    var roles=["store","brood","farm","brood","store","rest","brood","farm","rest","store"];
-    c.ch.forEach(function(k,i){ k.role=i===n-1?"queen":roles[i%roles.length]; });
-    c.needles=[]; for(var j=0;j<Math.round(c.rx*c.ry/30/u);j++){ var a=r()*Math.PI, rr=Math.sqrt(r()); c.needles.push([c.x0+Math.cos(a)*c.rx*rr,c.gy-Math.sin(a)*c.ry*rr,r()*Math.PI,r()]); }
-    c.stones=[]; for(var q=0;q<26;q++) c.stones.push([r()*w,c.gy+8*u+r()*(h-c.gy),u*(2+r()*4)]);
-  } else if(viewMode==="side"){
-    c.bx=w*0.06; c.bw=w*0.56; c.by=h*0.12; c.bh=h*0.8; c.ent={x:c.bx+c.bw*0.18,y:c.by+c.bh};
-    c.cx=c.bx+c.bw/2; c.cy=c.by+c.bh*0.48; var f=Math.min(1,0.25+S.cap/14); c.erx=c.bw*0.46*f; c.ery=c.bh*0.44*f; c.cr=u*6.4;
-    c.cells=[]; var dx=c.cr*1.5, dy=c.cr*Math.sqrt(3);
-    for(var cx=c.cx-c.erx;cx<=c.cx+c.erx;cx+=dx) for(var cy=c.cy-c.ery;cy<=c.cy+c.ery;cy+=dy){ var col=Math.round((cx-c.cx+c.erx)/dx), yy=cy+(col%2?dy/2:0), ex=(cx-c.cx)/c.erx, ey=(yy-c.cy)/c.ery; if(ex*ex+ey*ey<=1) c.cells.push({x:cx,y:yy,d:Math.sqrt(ex*ex+ey*ey)+((cy<c.cy)?0:0.08)}); }
-    c.cells.sort(function(a,b){ return a.d-b.d; });
-    c.flowers=[]; for(var fl=0;fl<16;fl++) c.flowers.push([w*0.68+r()*w*0.3,h*0.62+r()*h*0.34,r()]);
-  } else if(ANT){
-    c.x0=w*0.5; c.y0=h*0.52; c.R=u*(30+Math.min(S.cap,30)*3.2);
-    c.src=[{x:w*0.06,y:h*0.2,ic:"🌲",n:"Kiefer mit Blattläusen",need:"blattlaus"},{x:w*0.94,y:h*0.25,ic:"🪲",n:"Käfer"},{x:w*0.9,y:h*0.88,ic:"🌾",n:"Samen"},{x:w*0.1,y:h*0.85,ic:"🍄",n:"Pilze"},{x:w*0.5,y:h*0.06,ic:"🍓",n:"Beeren"}];
-    c.trails=c.src.filter(function(s){ return !s.need||S.unlock[s.need]; }).map(function(s){ var mx=(s.x+c.x0)/2+(r()-0.5)*w*0.18, my=(s.y+c.y0)/2+(r()-0.5)*h*0.18; return {a:{x:c.x0,y:c.y0},m:{x:mx,y:my},b:s}; });
-    c.litter=[]; for(var k2=0;k2<160;k2++) c.litter.push([r()*w,r()*h,r()*Math.PI,r()]);
-  } else {
-    c.hx=w*0.14; c.hy=h*0.5; c.fl=[]; for(var k3=0;k3<34;k3++) c.fl.push([w*0.32+r()*w*0.64,h*0.08+r()*h*0.84,r(),r()]);
-    c.grass=[]; for(var k4=0;k4<220;k4++) c.grass.push([r()*w,r()*h,r()]);
-  }
-  return c;
-}
-/* Ameisen/Bienen als kleine Figuren; Rolle bestimmt, wohin sie laufen */
-function makeSprites(c){
-  var n=Math.max(12,Math.min(ANT?230:200,Math.round(S.W/(ANT?2.4:2.2)))), ids=sp.tasks.map(function(t){ return t.id; }), out=[], r=Math.random;
-  var tot=ids.reduce(function(a,id){ return a+(S.share[id]||0); },0)||100;
-  ids.forEach(function(id){ var k=Math.round(n*(S.share[id]||0)/tot); if(ANT&&id==="extra"&&!S.unlock.blattlaus) k=0; for(var i=0;i<k;i++) out.push(newSprite(id,c,r)); });
-  if(c.mode==="side"&&ANT) out.push(newSprite("queen",c,r));
-  return out;
-}
-function pick(arr,r){ return arr[Math.floor(r()*arr.length)]; }
-function chamberOf(c,role,r){ var l=c.ch.filter(function(k){ return k.role===role; }); return l.length?pick(l,r):pick(c.ch,r); }
-function inEll(k,r){ var a=r()*Math.PI*2, d=Math.sqrt(r())*0.8; return {x:k.x+Math.cos(a)*k.rx*d,y:k.y+Math.sin(a)*k.ry*d}; }
-function newSprite(role,c,r){
-  var s={role:role,p:0,v:(0.6+r()*0.6),carry:false,path:null,i:0,ph:r()*6};
-  if(c.mode==="side"&&ANT){
-    var home=role==="farm"?chamberOf(c,"farm",r):role==="brood"?chamberOf(c,"brood",r):role==="queen"?chamberOf(c,"queen",r):chamberOf(c,"store",r);
-    s.home=home;
-    if(role==="forage"||role==="extra"){ var side=r()<0.5?-1:1; s.path=[inEll(home,r),{x:home.sx,y:home.sy},c.ent,{x:c.x0+side*c.rx*0.9,y:c.gy},{x:side<0?-20:c.w+20,y:c.gy-2}]; s.loop=true; }
-    else if(role==="build"){ var a=0.2+r()*2.7; s.path=[inEll(home,r),{x:home.sx,y:home.sy},c.ent,{x:c.x0+Math.cos(a)*c.rx*0.85,y:c.gy-Math.sin(a)*c.ry*0.85},{x:c.x0+(r()<0.5?-1:1)*(c.rx+30*c.u+r()*60*c.u),y:c.gy-1}]; s.loop=true; }
-    else if(role==="defend"){ s.wander={x:c.x0,y:c.gy-c.ry*0.6,rx:c.rx*0.95,ry:c.ry*0.45,up:true}; }
-    else s.wander=home;
-    if(s.path){ s.i=Math.floor(r()*(s.path.length-1)); s.p=r(); s.dir=r()<0.5?1:-1; }
-  } else if(c.mode==="side"){
-    if(role==="forage"||role==="extra"){ var fl=pick(c.flowers,r); s.path=[{x:c.cx+(r()-0.5)*c.erx,y:c.cy+(r()-0.5)*c.ery},{x:c.ent.x,y:c.ent.y-6},{x:c.ent.x+20,y:c.ent.y+8},{x:fl[0],y:fl[1]-8}]; s.fly=true; s.i=Math.floor(r()*3); s.p=r(); s.dir=r()<0.5?1:-1; s.loop=true; }
-    else if(role==="defend"){ s.wander={x:c.ent.x,y:c.ent.y-c.u*8,rx:c.u*28,ry:c.u*6}; }
-    else s.wander={x:c.cx,y:c.cy,rx:c.erx*(role==="brood"?0.45:0.85),ry:c.ery*(role==="brood"?0.45:0.85)};
-  } else if(ANT){
-    if((role==="forage"||role==="extra")&&c.trails.length){ var tr=role==="extra"?c.trails[0]:pick(c.trails,r); s.tr=tr; s.p=r(); s.dir=r()<0.5?1:-1; s.off=(r()-0.5)*6*c.u; }
-    else if(role==="build"){ s.wander={x:c.x0,y:c.y0,rx:c.R*1.25,ry:c.R*1.25,ring:true}; }
-    else if(role==="defend"){ s.wander={x:c.x0,y:c.y0,rx:c.R*1.5,ry:c.R*1.5,ring:true}; }
-    else s.wander={x:c.x0,y:c.y0,rx:c.R*0.7,ry:c.R*0.7};
-  } else {
-    if(role==="forage"||role==="extra"){ var f2=pick(c.fl,r); s.tr={a:{x:c.hx+12*c.u,y:c.hy},m:{x:(c.hx+f2[0])/2,y:Math.min(c.hy,f2[1])-40*c.u*r()},b:{x:f2[0],y:f2[1]}}; s.p=r(); s.dir=r()<0.5?1:-1; s.off=0; s.fly=true; }
-    else s.wander={x:c.hx,y:c.hy,rx:c.u*22,ry:c.u*22,hive:true};
-  }
-  if(s.wander){ var q=inEll({x:s.wander.x,y:s.wander.y,rx:s.wander.rx,ry:s.wander.ry},r); s.x=q.x; s.y=q.y; s.t=inEll({x:s.wander.x,y:s.wander.y,rx:s.wander.rx,ry:s.wander.ry},r); }
-  return s;
-}
-function bez(t,a,m,b){ var u=1-t; return {x:u*u*a.x+2*u*t*m.x+t*t*b.x,y:u*u*a.y+2*u*t*m.y+t*t*b.y}; }
-function moveSprite(s,dt,c,winter){
-  var sp2=(running?1:0.25)*s.v*(winter&&!s.wander?0:1)*c.u*(ANT?26:40);
-  if(s.path){ var a=s.path[s.i], b=s.path[s.i+1]; if(!b){ s.i=0; return; }
-    var len=Math.hypot(b.x-a.x,b.y-a.y)||1; s.p+=s.dir*sp2*dt/len*Math.min(speed,2);
-    if(s.p>1){ if(s.i<s.path.length-2){ s.i++; s.p=0; } else { s.dir=-1; s.p=1; s.carry=true; } }
-    if(s.p<0){ if(s.i>0){ s.i--; s.p=1; } else { s.dir=1; s.p=0; s.carry=false; } }
-    var a2=s.path[s.i], b2=s.path[s.i+1]; s.x=a2.x+(b2.x-a2.x)*s.p; s.y=a2.y+(b2.y-a2.y)*s.p; s.ang=Math.atan2((b2.y-a2.y)*s.dir,(b2.x-a2.x)*s.dir); }
-  else if(s.tr){ s.p+=s.dir*sp2*dt/(c.w*0.45)*Math.min(speed,2); if(s.p>1){ s.p=1; s.dir=-1; s.carry=true; } if(s.p<0){ s.p=0; s.dir=1; s.carry=false; }
-    var q=bez(s.p,s.tr.a,s.tr.m,s.tr.b), q2=bez(Math.min(1,s.p+0.01),s.tr.a,s.tr.m,s.tr.b); s.x=q.x+(s.off||0); s.y=q.y; s.ang=Math.atan2((q2.y-q.y)*s.dir,(q2.x-q.x)*s.dir); }
-  else { var dx=s.t.x-s.x, dy=s.t.y-s.y, d=Math.hypot(dx,dy); if(d<2){ s.t=inEll({x:s.wander.x,y:s.wander.y,rx:s.wander.rx,ry:s.wander.ry},Math.random); if(s.wander.ring){ var a3=Math.random()*Math.PI*2; s.t={x:s.wander.x+Math.cos(a3)*s.wander.rx,y:s.wander.y+Math.sin(a3)*s.wander.ry}; } }
-    else { var m=Math.min(d,sp2*0.5*dt); s.x+=dx/d*m; s.y+=dy/d*m; s.ang=Math.atan2(dy,dx); } }
-}
-function drawAnt(s,u,red){ var x=s.x, y=s.y, a=s.ang||0, k=u*(s.role==="queen"?1.9:s.role==="defend"?1.25:1);
-  g.save(); g.translate(x,y); g.rotate(a); g.fillStyle=red?"#a3361f":s.role==="queen"?"#5a2a10":"#2a1708";
-  g.beginPath(); g.ellipse(-3.2*k,0,2.4*k,1.7*k,0,0,7); g.ellipse(0,0,1.3*k,1.1*k,0,0,7); g.ellipse(2.4*k,0,1.5*k,1.4*k,0,0,7); g.fill();
-  g.strokeStyle=g.fillStyle; g.lineWidth=Math.max(0.6,0.45*k); g.beginPath(); for(var i=-1;i<=1;i++){ var w=Math.sin((s.ph+=0.02)*6+i)*0.6*k; g.moveTo(i*1.1*k,0); g.lineTo(i*1.1*k+w-0.5*k,-2.6*k); g.moveTo(i*1.1*k,0); g.lineTo(i*1.1*k-w-0.5*k,2.6*k); } g.stroke();
-  if(s.carry&&(s.role==="forage"||s.role==="extra")){ g.fillStyle=s.role==="extra"?"#b8e07a":"#c8862a"; g.beginPath(); g.arc(4.6*k,0,1.5*k,0,7); g.fill(); }
-  if(s.carry&&s.role==="build"){ g.strokeStyle="#8a5a2c"; g.lineWidth=0.9*k; g.beginPath(); g.moveTo(3.6*k,-3*k); g.lineTo(5.4*k,3*k); g.stroke(); }
-  g.restore(); }
-function drawBee(s,u){ var k=u*(s.role==="queen"?1.6:1.1); g.save(); g.translate(s.x,s.y); g.rotate(s.ang||0);
-  if(s.fly){ g.fillStyle="rgba(230,245,255,.75)"; var fw=Math.abs(Math.sin(s.ph+=0.6))*2.6*k; g.beginPath(); g.ellipse(-0.5*k,-1.6*k,1.6*k,fw+0.4,0.4,0,7); g.ellipse(-0.5*k,1.6*k,1.6*k,fw+0.4,-0.4,0,7); g.fill(); }
-  g.fillStyle="#f2b632"; g.beginPath(); g.ellipse(0,0,3*k,1.9*k,0,0,7); g.fill(); g.fillStyle="#2a1708"; g.fillRect(-1.6*k,-1.9*k,0.9*k,3.8*k); g.fillRect(0.2*k,-1.9*k,0.9*k,3.8*k); g.beginPath(); g.arc(3*k,0,1.1*k,0,7); g.fill();
-  if(s.carry&&s.role==="extra"){ g.fillStyle="#f07a1a"; g.beginPath(); g.arc(-0.6*k,2*k,0.9*k,0,7); g.fill(); }
-  g.restore(); }
-function emoji(t,x,y,s){ g.font=Math.round(s)+"px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif"; g.textAlign="center"; g.textBaseline="middle"; g.fillText(t,x,y); }
-function draw(dt,t){
-  var z=size(), w=z.w, h=z.h; g.setTransform(z.d,0,0,z.d,0,0);
-  if(!lay||lay.cap!==S.cap||lay.mode!==viewMode||lay.w!==w||lay.unl!==!!S.unlock.blattlaus){ lay=layout(w,h); lay.unl=!!S.unlock.blattlaus; sprites=[]; }
-  if(!sprites.length) sprites=makeSprites(lay);
-  var c=lay, u=c.u, se=IM.season(S), winter=se===3;
-  if(viewMode==="side"&&ANT) drawAntSide(c,w,h,u,se,t);
-  else if(viewMode==="side") drawBeeSide(c,w,h,u,se,t);
-  else if(ANT) drawAntTop(c,w,h,u,se,t);
-  else drawBeeTop(c,w,h,u,se,t);
-  sprites.forEach(function(s){ if(winter&&(s.path||s.tr)&&s.role!=="build"){ s.x=s.x; } moveSprite(s,dt,c,winter);
-    if(winter&&(s.path||s.tr)&&!(s.path&&s.i<2)) return;
-    if(ANT) drawAnt(s,u*(viewMode==="top"?0.8:1)); else drawBee(s,u*(viewMode==="top"?1.1:1)); });
-  drawFx(c,w,h,u,dt,t,se);
-}
-function drawAntSide(c,w,h,u,se,t){
-  var sk=SKY[se], gr=g.createLinearGradient(0,0,0,c.gy); gr.addColorStop(0,sk[0]); gr.addColorStop(1,sk[1]); g.fillStyle=gr; g.fillRect(0,0,w,c.gy);
-  // Baeume im Hintergrund
-  [[0.1,0.9],[0.88,1.1],[0.97,0.7]].forEach(function(q){ var x=w*q[0], th=c.gy*0.75*q[1]; g.fillStyle="#6b4426"; g.fillRect(x-4*u,c.gy-th,8*u,th); g.fillStyle=se===2?"#c8813a":se===3?"#e8eef2":"#3b7d43";
-    for(var i=0;i<3;i++){ g.beginPath(); g.moveTo(x,c.gy-th-12*u+i*th*0.25); g.lineTo(x-26*u+i*-4*u,c.gy-th*0.55+i*th*0.25); g.lineTo(x+26*u-i*-4*u,c.gy-th*0.55+i*th*0.25); g.fill(); } });
-  if(S.unlock.blattlaus){ for(var b=0;b<9;b++){ g.fillStyle="#9ccf5a"; g.beginPath(); g.arc(w*0.1+(b%3-1)*3*u,c.gy-c.gy*0.5+b*3*u,1.8*u,0,7); g.fill(); } }
-  // Erde
-  var eg=g.createLinearGradient(0,c.gy,0,h); eg.addColorStop(0,"#8a5a32"); eg.addColorStop(1,"#4e2f1a"); g.fillStyle=eg; g.fillRect(0,c.gy,w,h-c.gy);
-  c.stones.forEach(function(s){ g.fillStyle="rgba(170,140,110,.35)"; g.beginPath(); g.ellipse(s[0],s[1],s[2],s[2]*0.7,0,0,7); g.fill(); });
-  g.fillStyle=se===3?"#f2f6f8":"#6fa043"; g.fillRect(0,c.gy-3*u,w,5*u);
-  // Huegel aus Nadeln
-  g.fillStyle=se===3?"#e6ecef":"#9a6a3a"; g.beginPath(); g.ellipse(c.x0,c.gy,c.rx,c.ry,0,Math.PI,0); g.fill();
-  g.strokeStyle=se===3?"rgba(180,190,200,.5)":"rgba(70,40,15,.55)"; g.lineWidth=1.1*u;
-  c.needles.forEach(function(n){ g.beginPath(); g.moveTo(n[0],n[1]); g.lineTo(n[0]+Math.cos(n[2])*4*u,n[1]+Math.sin(n[2])*4*u); g.stroke(); });
-  // Gaenge und Kammern
-  g.strokeStyle="#2e1a0c"; g.lineCap="round"; g.lineWidth=5*u; g.beginPath(); g.moveTo(c.ent.x,c.ent.y); g.lineTo(c.x0,c.ch.length?c.ch[c.ch.length-1].y:c.gy); g.stroke();
-  c.ch.forEach(function(k){ g.beginPath(); g.moveTo(k.sx,k.sy); g.lineTo(k.x,k.y); g.stroke(); });
-  var bt=IM.broodTotal(S), bro=c.ch.filter(function(k){ return k.role==="brood"; }), sto=c.ch.filter(function(k){ return k.role==="store"; }), far=c.ch.filter(function(k){ return k.role==="farm"; });
-  c.ch.forEach(function(k,i){ g.fillStyle="#2e1a0c"; g.beginPath(); g.ellipse(k.x,k.y,k.rx,k.ry,0,0,7); g.fill(); g.fillStyle="rgba(255,220,170,.06)"; g.beginPath(); g.ellipse(k.x,k.y-k.ry*0.3,k.rx*0.8,k.ry*0.5,0,0,7); g.fill(); });
-  // Inhalt: Brut, Vorrat, Pilzgarten
-  var rr=rnd(11); bro.forEach(function(k,j){ var share=bt/Math.max(1,bro.length), n=Math.min(40,Math.round(share/3));
-    for(var i=0;i<n;i++){ var p=inEll(k,rr), typ=i%3; g.fillStyle=typ===0?"#fffaf0":typ===1?"#f4ead8":"#e2c89a"; g.beginPath(); g.ellipse(p.x,p.y,(typ===0?1.1:typ===1?1.7:2.1)*u,(typ===0?1.1:typ===1?1.2:1.3)*u,0.3,0,7); g.fill(); } });
-  sto.forEach(function(k){ var n=Math.min(40,Math.round(S.food/Math.max(1,sto.length)/6)); for(var i=0;i<n;i++){ var p=inEll(k,rr); g.fillStyle=i%2?"#c8862a":"#8a5a32"; g.beginPath(); g.arc(p.x,p.y,1.4*u,0,7); g.fill(); } });
-  if(S.share.farm>0) far.forEach(function(k){ var n=Math.min(26,4+Math.round(S.W*S.share.farm/100/3)); for(var i=0;i<n;i++){ var p=inEll(k,rr); g.fillStyle=i%3?"#e8e4dc":"#c8c2b4"; g.beginPath(); g.arc(p.x,p.y,(1.6+((i*7)%3))*u,0,7); g.fill(); } });
-  var qk=c.ch.filter(function(k){ return k.role==="queen"; })[0]; if(qk&&S.queen){ g.fillStyle="#f2b632"; emoji("👑",qk.x+qk.rx*0.65,qk.y-qk.ry*0.9,10*u); }
-  // Beschriftung der Kammern (nur die erste jeder Art)
-  var seen={}, NM={queen:"Königin",brood:"Brut",store:"Vorrat",farm:"Pilzgarten",rest:"Ruhekammer"};
-  g.font="700 "+Math.round(9.5*u)+"px "+getComputedStyle(document.body).fontFamily; g.textAlign="center"; g.textBaseline="top";
-  c.ch.forEach(function(k){ if(seen[k.role]||k.y<c.gy) return; seen[k.role]=1; g.fillStyle="rgba(255,236,200,.85)"; g.fillText(NM[k.role],k.x,k.y+k.ry+2*u); });
-  if(se===3){ g.fillStyle="rgba(255,255,255,.18)"; g.fillRect(0,0,w,c.gy); }
-}
-function drawBeeSide(c,w,h,u,se,t){
-  var sk=SKY[se], gr=g.createLinearGradient(0,0,0,h); gr.addColorStop(0,sk[0]); gr.addColorStop(1,sk[1]); g.fillStyle=gr; g.fillRect(0,0,w,h);
-  g.fillStyle=se===3?"#eef3f6":"#7aad48"; g.fillRect(0,h*0.88,w,h*0.12);
-  // Blumen draussen
-  c.flowers.forEach(function(f){ if(se===3) return; g.strokeStyle="#4c7a36"; g.lineWidth=1.2*u; g.beginPath(); g.moveTo(f[0],f[1]); g.lineTo(f[0],h*0.92); g.stroke();
-    var col=se===0?"#f2d02a":se===1?(f[2]<0.5?"#e05a8a":"#8a5cc8"):"#b06ab0"; g.fillStyle=col; for(var i=0;i<5;i++){ var a=i/5*Math.PI*2; g.beginPath(); g.arc(f[0]+Math.cos(a)*3*u,f[1]+Math.sin(a)*3*u,2.4*u,0,7); g.fill(); } g.fillStyle="#f6c82a"; g.beginPath(); g.arc(f[0],f[1],1.8*u,0,7); g.fill(); });
-  // Beute (Kasten) im Schnitt
-  g.fillStyle="#8a5630"; g.fillRect(c.bx-6*u,c.by-10*u,c.bw+12*u,c.bh+14*u); g.fillStyle="#6b3f20"; g.fillRect(c.bx-12*u,c.by-20*u,c.bw+24*u,12*u);
-  g.fillStyle="#3a2414"; g.fillRect(c.bx,c.by,c.bw,c.bh);
-  // Wabe: Brut innen, dann Pollen, dann Honig, Rest leeres Wachs
-  var nC=c.cells.length, bt=IM.broodTotal(S), nb=Math.min(nC,Math.round(bt/2.2)), np=Math.min(nC-nb,Math.round(S.pollen/3)), nh=Math.min(nC-nb-np,Math.round(S.food/4));
-  for(var i=0;i<nC;i++){ var cell=c.cells[i], col; if(i<nb) col=i%5<2?"#f6efe0":i%5<4?"#efe2c4":"#b98a4a"; else if(i<nb+np) col=i%2?"#f08a2a":"#e8a030"; else if(i<nb+np+nh) col=i%3?"#f2b632":"#e8a21e"; else col="#e8d39a";
-    hex(cell.x,cell.y,c.cr*0.92,col); }
-  // Flugloch
-  g.fillStyle="#1a0f06"; g.fillRect(c.ent.x-12*u,c.ent.y-3*u,24*u,6*u);
-  if(se===3){ g.fillStyle="rgba(255,255,255,.22)"; g.fillRect(0,0,w,h); g.fillStyle="#ffffff"; for(var s2=0;s2<40;s2++){ g.beginPath(); g.arc((s2*97+t*12)%w,(s2*53+t*20)%h,1.6*u,0,7); g.fill(); } }
-}
-function hex(x,y,r,col){ g.fillStyle=col; g.beginPath(); for(var i=0;i<6;i++){ var a=i*Math.PI/3; g.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r); } g.closePath(); g.fill(); g.strokeStyle="rgba(150,100,30,.45)"; g.lineWidth=0.8; g.stroke(); }
-function drawAntTop(c,w,h,u,se,t){
-  g.fillStyle=se===3?"#e9eef1":se===2?"#9a8a52":"#6f8f3e"; g.fillRect(0,0,w,h);
-  c.litter.forEach(function(l){ g.strokeStyle=se===3?"rgba(200,210,220,.6)":l[3]<0.5?"rgba(120,80,30,.45)":"rgba(70,110,40,.5)"; g.lineWidth=1.4*u; g.beginPath(); g.moveTo(l[0],l[1]); g.lineTo(l[0]+Math.cos(l[2])*6*u,l[1]+Math.sin(l[2])*6*u); g.stroke(); });
-  // Ameisenstrassen
-  c.trails.forEach(function(tr){ g.strokeStyle="rgba(90,60,30,.35)"; g.lineWidth=7*u; g.lineCap="round"; g.beginPath(); g.moveTo(tr.a.x,tr.a.y); g.quadraticCurveTo(tr.m.x,tr.m.y,tr.b.x,tr.b.y); g.stroke(); emoji(tr.b.ic,tr.b.x,tr.b.y,22*u); });
-  // Huegel von oben
-  var rg=g.createRadialGradient(c.x0,c.y0,c.R*0.1,c.x0,c.y0,c.R); rg.addColorStop(0,se===3?"#ffffff":"#b5844f"); rg.addColorStop(1,se===3?"#d8e2e8":"#7a4f2a"); g.fillStyle=rg; g.beginPath(); g.arc(c.x0,c.y0,c.R,0,7); g.fill();
-  g.fillStyle="#2a1708"; for(var i=0;i<Math.min(8,2+Math.floor(S.cap/3));i++){ var a=i*2.4; g.beginPath(); g.arc(c.x0+Math.cos(a)*c.R*0.55,c.y0+Math.sin(a)*c.R*0.55,2.4*u,0,7); g.fill(); }
-}
-function drawBeeTop(c,w,h,u,se,t){
-  g.fillStyle=se===3?"#eef3f6":se===2?"#a8a04a":"#86b84f"; g.fillRect(0,0,w,h);
-  c.grass.forEach(function(q){ g.fillStyle=se===3?"rgba(210,220,228,.6)":"rgba(60,110,40,.35)"; g.fillRect(q[0],q[1],1.4*u,4*u); });
-  c.fl.forEach(function(f){ if(se===3) return; var col=se===0?(f[2]<0.6?"#f2d02a":"#ffffff"):se===1?["#e05a8a","#8a5cc8","#f2d02a","#ffffff"][Math.floor(f[2]*4)]:"#b06ab0";
-    for(var i=0;i<5;i++){ var a=i/5*Math.PI*2+f[3]; g.fillStyle=col; g.beginPath(); g.arc(f[0]+Math.cos(a)*4*u,f[1]+Math.sin(a)*4*u,3*u,0,7); g.fill(); } g.fillStyle="#f6c82a"; g.beginPath(); g.arc(f[0],f[1],2.2*u,0,7); g.fill(); });
-  // Bienenkasten von oben
-  g.fillStyle="#8a5630"; g.fillRect(c.hx-26*u,c.hy-30*u,52*u,60*u); g.fillStyle="#b07a44"; g.fillRect(c.hx-22*u,c.hy-26*u,44*u,52*u); g.fillStyle="#6b3f20"; g.fillRect(c.hx-22*u,c.hy-2*u,44*u,4*u);
-}
-function drawFx(c,w,h,u,dt,t,se){
-  fx.forEach(function(f){ f.t-=dt; var a=Math.min(1,f.t), x=w*0.5, y=h*0.3;
-    g.globalAlpha=Math.max(0,a);
-    if(f.k==="regen"){ g.strokeStyle="rgba(80,130,200,.6)"; g.lineWidth=1.2*u; for(var i=0;i<70;i++){ var rx=(i*53+t*180)%w, ry=(i*97+t*420)%h; g.beginPath(); g.moveTo(rx,ry); g.lineTo(rx-3*u,ry+10*u); g.stroke(); } }
-    else if(f.k==="kalt"){ for(var j=0;j<30;j++) emoji("❄️",(j*71+t*20)%w,(j*43+t*30)%h,10*u); }
-    else if(f.k==="hitze"){ g.fillStyle="rgba(255,180,60,.18)"; g.fillRect(0,0,w,h); emoji("☀️",w*0.85,h*0.12,34*u); }
-    else if(f.k==="swarm"){ for(var k=0;k<40;k++){ var p=(4-f.t)/4; emoji(ANT?"👑":"🐝",w*0.5+Math.cos(k)*p*w*0.6,h*0.4-p*h*0.5+Math.sin(k*3)*20*u,12*u); } }
-    else { var ic={specht:"🐦",raub:"🐜",spinne:"🕷️",wespe:"🐝",hornisse:"🐝",dachs:"🦡",kaefer:"🪲",laus:"🐛",bluete:"🌼",loewe:"🌀",milbe:"🔴"}[f.k]||"❗";
-      var sx=f.k==="specht"||f.k==="dachs"?w*0.5+(c.rx||c.R||w*0.2)*0.7:w*0.82, sy=f.k==="specht"?(c.gy?c.gy-(c.ry||0)*0.7:h*0.3):h*0.55;
-      emoji(ic,sx+Math.sin(t*8)*4*u,sy+Math.cos(t*6)*3*u,(f.k==="hornisse"?40:30)*u);
-      if(f.k==="raub"){ for(var r2=0;r2<14;r2++) drawAnt({x:w*0.95-((t*40+r2*14)%(w*0.35)),y:(c.gy||h*0.5)-3,ang:Math.PI,role:"forage",ph:r2},u,true); } }
-    g.globalAlpha=1; });
-  fx=fx.filter(function(f){ return f.t>0; });
-}
-/* ---- Schleife: Tage laufen nur, wenn das Spiel sichtbar ist ---- */
-function loop(now){
-  if(document.getElementById("g-"+P).hidden){ loopOn=false; return; }
-  var dt=Math.min(0.1,(now-(last||now))/1000), t=now/1000; last=now;
-  if(running&&!done&&document.visibilityState!=="hidden"){ acc+=dt*speed; var per=0.85; while(acc>=per&&!done){ acc-=per; day(); } }
-  draw(dt,t); requestAnimationFrame(loop);
-}
-function start(){ if(loopOn) return; loopOn=true; last=0; requestAnimationFrame(loop); }
-window.HZG=window.HZG||{};
-HZG[P]=function(){ if(!S) load(L); start(); };
-HZG[P+"Debug"]={S:function(){ return S; }, days:function(n){ for(var i=0;i<n&&!done;i++) day(); }, lvl:function(i){ load(i); }, run:function(on){ running=on; goBtn(); }};
-window.addEventListener("resize",function(){ lay=null; });
-}
-insektGame("ameisen"); insektGame("bienen");
-})();
-</script>
-<script>
 /* Startseite, Spielwechsel, Zurueck-Taste, Hilfe und Level-Wahl */
 (function(){
-  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?'],wortwald:['Der <span>Wortwald</span>','Wörter legen, Bäume zudecken, Waldwörter zählen dreifach'],biber:['Der <span>Biberbau</span>','Bäume nagen, Stämme flößen, Damm und Burg bauen'],ameisen:['Der <span>Ameisenstaat</span>','Aufgaben verteilen – das Volk lebt, wächst und wehrt sich'],bienen:['Das <span>Bienenvolk</span>','Nektar sammeln, Waben bauen, Honig für den Winter']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "luecke", "wortwald", "tower", "haus", "kiste", "biber", "kloetze", "forst", "ameisen", "bienen"];
-  var HOME=['Holzis <span>Holzkiste</span>','Zwanzig Holzspiele für Kinder'];
+  var H={slide:['Holzi <span>will raus</span>','Ein Schiebe-Rätsel aus der Holzkiste'],tan:['Holzi <span>legt Figuren</span>','Ein Lege-Rätsel mit sieben Holzteilen'],maze:['Weg <span>zum Honig</span>','Ein Rillen-Labyrinth im Honigtopf'],puzzle:['Holzi <span>puzzelt</span>','Ein Holzbild mit geschwungenen Teilen'],sudoku:['Holz-<span>Sudoku</span>','Holzarten statt Zahlen'],kreuz:['Das <span>Holz-Kreuzworträtsel</span>','Rätseln rund um Baum, Wald und Werkstatt'],worte:['Die <span>Wörter-Werkstatt</span>','Wie viele Wörter stecken in den Buchstaben?'],marble:['Die <span>Murmel-Kiste</span>','Dreh die Rinnen, bis die Murmel in den Becher rollt'],tower:['Der <span>Wackelturm</span>','Stapeln mit echter Schwerkraft'],haus:['Holzis <span>Zimmerei</span>','Aufträge von Tierkunden: sägen, verbinden, aufrichten'],kiste:['Die <span>Seifenkiste</span>','Rennen gegen Fuchs, Bär und Igel'],raeumen:['Holzi <span>räumt auf</span>','Kisten auf ihre Plätze schieben'],fuellen:['Die <span>Holzkiste füllen</span>','Alle Holzteile passen genau hinein'],kloetze:['Der <span>Klötzchenregen</span>','Reihen füllen, Farben platzen lassen'],forst:['Holzis <span>Forstbetrieb</span>','Wald kaufen, pflanzen, pflegen und ernten'],luecke:['Das <span>Lückenrätsel</span>','Lücken füllen – wer bin ich?'],wortwald:['Der <span>Wortwald</span>','Wörter legen, Bäume zudecken, Waldwörter zählen dreifach'],biber:['Der <span>Biberbau</span>','Bäume nagen, Stämme flößen, Damm und Burg bauen']}, ORDER=["slide", "tan", "maze", "puzzle", "marble", "raeumen", "fuellen", "sudoku", "kreuz", "worte", "luecke", "wortwald", "tower", "haus", "kiste", "biber", "kloetze", "forst"];
+  var HOME=['Holzis <span>Holzkiste</span>','Achtzehn Holzspiele für Kinder'];
   H.stats=['Holzis <span>Statistik</span>','Sterne, Spielzeit, Rangliste und Abzeichen'];
   H.research=['Holzis <span>Forschung</span>','Münzen verdienen, erforschen, Profi-Level freischalten'];
   function valid(g){ return ORDER.indexOf(g)>=0||g==='stats'||g==='research'; }
   // wo jedes Spiel seine Sterne ablegt und wie viele Level es hat
-  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",9],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",30],wortwald:["holzi-wortwald",6],biber:["holzi-biber",6],ameisen:["holzi-ameisen",6],bienen:["holzi-bienen",6]};
+  var STARS={slide:["holzi-v1",4],tan:["holzi-tan-v1",16],maze:["holzi-maze-v1",8],puzzle:["holzi-pz-v2",12],sudoku:["holzi-sudoku",7],kreuz:["holzi-kreuz",10],worte:["holzi-worte",8],marble:["holzi-marble-v2",9],tower:["holzi-tower-v2",7],haus:["holzi-zimmerei",6],kiste:["holzi-kiste-v2",9],raeumen:["holzi-raeumen",10],fuellen:["holzi-fuellen",11],kloetze:["holzi-kloetze",8],forst:["holzi-forst",6],luecke:["holzi-luecke",30],wortwald:["holzi-wortwald",6],biber:["holzi-biber",6]};
   var $=function(id){ return document.getElementById(id); };
   var STAR_ON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.2 6.1 20.4l1.3-6.5L2.5 9.3l6.6-.8z" fill="var(--gold)" stroke="#b47d10" stroke-width="1.2" stroke-linejoin="round"/></svg>';
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
@@ -7635,7 +7148,7 @@ insektGame("ameisen"); insektGame("bienen");
      Empfangen ERGAENZT nur, es ersetzt nie: Sterne und Rekorde nur, wenn sie besser sind, Forschung und gekaufte Teile
      kommen dazu, Muenzen nur in Hoehe dessen, was das andere Geraet mehr verdient hat. Name, Tier und alles, was hier
      schon liegt, bleiben. Abzeichen ergeben sich aus Sternen und Statistik und wachsen dadurch mit. */
-  var HIGHER={kloetze:1,forst:1,wortwald:1,ameisen:1,bienen:1};
+  var HIGHER={kloetze:1,forst:1,wortwald:1};
   function packProfile(id){ var p=PF.list().filter(function(q){ return q.id===id; })[0]||{}, data={};
     PF.keys(id).forEach(function(k){ var v=PF.read(id,k); if(v!=null) data[k]=v; });
     return {app:"holzi",v:1,name:p.name||"",ava:p.ava||0,at:Date.now(),data:data}; }
@@ -7864,13 +7377,13 @@ insektGame("ameisen"); insektGame("bienen");
     box.querySelector('[data-a="close"]').onclick=function(){ box.parentNode.remove(); };
     box.querySelector('[data-a="copy"]').onclick=function(){ var b=this, ok=function(){ b.textContent='Kopiert ✓'; };
       if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok,function(){ prompt('Link:',url); }); else prompt('Link:',url); };
-    var sh=box.querySelector('[data-a="share"]'); if(sh) sh.onclick=function(){ navigator.share({title:'Holzis Holzkiste', text:'Zwanzig Holzspiele für Kinder – kostenlos und ohne Werbung', url:url}).catch(function(){}); };
+    var sh=box.querySelector('[data-a="share"]'); if(sh) sh.onclick=function(){ navigator.share({title:'Holzis Holzkiste', text:'Achtzehn Holzspiele für Kinder – kostenlos und ohne Werbung', url:url}).catch(function(){}); };
   }
   $('sharebtn').onclick=function(){ window.HZ&&HZ.tok(1.1); showShare(); };
 
 
   // ---- Statistik: Spielzeit und geschaffte Level werden je Kind mitgeschrieben (nur auf diesem Geraet) ----
-  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',raeumen:'k',fuellen:'k',sudoku:'w',kreuz:'w',worte:'w',luecke:'w',wortwald:'w',tower:'b',haus:'b',kiste:'b',biber:'b',kloetze:'b',forst:'f',ameisen:'f',bienen:'f'};
+  var GRP={slide:'k',tan:'k',maze:'k',puzzle:'k',marble:'k',raeumen:'k',fuellen:'k',sudoku:'w',kreuz:'w',worte:'w',luecke:'w',wortwald:'w',tower:'b',haus:'b',kiste:'b',biber:'b',kloetze:'b',forst:'f'};
   var GRPN={k:'Knobeln & Legen',w:'Wörter & Zahlen',b:'Bauen & Fahren',f:'Wald & Wirtschaft'}, GRPS=['k','w','b','f'];
   var BEST={tan:'tan',puzzle:'pz',sudoku:'sudoku',kiste:'kiste'};
   function dkey(d){ d=d||new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
@@ -8114,7 +7627,7 @@ insektGame("ameisen"); insektGame("bienen");
   // ---- Holz-Münzen und Forschung (je Kind, nur auf diesem Geraet) ----
   var COIN='<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#e3a83a" stroke="#9a6418" stroke-width="1.6"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#9a6418" stroke-width="1.2" opacity=".7"/><path d="M9 8.5c1.6 1 4.4 1 6 0M8.6 12c2 1 4.8 1 6.8 0M9 15.5c1.6 1 4.4 1 6 0" stroke="#9a6418" stroke-width="1.1" fill="none" stroke-linecap="round"/></svg>';
   // ab diesem Level ist ein Spiel "Profi" und muss erforscht werden (was schon Sterne hat, bleibt offen)
-  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4,luecke:24,wortwald:4,biber:4,ameisen:4,bienen:4};
+  var LOCK={slide:3,tan:8,maze:7,puzzle:7,sudoku:6,kreuz:6,worte:6,marble:6,tower:6,haus:5,kiste:5,raeumen:8,fuellen:8,kloetze:6,forst:4,luecke:24,wortwald:4,biber:4};
   var PATHS=[
     {id:'werk', name:'Werkstatt', ic:'🔨', what:'Mehr Münzen für jeden neuen Stern', items:[
       {id:'schleif', name:'Schleifpapier', ic:'🧻', cost:80, star:2},
@@ -8149,9 +7662,7 @@ insektGame("ameisen"); insektGame("bienen");
       {id:'pro_forst', game:'forst', name:'Großforstbetrieb', ic:'🌲', cost:400},
       {id:'pro_luecke', game:'luecke', name:'Meisterrätsel', ic:'❓', cost:200},
       {id:'pro_wortwald', game:'wortwald', name:'Wortwald-Wettstreit', ic:'🔤', cost:250},
-      {id:'pro_biber', game:'biber', name:'Biber-Profi', ic:'🦫', cost:300},
-      {id:'pro_ameisen', game:'ameisen', name:'Ameisen-Profi', ic:'🐜', cost:250},
-      {id:'pro_bienen', game:'bienen', name:'Imker-Profi', ic:'🐝', cost:250}]}
+      {id:'pro_biber', game:'biber', name:'Biber-Profi', ic:'🦫', cost:300}]}
   ];
   var ITEMS={}; PATHS.forEach(function(p){ p.items.forEach(function(it){ it.path=p.id; ITEMS[it.id]=it; }); });
   var BASE={star:10, win:2, day:0, cap:40};
