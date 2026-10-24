@@ -48,6 +48,7 @@ Neunzehn Holzspiele für Kinder in einer App. Jedes Spiel hat Level mit Altersan
   Abzeichen) und **Punkten pro Stunde** Spielzeit (relativer Rang, ab 15 Minuten).
   Spielzeit zählt nur, solange ein Spiel offen ist und in der letzten Minute getippt wurde.
   Alles bleibt auf dem Gerät (`holzi-stats` je Profil).
+- **Tipps und Lösungen kosten Münzen:** ein Tipp 5 (Kreuzwort-Buchstabe 3, Biber-Wegpfeil 2), eine Lösung 20. Das erste Antippen zeigt nur den Preis („5 Münzen?“), erst das zweite Antippen innerhalb von 3,5 s bezahlt – so löst niemand aus Versehen eine Lösung aus. Reichen die Münzen nicht, sagt ein Hinweis, wie viele fehlen. Dieselbe Lösung gleich noch einmal ansehen (innerhalb einer Minute) ist frei. Beim Übertragen zählen bezahlte Tipps wie Forschung (nie doppelt).
 - **Münzen & Forschung** (Startseite → „Münzen & Forschung“): 10 Münzen je neuem Stern (Startguthaben für
   schon vorhandene Sterne), 2 je Sieg (höchstens 40 am Tag), dazu tägliches Einkommen. Vier Forschungspfade:
   Werkstatt (mehr pro Stern), Wald (pro Tag), Fleiß (pro Sieg, höhere Tagesgrenze) und Profi-Werkstätten,

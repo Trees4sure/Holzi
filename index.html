@@ -272,6 +272,9 @@ canvas#leaves{position:fixed; inset:0; width:100%; height:100%; pointer-events:n
 @keyframes twon{50%{filter:brightness(1.35)}}
 .hint-out{fill:rgba(242,182,50,.25); stroke:var(--gold); stroke-width:0.08; stroke-dasharray:0.25 0.15; animation:fade .3s}
 .tools.t5{grid-template-columns:repeat(5,1fr)}
+.tool.pay{background:#f2b632; color:#2b1a0c; box-shadow:inset 0 0 0 2px #b47d10, 0 3px 0 #b47d10; animation:paypulse .9s ease-in-out infinite}
+@keyframes paypulse{50%{box-shadow:inset 0 0 0 2px #b47d10, 0 3px 0 #b47d10, 0 0 0 5px rgba(242,182,50,.45)}}
+@media (prefers-reduced-motion: reduce){ .tool.pay{animation:none} }
 .tools.t5 .tool{font-size:12px; padding:9px 2px 7px}
 
 /* maze + puzzle */
@@ -7846,12 +7849,12 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
     if(bm){ var hi=HIGHER[bm[1]]; Object.keys(B).forEach(function(i){ if(A[i]==null||(hi?B[i]>A[i]:B[i]<A[i])) A[i]=B[i]; }); return JSON.stringify(A); }
     if(k==='holzi-coins'){ // Muenzen = verdient minus Forschung. Verdient zaehlt das hoehere Geraet, Forschung beider zusammen –
       // so stimmt der Kontostand immer, egal wie oft man uebertraegt (vorher kam nach dem Zuruecksetzen zu viel heraus)
-      var E=Math.max(A.earned||0,B.earned||0), R=Object.assign({},B.r||{},A.r||{}), spent=0;
+      var E=Math.max(A.earned||0,B.earned||0), R=Object.assign({},B.r||{},A.r||{}), spent=0, P=Math.max(A.paid||0,B.paid||0);
       Object.keys(R).forEach(function(id){ if(ITEMS[id]) spent+=ITEMS[id].cost; });
-      var sub=function(X,Y){ return (X.earned||0)<=(Y.earned||0)&&Object.keys(X.r||{}).every(function(id){ return Y.r&&Y.r[id]; }); };
+      var sub=function(X,Y){ return (X.earned||0)<=(Y.earned||0)&&(X.paid||0)<=(Y.paid||0)&&Object.keys(X.r||{}).every(function(id){ return Y.r&&Y.r[id]; }); };
       // steckt ein Stand ganz im anderen, gilt dessen Kontostand genau (keine Rundung durch spaeter geaenderte Preise)
-      var c=sub(B,A)?(A.c||0):sub(A,B)?(B.c||0):Math.max(0,E-spent), diff=c-(A.c||0);
-      A.r=R; A.earned=E; A.c=c; if(diff) A.log=(A.log||[]).concat([[Date.now(),diff,'Vom anderen Gerät mitgebracht']]);
+      var c=sub(B,A)?(A.c||0):sub(A,B)?(B.c||0):Math.max(0,E-spent-P), diff=c-(A.c||0);
+      A.r=R; A.earned=E; A.c=c; A.paid=P; if(diff) A.log=(A.log||[]).concat([[Date.now(),diff,'Vom anderen Gerät mitgebracht']]);
       var got=A.got||{}; Object.keys(B.got||{}).forEach(function(g){ var o=got[g]||[]; (B.got[g]||[]).forEach(function(v,i){ o[i]=Math.max(o[i]||0,v||0); }); got[g]=o; }); A.got=got; return JSON.stringify(A); }
     if(k==='holzi-stats'){ A.d=A.d||{}; Object.keys(B.d||{}).forEach(function(day){ var x=A.d[day]||(A.d[day]={g:{},h:{}}), y=B.d[day]; ['g','h'].forEach(function(f){ x[f]=x[f]||{}; Object.keys(y[f]||{}).forEach(function(q){ x[f][q]=Math.max(x[f][q]||0,y[f][q]); }); }); });
       var seen={}; A.w=(A.w||[]).concat(B.w||[]).filter(function(w){ var id=w[0]+'|'+w[1]+'|'+w[2]; if(seen[id]) return false; seen[id]=1; return true; }).sort(function(x,y){ return x[0]-y[0]; }); return JSON.stringify(A); }
@@ -8350,6 +8353,24 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
   }
   var CS=coinState();
   function saveCoins(){ delete CS.fresh; if(CS.log.length>60) CS.log=CS.log.slice(-60); try{ localStorage.setItem('holzi-coins', JSON.stringify(CS)); }catch(e){} }
+  // Tipps und Loesungen kosten Muenzen. Erstes Antippen zeigt den Preis, erst das zweite bezahlt -
+  // so loest niemand aus Versehen eine Loesung aus (die setzt in manchen Spielen das Level zurueck)
+  var PRICE={'hint':5,'show':20,'t-show':20,'m-show':20,'raeumen-show':20,'kreuz-hint':3,'biber-hint':2};
+  function priceOf(b){ if(PRICE[b.id]!=null) return PRICE[b.id]; return /-hint$/.test(b.id)?5:0; }
+  var payBtn=null, payT=null, paidAt={};
+  function disarm(){ if(!payBtn) return; payBtn.classList.remove('pay'); if(payBtn.dataset.lbl!=null){ payBtn.innerHTML=payBtn.dataset.lbl; delete payBtn.dataset.lbl; } payBtn=null; clearTimeout(payT); }
+  document.addEventListener('click', function(e){
+    var b=e.target&&e.target.closest&&e.target.closest('section.game button[id]'); if(!b||b.disabled) return;
+    var n=priceOf(b); if(!n){ disarm(); return; }
+    var sol=n>=20, what=sol?'Die Lösung':(b.id==='biber-hint'?'Der Weg-Pfeil':'Ein Tipp');
+    if(sol&&paidAt[b.id]&&Date.now()-paidAt[b.id]<60000) return; // dieselbe Loesung gleich nochmal ansehen: frei
+    if(payBtn!==b){ e.preventDefault(); e.stopImmediatePropagation(); disarm();
+      if(CS.c<n){ toast(COIN+' '+what+' kostet <b>'+n+'</b> Münzen – du hast '+fmtC(CS.c)+'. Sterne bringen Münzen!'); window.HZ&&HZ.tune&&HZ.tune([300,220],0.07,'square'); return; }
+      payBtn=b; b.dataset.lbl=b.innerHTML; var ic=b.querySelector('svg'); b.innerHTML=(ic?ic.outerHTML:'')+'<span>'+n+' Münzen?</span>'; b.classList.add('pay');
+      window.HZ&&HZ.tok&&HZ.tok(1.4); payT=setTimeout(disarm,3500); return; }
+    disarm(); CS.c-=n; CS.paid=(CS.paid||0)+n; CS.log.push([Date.now(),-n,what.replace(/^(Die|Der|Ein) /,'')+' in '+gName(b.closest('section.game').id.slice(2))]); saveCoins();
+    if(sol) paidAt[b.id]=Date.now(); toast(COIN+'<b>−'+n+'</b> Münzen · '+(sol?'Lösung':b.id==='biber-hint'?'Weg-Pfeil':'Tipp'));
+  }, true);
   function rates(s){ var r={star:BASE.star, win:BASE.win, day:BASE.day, cap:BASE.cap}; Object.keys(s.r).forEach(function(k){ var it=ITEMS[k]; if(!it) return; ['star','win','day','cap'].forEach(function(x){ if(it[x]) r[x]+=it[x]; }); }); return r; }
   function owned(id,s){ return !!(s||CS).r[id]; }
   function add(n, why){ if(n<=0) return; CS.c+=n; CS.earned=(CS.earned||0)+n; CS.log.push([Date.now(), n, why]); }
@@ -8477,7 +8498,7 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
 <script>
 /* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
    dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
-window.HOLZI_VERSION="holzi-v37";
+window.HOLZI_VERSION="holzi-v38";
 (function(){
   var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
   if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");
