@@ -6569,7 +6569,9 @@ function evalMove(tiles, quick){
   var total=0, trees=0, parts=[];
   words.forEach(function(w){
     var rar=rarity(w.w), base=LEN_PTS[Math.min(9,w.w.length)]+Math.max(0,w.w.length-9)*4, f=forest(w.w), nat=!f&&nature(w.w), old=w.cells.some(function(c){ return newK[c[0]*N+c[1]]&&B[c[0]][c[1]].t==="old"; });
-    var p=(base+rar.pts)*(f?FOREST_X:nat?NATURE_X:1)*(old?2:1); total+=p; parts.push({w:w.w,base:base,rar:rar,forest:f,nature:nat,old:old,pts:p,cells:w.cells});
+    // Seltenheit zählt bei kurzen Wörtern nur wenig: sonst schlagen „Fes“ oder „Ces“ ein Wort wie „Fest“
+    var rp=Math.min(rar.pts,[0,0,0,1,3][w.w.length]===undefined?rar.pts:[0,0,0,1,3][w.w.length]);
+    var p=(base+rp)*(f?FOREST_X:nat?NATURE_X:1)*(old?2:1); total+=p; parts.push({w:w.w,base:base,rar:rar,rp:rp,forest:f,nature:nat,old:old,pts:p,cells:w.cells});
   });
   tiles.forEach(function(t){ if(B[t.r][t.c].t==="tree") trees++; });
   total+=trees*TREE_PTS; var bingo=tiles.length===RACK; if(bingo) total+=BINGO;
@@ -6673,7 +6675,7 @@ function render(){
 function leaves(n){ var s=''; for(var i=0;i<5;i++) s+='<i class="'+(i<n?'on':'')+'"></i>'; return '<span class="ww-leaf" title="Seltenheit">'+s+'</span>'; }
 function evHtml(ev){
   return '<div class="ww-ev">'+ev.parts.map(function(p){
-    return '<span class="ww-w"><b>'+p.w+'</b> <em>'+p.w.length+' Buchst. '+p.base+'</em>'+(p.rar.pts?' <em>'+leaves(p.rar.leaf)+p.rar.name+' +'+p.rar.pts+'</em>':' <em>'+leaves(p.rar.leaf)+p.rar.name+'</em>')+
+    return '<span class="ww-w"><b>'+p.w+'</b> <em>'+p.w.length+' Buchst. '+p.base+'</em>'+(p.rar.pts?' <em>'+leaves(p.rar.leaf)+p.rar.name+' +'+p.rp+(p.rp<p.rar.pts?' (kurzes Wort)':'')+'</em>':' <em>'+leaves(p.rar.leaf)+p.rar.name+'</em>')+
       (p.forest?' <em class="fo">🌲 Waldwort ×'+FOREST_X+'</em>':p.nature?' <em class="na">🌼 Naturwort ×'+NATURE_X+'</em>':'')+(p.old?' <em class="ol">🌳 Eiche ×2</em>':'')+' <strong>= '+p.pts+'</strong></span>'; }).join('')+
     (ev.trees?'<span class="ww-w"><em class="fo">🌲 '+ev.trees+'× Tanne zugedeckt</em> <strong>+'+ev.trees*TREE_PTS+'</strong></span>':'')+
     (ev.bingo?'<span class="ww-w"><em class="ol">Alle 7 Steine!</em> <strong>+'+BINGO+'</strong></span>':'')+
@@ -8577,7 +8579,7 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
 <script>
 /* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
    dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
-window.HOLZI_VERSION="holzi-v45";
+window.HOLZI_VERSION="holzi-v46";
 (function(){
   var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
   if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");
