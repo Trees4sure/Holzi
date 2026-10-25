@@ -1,5 +1,5 @@
 // Holzi will raus – Service Worker: alles offline verfügbar
-const VERSION = "holzi-v39";
+const VERSION = "holzi-v40";
 const CORE = [
   "./",
   "./index.html",

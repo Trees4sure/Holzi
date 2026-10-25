@@ -13,7 +13,7 @@ Die Wortliste für das Spiel „Wortwald“ ist aus zwei freien Quellen zusammen
    Inhalt lizenziert unter CC BY-SA 4.0. Daraus stammt die Reihenfolge nach
    Häufigkeit (Seltenheitswert) und ein Teil der zusammengesetzten Wörter.
 
-Vor- und Nachnamen, Firmen- und Personennamen sind herausgefiltert (Stammwörter
+Eigennamen sind herausgefiltert: Vor- und Nachnamen, Firmen- und Personennamen sowie Länder, Städte, Flüsse, Gebirge und Regionen (Ortslisten: umpirsky/country-list, datasets/world-cities, lutangar/cities.json, pensnarik/german-cities, nur zum Abgleich verwendet) (Stammwörter
 ohne Mehrzahl-Kennzeichen im igerman98-Wörterbuch, dazu eine kleine Handliste).
 Wörter mit * am Ende wirken englisch (im Englischen viel häufiger als in deutschen
 Untertiteln): sie gelten, wenn man sie legt, aber Holzi und die Tipps nehmen sie nicht.
