@@ -6617,6 +6617,9 @@ function genMoves(letters){
       }
     } });
   out=out.filter(function(m){ return !m.ev.parts.some(function(q){ return NOCPU.has(q.w); }); });
+  // Tipps und Gegner nehmen nur Wörter, die im Alltag vorkommen (in der Häufigkeitsliste) – nicht „Eskudo“ oder „Fes“.
+  // Gibt es damit gar keinen Zug, dürfen es ausnahmsweise auch seltene sein.
+  var known=out.filter(function(m){ return m.ev.parts.every(function(q){ return WORDS.get(q.w)!==-1; }); }); if(known.length) out=known;
   out.sort(function(x,y){ return y.score-x.score; });
   return out;
 }
@@ -8579,7 +8582,7 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
 <script>
 /* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
    dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
-window.HOLZI_VERSION="holzi-v48";
+window.HOLZI_VERSION="holzi-v49";
 (function(){
   var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
   if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");
