@@ -1093,6 +1093,17 @@ label.pf-btn{display:inline-block}
 /* ---- Wortwald ---- */
 #g-wortwald .board-wrap{max-width:min(600px, max(330px, calc(var(--bh) / 1.4)))}
 .ww{width:100%; display:flex; flex-direction:column; gap:10px; align-items:stretch}
+.ww-freeb{display:grid; grid-template-columns:auto 1fr; grid-template-rows:auto auto; column-gap:10px; align-items:center; text-align:left; width:100%; border:0; border-radius:18px; padding:10px 14px; background:var(--card); color:var(--ink); box-shadow:inset 0 0 0 2px var(--line); cursor:pointer}
+.ww-freeb span{grid-row:1 / 3; font-size:26px} .ww-freeb b{font:800 16px var(--font-display)} .ww-freeb small{font-size:12.5px; color:var(--muted)}
+.ww-freeb.on{box-shadow:inset 0 0 0 2.5px var(--accent)}
+.ww-free-d{max-width:520px} .ww-free-d h4{margin:10px 0 4px; font:800 14px var(--font-display)}
+.ww-opps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px}
+.ww-opps button{display:flex; flex-direction:column; align-items:center; gap:2px; border:0; border-radius:14px; padding:8px 4px; background:var(--bg-soft); color:var(--ink); cursor:pointer}
+.ww-opps button span{font-size:28px} .ww-opps button b{font:800 13px var(--font-display); text-align:center} .ww-opps button small{font-size:11.5px; color:var(--muted)}
+.ww-opps button[aria-pressed="true"]{box-shadow:inset 0 0 0 2.5px var(--accent); background:color-mix(in srgb, var(--accent) 12%, var(--card))}
+.ww-osay{margin:8px 0 0!important; font-size:13.5px; color:var(--muted)}
+.ww-seg{display:flex} .ww-seg button{flex:1} .ww-seg button[aria-pressed="true"]{background:var(--accent); color:var(--accent-ink)}
+.ww-prize{margin:12px 0 4px!important; font-size:15px}
 .ww-top{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; align-items:stretch}
 .ww-sc{display:flex; flex-direction:column; align-items:center; min-width:62px; padding:4px 10px; border-radius:14px; background:var(--card); box-shadow:inset 0 0 0 1.5px var(--line)}
 .ww-sc span{font:700 11.5px var(--font-body); color:var(--muted)} .ww-sc b{font:800 20px/1.1 var(--font-display); font-variant-numeric:tabular-nums}
@@ -6380,7 +6391,42 @@ var LEVELS=[
  {name:"Waldwörter",  age:"ab 8",  n:11, trees:10, old:2, turns:8,  goal:[45,75,105], forest:true},
  {name:"Holzi spielt mit", age:"ab 8", n:11, trees:8, old:2, turns:7, cpu:0.15, easy:true},
  {name:"Wettstreit",  age:"ab 10", n:11, trees:9,  old:2, turns:8,  cpu:0.55},
- {name:"Urwald",      age:"ab 12", n:11, trees:14, old:3, turns:9,  cpu:0.9}];
+ {name:"Urwald",      age:"ab 12", n:11, trees:14, old:3, turns:9,  cpu:0.9},
+ {name:"Freies Spiel", free:true, n:11, trees:9, old:2, turns:9, cpu:0.5}];    // wird aus dem Auswahl-Dialog gefuellt
+var NLV=LEVELS.length-1, FREE=LEVELS[NLV];
+/* Gegner im freien Spiel: Spielstaerke (wie cpu), eigener Stil und Preisgeld fuer einen Sieg */
+var OPP=[
+ {id:"igel",  ic:"🦔", n:"Igel Ida",        lvl:"leicht",     cpu:0.1,  prize:10, say:"Ida legt am liebsten kurze, bekannte Wörter."},
+ {id:"hoerni",ic:"🐿️", n:"Eichhörnchen Emil",lvl:"gut",       cpu:0.35, prize:20, say:"Emil sammelt Punkte wie Nüsse – aber nicht immer die besten."},
+ {id:"fuchs", ic:"🦊", n:"Fuchs Fritzi",    lvl:"schlau",     cpu:0.6,  prize:35, say:"Fritzi ist schlau und findet oft gute Plätze."},
+ {id:"baer",  ic:"🐻", n:"Bär Bruno",       lvl:"Waldfan",    cpu:0.7,  prize:45, style:"forest", say:"Bruno liebt Waldwörter – die zählen dreifach!"},
+ {id:"eule",  ic:"🦉", n:"Eule Olga",       lvl:"weise",      cpu:0.85, prize:55, style:"long", say:"Olga kennt lange und seltene Wörter."},
+ {id:"holzi", ic:"🪵", n:"Holzi",           lvl:"Meister",    cpu:1,    prize:80, say:"Holzi spielt immer seinen besten Zug. Viel Glück!"}];
+var LENS=[{n:"kurz",turns:6,f:0.7},{n:"normal",turns:9,f:1},{n:"lang",turns:12,f:1.4}], SIZES=[{n:"klein",n2:9,trees:6,old:1},{n:"mittel",n2:11,trees:9,old:2},{n:"groß",n2:13,trees:12,old:3}];
+var freeCfg={o:2,l:1,s:1}; try{ var fc=JSON.parse(localStorage.getItem("holzi-wortwald-frei")||"null"); if(fc&&OPP[fc.o]&&LENS[fc.l]&&SIZES[fc.s]) freeCfg=fc; }catch(e){}
+function opp(){ var lv=LEVELS[L]; return lv.free?OPP[freeCfg.o]:{n:"Holzi",ic:"🪵"}; }
+function prizeOf(c){ return Math.round(OPP[c.o].prize*LENS[c.l].f/5)*5; }
+function applyFree(){ var o=OPP[freeCfg.o], ln=LENS[freeCfg.l], sz=SIZES[freeCfg.s]; FREE.cpu=o.cpu; FREE.style=o.style||""; FREE.turns=ln.turns; FREE.n=sz.n2; FREE.trees=sz.trees; FREE.old=sz.old; FREE.prize=prizeOf(freeCfg); }
+function freeDialog(){
+  if(!WORDS) return; hz().tok(1.1);
+  var ov=document.createElement("div"); ov.className="overlay"; var c={o:freeCfg.o,l:freeCfg.l,s:freeCfg.s};
+  function seg(key,list,cur){ return '<div class="seg small ww-seg">'+list.map(function(x,i){ return '<button data-k="'+key+'" data-v="'+i+'" aria-pressed="'+(i===cur)+'">'+x.n+'</button>'; }).join('')+'</div>'; }
+  function paint(){
+    ov.innerHTML='<div class="win ww-free-d" role="dialog" aria-label="Freies Spiel"><h2>Freies Spiel</h2><p>Gegen wen willst du spielen?</p><div class="ww-opps">'+
+      OPP.map(function(o,i){ return '<button data-k="o" data-v="'+i+'" aria-pressed="'+(i===c.o)+'"><span>'+o.ic+'</span><b>'+o.n+'</b><small>'+o.lvl+' · 🪙 '+prizeOf({o:i,l:c.l,s:c.s})+'</small></button>'; }).join('')+'</div>'+
+      '<p class="ww-osay">'+OPP[c.o].say+'</p><h4>Spiellänge</h4>'+seg("l",LENS,c.l)+'<h4>Waldstück</h4>'+seg("s",SIZES,c.s)+
+      '<p class="ww-prize">Preisgeld für einen Sieg: <b>🪙 '+prizeOf(c)+' Münzen</b></p>'+
+      '<div class="row"><button class="again" data-a="x">Abbrechen</button><button class="next" data-a="go">Los geht’s!</button></div></div>';
+    ov.querySelectorAll("[data-k]").forEach(function(b){ b.onclick=function(){ hz().tok(1.2); c[b.getAttribute("data-k")]=+b.getAttribute("data-v"); paint(); }; });
+    ov.querySelector('[data-a="x"]').onclick=function(){ hz().tok(0.9); ov.remove(); };
+    ov.querySelector('[data-a="go"]').onclick=function(){ freeCfg=c; try{ localStorage.setItem("holzi-wortwald-frei",JSON.stringify(c)); }catch(e){} ov.remove(); newGame(NLV); };
+  }
+  paint(); document.body.appendChild(ov);
+}
+function lvls(){ K.levels("wortwald-levels",LEVELS.slice(0,NLV),L,st,function(k){ hz().tok(1.1); newGame(k); });
+  var nav=document.getElementById("wortwald-levels"), fb=document.getElementById("wortwald-free");
+  if(!fb){ fb=document.createElement("button"); fb.id="wortwald-free"; fb.className="ww-freeb"; nav.parentNode.insertBefore(fb,nav.nextSibling); fb.onclick=freeDialog; }
+  var o=OPP[freeCfg.o]; fb.innerHTML='<span>🎲</span><b>Freies Spiel</b><small>'+(LEVELS[L].free?'gegen '+o.n+' · 🪙 '+FREE.prize+' Preisgeld · neu wählen':'Gegner wählen und um Münzen spielen')+'</small>'; fb.classList.toggle("on",!!LEVELS[L].free); }
 var BAG_DE={E:15,N:9,S:7,I:6,R:6,T:6,U:6,A:5,D:4,H:4,M:4,G:3,L:3,O:3,B:2,C:2,F:2,K:2,W:1,Z:1,P:1,"Ä":1,"Ö":1,"Ü":1,J:1,V:1,X:1,Q:1,Y:1};
 var VOW="AEIOUÄÖÜ";
 /* Wald- und Holzwörter: Wortteile, die überall im Wort zählen dürfen … */
@@ -6563,12 +6609,13 @@ function genMoves(letters){
 
 /* ---- Spiel ---- */
 function newGame(i){
-  if(i!==undefined) L=i; st.setLvl(L); var lv=LEVELS[L]; game++;
+  if(i!==undefined) L=i; st.setLvl(L); var lv=LEVELS[L]; game++; if(lv.free) applyFree();
   rnd=K.rng(1009+L*7919+game*104729+Math.floor(Math.random()*1e6));
   N=lv.n; B=newBoard(lv); bag=fillBag(lv); rack=draw([]); pend=[]; sel=-1; turn=0; score=0; cpuScore=0; log=[]; hints=lv.cpu?2:3; done=false; busy=false; lastMove=[];
   if(lv.cpu) lv.cpuRack=draw([]);
-  K.levels("wortwald-levels",LEVELS,L,st,function(k){ hz().tok(1.1); newGame(k); });
+  lvls();
   render();
+  if(lv.free){ var o=OPP[freeCfg.o]; K.say("wortwald-say","Freies Spiel gegen "+o.ic+" "+o.n+"! "+o.say+" Wer nach "+lv.turns+" Zügen vorne liegt, gewinnt – Preisgeld: 🪙 "+lv.prize+" Münzen."); return; }
   K.say("wortwald-say", lv.cpu?"Du spielst gegen Holzi! Wer nach "+lv.turns+" Zügen mehr Punkte hat, gewinnt. Du fängst an – über die Lichtung ☀️ in der Mitte."
     :lv.forest?"Wald- und Holzwörter zählen dreifach, Naturwörter doppelt! Schaffst du "+lv.goal[0]+" Punkte in "+lv.turns+" Zügen?"
     :"Leg ein Wort über die Lichtung ☀️ in der Mitte. Du hast "+lv.turns+" Züge – schaffst du "+lv.goal[0]+" Punkte?");
@@ -6596,7 +6643,7 @@ function render(){
   $("rack").innerHTML=rh;
   // Kopf: Punkte
   var tp='<div class="ww-sc you"><span>Du</span><b>'+score+'</b></div>';
-  if(lv.cpu) tp+='<div class="ww-sc cpu"><span>Holzi</span><b>'+cpuScore+'</b></div>';
+  if(lv.cpu) tp+='<div class="ww-sc cpu"><span>'+(lv.free?opp().ic+' '+opp().n.split(" ").pop():'Holzi')+'</span><b>'+cpuScore+'</b></div>';
   else tp+='<div class="ww-goal">'+lv.goal.map(function(g,k){ return '<span class="'+(score>=g?'on':'')+'">'+hz().starSVG(score>=g)+g+'</span>'; }).join('')+'</div>';
   tp+='<div class="ww-sc info"><span>Zug</span><b>'+Math.min(turn+1,lv.turns)+'/'+lv.turns+'</b></div><div class="ww-sc info"><span>Säckchen</span><b>'+bag.length+'</b></div>';
   $("top").innerHTML=tp;
@@ -6703,33 +6750,43 @@ function afterTurn(){
 function cpuTurn(){
   var lv=LEVELS[L], mv=genMoves(lv.cpuRack);
   if(!mv.length){ var back=lv.cpuRack; lv.cpuRack=draw([]); back.forEach(function(x){ bag.splice(Math.floor(rnd()*(bag.length+1)),0,x); });
-    K.say("wortwald-say","Holzi tauscht seine Buchstaben. Du bist dran!"); busy=false; render(); if(turn>=lv.turns) finish(); return; }
+    K.say("wortwald-say",opp().n+" tauscht "+(opp().n==="Eule Olga"||opp().n==="Igel Ida"||opp().n==="Fuchs Fritzi"?"ihre":"seine")+" Buchstaben. Du bist dran!"); busy=false; render(); if(turn>=lv.turns) finish(); return; }
   // Spielstaerke: 1 = immer der beste Zug, darunter ein Zug aus dem oberen Teil der Liste
   if(lv.cpu<1){ var easy=mv.filter(function(m){ return m.ev.parts[0].rar.leaf<=3; }); if(easy.length) mv=easy; }
+  // eigener Stil: Bruno nimmt Waldwoerter, Olga lange Woerter, wenn sie fast so gut sind wie der beste Zug
+  if(lv.style==="forest"){ var fw=mv.filter(function(m){ return m.ev.parts.some(function(q){ return q.forest; })&&m.score>=mv[0].score*0.5; }); if(fw.length) mv=fw; }
+  if(lv.style==="long"){ var lg=mv.filter(function(m){ return m.word.length>=5&&m.score>=mv[0].score*0.6; }); if(lg.length) mv=lg; }
   var n=mv.length, lo=Math.floor(n*(1-lv.cpu)*0.3), hi=Math.max(lo+1,Math.floor(n*(1-lv.cpu)*0.8)+1), pick=mv[Math.min(n-1,lo+Math.floor(rnd()*(hi-lo)))];
   var ev=commit(pick.tiles,"h"); cpuScore+=ev.total;
   pick.tiles.forEach(function(t){ var i=lv.cpuRack.indexOf(t.L); if(i>=0) lv.cpuRack.splice(i,1); }); draw(lv.cpuRack);
   hz().tune([440,392],0.07);
-  K.say("wortwald-say","Holzi legt „"+pick.word+"“ – "+ev.total+" Punkte"+(ev.parts[0].forest?" (Waldwort!)":"")+". Du bist dran!");
+  K.say("wortwald-say",(lv.free?opp().ic+" "+opp().n:"Holzi")+" legt „"+pick.word+"“ – "+ev.total+" Punkte"+(ev.parts[0].forest?" (Waldwort!)":"")+". Du bist dran!");
   busy=false; render();
   if(turn>=lv.turns||(!lv.cpuRack.length&&!bag.length)) finish();
 }
 function finish(){
   if(done) return; done=true; var lv=LEVELS[L], stars, title, text;
+  if(lv.free){ var o=OPP[freeCfg.o], w2=score>cpuScore, paid=0;
+    if(w2&&window.HZCoins) paid=HZCoins.prize(lv.prize,"Wortwald-Sieg gegen "+o.n);
+    K.best("wortwald-frei-"+o.id,freeCfg.l*3+freeCfg.s,score,false); render();
+    K.win({title:w2?"Gewonnen!":score===cpuScore?"Unentschieden!":o.n+" gewinnt",text:"Du hast <b>"+score+"</b> Punkte, "+o.ic+" "+o.n+" hat <b>"+cpuScore+"</b>.",stars:w2?(score>=cpuScore+20?3:2):score===cpuScore?1:0,
+      msg:w2?(paid?"🪙 <b>+"+paid+" Münzen</b> Preisgeld!"+(paid<lv.prize?" (Mehr gibt die Preiskasse heute nicht her.)":""):"Die Preiskasse ist für heute leer – morgen gibt's wieder Preisgeld."):"Nochmal? Für einen Sieg gibt es 🪙 "+lv.prize+" Münzen.",
+      again:"Revanche",next:"Anderer Gegner",onAgain:function(){ newGame(NLV); },onNext:function(){ freeDialog(); }});
+    return; }
   if(lv.cpu){ var win=score>cpuScore; stars=win?(score>=cpuScore+20?3:2):1; title=win?"Gewonnen!":score===cpuScore?"Unentschieden!":"Holzi gewinnt";
     text="Du hast <b>"+score+"</b> Punkte, Holzi hat <b>"+cpuScore+"</b>."; }
   else { stars=score>=lv.goal[2]?3:score>=lv.goal[1]?2:score>=lv.goal[0]?1:0; title=stars?"Geschafft!":"Fast!"; text="Du hast <b>"+score+"</b> Punkte in "+lv.turns+" Zügen gelegt."; }
   var fw=log.filter(function(x){ return x.who==="p"&&x.forest; }).length, bestW=log.filter(function(x){ return x.who==="p"; }).sort(function(a,b){ return b.pts-a.pts; })[0];
   if(stars) st.set(L,stars); K.best("wortwald",L,score,false);
-  K.levels("wortwald-levels",LEVELS,L,st,function(k){ hz().tok(1.1); newGame(k); }); render();
+  lvls(); render();
   K.win({title:title,text:text,stars:stars,msg:(bestW?"Bestes Wort: „"+bestW.w+"“ ("+bestW.pts+")":"")+(fw?" · "+fw+" Waldwort"+(fw>1?"e":""):""),
-    again:"Nochmal",next:L<LEVELS.length-1?"Nächstes Level":"Zum ersten",onAgain:function(){ newGame(L); },onNext:function(){ newGame(L<LEVELS.length-1?L+1:0); }});
+    again:"Nochmal",next:L<NLV-1?"Nächstes Level":"Freies Spiel",onAgain:function(){ newGame(L); },onNext:function(){ if(L<NLV-1) newGame(L+1); else freeDialog(); }});
 }
 window.HZG=window.HZG||{};
 HZG.wortwald=function(){ if(!WORDS) loadDict(function(){ newGame(L); }); else if(!B) newGame(L); };
 HZG.wortwaldDebug={gen:function(){ return genMoves(rack); }, ev:evalMove, st:function(){ return {B:B,rack:rack,score:score,cpu:cpuScore,turn:turn,done:done,bag:bag.length}; },
   play:function(m){ pend=[]; var taken={}; m.tiles.forEach(function(t){ for(var i=0;i<rack.length;i++) if(!taken[i]&&rack[i]===t.L){ taken[i]=1; pend.push({r:t.r,c:t.c,L:t.L,ri:i}); break; } }); render(); $("play").onclick(); },
-  forest:function(w){ return forest(w); }, nature:function(w){ return nature(w); }, lvl:function(i){ newGame(i); }, rarity:function(w){ return rarity(w); }};
+  forest:function(w){ return forest(w); }, nature:function(w){ return nature(w); }, lvl:function(i){ newGame(i); }, rarity:function(w){ return rarity(w); }, free:function(o,l,sz){ freeCfg={o:o,l:l,s:sz}; newGame(NLV); }, dlg:function(){ freeDialog(); }, fin:function(){ turn=99; finish(); }, setScore:function(a,b){ score=a; cpuScore=b; }};
 })();
 </script>
 <script>
@@ -8357,6 +8414,12 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
   }
   var CS=coinState();
   function saveCoins(){ delete CS.fresh; if(CS.log.length>60) CS.log=CS.log.slice(-60); try{ localStorage.setItem('holzi-coins', JSON.stringify(CS)); }catch(e){} }
+  // Preisgelder aus Spielen (z. B. Wortwald frei): zaehlen als verdient, hoechstens PRIZE_DAY Muenzen am Tag
+  var PRIZE_DAY=200;
+  window.HZCoins={ balance:function(){ return CS.c; },
+    prize:function(n,why){ var d=dkey(); if(CS.pday!==d){ CS.pday=d; CS.pn=0; } var g=Math.max(0,Math.min(n,PRIZE_DAY-(CS.pn||0))); if(!g) return 0;
+      CS.c+=g; CS.earned=(CS.earned||0)+g; CS.pn+=g; CS.log.push([Date.now(),g,why||'Preisgeld']); saveCoins();
+      setTimeout(function(){ toast(COIN+'<b>+'+fmtC(g)+'</b> Münzen Preisgeld'); window.HZ&&HZ.tune&&HZ.tune([988,1319,1568],0.07); },500); return g; } };
   // Tipps und Loesungen kosten Muenzen. Erstes Antippen zeigt den Preis, erst das zweite bezahlt -
   // so loest niemand aus Versehen eine Loesung aus (die setzt in manchen Spielen das Level zurueck)
   var PRICE={'hint':5,'show':20,'t-show':20,'m-show':20,'raeumen-show':20,'kreuz-hint':3,'biber-hint':2};
@@ -8480,7 +8543,7 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
       if(g===cur&&i!==lastI) attempt=0; lastI=i;   // neues Level: Dauer fuer die Statistik neu messen
       applyLocks(g, nav, bs, i);
       var nm=c&&c.querySelector('.nm'), st=c&&c.querySelector('.st'), age=c&&c.querySelector('.age');
-      var n=STARS[g][1], txt=i<0||i>=n ? 'Selber bauen' : 'Level '+(i+1)+' von '+n+(age&&age.textContent?' · '+age.textContent:'');
+      var n=STARS[g][1], txt=i<0||i>=n ? (g==='wortwald'?'Gerade läuft das freie Spiel':'Selber bauen') : 'Level '+(i+1)+' von '+n+(age&&age.textContent?' · '+age.textContent:'');
       chip.innerHTML='<span class="lc-disc">'+(i>=0&&i<n?i+1:'+')+'</span><span class="lc-txt"><b>'+(nm?nm.textContent:'Level wählen')+'</b><small>'+txt+'</small></span>'+
         '<span class="lc-st">'+(st?st.innerHTML:'')+'</span><span class="lc-more"><span>Level</span>'+CHEV+'</span>';
     }
@@ -8502,7 +8565,7 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
 <script>
 /* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
    dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
-window.HOLZI_VERSION="holzi-v41";
+window.HOLZI_VERSION="holzi-v42";
 (function(){
   var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
   if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");
