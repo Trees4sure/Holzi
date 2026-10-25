@@ -6401,9 +6401,11 @@ var NATURE_PART=["SONNE","REGEN","WOLKE","SCHNEE","GEWITTER","BLITZ","DONNER","S
   "FELS","STEIN","QUELLE","FLUSS","FLÜSSE","TEICH","MEER","WELLE","STRAND","INSEL","GIPFEL","HÜGEL","WÜSTE","PFLANZE","KRAUT","KRÄUTER","BIENE","HUMMEL",
   "FALTER","SCHMETTERLING","LIBELLE","VOGEL","VÖGEL","FISCH","FROSCH","FRÖSCHE","SCHWAN","STORCH","ADLER","FALKE","MÖWE","LÖWE","TIGER","ELEFANT","PFERD",
   "SCHAF","ZIEGE","KATZE","TIER","NATUR","OZEAN","KÜSTE","VULKAN","GLETSCHER","HÖHLE","TULPE","LILIE","VEILCHEN","LÖWENZAHN","WEIZEN","RAUPE","SPINNE",
-  "BLATTLAUS","MARIENKÄFER","REGENWURM","DELFIN","ROBBE","PINGUIN","GIRAFFE","ZEBRA","AFFE","KAMEL","SCHILDKRÖTE","EIDECHSE","SCHLANGE","KROKODIL"];
+  "BLATTLAUS","MARIENKÄFER","REGENWURM","DELFIN","ROBBE","PINGUIN","GIRAFFE","ZEBRA","AFFE","KAMEL","SCHILDKRÖTE","EIDECHSE","SCHLANGE","KROKODIL",
+  "BRANDUNG","LAGUNE","KORALLE","MUSCHEL","QUALLE","KRABBE","KORMORAN","SEEHUND","PRIEL","GISCHT","REIHER","KRANICH","WOGE"];
 var NATURE_WORD=["EIS","SEE","TAL","TÄLER","TAU","MOND","WIND","ERDE","KUH","KÜHE","HUND","ENTE","ROSE","MOHN","KORN","HAGEL","STURM","STÜRME","SAND","BACH","BÄCHE",
-  "BERG","FELD","WURM","WÜRMER","TAUBE","GANS","GÄNSE","HAHN","HUHN","HÜHNER","LAMM","KALB","FOHLEN","KLEE","MOOR","SUMPF","AU","AUE","WATT","DÜNE","FLUT","LUFT"];
+  "BERG","FELD","WURM","WÜRMER","TAUBE","GANS","GÄNSE","HAHN","HUHN","HÜHNER","LAMM","KALB","FOHLEN","KLEE","MOOR","SUMPF","AU","AUE","WATT","DÜNE","FLUT","LUFT",
+  "TIDE","TIDEN","EBBE","RIFF","RIFFE","KLIFF","KLIFFS","FJORD","FJORDE","BUCHT","BUCHTEN","ALGE","ALGEN","TANG","KRILL","HAFF","GEEST","WURT"];
 var FOREST_END=["","E","N","EN","S","ES","ER","ERN"];
 
 var $=K.mount("g-wortwald",{
@@ -6427,7 +6429,7 @@ function loadDict(cb){
     WORDS=new Map(); BYLEN=[]; NOCPU=new Set();
     var rank=0, rare=false, lines=t.split("\n");
     for(var i=0;i<lines.length;i++){ var w=lines[i].trim(); if(!w||w.charAt(0)==="#") continue; if(w==="-"){ rare=true; continue; }
-      if(w.charAt(w.length-1)==="*"){ w=w.slice(0,-1); NOCPU.add(w); } // gilt, wirkt aber englisch: Holzi und Tipps nehmen es nicht
+      if(w.charAt(w.length-1)==="*"){ w=w.slice(0,-1); NOCPU.add(w); } // gilt, wirkt aber englisch oder ist sehr selten: Holzi und Tipps nehmen es nicht
       WORDS.set(w, rare?-1:rank++); (BYLEN[w.length]||(BYLEN[w.length]=[])).push(w); }
     loading=false; cb();
   }).catch(function(){ loading=false; K.say("wortwald-say","Das Wörterbuch kam nicht an. Bist du online? Tippe „Neu“, um es nochmal zu versuchen."); });
@@ -8500,7 +8502,7 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
 <script>
 /* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
    dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
-window.HOLZI_VERSION="holzi-v40";
+window.HOLZI_VERSION="holzi-v41";
 (function(){
   var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
   if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");

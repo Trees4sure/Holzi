@@ -9,17 +9,24 @@ Die Wortliste für das Spiel „Wortwald“ ist aus zwei freien Quellen zusammen
    Die Hunspell-Wörterbuchdatei wurde in alle Wortformen ausgeschrieben,
    in Großbuchstaben gewandelt (ß als SS) und auf 2–9 Buchstaben begrenzt.
 
-2. FrequencyWords – Hermit Dave, https://github.com/hermitdave/FrequencyWords,
+2. Substantive aus Wiktionary – gambolputty/german-nouns,
+   https://github.com/gambolputty/german-nouns, lizenziert unter CC BY-SA 4.0.
+   Daraus kommen alle Beugungsformen von Substantiven, die igerman98 fehlen
+   (z. B. Tide, Reiher, Hummel, Erdbeere); ohne Namen, Orte und Abkürzungen.
+
+3. FrequencyWords – Hermit Dave, https://github.com/hermitdave/FrequencyWords,
    Inhalt lizenziert unter CC BY-SA 4.0. Daraus stammt die Reihenfolge nach
    Häufigkeit (Seltenheitswert) und ein Teil der zusammengesetzten Wörter.
 
 Eigennamen sind herausgefiltert: Vor- und Nachnamen, Firmen- und Personennamen sowie Länder, Städte, Flüsse, Gebirge und Regionen (Ortslisten: umpirsky/country-list, datasets/world-cities, lutangar/cities.json, pensnarik/german-cities, nur zum Abgleich verwendet) (Stammwörter
 ohne Mehrzahl-Kennzeichen im igerman98-Wörterbuch, dazu eine kleine Handliste).
 Wörter mit * am Ende wirken englisch (im Englischen viel häufiger als in deutschen
-Untertiteln): sie gelten, wenn man sie legt, aber Holzi und die Tipps nehmen sie nicht.
+Untertiteln) oder kommen nur aus Wiktionary und sind selten: sie gelten, wenn man
+sie legt, aber Holzi und die Tipps nehmen sie nicht.
 
 Die zusammengestellte Datei wortwald.txt steht damit unter der GPLv3
-(Volltext unten) bzw. für den Häufigkeitsanteil unter CC BY-SA 4.0.
+(Volltext unten) bzw. für den Häufigkeitsanteil und die Wiktionary-Substantive
+unter CC BY-SA 4.0.
 Das Skript zum Erzeugen liegt im Repository-Verlauf beschrieben (README).
 
                     GNU GENERAL PUBLIC LICENSE
