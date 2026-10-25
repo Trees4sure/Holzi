@@ -13,6 +13,11 @@ Die Wortliste für das Spiel „Wortwald“ ist aus zwei freien Quellen zusammen
    Inhalt lizenziert unter CC BY-SA 4.0. Daraus stammt die Reihenfolge nach
    Häufigkeit (Seltenheitswert) und ein Teil der zusammengesetzten Wörter.
 
+Vor- und Nachnamen, Firmen- und Personennamen sind herausgefiltert (Stammwörter
+ohne Mehrzahl-Kennzeichen im igerman98-Wörterbuch, dazu eine kleine Handliste).
+Wörter mit * am Ende wirken englisch (im Englischen viel häufiger als in deutschen
+Untertiteln): sie gelten, wenn man sie legt, aber Holzi und die Tipps nehmen sie nicht.
+
 Die zusammengestellte Datei wortwald.txt steht damit unter der GPLv3
 (Volltext unten) bzw. für den Häufigkeitsanteil unter CC BY-SA 4.0.
 Das Skript zum Erzeugen liegt im Repository-Verlauf beschrieben (README).

@@ -6415,7 +6415,7 @@ var $=K.mount("g-wortwald",{
        "Punkte gibt es für lange und seltene Wörter. 🌼 Naturwörter (Wetter, Wasser, Blumen, Tiere …) zählen doppelt, 🌲 Wald- und Holzwörter (auch Waldtiere wie Fuchs, Reh, Specht) dreifach. 🌲 Tanne zudecken: +5 · 🌳 alte Eiche: Wort zählt doppelt."
 });
 var st=K.store("holzi-wortwald"), L=st.lvl(); if(L>=LEVELS.length) L=0;
-var WORDS=null, BYLEN=null, loading=false;
+var WORDS=null, BYLEN=null, NOCPU=null, loading=false;
 var N, B, rack, pend, bag, sel=-1, turn, score, cpuScore, log, hints, done=false, busy=false, game=0, rnd, lastMove=[];
 
 /* ---- Wörterbuch laden: zuerst die häufigen Wörter (Zeile = Rang), nach "-" die übrigen ---- */
@@ -6424,9 +6424,10 @@ function loadDict(cb){
   if(loading) return; loading=true;
   K.say("wortwald-say","Holzi holt das Wörterbuch aus dem Regal …");
   fetch("wortwald.txt").then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); }).then(function(t){
-    WORDS=new Map(); BYLEN=[];
+    WORDS=new Map(); BYLEN=[]; NOCPU=new Set();
     var rank=0, rare=false, lines=t.split("\n");
     for(var i=0;i<lines.length;i++){ var w=lines[i].trim(); if(!w||w.charAt(0)==="#") continue; if(w==="-"){ rare=true; continue; }
+      if(w.charAt(w.length-1)==="*"){ w=w.slice(0,-1); NOCPU.add(w); } // gilt, wirkt aber englisch: Holzi und Tipps nehmen es nicht
       WORDS.set(w, rare?-1:rank++); (BYLEN[w.length]||(BYLEN[w.length]=[])).push(w); }
     loading=false; cb();
   }).catch(function(){ loading=false; K.say("wortwald-say","Das Wörterbuch kam nicht an. Bist du online? Tippe „Neu“, um es nochmal zu versuchen."); });
@@ -6553,6 +6554,7 @@ function genMoves(letters){
         }
       }
     } });
+  out=out.filter(function(m){ return !m.ev.parts.some(function(q){ return NOCPU.has(q.w); }); });
   out.sort(function(x,y){ return y.score-x.score; });
   return out;
 }
@@ -8498,7 +8500,7 @@ HZG.wuerfelDebug={solve:function(){ pieces.forEach(function(p){ if(p.locked) ret
 <script>
 /* Version und Updates: die Seite kommt (online) frisch aus dem Netz; ein neuer Service Worker meldet sich,
    dann laedt die App neu – auf der Startseite sofort, im Spiel erst nach Tippen auf den Hinweis. */
-window.HOLZI_VERSION="holzi-v38";
+window.HOLZI_VERSION="holzi-v39";
 (function(){
   var vEl=document.getElementById("appver"), btn=document.getElementById("updbtn");
   if(vEl) vEl.textContent="Version "+window.HOLZI_VERSION.replace("holzi-v","");
